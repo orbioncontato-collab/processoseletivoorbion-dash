@@ -25,7 +25,7 @@ export function KpiCard({ title, value, subtitle, icon, accent = 'green' }: KpiC
         background: 'linear-gradient(145deg, #0d1829 0%, #0f1e30 100%)',
         border: `1px solid ${c.border}28`,
         borderRadius: 14,
-        padding: '20px 22px',
+        padding: '16px 18px',
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
@@ -84,7 +84,7 @@ export function KpiCard({ title, value, subtitle, icon, accent = 'green' }: KpiC
       <div
         style={{
           color: '#eef4f8',
-          fontSize: 32,
+          fontSize: 28,
           fontWeight: 700,
           lineHeight: 1,
           letterSpacing: '-0.02em',

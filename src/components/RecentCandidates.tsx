@@ -9,17 +9,17 @@ interface RecentCandidatesProps {
 
 function stageBadge(stageId: string, stageName: string) {
   if (stageId === STAGE_IDS.CONTRATADOS)
-    return { label: 'Contratado',    color: '#74FAA5', bg: '#74FAA514' };
+    return { color: '#74FAA5', bg: '#74FAA514' };
   if (NEGATIVE_STAGE_IDS.has(stageId))
-    return { label: stageName,       color: '#e08888', bg: '#e0555514' };
+    return { color: '#e08888', bg: '#e0555514' };
   if (RESERVE_STAGE_IDS.has(stageId))
-    return { label: stageName,       color: '#f0c040', bg: '#f0c04014' };
-  return   { label: 'Em Andamento', color: '#7ec8f0', bg: '#295D8618' };
+    return { color: '#f0c040', bg: '#f0c04014' };
+  return { color: '#7ec8f0', bg: '#295D8618' };
 }
 
 function formatDate(iso: string) {
   if (!iso) return '—';
-  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
 }
 
 function initials(name: string) {
@@ -29,6 +29,8 @@ function initials(name: string) {
 const AVATAR_COLORS = ['#1d4870', '#1a4a44', '#2a3d5e', '#2e4a3a', '#3a2e5e'];
 
 export function RecentCandidates({ opportunities }: RecentCandidatesProps) {
+  const items = opportunities.slice(0, 5);
+
   return (
     <section
       aria-label="Candidatos recentes"
@@ -36,99 +38,66 @@ export function RecentCandidates({ opportunities }: RecentCandidatesProps) {
         background: 'linear-gradient(135deg, #0d1829 0%, #111e34 100%)',
         border: '1px solid #295D8628',
         borderRadius: 16,
-        padding: '24px 28px',
+        padding: '20px 24px',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 18 }}>
-        <h2 style={{ color: '#f0f4f8', fontSize: 15, fontWeight: 600, margin: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
+        <h2 style={{ color: '#f0f4f8', fontSize: 13, fontWeight: 600, margin: 0 }}>
           Candidatos Recentes
         </h2>
-        <span style={{ color: '#4a6478', fontSize: 11 }}>
-          Últimas {opportunities.length} entradas
+        <span style={{ color: '#4a6478', fontSize: 10 }}>
+          Últimas {items.length} entradas
         </span>
       </div>
 
-      {opportunities.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '40px 0', color: '#4a6478', fontSize: 13 }} role="status">
+      {items.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '30px 0', color: '#4a6478', fontSize: 12 }} role="status">
           Nenhum candidato encontrado.
         </div>
       ) : (
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }} aria-label="Lista de candidatos recentes">
-            <thead>
-              <tr>
-                {['Candidato', 'E-mail', 'Etapa', 'Status', 'Data'].map((h) => (
-                  <th
-                    key={h}
-                    scope="col"
-                    style={{
-                      color: '#4a6070',
-                      fontSize: 10,
-                      fontWeight: 600,
-                      textAlign: 'left',
-                      padding: '0 14px 10px 0',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.07em',
-                      borderBottom: '1px solid #1a2a3a',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {opportunities.map((opp, idx) => {
-                const name  = opp.contact?.name ?? opp.name ?? '—';
-                const badge = stageBadge(opp.pipelineStageId, opp.pipelineStageName ?? '');
-                const av    = AVATAR_COLORS[idx % AVATAR_COLORS.length];
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {items.map((opp, idx) => {
+            const name = opp.contact?.name ?? opp.name ?? '—';
+            const badge = stageBadge(opp.pipelineStageId, opp.pipelineStageName ?? '');
+            const av = AVATAR_COLORS[idx % AVATAR_COLORS.length];
 
-                return (
-                  <tr key={opp.id} style={{ borderBottom: '1px solid #1a2a3a20' }}>
-                    <td style={{ padding: '10px 14px 10px 0' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-                        <div
-                          aria-hidden="true"
-                          style={{
-                            width: 28, height: 28, borderRadius: '50%', background: av,
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 10, fontWeight: 700, color: '#c8e0f0', flexShrink: 0,
-                          }}
-                        >
-                          {initials(name)}
-                        </div>
-                        <span style={{ color: '#dce8f4', fontSize: 13, fontWeight: 500 }}>{name}</span>
-                      </div>
-                    </td>
-                    <td style={{ padding: '10px 14px 10px 0', color: '#5a7890', fontSize: 12 }}>
-                      {opp.contact?.email ?? '—'}
-                    </td>
-                    <td style={{ padding: '10px 14px 10px 0' }}>
-                      <span style={{
-                        background: '#295D8614', color: '#7ec8f0', fontSize: 11,
-                        padding: '3px 8px', borderRadius: 4, whiteSpace: 'nowrap',
-                        border: '1px solid #295D8628',
-                      }}>
-                        {opp.pipelineStageName ?? '—'}
-                      </span>
-                    </td>
-                    <td style={{ padding: '10px 14px 10px 0' }}>
-                      <span style={{
-                        background: badge.bg, color: badge.color, fontSize: 11,
-                        padding: '3px 8px', borderRadius: 4, fontWeight: 600, whiteSpace: 'nowrap',
-                      }}>
-                        {badge.label}
-                      </span>
-                    </td>
-                    <td style={{ padding: '10px 0', color: '#4a6070', fontSize: 12 }}>
-                      {formatDate(opp.createdAt)}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+            return (
+              <div
+                key={opp.id}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '8px 0',
+                  borderBottom: idx < items.length - 1 ? '1px solid #1a2a3a20' : 'none',
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    width: 26, height: 26, borderRadius: '50%', background: av,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 9, fontWeight: 700, color: '#c8e0f0', flexShrink: 0,
+                  }}
+                >
+                  {initials(name)}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ color: '#dce8f4', fontSize: 12, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {name}
+                  </div>
+                </div>
+                <span style={{
+                  background: badge.bg, color: badge.color, fontSize: 10,
+                  padding: '2px 7px', borderRadius: 4, whiteSpace: 'nowrap',
+                  fontWeight: 500,
+                }}>
+                  {opp.pipelineStageName ?? '—'}
+                </span>
+                <span style={{ color: '#4a6070', fontSize: 10, flexShrink: 0 }}>
+                  {formatDate(opp.createdAt)}
+                </span>
+              </div>
+            );
+          })}
         </div>
       )}
     </section>

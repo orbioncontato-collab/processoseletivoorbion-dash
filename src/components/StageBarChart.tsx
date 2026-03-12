@@ -62,7 +62,7 @@ export function StageBarChart({ activeFunnelStats, exitStats, reserveStats }: St
         background: 'linear-gradient(135deg, #0d1829 0%, #111e34 100%)',
         border: '1px solid #295D8628',
         borderRadius: 16,
-        padding: '24px',
+        padding: '20px 24px',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
@@ -83,7 +83,7 @@ export function StageBarChart({ activeFunnelStats, exitStats, reserveStats }: St
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveContainer width="100%" height={200}>
         <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 24 }} barCategoryGap="20%">
           <CartesianGrid strokeDasharray="3 3" stroke="#1a2a3a" horizontal vertical={false} />
           <XAxis

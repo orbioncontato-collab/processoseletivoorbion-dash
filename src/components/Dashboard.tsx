@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { Users, CheckCircle, XCircle, TrendingUp, RefreshCw, Clock, Activity, BookOpen } from 'lucide-react';
+import { Users, CheckCircle, XCircle, TrendingUp, RefreshCw, Clock, Activity } from 'lucide-react';
 import { OrbionLogo } from './OrbionLogo';
 import { KpiCard } from './KpiCard';
-import { FunnelChart } from './FunnelChart';
-import { TrendChart } from './TrendChart';
+import { DistributionChart } from './DistributionChart';
 import { StageBarChart } from './StageBarChart';
+import { TrendChart } from './TrendChart';
 import { RecentCandidates } from './RecentCandidates';
 import { ExitBreakdownCard } from './ExitBreakdownCard';
 import { KpiSkeleton, ChartSkeleton, TableSkeleton } from './Skeleton';
@@ -69,6 +69,14 @@ export function Dashboard() {
 
   useEffect(() => { load(); }, [load]);
 
+  // Slices para o donut de distribuição
+  const distributionSlices = data ? [
+    { name: 'Funil Ativo', value: data.activeFunnelCount, color: '#74FAA5' },
+    { name: 'Contratados', value: data.hiredCount, color: '#5dd4c5' },
+    { name: 'Reserva', value: data.reserveCount, color: '#f0c040' },
+    { name: 'Saídas', value: data.exitCount, color: '#e08888' },
+  ] : [];
+
   return (
     <div style={{ minHeight: '100vh', background: '#0A1123' }}>
       <style>{`
@@ -79,30 +87,30 @@ export function Dashboard() {
         .refresh-btn:hover:not(:disabled) { background: #1d304822 !important; }
         .refresh-btn:focus-visible { outline: 2px solid #74FAA5; outline-offset: 2px; }
         @media (prefers-reduced-motion: reduce) { .dash-section { animation: none; } }
-        @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(3,1fr) !important; } }
-        @media (max-width: 768px)  { .kpi-grid { grid-template-columns: repeat(2,1fr) !important; } .two-col { grid-template-columns:1fr !important; } }
+        @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2,1fr) !important; } }
+        @media (max-width: 768px)  { .kpi-grid { grid-template-columns: repeat(2,1fr) !important; } .two-col { grid-template-columns:1fr !important; } .bottom-row { grid-template-columns:1fr !important; } }
         @media (max-width: 480px)  { .kpi-grid { grid-template-columns: 1fr !important; } }
       `}</style>
 
-      {/* ── Header ── */}
+      {/* Header */}
       <header style={{
         borderBottom: '1px solid #295D8622',
         background: 'linear-gradient(180deg,#0c1726 0%,#0A1123 100%)',
         position: 'sticky', top: 0, zIndex: 50,
       }}>
         <div style={{
-          maxWidth: 1320, margin: '0 auto', padding: '13px 28px',
+          maxWidth: 1320, margin: '0 auto', padding: '12px 24px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <OrbionLogo height={28} />
-            <div style={{ width: 1, height: 22, background: '#295D8640' }} aria-hidden="true" />
-            <span style={{ color: '#5a7890', fontSize: 13, fontWeight: 500 }}>Processo Seletivo</span>
-          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <OrbionLogo height={26} />
+            <div style={{ width: 1, height: 20, background: '#295D8640' }} aria-hidden="true" />
+            <span style={{ color: '#5a7890', fontSize: 12, fontWeight: 500 }}>Processo Seletivo</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             {lastUpdated && !loading && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#3e5568', fontSize: 12 }} aria-live="polite">
-                <Clock size={12} aria-hidden="true" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#3e5568', fontSize: 11 }} aria-live="polite">
+                <Clock size={11} aria-hidden="true" />
                 <span>{lastUpdated.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
             )}
@@ -113,65 +121,63 @@ export function Dashboard() {
               aria-label="Atualizar dados"
               style={{
                 background: 'transparent', border: '1px solid #295D8640', borderRadius: 8,
-                padding: '8px 16px', color: '#74FAA5', fontSize: 13, fontWeight: 500,
+                padding: '7px 14px', color: '#74FAA5', fontSize: 12, fontWeight: 500,
                 cursor: refreshing || loading ? 'not-allowed' : 'pointer',
-                display: 'flex', alignItems: 'center', gap: 6,
+                display: 'flex', alignItems: 'center', gap: 5,
                 opacity: refreshing ? 0.5 : 1, transition: 'background 0.15s, opacity 0.15s', minHeight: 44,
               }}
             >
-              <RefreshCw size={13} aria-hidden="true" style={{ animation: refreshing ? 'spin 0.8s linear infinite' : 'none' }} />
+              <RefreshCw size={12} aria-hidden="true" style={{ animation: refreshing ? 'spin 0.8s linear infinite' : 'none' }} />
               {refreshing ? 'Atualizando…' : 'Atualizar'}
             </button>
           </div>
         </div>
       </header>
 
-      <main id="main-content" style={{ maxWidth: 1320, margin: '0 auto', padding: '28px' }}>
+      <main id="main-content" style={{ maxWidth: 1320, margin: '0 auto', padding: '20px 24px' }}>
 
-        {/* ── Loading ── */}
+        {/* Loading */}
         {loading && (
           <div aria-busy="true" aria-label="Carregando dados do CRM">
-            <div style={{ marginBottom: 24 }}>
-              <div style={{ width: 200, height: 22, borderRadius: 6, background: '#1a2a3a', marginBottom: 8 }} />
-              <div style={{ width: 260, height: 13, borderRadius: 4, background: '#141f30' }} />
+            <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 14 }}>
+              {Array.from({ length: 4 }).map((_, i) => <KpiSkeleton key={i} />)}
             </div>
-            <div className="kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 12, marginBottom: 18 }}>
-              {Array.from({ length: 6 }).map((_, i) => <KpiSkeleton key={i} />)}
+            <div className="two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <ChartSkeleton height={200} />
+              <ChartSkeleton height={200} />
             </div>
-            <div className="two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
-              <ChartSkeleton height={320} />
-              <ChartSkeleton height={320} />
+            <ChartSkeleton height={200} />
+            <div className="bottom-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
+              <ChartSkeleton height={180} />
+              <TableSkeleton />
             </div>
-            <ChartSkeleton height={240} />
-            <div style={{ marginTop: 14 }}><TrendChart data={[]} /></div>
-            <div style={{ marginTop: 14 }}><TableSkeleton /></div>
           </div>
         )}
 
-        {/* ── Error ── */}
+        {/* Error */}
         {!loading && error && <ErrorState message={error} onRetry={() => load()} />}
 
-        {/* ── Dashboard ── */}
+        {/* Dashboard */}
         {!loading && data && (
-          <div className="dash-section" style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <div className="dash-section" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
 
-            {/* Título */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Activity size={17} color="#74FAA5" aria-hidden="true" />
-              <div>
-                <h1 style={{ color: '#74FAA5', fontSize: 19, fontWeight: 700, margin: 0, lineHeight: 1.2 }}>
+            {/* Título compacto */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Activity size={15} color="#74FAA5" aria-hidden="true" />
+                <h1 style={{ color: '#74FAA5', fontSize: 16, fontWeight: 700, margin: 0 }}>
                   {data.pipeline.name}
                 </h1>
-                <p style={{ color: '#3e5568', fontSize: 12, margin: '3px 0 0' }}>
-                  {data.pipeline.stages.length} etapas · {data.totalCount.toLocaleString('pt-BR')} candidatos cadastrados
-                </p>
               </div>
+              <span style={{ color: '#3e5568', fontSize: 11 }}>
+                {data.pipeline.stages.length} etapas · {data.totalCount.toLocaleString('pt-BR')} candidatos
+              </span>
             </div>
 
-            {/* ── KPIs (6 cards) ── */}
+            {/* KPIs (4 cards) */}
             <div
               className="kpi-grid"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 12 }}
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12 }}
               role="region"
               aria-label="Indicadores de desempenho"
             >
@@ -179,54 +185,40 @@ export function Dashboard() {
                 title="Total"
                 value={data.totalCount.toLocaleString('pt-BR')}
                 subtitle="Candidaturas recebidas"
-                icon={<Users size={17} />}
+                icon={<Users size={16} />}
                 accent="blue"
               />
               <KpiCard
                 title="Funil Ativo"
                 value={data.activeFunnelCount.toLocaleString('pt-BR')}
                 subtitle="Em processo agora"
-                icon={<TrendingUp size={17} />}
+                icon={<TrendingUp size={16} />}
                 accent="green"
               />
               <KpiCard
                 title="Contratados"
                 value={data.hiredCount.toLocaleString('pt-BR')}
-                subtitle="Efetivados"
-                icon={<CheckCircle size={17} />}
+                subtitle={`${data.conversionRate}% de conversão`}
+                icon={<CheckCircle size={16} />}
                 accent="teal"
               />
               <KpiCard
-                title="Saíram"
+                title="Saídas"
                 value={data.exitCount.toLocaleString('pt-BR')}
                 subtitle="Descartados ou declinaram"
-                icon={<XCircle size={17} />}
+                icon={<XCircle size={16} />}
                 accent="red"
-              />
-              <KpiCard
-                title="Reserva"
-                value={data.reserveCount.toLocaleString('pt-BR')}
-                subtitle="Banco de talentos"
-                icon={<BookOpen size={17} />}
-                accent="yellow"
-              />
-              <KpiCard
-                title="Conversão"
-                value={`${data.conversionRate}%`}
-                subtitle="Contratados / Total"
-                icon={<TrendingUp size={17} />}
-                accent="teal"
               />
             </div>
 
-            {/* ── Funil ativo + Saídas/Reserva ── */}
+            {/* Distribuição (donut) + Detalhamento saídas/reserva */}
             <div
               className="two-col"
-              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 12 }}
               role="region"
-              aria-label="Funil e saídas"
+              aria-label="Distribuição e detalhamento"
             >
-              <FunnelChart stages={data.activeFunnelStats} />
+              <DistributionChart slices={distributionSlices} total={data.totalCount} />
               <ExitBreakdownCard
                 exitStats={data.exitStats}
                 reserveStats={data.reserveStats}
@@ -235,18 +227,23 @@ export function Dashboard() {
               />
             </div>
 
-            {/* ── Gráfico overview completo ── */}
+            {/* Visão geral por etapa */}
             <StageBarChart
               activeFunnelStats={data.activeFunnelStats}
               exitStats={data.exitStats}
               reserveStats={data.reserveStats}
             />
 
-            {/* ── Tendência ── */}
-            <TrendChart data={data.dailyTrend} />
-
-            {/* ── Candidatos recentes ── */}
-            <RecentCandidates opportunities={data.recentOpportunities} />
+            {/* Tendência + Candidatos recentes lado a lado */}
+            <div
+              className="bottom-row"
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+              role="region"
+              aria-label="Tendência e candidatos recentes"
+            >
+              <TrendChart data={data.dailyTrend} />
+              <RecentCandidates opportunities={data.recentOpportunities} />
+            </div>
 
           </div>
         )}
