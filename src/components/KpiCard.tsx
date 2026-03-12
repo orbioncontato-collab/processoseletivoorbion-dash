@@ -9,68 +9,94 @@ interface KpiCardProps {
 }
 
 const accentMap = {
-  green: { border: '#74FAA5', icon: 'rgba(116,250,165,0.12)', text: '#74FAA5' },
-  blue:  { border: '#295D86', icon: 'rgba(41,93,134,0.25)',   text: '#7ec8f0' },
-  teal:  { border: '#265C58', icon: 'rgba(38,92,88,0.3)',     text: '#5dd4c5' },
-  yellow:{ border: '#f0c040', icon: 'rgba(240,192,64,0.15)',  text: '#f0c040' },
-  red:   { border: '#e05555', icon: 'rgba(224,85,85,0.15)',   text: '#e05555' },
+  green:  { border: '#74FAA5', iconBg: 'rgba(116,250,165,0.12)', iconColor: '#74FAA5', glow: '#74FAA5' },
+  blue:   { border: '#295D86', iconBg: 'rgba(41,93,134,0.3)',    iconColor: '#7ec8f0', glow: '#3a7ab8' },
+  teal:   { border: '#265C58', iconBg: 'rgba(38,92,88,0.35)',    iconColor: '#5dd4c5', glow: '#2e7a6e' },
+  yellow: { border: '#c8a020', iconBg: 'rgba(200,160,32,0.15)',  iconColor: '#f0c040', glow: '#c8a020' },
+  red:    { border: '#b04040', iconBg: 'rgba(224,85,85,0.15)',   iconColor: '#e08888', glow: '#b04040' },
 };
 
 export function KpiCard({ title, value, subtitle, icon, accent = 'green' }: KpiCardProps) {
-  const colors = accentMap[accent];
+  const c = accentMap[accent];
+
   return (
     <div
       style={{
-        background: 'linear-gradient(135deg, #0d1829 0%, #111e34 100%)',
-        border: `1px solid ${colors.border}33`,
-        borderRadius: 16,
-        padding: '24px 28px',
+        background: 'linear-gradient(145deg, #0d1829 0%, #0f1e30 100%)',
+        border: `1px solid ${c.border}28`,
+        borderRadius: 14,
+        padding: '20px 22px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 12,
+        gap: 10,
         position: 'relative',
         overflow: 'hidden',
+        transition: 'border-color 0.2s, transform 0.2s',
       }}
     >
-      {/* Glow accent top-left */}
+      {/* Ambient glow */}
       <div
+        aria-hidden="true"
         style={{
           position: 'absolute',
-          top: -30,
-          left: -30,
-          width: 120,
-          height: 120,
+          top: -40,
+          left: -40,
+          width: 130,
+          height: 130,
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${colors.border}22 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${c.glow}18 0%, transparent 70%)`,
           pointerEvents: 'none',
         }}
       />
 
+      {/* Label + icon row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <span style={{ color: '#8ca0b8', fontSize: 13, fontWeight: 500, textTransform: 'uppercase', letterSpacing: 1 }}>
+        <span
+          style={{
+            color: '#6b84a0',
+            fontSize: 11,
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.07em',
+            lineHeight: 1.3,
+          }}
+        >
           {title}
         </span>
         <div
+          aria-hidden="true"
           style={{
-            background: colors.icon,
-            borderRadius: 10,
-            padding: 8,
-            color: colors.text,
+            background: c.iconBg,
+            borderRadius: 9,
+            padding: 7,
+            color: c.iconColor,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
           }}
         >
           {icon}
         </div>
       </div>
 
-      <div style={{ color: '#f0f4f8', fontSize: 36, fontWeight: 700, lineHeight: 1 }}>
+      {/* Value */}
+      <div
+        style={{
+          color: '#eef4f8',
+          fontSize: 32,
+          fontWeight: 700,
+          lineHeight: 1,
+          letterSpacing: '-0.02em',
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
         {value}
       </div>
 
+      {/* Subtitle */}
       {subtitle && (
-        <div style={{ color: '#6b84a0', fontSize: 12 }}>{subtitle}</div>
+        <div style={{ color: '#4a6070', fontSize: 11, lineHeight: 1.4 }}>{subtitle}</div>
       )}
     </div>
   );
