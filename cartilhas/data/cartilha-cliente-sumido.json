@@ -1,77 +1,715 @@
 {
-  "meta": { "slug": "cliente-sumido", "titulo": ["CARTILHA DO", "CLIENTE SUMIDO"], "subtitulo": "27 mensagens prontas para saber o que mandar quando o cliente some depois da proposta.", "marca": "ORBION SALES" },
-  "capa": { "bolhaMensagem": "Oi, Carla! Alguma dúvida sobre a proposta?", "status": "✓✓", "silencio": "silêncio" },
-  "abertura": { "headline": "Mandou a proposta e o cliente sumiu?", "complemento": "Não improvise o próximo follow-up.", "paragrafos": ["Esta cartilha foi feita para aqueles momentos em que a negociação parecia caminhar, a proposta foi enviada e, de repente, o cliente parou de responder.", "Encontre a situação mais parecida com a sua, escolha uma mensagem, personalize e retome a conversa."] },
-  "comoUsar": { "titulo": "COMO USAR ESTA CARTILHA", "etapas": [
-    { "numero": "01", "titulo": "IDENTIFIQUE A SITUAÇÃO", "descricao": "Descubra o que o cliente fez antes de sumir." },
-    { "numero": "02", "titulo": "ENCONTRE A CATEGORIA", "descricao": "Use o mapa ou a cola rápida para ir direto à seção certa." },
-    { "numero": "03", "titulo": "ESCOLHA E PERSONALIZE A MENSAGEM", "descricao": "Troque os campos entre colchetes pelos dados do seu cliente." },
-    { "numero": "04", "titulo": "ENVIE E DEFINA O PRÓXIMO PASSO", "descricao": "Mande a mensagem e anote na tabela o que vem a seguir." }
-  ], "rodape": "A ideia não é copiar mensagens como um robô. É parar de improvisar toda vez que um cliente some." },
-  "mapa": { "titulo": "SE O CLIENTE FEZ ISSO, VÁ PARA CÁ" },
+  "meta": {
+    "slug": "cliente-sumido",
+    "titulo": [
+      "CARTILHA DO",
+      "CLIENTE SUMIDO"
+    ],
+    "subtitulo": "27 mensagens prontas para saber o que mandar quando o cliente some depois da proposta.",
+    "marca": "ORBION SALES"
+  },
+  "capa": {
+    "bolhaMensagem": "Oi, Carla! Alguma dúvida sobre a proposta?",
+    "status": "✓✓",
+    "silencio": "silêncio"
+  },
+  "abertura": {
+    "headline": "Mandou a proposta e o cliente sumiu?",
+    "complemento": "Não improvise o próximo follow-up.",
+    "paragrafos": [
+      "Esta cartilha foi feita para aqueles momentos em que a negociação parecia caminhar, a proposta foi enviada e, de repente, o cliente parou de responder.",
+      "Encontre a situação mais parecida com a sua, escolha uma mensagem, personalize e retome a conversa."
+    ]
+  },
+  "comoUsar": {
+    "titulo": "COMO USAR ESTA CARTILHA",
+    "etapas": [
+      {
+        "numero": "01",
+        "titulo": "IDENTIFIQUE A SITUAÇÃO",
+        "descricao": "Descubra o que o cliente fez antes de sumir."
+      },
+      {
+        "numero": "02",
+        "titulo": "ENCONTRE A CATEGORIA",
+        "descricao": "Use o mapa ou a cola rápida para ir direto à seção certa."
+      },
+      {
+        "numero": "03",
+        "titulo": "ESCOLHA E PERSONALIZE A MENSAGEM",
+        "descricao": "Troque os campos entre colchetes pelos dados do seu cliente."
+      },
+      {
+        "numero": "04",
+        "titulo": "ENVIE E DEFINA O PRÓXIMO PASSO",
+        "descricao": "Mande a mensagem e anote na folha de controle (págs. 42 e 43)."
+      }
+    ],
+    "rodape": "A ideia não é copiar mensagens como um robô. É parar de improvisar toda vez que um cliente some."
+  },
+  "mapa": {
+    "titulo": "SE O CLIENTE FEZ ISSO, VÁ PARA CÁ"
+  },
   "categorias": [
-    { "id": "01", "titulo": ["MANDOU A PROPOSTA", "E ELE SUMIU"], "subtitulo": "5 mensagens para retomar uma negociação depois do envio da proposta.", "nota": "Seu primeiro objetivo não é pressionar. É colocar a negociação novamente em movimento.", "aviso": "", "rotuloMapa": "Recebeu a proposta e sumiu", "rotuloCola": "Mandou proposta e sumiu", "intervalo": "01–05" },
-    { "id": "02", "titulo": ["ELE VISUALIZOU", "E NÃO RESPONDEU"], "subtitulo": "4 mensagens para quando você sabe que ele viu, mas ficou em silêncio.", "nota": "Ele viu. Eu sei que viu. E agora?", "aviso": "", "rotuloMapa": "Visualizou e não respondeu", "rotuloCola": "Visualizou e não respondeu", "intervalo": "06–09" },
-    { "id": "03", "titulo": ["ELE DISSE QUE RESPONDERIA", "E SUMIU"], "subtitulo": "4 mensagens para quando o próprio cliente combinou um retorno e não retornou.", "nota": "", "aviso": "", "rotuloMapa": "Disse que responderia e sumiu", "rotuloCola": "Prometeu responder", "intervalo": "10–13" },
-    { "id": "04", "titulo": ["PEDIU DESCONTO", "E DEPOIS SUMIU"], "subtitulo": "4 mensagens para quando a conversa chegou no preço, mas o cliente desapareceu depois.", "nota": "", "aviso": "Esta categoria não ensina a tratar objeção de preço. Ela serve apenas para retomar negociações que pararam depois dessa conversa.", "rotuloMapa": "Pediu desconto e sumiu", "rotuloCola": "Pediu desconto e sumiu", "intervalo": "14–17" },
-    { "id": "05", "titulo": ["ELE PRECISAVA", "FALAR COM ALGUÉM"], "subtitulo": "4 mensagens para quando existe outro decisor na negociação.", "nota": "", "aviso": "", "rotuloMapa": "Precisava falar com alguém", "rotuloCola": "Precisava falar com alguém", "intervalo": "18–21" },
-    { "id": "06", "titulo": ["VOCÊ JÁ MANDOU", "VÁRIAS MENSAGENS"], "subtitulo": "3 opções para quando você já fez follow-up e não sabe se deve tentar novamente.", "nota": "Já mandei duas ou três vezes. Se eu mandar de novo, vou parecer desesperado?", "aviso": "", "rotuloMapa": "Já recebeu vários follow-ups", "rotuloCola": "Já recebeu vários follow-ups", "intervalo": "22–24" },
-    { "id": "07", "titulo": ["ÚLTIMA TENTATIVA"], "subtitulo": "3 mensagens para encerrar sua sequência sem ficar perseguindo o cliente.", "nota": "", "aviso": "", "rotuloMapa": "Última tentativa", "rotuloCola": "Última tentativa", "intervalo": "25–27" }
+    {
+      "id": "01",
+      "titulo": [
+        "MANDOU A PROPOSTA",
+        "E ELE SUMIU"
+      ],
+      "subtitulo": "5 mensagens para retomar uma negociação depois do envio da proposta.",
+      "nota": "Seu primeiro objetivo não é pressionar. É colocar a negociação novamente em movimento.",
+      "aviso": "",
+      "rotuloMapa": "Recebeu a proposta e sumiu",
+      "rotuloCola": "Mandou proposta e sumiu",
+      "intervalo": "01–05"
+    },
+    {
+      "id": "02",
+      "titulo": [
+        "ELE VISUALIZOU",
+        "E NÃO RESPONDEU"
+      ],
+      "subtitulo": "4 mensagens para quando você sabe que ele viu, mas ficou em silêncio.",
+      "nota": "Ele viu. Eu sei que viu. E agora?",
+      "aviso": "",
+      "rotuloMapa": "Visualizou e não respondeu",
+      "rotuloCola": "Visualizou e não respondeu",
+      "intervalo": "06–09"
+    },
+    {
+      "id": "03",
+      "titulo": [
+        "ELE DISSE QUE RESPONDERIA",
+        "E SUMIU"
+      ],
+      "subtitulo": "4 mensagens para quando o próprio cliente combinou um retorno e não retornou.",
+      "nota": "",
+      "aviso": "",
+      "rotuloMapa": "Disse que responderia e sumiu",
+      "rotuloCola": "Prometeu responder",
+      "intervalo": "10–13"
+    },
+    {
+      "id": "04",
+      "titulo": [
+        "PEDIU DESCONTO",
+        "E DEPOIS SUMIU"
+      ],
+      "subtitulo": "4 mensagens para quando a conversa chegou ao preço, mas o cliente desapareceu depois.",
+      "nota": "",
+      "aviso": "Esta categoria não ensina a tratar objeção de preço. Ela serve apenas para retomar negociações que pararam depois dessa conversa.",
+      "rotuloMapa": "Pediu desconto e sumiu",
+      "rotuloCola": "Pediu desconto e sumiu",
+      "intervalo": "14–17"
+    },
+    {
+      "id": "05",
+      "titulo": [
+        "ELE PRECISAVA",
+        "FALAR COM ALGUÉM"
+      ],
+      "subtitulo": "4 mensagens para quando existe outro decisor na negociação.",
+      "nota": "",
+      "aviso": "",
+      "rotuloMapa": "Precisava falar com alguém",
+      "rotuloCola": "Precisava falar com alguém",
+      "intervalo": "18–21"
+    },
+    {
+      "id": "06",
+      "titulo": [
+        "VOCÊ JÁ MANDOU",
+        "VÁRIAS MENSAGENS"
+      ],
+      "subtitulo": "3 opções para quando você já fez follow-up e não sabe se deve tentar novamente.",
+      "nota": "Já mandei duas ou três vezes. Se eu mandar de novo, vou parecer desesperado?",
+      "aviso": "",
+      "rotuloMapa": "Já recebeu vários follow-ups",
+      "rotuloCola": "Já recebeu vários follow-ups",
+      "intervalo": "22–24"
+    },
+    {
+      "id": "07",
+      "titulo": [
+        "ÚLTIMA TENTATIVA"
+      ],
+      "subtitulo": "3 mensagens para encerrar sua sequência sem ficar perseguindo o cliente.",
+      "nota": "",
+      "aviso": "",
+      "rotuloMapa": "Última tentativa",
+      "rotuloCola": "Última tentativa",
+      "intervalo": "25–27"
+    }
   ],
   "mensagens": [
-    { "id": "01", "categoria": "01", "tituloSituacao": "Mandei a proposta e ele não respondeu", "quandoUsar": "Você enviou a proposta e ainda não recebeu retorno. Primeiro follow-up sem parecer cobrança.", "clienteFez": "Recebeu a proposta e não respondeu", "naoMandar": "Alguma novidade?", "motivoNaoMandar": "Não dá motivo nenhum para ele responder e soa como cobrança.", "mensagemPrincipal": "[Nome], deixei a proposta com você e fiquei pensando se ela atende o que você precisa para resolver [Problema]. Se alguma parte ficou pouco clara, me diga qual e eu ajusto ou explico melhor.", "camposPersonalizaveis": ["[Nome]", "[Problema]"], "objetivo": "Abrir espaço para uma dúvida sem pressionar por decisão.", "seResponder": "Responda a dúvida em poucas linhas e proponha uma conversa curta de 10 minutos para fechar os pontos.", "observacaoOpcional": "Mande 2 a 3 dias úteis depois do envio da proposta." },
-    { "id": "02", "categoria": "01", "tituloSituacao": "Quero saber se ele conseguiu analisar a proposta", "quandoUsar": "Você quer confirmar se o cliente já analisou a proposta, sem mandar só um \"conseguiu ver?\".", "clienteFez": "Não confirmou se analisou", "naoMandar": "Conseguiu ver a proposta?", "motivoNaoMandar": "Pede um sim ou não vazio e não ajuda o cliente a avançar.", "mensagemPrincipal": "Olá, [Nome]. Em que ponto você está com a proposta: já leu, está comparando com outras opções ou ainda precisa de alguma informação minha? Assim eu te ajudo no que for mais útil agora.", "camposPersonalizaveis": ["[Nome]"], "objetivo": "Descobrir em que etapa da análise o cliente está.", "seResponder": "Adapte o próximo passo à etapa que ele indicar: envie o que falta, tire a dúvida ou combine uma data.", "observacaoOpcional": "" },
-    { "id": "03", "categoria": "01", "tituloSituacao": "Quero retomar pelo problema que ele tinha", "quandoUsar": "Você quer voltar à conversa falando do que ele queria resolver, e não da proposta.", "clienteFez": "Sumiu depois de ver a proposta", "naoMandar": "Posso te ajudar com a proposta?", "motivoNaoMandar": "Fala da sua venda. O cliente se interessa pelo problema dele.", "mensagemPrincipal": "[Nome], lembrei da nossa conversa sobre [Problema]. Você comentou que isso estava custando [Impacto] por mês. Esse assunto continua na sua lista de prioridades ou mudou alguma coisa por aí?", "camposPersonalizaveis": ["[Nome]", "[Problema]", "[Impacto]"], "objetivo": "Reconectar a conversa com a dor real do cliente.", "seResponder": "Se continua prioridade, mostre em uma frase como sua proposta resolve isso e sugira o próximo passo.", "observacaoOpcional": "" },
-    { "id": "04", "categoria": "01", "tituloSituacao": "Quero saber se ele ainda quer seguir", "quandoUsar": "Você precisa entender se ainda existe intenção real de seguir com a negociação.", "clienteFez": "Parou de responder sem avisar", "naoMandar": "Ainda tem interesse?", "motivoNaoMandar": "Pergunta seca que força o cliente a se posicionar sem contexto.", "mensagemPrincipal": "[Nome], para eu organizar minha agenda e não tomar seu tempo à toa: faz sentido seguirmos com a proposta de [Solução] neste momento, ou o melhor é retomarmos mais para frente?", "camposPersonalizaveis": ["[Nome]", "[Solução]"], "objetivo": "Obter clareza sobre o momento do cliente, com respeito.", "seResponder": "Se for agora, defina o próximo passo. Se for depois, combine uma data e anote na tabela de controle.", "observacaoOpcional": "" },
-    { "id": "05", "categoria": "01", "tituloSituacao": "Já fiz um contato e quero abordar diferente", "quandoUsar": "Você já fez um primeiro contato e quer mudar a abordagem em vez de repetir a cobrança.", "clienteFez": "Ignorou o primeiro follow-up", "naoMandar": "Só reforçando minha mensagem anterior.", "motivoNaoMandar": "Repete o que não funcionou e não traz nada novo para ele.", "mensagemPrincipal": "[Nome], em vez de repetir minha última mensagem, vou te mandar algo útil: um caso de [Caso similar] que tinha o mesmo desafio de [Problema]. Quer que eu envie o resumo em uma página?", "camposPersonalizaveis": ["[Nome]", "[Caso similar]", "[Problema]"], "objetivo": "Trazer valor novo e dar um motivo real para ele responder.", "seResponder": "Envie o resumo curto e pergunte qual parte se parece mais com a situação dele.", "observacaoOpcional": "" },
-
-    { "id": "06", "categoria": "02", "tituloSituacao": "Ele abriu a proposta e ficou em silêncio", "quandoUsar": "Você sabe que ele visualizou a proposta, mas não houve nenhuma resposta.", "clienteFez": "Visualizou a proposta e não respondeu", "naoMandar": "Vi que você leu, o que achou?", "motivoNaoMandar": "Deixa claro que você está monitorando e gera desconforto.", "mensagemPrincipal": "[Nome], uma proposta costuma deixar perguntas na cabeça, principalmente sobre [Ponto sensível]. Se tiver alguma, mesmo que pareça pequena, me manda por aqui que eu respondo ainda hoje.", "camposPersonalizaveis": ["[Nome]", "[Ponto sensível]"], "objetivo": "Abrir a porta para dúvidas sem citar que ele visualizou.", "seResponder": "Responda de forma objetiva e termine com uma pergunta que leve ao próximo passo.", "observacaoOpcional": "Evite citar a visualização. Isso parece vigilância." },
-    { "id": "07", "categoria": "02", "tituloSituacao": "Ele viu meu follow-up e continuou calado", "quandoUsar": "Você mandou um follow-up, ele visualizou e também não respondeu.", "clienteFez": "Visualizou o follow-up e não respondeu", "naoMandar": "Oi, conseguiu ver minha mensagem?", "motivoNaoMandar": "Repete o contato anterior e cobra uma resposta que ele não deu.", "mensagemPrincipal": "Bom dia, [Nome]. Sei que a rotina aperta. Deixo o essencial da proposta em três linhas: [Resumo]. Se fizer sentido, me responda só com \"vamos\" e eu te mando os próximos passos.", "camposPersonalizaveis": ["[Nome]", "[Resumo]"], "objetivo": "Facilitar a decisão com um resumo curto e uma ação simples.", "seResponder": "Se disser \"vamos\", envie os próximos passos. Se tiver dúvida, responda e proponha uma data para decidir.", "observacaoOpcional": "" },
-    { "id": "08", "categoria": "02", "tituloSituacao": "Quero retomar sem parecer ansioso", "quandoUsar": "Você quer voltar a falar com ele sem transmitir ansiedade ou cobrança.", "clienteFez": "Silêncio depois de visualizar", "naoMandar": "Estou aguardando seu retorno.", "motivoNaoMandar": "Soa como cobrança e coloca o cliente na posição de devedor.", "mensagemPrincipal": "[Nome], não vou lotar sua caixa de mensagens. Deixo a proposta de [Solução] à sua disposição e volto a falar com você no dia [Data]. Se antes disso surgir qualquer dúvida, é só chamar.", "camposPersonalizaveis": ["[Nome]", "[Solução]", "[Data]"], "objetivo": "Mostrar calma e combinar um novo ponto de contato.", "seResponder": "Se ele responder antes, siga a conversa. Se não, retome exatamente na data que você informou.", "observacaoOpcional": "Cumpra a data que você mesmo definiu." },
-    { "id": "09", "categoria": "02", "tituloSituacao": "Quero uma pergunta simples que ele responda rápido", "quandoUsar": "Você quer uma pergunta fácil, que o cliente consiga responder com uma palavra ou um número.", "clienteFez": "Leu e deixou a conversa parada", "naoMandar": "O que você achou?", "motivoNaoMandar": "Pergunta aberta demais exige esforço e costuma ficar sem resposta.", "mensagemPrincipal": "[Nome], uma pergunta rápida: o que pesa mais na sua decisão hoje? 1) preço, 2) prazo, 3) escopo ou 4) outro assunto. Pode responder só com o número.", "camposPersonalizaveis": ["[Nome]"], "objetivo": "Gerar uma resposta curta que mostre onde está a trava.", "seResponder": "Use o número escolhido para tratar só aquele ponto e proponha um próximo passo.", "observacaoOpcional": "" },
-
-    { "id": "10", "categoria": "03", "tituloSituacao": "Ele disse \"amanhã te respondo\" e não respondeu", "quandoUsar": "O cliente prometeu responder no dia seguinte e o prazo passou.", "clienteFez": "Prometeu responder amanhã", "naoMandar": "Cadê sua resposta de ontem?", "motivoNaoMandar": "Cobra a promessa de forma direta e deixa o clima pesado.", "mensagemPrincipal": "[Nome], ontem ficamos de nos falar e imagino que o dia tenha sido corrido. Para não deixar nada solto: quando seria melhor eu te chamar de novo, [Dia] ou [Outro dia]?", "camposPersonalizaveis": ["[Nome]", "[Dia]", "[Outro dia]"], "objetivo": "Reagendar com leveza, oferecendo duas opções.", "seResponder": "Confirme o dia escolhido e envie um convite no calendário para a conversa.", "observacaoOpcional": "Mande no fim da manhã do dia seguinte ao prazo." },
-    { "id": "11", "categoria": "03", "tituloSituacao": "Ele ia me dar uma posição essa semana", "quandoUsar": "O cliente prometeu uma posição até o fim da semana e a semana terminou.", "clienteFez": "Prometeu uma posição na semana", "naoMandar": "A semana acabou, e aí?", "motivoNaoMandar": "Marca o descumprimento e coloca o cliente na defensiva.", "mensagemPrincipal": "A semana fechou por aqui, [Nome], e queria saber como ficou do seu lado. Já deu para avaliar a proposta de [Solução] ou prefere que eu volte a falar com você no começo da próxima?", "camposPersonalizaveis": ["[Nome]", "[Solução]"], "objetivo": "Retomar o combinado e oferecer um novo ponto de contato.", "seResponder": "Se ele pedir mais tempo, combine uma data concreta e registre na tabela de controle.", "observacaoOpcional": "" },
-    { "id": "12", "categoria": "03", "tituloSituacao": "Ele ia analisar e me falar, mas não voltou", "quandoUsar": "O cliente disse \"vou analisar e te falo\" e nunca voltou com a análise.", "clienteFez": "Disse que ia analisar e não voltou", "naoMandar": "E a análise, ficou pronta?", "motivoNaoMandar": "Soa como cobrança de tarefa e não ajuda ele a avançar.", "mensagemPrincipal": "[Nome], você comentou que ia analisar a proposta. Durante a análise, surgiu alguma dúvida sobre [Ponto da proposta]? Se quiser, separo 10 minutos amanhã para olharmos isso juntos.", "camposPersonalizaveis": ["[Nome]", "[Ponto da proposta]"], "objetivo": "Apoiar a análise do cliente com uma oferta concreta de ajuda.", "seResponder": "Se aceitar, marque o horário na hora. Se recusar, pergunte quando faz sentido voltar a falar.", "observacaoOpcional": "" },
-    { "id": "13", "categoria": "03", "tituloSituacao": "O prazo que ele pediu passou e não quero cobrar", "quandoUsar": "O prazo que o próprio cliente pediu passou e você quer retomar sem soar passivo-agressivo.", "clienteFez": "Pediu um prazo e ele passou", "naoMandar": "Já passou do prazo que você deu.", "motivoNaoMandar": "Joga o prazo na cara dele e deixa a conversa tensa.", "mensagemPrincipal": "[Nome], você pediu até [Prazo combinado] para decidir e hoje volto a falar com você, como combinamos. Alguma coisa mudou no seu cenário? Se mudou, me conta que eu me adapto.", "camposPersonalizaveis": ["[Nome]", "[Prazo combinado]"], "objetivo": "Cumprir o combinado e abrir espaço para mudanças de cenário.", "seResponder": "Se o cenário mudou, ajuste a proposta ou o prazo. Se não, peça uma nova data de decisão.", "observacaoOpcional": "" },
-
-    { "id": "14", "categoria": "04", "tituloSituacao": "Ele pediu desconto e depois sumiu", "quandoUsar": "O cliente pediu desconto, você respondeu e ele não deu mais notícia.", "clienteFez": "Pediu desconto e não respondeu mais", "naoMandar": "Então, vai fechar ou não?", "motivoNaoMandar": "Pressiona uma decisão logo depois de uma conversa sensível.", "mensagemPrincipal": "[Nome], depois que conversamos sobre valores, fiquei na dúvida se a minha resposta ajudou. O que ficou faltando para você ter segurança de seguir com [Solução]?", "camposPersonalizaveis": ["[Nome]", "[Solução]"], "objetivo": "Descobrir o que falta para decidir, sem mexer no valor.", "seResponder": "Escute a trava, responda só o ponto levantado e confirme o próximo passo antes de falar de valor.", "observacaoOpcional": "" },
-    { "id": "15", "categoria": "04", "tituloSituacao": "Apresentei uma condição e ele não respondeu", "quandoUsar": "Você apresentou uma condição comercial e o cliente sumiu em seguida.", "clienteFez": "Recebeu uma condição e sumiu", "naoMandar": "Essa é a melhor condição que eu consigo.", "motivoNaoMandar": "Soa como ultimato e fecha a conversa em vez de abrir.", "mensagemPrincipal": "[Nome], sobre a condição que te apresentei: [Condição]. Ficou clara? Se quiser, te mostro como ela funciona na prática, mês a mês, para você avaliar com calma.", "camposPersonalizaveis": ["[Nome]", "[Condição]"], "objetivo": "Confirmar o entendimento da condição e facilitar a avaliação.", "seResponder": "Se ele pedir a simulação, envie em uma página e combine quando vão conversar sobre ela.", "observacaoOpcional": "" },
-    { "id": "16", "categoria": "04", "tituloSituacao": "Ele disse que fecharia se eu pudesse e sumiu", "quandoUsar": "Ele disse que fecharia se uma condição fosse possível, mas não respondeu mais.", "clienteFez": "Condicionou o fechamento e sumiu", "naoMandar": "Você disse que fechava, e agora?", "motivoNaoMandar": "Cobra uma frase dita no calor da conversa e gera desconforto.", "mensagemPrincipal": "[Nome], você comentou que seguiria se [Condição] fosse possível. Verifiquei internamente e [Resposta]. Se esse ainda é o ponto principal, me avise e eu preparo o que falta para avançarmos.", "camposPersonalizaveis": ["[Nome]", "[Condição]", "[Resposta]"], "objetivo": "Responder à condição que o próprio cliente colocou.", "seResponder": "Se ele confirmar, envie o que falta para fechar. Se mudou de ideia, pergunte com calma o que mudou.", "observacaoOpcional": "" },
-    { "id": "17", "categoria": "04", "tituloSituacao": "Quero retomar sem oferecer novo desconto", "quandoUsar": "A conversa travou no preço e você quer retomar sem abrir mão da sua margem.", "clienteFez": "Sumiu depois da conversa de preço", "naoMandar": "Posso melhorar um pouco mais o valor.", "motivoNaoMandar": "Ensina o cliente que sumir rende desconto e enfraquece sua proposta.", "mensagemPrincipal": "[Nome], revisei com calma o que conversamos e o valor de [Valor] está ligado a [Entrega]. Se for útil, posso ajustar o escopo para caber melhor no seu momento. Quer ver essa opção?", "camposPersonalizaveis": ["[Nome]", "[Valor]", "[Entrega]"], "objetivo": "Oferecer ajuste de escopo para manter o valor da proposta.", "seResponder": "Se ele topar, monte uma versão enxuta e envie com prazo claro. Se recusar, pergunte o que pesa mais.", "observacaoOpcional": "" },
-
-    { "id": "18", "categoria": "05", "tituloSituacao": "Ele precisava falar com o sócio e sumiu", "quandoUsar": "O cliente disse \"preciso falar com meu sócio\" e você não ouviu mais nada.", "clienteFez": "Foi falar com o sócio e não voltou", "naoMandar": "Já falou com seu sócio?", "motivoNaoMandar": "Pergunta de cobrança que não ajuda a conversa a andar.", "mensagemPrincipal": "[Nome], como foi a conversa com [Sócio]? Se ele tiver alguma pergunta que você não saiba responder, me passa que eu respondo direto, ou podemos marcar 15 minutos nós três.", "camposPersonalizaveis": ["[Nome]", "[Sócio]"], "objetivo": "Oferecer apoio para a decisão em grupo.", "seResponder": "Se ele aceitar a reunião, proponha dois horários e peça o contato do sócio para o convite.", "observacaoOpcional": "" },
-    { "id": "19", "categoria": "05", "tituloSituacao": "Ele ia consultar o gestor e não deu retorno", "quandoUsar": "O cliente precisava consultar um gestor ou outro decisor e não retornou.", "clienteFez": "Foi consultar o gestor e sumiu", "naoMandar": "O seu chefe já aprovou?", "motivoNaoMandar": "Soa como pressão sobre uma decisão que não está nas mãos dele.", "mensagemPrincipal": "Oi, [Nome]. Para ajudar a levar a proposta até [Decisor], posso te mandar um resumo de uma página com o problema, a solução e o investimento. Assim você não precisa explicar tudo sozinho.", "camposPersonalizaveis": ["[Nome]", "[Decisor]"], "objetivo": "Entregar um material que ele possa encaminhar ao decisor.", "seResponder": "Envie o resumo no mesmo dia e pergunte quando ele pretende apresentar ao decisor.", "observacaoOpcional": "" },
-    { "id": "20", "categoria": "05", "tituloSituacao": "Ele ia apresentar a proposta lá dentro e sumiu", "quandoUsar": "Ele disse que apresentaria a proposta internamente e depois parou de responder.", "clienteFez": "Ia apresentar internamente e sumiu", "naoMandar": "Apresentou a proposta pra equipe?", "motivoNaoMandar": "Pede um relato e não oferece nada que ajude a apresentação.", "mensagemPrincipal": "[Nome], se a proposta já passou pela sua equipe, quais perguntas apareceram? Costumam surgir dúvidas sobre [Tema comum], e eu posso te passar respostas prontas para levar de volta.", "camposPersonalizaveis": ["[Nome]", "[Tema comum]"], "objetivo": "Antecipar dúvidas internas e se colocar à disposição.", "seResponder": "Se ele trouxer perguntas, responda por escrito de forma curta para ele encaminhar à equipe.", "observacaoOpcional": "" },
-    { "id": "21", "categoria": "05", "tituloSituacao": "Ele conversou internamente e não deu posição", "quandoUsar": "Houve conversa interna do lado dele, mas você ainda não recebeu uma posição.", "clienteFez": "Conversou internamente e não retornou", "naoMandar": "E aí, qual foi a decisão?", "motivoNaoMandar": "Cobra uma decisão coletiva que pode estar em andamento.", "mensagemPrincipal": "Imagino que a decisão envolva mais gente e leve seu tempo, [Nome]. Existe alguma data em que vocês pretendem decidir? Assim eu me organizo e volto a falar com você perto desse dia.", "camposPersonalizaveis": ["[Nome]"], "objetivo": "Descobrir o prazo real da decisão e se alinhar a ele.", "seResponder": "Anote a data informada e retome dois dias antes, com uma mensagem curta de apoio.", "observacaoOpcional": "" },
-
-    { "id": "22", "categoria": "06", "tituloSituacao": "Já mandei dois follow-ups e nada", "quandoUsar": "Você já fez dois follow-ups sem resposta e quer tentar de novo sem insistir.", "clienteFez": "Ignorou dois follow-ups", "naoMandar": "Estou tentando falar com você de novo.", "motivoNaoMandar": "Repete a insistência e foca no seu esforço, e não no ganho dele.", "mensagemPrincipal": "[Nome], achei que valia te mandar algo útil em vez de outra pergunta: [Conteúdo] sobre [Problema]. Sem compromisso, só para ajudar na sua decisão, qualquer que ela seja.", "camposPersonalizaveis": ["[Nome]", "[Conteúdo]", "[Problema]"], "objetivo": "Entregar valor novo em vez de mais um pedido de resposta.", "seResponder": "Se ele reagir ao material, use o interesse para propor uma conversa curta.", "observacaoOpcional": "" },
-    { "id": "23", "categoria": "06", "tituloSituacao": "Quero uma definição sem soar agressivo", "quandoUsar": "Você precisa de uma definição e quer pedi-la de forma educada, sem pressão.", "clienteFez": "Segue sem dar posição", "naoMandar": "Preciso de uma definição até hoje.", "motivoNaoMandar": "Impõe prazo e transforma a conversa em cobrança.", "mensagemPrincipal": "[Nome], para eu planejar minha agenda de [Mês], me ajudaria saber qual caminho faz mais sentido para você: seguir com a proposta, pausar por enquanto ou encerrar. Qualquer um deles é uma boa resposta.", "camposPersonalizaveis": ["[Nome]", "[Mês]"], "objetivo": "Pedir uma definição deixando três saídas confortáveis.", "seResponder": "Qualquer resposta ajuda: avance, agende um retorno ou encerre a negociação com cordialidade.", "observacaoOpcional": "" },
-    { "id": "24", "categoria": "06", "tituloSituacao": "Percebi que estou perseguindo o cliente", "quandoUsar": "Você percebe que está insistindo demais e precisa estabelecer um limite saudável.", "clienteFez": "Sem resposta após várias tentativas", "naoMandar": "Vou continuar te mandando mensagem.", "motivoNaoMandar": "Soa como ameaça e deixa o cliente ainda mais distante.", "mensagemPrincipal": "[Nome], não quero ocupar seu tempo com mensagens a mais. Vou pausar meus contatos por aqui e deixo a proposta de [Solução] à disposição. Se quiser retomar, é só me chamar.", "camposPersonalizaveis": ["[Nome]", "[Solução]"], "objetivo": "Estabelecer um limite com respeito e devolver a iniciativa a ele.", "seResponder": "Se ele chamar, retome do ponto onde parou. Se não, sua energia vai para outros clientes.", "observacaoOpcional": "Depois de enviar, pare de insistir de verdade." },
-
-    { "id": "25", "categoria": "07", "tituloSituacao": "Quero fazer um último contato educado", "quandoUsar": "Antes de encerrar os follow-ups, você quer fazer um último contato cordial.", "clienteFez": "Sem resposta depois de toda a sequência", "naoMandar": "Última vez que eu te procuro.", "motivoNaoMandar": "Soa como ameaça disfarçada e não dá motivo para ele responder.", "mensagemPrincipal": "[Nome], esta é minha última mensagem sobre a proposta de [Solução]. Se o momento mudar, estou por aqui. Desejo muito sucesso com [Projeto] e fico à disposição sempre que fizer sentido.", "camposPersonalizaveis": ["[Nome]", "[Solução]", "[Projeto]"], "objetivo": "Encerrar a sequência com cordialidade e profissionalismo.", "seResponder": "Se ele responder, retome com calma. Se não, marque o contato como pausado na tabela de controle.", "observacaoOpcional": "" },
-    { "id": "26", "categoria": "07", "tituloSituacao": "Quero encerrar deixando a porta aberta", "quandoUsar": "Você vai encerrar os follow-ups e quer deixar a porta aberta para o futuro.", "clienteFez": "Não voltou ao contato", "naoMandar": "Qualquer coisa me procura.", "motivoNaoMandar": "Genérica demais e sem nenhum motivo concreto para ele voltar.", "mensagemPrincipal": "[Nome], vou deixar a conversa em pausa por aqui. Se [Gatilho] acontecer no futuro, a proposta de [Solução] serve como ponto de partida e eu atualizo os números para você.", "camposPersonalizaveis": ["[Nome]", "[Gatilho]", "[Solução]"], "objetivo": "Pausar a negociação com um motivo concreto para ele voltar.", "seResponder": "Registre o gatilho citado e faça um contato de manutenção daqui a 60 a 90 dias.", "observacaoOpcional": "" },
-    { "id": "27", "categoria": "07", "tituloSituacao": "Quero uma resposta objetiva, mesmo que seja não", "quandoUsar": "Você quer uma resposta objetiva, inclusive se ela for um \"não\".", "clienteFez": "Silêncio total depois da proposta", "naoMandar": "Se não responder, vou entender que é não.", "motivoNaoMandar": "Parece ultimato e faz o cliente se sentir pressionado.", "mensagemPrincipal": "[Nome], prefiro um \"não\" claro a ficar te incomodando. Se a proposta de [Solução] não faz mais sentido, pode me dizer sem constrangimento. Eu agradeço e encerro por aqui.", "camposPersonalizaveis": ["[Nome]", "[Solução]"], "objetivo": "Dar ao cliente permissão para dizer não com tranquilidade.", "seResponder": "Se for não, agradeça e pergunte o motivo para melhorar. Se for sim, retome o próximo passo.", "observacaoOpcional": "" }
+    {
+      "id": "01",
+      "categoria": "01",
+      "tituloSituacao": "Mandei a proposta e ele não respondeu",
+      "quandoUsar": "Você enviou a proposta e ainda não recebeu retorno. Primeiro follow-up sem parecer cobrança.",
+      "clienteFez": "Recebeu a proposta e não respondeu",
+      "naoMandar": "Alguma novidade?",
+      "motivoNaoMandar": "Não dá motivo nenhum para ele responder e soa como cobrança.",
+      "mensagemPrincipal": "[Nome], tudo bem? Te enviei a proposta e queria saber se ela atende o que você precisa para resolver [Problema]. Se alguma parte ficou pouco clara, me diz qual e eu explico ou ajusto.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Problema]"
+      ],
+      "objetivo": "Abrir espaço para uma dúvida sem pressionar por decisão.",
+      "seResponder": "Responda a dúvida em poucas linhas e proponha uma conversa curta de 10 minutos para fechar os pontos.",
+      "observacaoOpcional": "Mande 2 a 3 dias úteis depois do envio da proposta."
+    },
+    {
+      "id": "02",
+      "categoria": "01",
+      "tituloSituacao": "Quero saber se ele conseguiu analisar a proposta",
+      "quandoUsar": "Você quer confirmar se o cliente já analisou a proposta, sem mandar só um “conseguiu ver?”.",
+      "clienteFez": "Não confirmou se analisou",
+      "naoMandar": "Conseguiu ver a proposta?",
+      "motivoNaoMandar": "Pede um sim ou não vazio e não ajuda o cliente a avançar.",
+      "mensagemPrincipal": "Em que ponto você está com a proposta, [Nome]? Já leu, está comparando com outras opções ou ainda precisa de alguma informação minha? Assim eu te ajudo no que for mais útil agora.",
+      "camposPersonalizaveis": [
+        "[Nome]"
+      ],
+      "objetivo": "Descobrir em que etapa da análise o cliente está.",
+      "seResponder": "Adapte o próximo passo à etapa que ele indicar: envie o que falta, tire a dúvida ou combine uma data.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "03",
+      "categoria": "01",
+      "tituloSituacao": "Quero retomar pelo problema que ele tinha",
+      "quandoUsar": "Você quer voltar à conversa falando do que ele queria resolver, e não da proposta.",
+      "clienteFez": "Sumiu depois de ver a proposta",
+      "naoMandar": "Posso te ajudar com a proposta?",
+      "motivoNaoMandar": "Fala da sua venda, e o cliente pensa primeiro no problema dele.",
+      "mensagemPrincipal": "Lembrei da nossa conversa sobre [Problema], [Nome]. Você comentou que isso estava custando [Impacto] por mês. Esse assunto continua entre as suas prioridades ou mudou alguma coisa?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Problema]",
+        "[Impacto]"
+      ],
+      "objetivo": "Reconectar a conversa com a dor real do cliente.",
+      "seResponder": "Se continua prioridade, mostre em uma frase como sua proposta resolve isso e sugira o próximo passo.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "04",
+      "categoria": "01",
+      "tituloSituacao": "Quero saber se ele ainda quer seguir",
+      "quandoUsar": "Você precisa entender se ainda existe intenção real de seguir com a negociação.",
+      "clienteFez": "Parou de responder sem avisar",
+      "naoMandar": "Ainda tem interesse?",
+      "motivoNaoMandar": "Pergunta seca que força o cliente a se posicionar sem contexto.",
+      "mensagemPrincipal": "[Nome], queria entender em que pé estamos: faz sentido seguirmos com a proposta de [Solução] agora ou prefere retomarmos mais para frente? Qualquer resposta me ajuda.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]"
+      ],
+      "objetivo": "Obter clareza sobre o momento do cliente, com respeito.",
+      "seResponder": "Se for agora, defina o próximo passo. Se for depois, combine uma data e anote na folha de controle.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "05",
+      "categoria": "01",
+      "tituloSituacao": "Já fiz um contato e quero abordar diferente",
+      "quandoUsar": "Você já fez um primeiro contato e quer mudar a abordagem em vez de repetir a cobrança.",
+      "clienteFez": "Ignorou o primeiro follow-up",
+      "naoMandar": "Só reforçando minha mensagem anterior.",
+      "motivoNaoMandar": "Repete o que não funcionou e não traz nada novo para ele.",
+      "mensagemPrincipal": "Oi, [Nome]! Em vez de repetir minha última mensagem, separei algo útil: o caso de [Caso similar], que tinha o mesmo desafio de [Problema]. Quer que eu te envie o resumo?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Caso similar]",
+        "[Problema]"
+      ],
+      "objetivo": "Trazer valor novo e dar um motivo real para ele responder.",
+      "seResponder": "Envie o resumo curto e pergunte qual parte se parece mais com a situação dele.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "06",
+      "categoria": "02",
+      "tituloSituacao": "Ele abriu a proposta e ficou em silêncio",
+      "quandoUsar": "Você sabe que ele visualizou a proposta, mas não houve nenhuma resposta.",
+      "clienteFez": "Visualizou a proposta e não respondeu",
+      "naoMandar": "Vi que você leu, o que achou?",
+      "motivoNaoMandar": "Deixa claro que você está monitorando e gera desconforto.",
+      "mensagemPrincipal": "Uma proposta costuma deixar perguntas na cabeça, principalmente sobre [Ponto da proposta]. Se surgir alguma, mesmo que pareça pequena, me manda aqui que eu respondo ainda hoje, [Nome].",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Ponto da proposta]"
+      ],
+      "objetivo": "Abrir a porta para dúvidas sem citar que ele visualizou.",
+      "seResponder": "Responda de forma objetiva e termine com uma pergunta que leve ao próximo passo.",
+      "observacaoOpcional": "Evite citar a visualização. Isso parece vigilância."
+    },
+    {
+      "id": "07",
+      "categoria": "02",
+      "tituloSituacao": "Ele viu meu follow-up e continuou calado",
+      "quandoUsar": "Você mandou um follow-up, ele visualizou e também não respondeu.",
+      "clienteFez": "Visualizou o follow-up e não respondeu",
+      "naoMandar": "Oi, conseguiu ver minha mensagem?",
+      "motivoNaoMandar": "Repete o contato anterior e cobra uma resposta que ele não deu.",
+      "mensagemPrincipal": "Resumo da proposta em três linhas, [Nome]: [Resumo]. Sei que a rotina aperta, então se fizer sentido, me responda só com “vamos” e eu te mando os próximos passos.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Resumo]"
+      ],
+      "objetivo": "Facilitar a decisão com um resumo curto e uma ação simples.",
+      "seResponder": "Se disser “vamos”, envie os próximos passos. Se tiver dúvida, responda e proponha uma data para decidir.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "08",
+      "categoria": "02",
+      "tituloSituacao": "Quero retomar sem parecer ansioso",
+      "quandoUsar": "Você quer voltar a falar com ele sem transmitir ansiedade ou cobrança.",
+      "clienteFez": "Silêncio depois de visualizar",
+      "naoMandar": "Estou aguardando seu retorno.",
+      "motivoNaoMandar": "Soa como cobrança e coloca o cliente na posição de devedor.",
+      "mensagemPrincipal": "[Nome], vou deixar a proposta de [Solução] com você e te chamo de novo no dia [Data] para ver como ficou. Se surgir qualquer dúvida antes disso, é só me chamar.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]",
+        "[Data]"
+      ],
+      "objetivo": "Mostrar calma e combinar um novo ponto de contato.",
+      "seResponder": "Responda a dúvida e proponha um horário para conversarem. Se ele pedir outra data, anote na folha de controle.",
+      "observacaoOpcional": "Cumpra a data que você mesmo definiu."
+    },
+    {
+      "id": "09",
+      "categoria": "02",
+      "tituloSituacao": "Quero uma pergunta simples que ele responda rápido",
+      "quandoUsar": "Você quer uma pergunta fácil, que o cliente consiga responder com uma palavra ou um número.",
+      "clienteFez": "Leu e deixou a conversa parada",
+      "naoMandar": "O que você achou?",
+      "motivoNaoMandar": "Pergunta aberta demais exige esforço e costuma ficar sem resposta.",
+      "mensagemPrincipal": "Uma pergunta rápida, [Nome]: o que pesa mais na sua decisão hoje? 1) preço, 2) prazo, 3) escopo ou 4) outro assunto. Pode responder só com o número.",
+      "camposPersonalizaveis": [
+        "[Nome]"
+      ],
+      "objetivo": "Gerar uma resposta curta que mostre onde está a trava.",
+      "seResponder": "Use o número escolhido para tratar só aquele ponto e proponha um próximo passo.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "10",
+      "categoria": "03",
+      "tituloSituacao": "Ele disse “amanhã te respondo” e não respondeu",
+      "quandoUsar": "O cliente prometeu responder no dia seguinte e o prazo passou.",
+      "clienteFez": "Prometeu responder amanhã",
+      "naoMandar": "Cadê sua resposta de ontem?",
+      "motivoNaoMandar": "Cobra a promessa de forma direta e deixa o clima pesado.",
+      "mensagemPrincipal": "Ontem ficamos de nos falar e imagino que o dia tenha sido corrido, [Nome]. Para não deixar nada solto: prefere que eu te chame em [Dia 1] ou em [Dia 2]?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Dia 1]",
+        "[Dia 2]"
+      ],
+      "objetivo": "Reagendar com leveza, oferecendo duas opções.",
+      "seResponder": "Confirme o dia escolhido e envie um convite no calendário para a conversa.",
+      "observacaoOpcional": "Mande no fim da manhã do dia seguinte ao prazo."
+    },
+    {
+      "id": "11",
+      "categoria": "03",
+      "tituloSituacao": "Ele ia me dar uma posição essa semana",
+      "quandoUsar": "O cliente prometeu uma posição até o fim da semana e a semana terminou.",
+      "clienteFez": "Prometeu uma posição na semana",
+      "naoMandar": "A semana acabou, e aí?",
+      "motivoNaoMandar": "Marca o descumprimento e coloca o cliente na defensiva.",
+      "mensagemPrincipal": "A semana terminou, [Nome], e queria saber como ficou do seu lado. Já deu para avaliar a proposta de [Solução] ou prefere que eu volte a falar com você no começo da próxima?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]"
+      ],
+      "objetivo": "Retomar o combinado e oferecer um novo ponto de contato.",
+      "seResponder": "Se ele pedir mais tempo, combine uma data concreta e registre na folha de controle.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "12",
+      "categoria": "03",
+      "tituloSituacao": "Ele ia analisar e me falar, mas não voltou",
+      "quandoUsar": "O cliente disse “vou analisar e te falo” e nunca voltou com a análise.",
+      "clienteFez": "Disse que ia analisar e não voltou",
+      "naoMandar": "E a análise, ficou pronta?",
+      "motivoNaoMandar": "Soa como cobrança de tarefa e não ajuda ele a avançar.",
+      "mensagemPrincipal": "[Nome], você comentou que ia analisar a proposta. Durante a análise, surgiu alguma dúvida sobre [Ponto da proposta]? Se quiser, separo 10 minutos amanhã para olharmos isso juntos.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Ponto da proposta]"
+      ],
+      "objetivo": "Apoiar a análise do cliente com uma oferta concreta de ajuda.",
+      "seResponder": "Se aceitar, marque o horário na hora. Se recusar, pergunte quando faz sentido voltar a falar.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "13",
+      "categoria": "03",
+      "tituloSituacao": "O prazo que ele pediu passou e não quero cobrar",
+      "quandoUsar": "O prazo que o próprio cliente pediu passou e você quer retomar sem soar passivo-agressivo.",
+      "clienteFez": "Pediu um prazo e ele passou",
+      "naoMandar": "Já passou do prazo que você deu.",
+      "motivoNaoMandar": "Joga o prazo na cara dele e deixa a conversa tensa.",
+      "mensagemPrincipal": "[Nome], chegamos em [Prazo combinado], o prazo que você pediu para decidir, então passei para saber como ficou. Alguma coisa mudou no seu cenário? Se mudou, me conta que eu me adapto.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Prazo combinado]"
+      ],
+      "objetivo": "Cumprir o combinado e abrir espaço para mudanças de cenário.",
+      "seResponder": "Se o cenário mudou, ajuste a proposta ou o prazo. Se não, peça uma nova data de decisão.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "14",
+      "categoria": "04",
+      "tituloSituacao": "Ele pediu desconto e depois sumiu",
+      "quandoUsar": "O cliente pediu desconto, você respondeu e ele não deu mais notícia.",
+      "clienteFez": "Pediu desconto e não respondeu mais",
+      "naoMandar": "Então, vai fechar ou não?",
+      "motivoNaoMandar": "Pressiona uma decisão logo depois de uma conversa sensível.",
+      "mensagemPrincipal": "Depois que conversamos sobre valores, [Nome], fiquei na dúvida se a minha resposta ajudou. O que ficou faltando para você ter segurança de seguir com [Solução]?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]"
+      ],
+      "objetivo": "Descobrir o que falta para decidir, sem mexer no valor.",
+      "seResponder": "Escute a trava, responda só o ponto levantado e confirme o próximo passo antes de falar de valor.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "15",
+      "categoria": "04",
+      "tituloSituacao": "Apresentei uma condição e ele não respondeu",
+      "quandoUsar": "Você apresentou uma condição comercial e o cliente sumiu em seguida.",
+      "clienteFez": "Recebeu uma condição e sumiu",
+      "naoMandar": "Essa é a melhor condição que eu consigo.",
+      "motivoNaoMandar": "Soa como ultimato e fecha a conversa em vez de abrir.",
+      "mensagemPrincipal": "[Nome], sobre a condição que te apresentei: [Condição]. Ficou alguma dúvida? Se quiser, te mostro como ela funciona na prática, mês a mês, para você avaliar com calma.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Condição]"
+      ],
+      "objetivo": "Confirmar o entendimento da condição e facilitar a avaliação.",
+      "seResponder": "Se ele pedir a simulação, envie em uma página e combine quando vão conversar sobre ela.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "16",
+      "categoria": "04",
+      "tituloSituacao": "Ele disse que fecharia se eu pudesse e sumiu",
+      "quandoUsar": "Ele disse que fecharia se uma condição fosse possível, mas não respondeu mais.",
+      "clienteFez": "Condicionou o fechamento e sumiu",
+      "naoMandar": "Você disse que fechava, e agora?",
+      "motivoNaoMandar": "Cobra uma frase dita no calor da conversa e gera desconforto.",
+      "mensagemPrincipal": "Você comentou que seguiria se [Condição] fosse possível, [Nome]. Verifiquei internamente e [Resposta à condição]. Se esse ainda é o ponto principal, me avise e eu preparo o que falta para avançarmos.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Condição]",
+        "[Resposta à condição]"
+      ],
+      "objetivo": "Responder à condição que o próprio cliente colocou.",
+      "seResponder": "Se ele confirmar, envie o que falta para fechar. Se mudou de ideia, pergunte com calma o que mudou.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "17",
+      "categoria": "04",
+      "tituloSituacao": "Quero retomar sem oferecer novo desconto",
+      "quandoUsar": "A conversa travou no preço e você quer retomar sem abrir mão da sua margem.",
+      "clienteFez": "Sumiu depois da conversa de preço",
+      "naoMandar": "Posso melhorar um pouco mais o valor.",
+      "motivoNaoMandar": "Ensina o cliente que sumir rende desconto e enfraquece sua proposta.",
+      "mensagemPrincipal": "Revisei com calma o que conversamos, [Nome]. O valor de [Valor] está ligado a [Entrega], e posso ajustar o escopo para caber melhor no seu momento. Quer ver essa opção?",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Valor]",
+        "[Entrega]"
+      ],
+      "objetivo": "Oferecer ajuste de escopo para manter o valor da proposta.",
+      "seResponder": "Se ele topar, monte uma versão enxuta e envie com prazo claro. Se recusar, pergunte o que pesa mais.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "18",
+      "categoria": "05",
+      "tituloSituacao": "Ele precisava falar com o sócio e sumiu",
+      "quandoUsar": "O cliente disse “preciso falar com meu sócio” e você não ouviu mais nada.",
+      "clienteFez": "Foi falar com o sócio e não voltou",
+      "naoMandar": "Já falou com seu sócio?",
+      "motivoNaoMandar": "Pergunta de cobrança que não ajuda a conversa a andar.",
+      "mensagemPrincipal": "Como foi a conversa com [Sócio], [Nome]? Se surgir alguma pergunta que você não saiba responder, me passa que eu respondo direto, ou podemos marcar 15 minutos nós três.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Sócio]"
+      ],
+      "objetivo": "Oferecer apoio para a decisão em grupo.",
+      "seResponder": "Se aceitar a reunião, proponha dois horários e peça o contato da outra pessoa para o convite.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "19",
+      "categoria": "05",
+      "tituloSituacao": "Ele ia consultar o gestor e não deu retorno",
+      "quandoUsar": "O cliente precisava consultar um gestor ou outro decisor e não retornou.",
+      "clienteFez": "Foi consultar o gestor e sumiu",
+      "naoMandar": "O seu chefe já aprovou?",
+      "motivoNaoMandar": "Soa como pressão sobre uma decisão que não está nas mãos dele.",
+      "mensagemPrincipal": "Oi, [Nome]! Para ajudar a levar a proposta até [Decisor], quer que eu te mande um resumo de uma página com o problema, a solução e o investimento? Assim você não precisa explicar tudo sozinho.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Decisor]"
+      ],
+      "objetivo": "Entregar um material que ele possa encaminhar ao decisor.",
+      "seResponder": "Envie o resumo no mesmo dia e pergunte quando ele pretende apresentar ao decisor.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "20",
+      "categoria": "05",
+      "tituloSituacao": "Ele ia apresentar a proposta lá dentro e sumiu",
+      "quandoUsar": "Ele disse que apresentaria a proposta internamente e depois parou de responder.",
+      "clienteFez": "Ia apresentar internamente e sumiu",
+      "naoMandar": "Apresentou a proposta pra equipe?",
+      "motivoNaoMandar": "Pede um relato e não oferece nada que ajude a apresentação.",
+      "mensagemPrincipal": "Se a proposta já passou pela sua equipe, [Nome], quais perguntas apareceram? Costumam surgir dúvidas sobre [Ponto da proposta], e eu posso te passar respostas prontas para levar de volta.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Ponto da proposta]"
+      ],
+      "objetivo": "Antecipar dúvidas internas e se colocar à disposição.",
+      "seResponder": "Se ele trouxer perguntas, responda por escrito de forma curta para ele encaminhar à equipe.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "21",
+      "categoria": "05",
+      "tituloSituacao": "Ele conversou internamente e não deu posição",
+      "quandoUsar": "Houve conversa interna do lado dele, mas você ainda não recebeu uma posição.",
+      "clienteFez": "Conversou internamente e não retornou",
+      "naoMandar": "E aí, qual foi a decisão?",
+      "motivoNaoMandar": "Cobra uma decisão coletiva que pode estar em andamento.",
+      "mensagemPrincipal": "Imagino que a decisão envolva mais gente e leve seu tempo, [Nome]. Existe alguma data em que vocês pretendem decidir? Assim eu me organizo e volto a falar com você perto desse dia.",
+      "camposPersonalizaveis": [
+        "[Nome]"
+      ],
+      "objetivo": "Descobrir o prazo real da decisão e se alinhar a ele.",
+      "seResponder": "Anote a data informada e retome dois dias antes, com uma mensagem curta de apoio.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "22",
+      "categoria": "06",
+      "tituloSituacao": "Já mandei dois follow-ups e nada",
+      "quandoUsar": "Você já fez dois follow-ups sem resposta e quer tentar de novo sem insistir.",
+      "clienteFez": "Ignorou dois follow-ups",
+      "naoMandar": "Estou tentando falar com você de novo.",
+      "motivoNaoMandar": "Repete a insistência e fala do seu esforço, sem mostrar o que ele ganha.",
+      "mensagemPrincipal": "Em vez de mais uma pergunta, deixo aqui [Conteúdo útil] sobre [Problema], [Nome]. Pode ajudar na sua avaliação, mesmo que a proposta fique para depois. Sem compromisso.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Conteúdo útil]",
+        "[Problema]"
+      ],
+      "objetivo": "Entregar valor novo em vez de mais um pedido de resposta.",
+      "seResponder": "Se ele reagir ao material, use o interesse para propor uma conversa curta.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "23",
+      "categoria": "06",
+      "tituloSituacao": "Quero uma definição sem soar agressivo",
+      "quandoUsar": "Você precisa de uma definição e quer pedi-la de forma educada, sem pressão.",
+      "clienteFez": "Segue sem dar posição",
+      "naoMandar": "Preciso de um retorno até hoje.",
+      "motivoNaoMandar": "Impõe prazo e transforma a conversa em cobrança.",
+      "mensagemPrincipal": "Sem pressa, [Nome], mas queria combinar um próximo passo. Se a proposta ainda está em avaliação, que data seria realista para você me dar uma posição? Eu volto a falar com você nesse dia.",
+      "camposPersonalizaveis": [
+        "[Nome]"
+      ],
+      "objetivo": "Pedir uma data realista de posição, sem impor prazo.",
+      "seResponder": "Anote a data informada e retome nesse dia. Se ele disser que não é prioridade, pergunte quando vale voltar.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "24",
+      "categoria": "06",
+      "tituloSituacao": "Percebi que estou perseguindo o cliente",
+      "quandoUsar": "Você percebe que está insistindo demais e precisa estabelecer um limite saudável.",
+      "clienteFez": "Sem resposta após várias tentativas",
+      "naoMandar": "Desculpa incomodar de novo, mas…",
+      "motivoNaoMandar": "Soa como ameaça e deixa o cliente ainda mais distante.",
+      "mensagemPrincipal": "Tentei algumas vezes e não vou continuar te procurando, [Nome]. Volto a falar com você só em [Data], para saber se o cenário mudou. Se quiser retomar antes, me chame.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Data]"
+      ],
+      "objetivo": "Estabelecer um limite com respeito e dizer quando você volta.",
+      "seResponder": "Registre a data na folha de controle e só volte nesse dia. Se ele chamar antes, continue de onde parou.",
+      "observacaoOpcional": "Depois de enviar, pare de insistir de verdade."
+    },
+    {
+      "id": "25",
+      "categoria": "07",
+      "tituloSituacao": "Quero fazer um último contato educado",
+      "quandoUsar": "Antes de encerrar os follow-ups, você quer fazer um último contato cordial.",
+      "clienteFez": "Sem resposta depois de toda a sequência",
+      "naoMandar": "Última vez que eu te procuro.",
+      "motivoNaoMandar": "Soa como ameaça disfarçada e não dá motivo para ele responder.",
+      "mensagemPrincipal": "[Nome], não quero ficar insistindo, então vou deixar a proposta de [Solução] com você. Se o momento mudar, é só me chamar. Desejo muito sucesso com [Projeto].",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]",
+        "[Projeto]"
+      ],
+      "objetivo": "Encerrar a sequência com cordialidade, sem cobrar nada.",
+      "seResponder": "Se ele responder, retome com calma de onde parou. Se não, marque como pausado na folha de controle e siga para outros clientes.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "26",
+      "categoria": "07",
+      "tituloSituacao": "Quero encerrar deixando a porta aberta",
+      "quandoUsar": "Você vai encerrar os follow-ups e quer deixar a porta aberta para o futuro.",
+      "clienteFez": "Não voltou ao contato",
+      "naoMandar": "Qualquer coisa me procura.",
+      "motivoNaoMandar": "Genérica demais e sem nenhum motivo concreto para ele voltar.",
+      "mensagemPrincipal": "Vou deixar nossa conversa em pausa, [Nome]. Se [Evento futuro] acontecer, a proposta de [Solução] serve como ponto de partida e eu atualizo os números para você.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Evento futuro]",
+        "[Solução]"
+      ],
+      "objetivo": "Pausar a negociação com um motivo concreto para ele voltar.",
+      "seResponder": "Anote o evento citado e faça um contato de manutenção em 60 a 90 dias.",
+      "observacaoOpcional": ""
+    },
+    {
+      "id": "27",
+      "categoria": "07",
+      "tituloSituacao": "Quero uma resposta objetiva, mesmo que seja não",
+      "quandoUsar": "Você quer uma resposta objetiva, inclusive se ela for um “não”.",
+      "clienteFez": "Silêncio total depois da proposta",
+      "naoMandar": "Se não responder, vou entender que é não.",
+      "motivoNaoMandar": "Parece ultimato e faz o cliente se sentir pressionado.",
+      "mensagemPrincipal": "[Nome], se a proposta de [Solução] não faz mais sentido para você hoje, tudo bem. Pode me dizer com franqueza, eu agradeço e sigo à disposição se isso mudar.",
+      "camposPersonalizaveis": [
+        "[Nome]",
+        "[Solução]"
+      ],
+      "objetivo": "Dar ao cliente permissão para dizer não com tranquilidade.",
+      "seResponder": "Se for não, agradeça e pergunte o motivo para melhorar. Se for sim, retome o próximo passo.",
+      "observacaoOpcional": ""
+    }
   ],
-  "naoMande": { "titulo": "7 FOLLOW-UPS QUE VOCÊ DEVE PARAR DE MANDAR", "intro": "Não são sempre erradas, mas ficam fracas quando repetidas sem contexto.", "cards": [
-    { "frase": "Alguma novidade?", "porque": "Pede notícia ao cliente sem dar a ele nenhum motivo para responder.", "alternativa": "Use a mensagem 03" },
-    { "frase": "Conseguiu analisar?", "porque": "Pede um sim ou não vazio e não ajuda a conversa a andar.", "alternativa": "Use a mensagem 02" },
-    { "frase": "Só passando para saber…", "porque": "Não tem objetivo claro e deixa a mensagem fácil de ignorar.", "alternativa": "Veja a categoria 02" },
-    { "frase": "Estou aguardando seu retorno.", "porque": "Repetida, soa como cobrança e coloca o cliente na defensiva.", "alternativa": "Use a mensagem 08" },
-    { "frase": "Oi, conseguiu ver minha mensagem?", "porque": "Repete o contato anterior e costuma gerar mais silêncio.", "alternativa": "Use a mensagem 07" },
-    { "frase": "E aí, vamos fechar?", "porque": "Pressiona a decisão sem entender o momento do cliente.", "alternativa": "Use a mensagem 04" },
-    { "frase": "Posso te ajudar em mais alguma coisa?", "porque": "Parece atendimento de balcão e não cria nenhum próximo passo.", "alternativa": "Use a mensagem 01" }
-  ] },
-  "erros": { "titulo": "7 ERROS QUE FAZEM O VENDEDOR PARECER DESESPERADO", "itens": [
-    { "titulo": "Mandar mensagens seguidas em intervalos curtos", "explicacao": "Três mensagens no mesmo dia mostram ansiedade. Dê tempo entre os contatos." },
-    { "titulo": "Repetir a mesma pergunta", "explicacao": "Se a pergunta não funcionou da primeira vez, repeti-la só aumenta o silêncio." },
-    { "titulo": "Oferecer desconto sem o cliente pedir", "explicacao": "Você enfraquece a proposta e ensina que sumir rende um preço melhor." },
-    { "titulo": "Escrever textões defensivos", "explicacao": "Mensagem longa e na defensiva cansa e dá ao cliente mais motivos para não ler." },
-    { "titulo": "Cobrar resposta como se ele tivesse obrigação", "explicacao": "O cliente não deve resposta. Dê a ele um motivo para querer responder." },
-    { "titulo": "Não criar um próximo passo claro", "explicacao": "Sem data, pergunta ou ação definida, a conversa termina em \"depois eu vejo\"." },
-    { "titulo": "Insistir mesmo com desinteresse claro", "explicacao": "Quando ele já sinalizou que não quer, insistir queima a relação e o seu tempo." }
-  ] },
-  "colaRapida": { "titulo": ["CLIENTE SUMIU?", "OLHE AQUI."] },
-  "controle": { "titulo": "MEUS CLIENTES SUMIDOS", "colunas": ["Cliente","Empresa","Valor da proposta","Data da proposta","Último contato","Mensagem utilizada","Respondeu?","Próxima ação"], "linhas": 9, "avisoExtra": "IMPRIMA QUANTAS CÓPIAS PRECISAR." },
-  "contracapa": { "linhas": ["Cliente sumiu?", "Pare de improvisar.", "Encontre a situação.", "Escolha a mensagem.", "Retome a conversa."] }
+  "naoMande": {
+    "titulo": "7 FOLLOW-UPS QUE VOCÊ DEVE PARAR DE MANDAR",
+    "intro": "Essas frases funcionam mal quando são repetidas sem contexto.",
+    "cards": [
+      {
+        "frase": "Alguma novidade?",
+        "porque": "Pede notícia ao cliente sem dar a ele nenhum motivo para responder.",
+        "alternativa": "Use a mensagem 01"
+      },
+      {
+        "frase": "Conseguiu analisar?",
+        "porque": "Pede um sim ou não vazio e não ajuda a conversa a andar.",
+        "alternativa": "Use a mensagem 02"
+      },
+      {
+        "frase": "Só passando para saber…",
+        "porque": "Não tem objetivo claro e deixa a mensagem fácil de ignorar.",
+        "alternativa": "Use a mensagem 05"
+      },
+      {
+        "frase": "Estou aguardando seu retorno.",
+        "porque": "Repetida, soa como cobrança e coloca o cliente na defensiva.",
+        "alternativa": "Use a mensagem 08"
+      },
+      {
+        "frase": "Oi, conseguiu ver minha mensagem?",
+        "porque": "Repete o contato anterior e costuma gerar mais silêncio.",
+        "alternativa": "Use a mensagem 07"
+      },
+      {
+        "frase": "E aí, vamos fechar?",
+        "porque": "Pressiona a decisão sem entender o momento do cliente.",
+        "alternativa": "Use a mensagem 04"
+      },
+      {
+        "frase": "Posso te ajudar em mais alguma coisa?",
+        "porque": "Parece atendimento de balcão e não cria nenhum próximo passo.",
+        "alternativa": "Use a mensagem 03"
+      }
+    ]
+  },
+  "erros": {
+    "titulo": "7 ERROS QUE FAZEM O VENDEDOR PARECER DESESPERADO",
+    "itens": [
+      {
+        "titulo": "Mandar mensagens seguidas em intervalos curtos",
+        "explicacao": "Três mensagens no mesmo dia mostram ansiedade. Dê tempo entre os contatos."
+      },
+      {
+        "titulo": "Repetir a mesma pergunta",
+        "explicacao": "Se a pergunta não funcionou da primeira vez, repeti-la só aumenta o silêncio."
+      },
+      {
+        "titulo": "Oferecer desconto sem o cliente pedir",
+        "explicacao": "Você enfraquece a proposta e ensina que sumir rende um preço melhor."
+      },
+      {
+        "titulo": "Escrever textões defensivos",
+        "explicacao": "Mensagem longa e na defensiva cansa e dá ao cliente mais motivos para não ler."
+      },
+      {
+        "titulo": "Cobrar resposta como se ele tivesse obrigação",
+        "explicacao": "Ninguém é obrigado a responder. Dê a ele um bom motivo para querer."
+      },
+      {
+        "titulo": "Não criar um próximo passo claro",
+        "explicacao": "Sem data, pergunta ou ação definida, a conversa termina em “depois eu vejo”."
+      },
+      {
+        "titulo": "Insistir mesmo com desinteresse claro",
+        "explicacao": "Quando ele já sinalizou que não quer, insistir queima a relação e o seu tempo."
+      }
+    ]
+  },
+  "colaRapida": {
+    "titulo": [
+      "CLIENTE SUMIU?",
+      "OLHE AQUI."
+    ]
+  },
+  "controle": {
+    "titulo": "MEUS CLIENTES SUMIDOS",
+    "colunas": [
+      "Cliente",
+      "Empresa",
+      "Valor da proposta",
+      "Data da proposta",
+      "Último contato",
+      "Mensagem utilizada",
+      "Respondeu?",
+      "Próxima ação"
+    ],
+    "linhas": 9,
+    "avisoExtra": "IMPRIMA QUANTAS CÓPIAS PRECISAR."
+  },
+  "contracapa": {
+    "linhas": [
+      "Cliente sumiu?",
+      "Pare de improvisar.",
+      "Encontre a situação.",
+      "Escolha a mensagem.",
+      "Retome a conversa."
+    ]
+  }
 }

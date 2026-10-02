@@ -10,6 +10,7 @@ body {
   color: var(--ink);
   background: #D9DCE1;
   -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
