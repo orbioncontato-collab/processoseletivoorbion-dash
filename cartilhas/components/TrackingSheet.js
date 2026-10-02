@@ -7,8 +7,11 @@ export function TrackingSheet(ctx, { extra = false } = {}) {
   const head = c.colunas.map((col, i) => `<th style="width:${widths[i] ?? 12}%">${esc(col)}</th>`).join("");
   const ynIndex = c.colunas.findIndex((col) => /respondeu/i.test(col));
   const msgIndex = c.colunas.findIndex((col) => /mensagem/i.test(col));
+  const valIndex = c.colunas.findIndex((col) => /valor/i.test(col));
   const row = c.colunas
-    .map((_, i) => (i === ynIndex ? `<td class="yn">☐ Sim ☐ Não</td>` : i === msgIndex ? `<td>Nº</td>` : "<td></td>"))
+    .map((_, i) =>
+      i === ynIndex ? `<td class="yn">☐ Sim ☐ Não</td>` : i === msgIndex ? `<td>Nº</td>` : i === valIndex ? `<td>R$</td>` : "<td></td>"
+    )
     .join("");
   const rows = Array.from({ length: c.linhas }, () => `<tr>${row}</tr>`).join("");
   const body = `

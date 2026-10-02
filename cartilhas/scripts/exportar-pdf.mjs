@@ -71,7 +71,7 @@ const report = await page.evaluate(({ bleedMm }) => {
     if (content.scrollHeight > content.clientHeight + 1) problems.push(`pág ${n}: conteúdo maior que a página (${content.scrollHeight - content.clientHeight}px)`);
     p.querySelectorAll(".content *").forEach((el) => {
       const e = el.getBoundingClientRect();
-      if (!e.width || !e.height) return;
+      if (!e.width || !e.height || el.hasAttribute("data-decor")) return; // fundo decorativo pode ir até a borda
       if (e.left < box.l || e.top < box.t || e.right > box.r || e.bottom > box.b) {
         problems.push(`pág ${n}: <${el.tagName.toLowerCase()} class="${el.className}"> sai da margem segura`);
       }

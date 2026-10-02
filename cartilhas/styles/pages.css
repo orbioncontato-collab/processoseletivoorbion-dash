@@ -46,6 +46,8 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
 
 /* ---------- Elementos comuns ---------- */
 .eyebrow {
+  font-kerning: none;
+  font-variant-ligatures: none;
   font-size: 8.5pt;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -60,6 +62,8 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
 }
 .label {
   display: block;
+  font-kerning: none;
+  font-variant-ligatures: none;
   font-size: 8pt;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -69,7 +73,7 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
 .ph { /* campo personalizável dentro da mensagem */
   background: var(--warn-soft);
   border-bottom: 0.45mm solid var(--warn);
-  padding: 0 0.6mm;
+  padding: 0 0.25mm;
   font-weight: 700;
   border-radius: 0.6mm;
   white-space: nowrap;
@@ -211,16 +215,15 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
    SEPARADOR DE CATEGORIA (mesmo layout para todas)
    ========================================================== */
 .page-divider { background: var(--paper); }
-.page-divider::before { /* faixa superior decorativa, pode ir até a sangria */
-  content: ""; position: absolute; left: 0; right: 0; top: 0;
-  height: calc(var(--bleed) + 78mm);
+.div-hero { /* bloco cinza com altura automática: vai até a borda (e sangria) */
+  margin: calc(-1 * (var(--bleed) + var(--safe))) calc(-1 * (var(--bleed) + var(--safe))) 0;
+  padding: calc(var(--bleed) + var(--safe)) calc(var(--bleed) + var(--safe)) 9mm;
   background: var(--gray-50);
 }
-.page-divider .content { position: relative; }
 .div-top { display: flex; justify-content: space-between; align-items: baseline; }
 .div-num { margin-top: 5mm; font-size: 88pt; line-height: 0.85; font-weight: 900; letter-spacing: -0.05em; color: var(--brand); }
 .div-title { margin-top: 7mm; font-size: 27pt; line-height: 1.04; font-weight: 900; letter-spacing: -0.025em; }
-.div-sub { margin-top: 13mm; font-size: 12.5pt; line-height: 1.4; font-weight: 600; color: var(--gray-700); }
+.div-sub { margin-top: 8mm; font-size: 12.5pt; line-height: 1.4; font-weight: 600; color: var(--gray-700); }
 .div-note {
   margin-top: 6mm;
   padding: 1mm 0 1mm 4mm;
@@ -371,8 +374,8 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
 /* ==========================================================
    44 — CONTRACAPA
    ========================================================== */
-.page-back .content { justify-content: space-between; }
-.back-lines { margin-top: 18mm; }
+.page-back .content { justify-content: flex-start; }
+.back-lines { margin: auto 0; }
 .back-lines p { font-size: 25pt; line-height: 1.22; font-weight: 900; letter-spacing: -0.02em; }
 .back-lines p:first-child { color: var(--brand); }
 .back-lines p:nth-child(2) { margin-bottom: 5mm; }

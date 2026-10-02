@@ -8,12 +8,14 @@ export function CategoryDivider(ctx, cat) {
     )
     .join("");
   const body = `
+    <div class="div-hero" data-decor>
     <div class="div-top">
       <span class="eyebrow">Categoria</span>
       <span class="eyebrow" style="color:var(--gray-500)">Mensagens ${esc(cat.intervalo)}</span>
     </div>
     <div class="div-num">${esc(cat.id)}</div>
     <h2 class="div-title">${cat.titulo.map(esc).join("<br>")}</h2>
+    </div>
     <p class="div-sub">${esc(cat.subtitulo)}</p>
     ${cat.nota ? `<p class="div-note">“${esc(cat.nota)}”</p>` : ""}
     ${cat.aviso ? `<div class="div-warn"><span class="label">Atenção</span>${esc(cat.aviso)}</div>` : ""}
