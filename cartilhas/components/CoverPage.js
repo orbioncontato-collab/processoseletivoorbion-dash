@@ -16,7 +16,7 @@ export function CoverPage(ctx) {
     </div>
     <div class="chat" aria-label="Conversa sem resposta">
       <div class="chat-out">
-        <div class="chat-bubble">${esc(capa.bolhaMensagem)}</div>
+        <div class="chat-bubble"><span class="chat-x" aria-label="Mensagem errada">✕</span>${esc(capa.bolhaMensagem)}</div>
         <div class="chat-meta">Mensagem enviada <span class="ticks">${esc(capa.status)}</span></div>
       </div>
       <div class="chat-silence"><span>${esc(capa.silencio)}</span></div>
