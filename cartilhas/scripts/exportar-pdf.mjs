@@ -3,6 +3,7 @@
 //   node scripts/exportar-pdf.mjs                     -> dist/cartilha-cliente-sumido.pdf
 //   node scripts/exportar-pdf.mjs --sangria           -> versão gráfica com 3mm de sangria
 //   node scripts/exportar-pdf.mjs --png               -> também salva cada página em PNG (dist/png)
+//   node scripts/exportar-pdf.mjs --a4-imagem         -> também gera PDF A4 em imagem (300 dpi), pronto para imprimir
 //   node scripts/exportar-pdf.mjs --cartilha=outra    -> usa data/cartilha-outra.json
 //
 // Requer o pacote "playwright" (npm i -D playwright) e o Chromium dele.
@@ -130,6 +131,32 @@ if (args.png) {
   fs.mkdirSync(pngDir, { recursive: true });
   const els = await page.$$(".page");
   for (let i = 0; i < els.length; i++) await els[i].screenshot({ path: path.join(pngDir, `pagina-${pad(i + 1)}.png`) });
+}
+
+if (args["a4-imagem"] && !bleed) {
+  // A5 -> A4 é escala exata (x1,414). Cada página vira um JPG de 300 dpi numa folha A4.
+  const DPI = 300;
+  const scale = (210 / 25.4 * DPI) / (148 / 25.4 * 96);
+  const hi = await browser.newPage({ deviceScaleFactor: scale });
+  await hi.goto(url);
+  await hi.waitForFunction(() => window.__CARTILHA_READY__);
+  await hi.evaluate(() => { document.querySelector(".toolbar").style.display = "none"; document.body.style.background = "#fff"; });
+  const imgs = [];
+  for (const el of await hi.$$(".page")) {
+    imgs.push((await el.screenshot({ type: "jpeg", quality: 82 })).toString("base64"));
+  }
+  const html = `<!doctype html><html><head><style>
+    @page { size: 210mm 297mm; margin: 0; }
+    html, body { margin: 0; padding: 0; }
+    img { display: block; width: 210mm; height: 297mm; break-after: page; }
+    img:last-child { break-after: auto; }
+  </style></head><body>${imgs.map((b) => `<img src="data:image/jpeg;base64,${b}">`).join("")}</body></html>`;
+  const sheet = await browser.newPage();
+  await sheet.setContent(html, { waitUntil: "load" });
+  const a4Path = path.join(outDir, `cartilha-${slug}-A4-imagem.pdf`);
+  await sheet.pdf({ path: a4Path, preferCSSPageSize: true, printBackground: true });
+  const a4Pages = (fs.readFileSync(a4Path, "latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+  ok(a4Pages === report.pages, `PDF A4 em imagem com ${a4Pages} páginas (${(fs.statSync(a4Path).size / 1e6).toFixed(1)} MB)`);
 }
 
 await browser.close();
