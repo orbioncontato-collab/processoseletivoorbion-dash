@@ -1,0 +1,51 @@
+/* ==========================================================
+   PRINT — tela (folhas sobre fundo cinza) e impressão/PDF
+   ========================================================== */
+
+/* O tamanho do @page é injetado pelo main.js para acompanhar a sangria.
+   Este valor é o padrão (A5 sem sangria). */
+@page { size: 148mm 210mm; margin: 0; }
+
+/* ---------- Tela ---------- */
+@media screen {
+  .toolbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 10px 20px;
+    background: var(--ink); color: #fff;
+    font-size: 13px; font-weight: 600;
+  }
+  .toolbar .info { opacity: 0.8; }
+  .toolbar .actions { display: flex; gap: 8px; }
+  .toolbar button, .toolbar a {
+    font: inherit; font-size: 13px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.35); background: transparent; color: #fff;
+    padding: 6px 12px; border-radius: 6px; text-decoration: none;
+  }
+  .toolbar button.primary { background: var(--brand-mint); color: var(--ink); border-color: var(--brand-mint); }
+  .sheets { display: flex; flex-direction: column; align-items: center; gap: 10mm; padding: 10mm 0 20mm; }
+  .page { box-shadow: 0 1px 2px rgba(10,17,35,0.08), 0 6px 18px rgba(10,17,35,0.12); }
+  body.guides .page::after { /* ?guias=1 mostra a margem segura */
+    content: ""; position: absolute; inset: calc(var(--bleed) + var(--safe));
+    outline: 0.3mm dashed rgba(217,74,74,0.6); pointer-events: none;
+  }
+}
+
+/* ---------- Impressão / PDF ---------- */
+@media print {
+  html, body { background: #fff; }
+  .toolbar { display: none !important; }
+  .sheets { display: block; padding: 0; margin: 0; }
+  .page {
+    box-shadow: none;
+    margin: 0;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+  }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+  .box, .bubble, .map-row, .cheat-row, .dont-card, .err-list li, .step, .track tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

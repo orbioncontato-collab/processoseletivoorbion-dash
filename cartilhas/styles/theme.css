@@ -1,0 +1,45 @@
+/* ==========================================================
+   THEME — identidade visual e sistema de cores da cartilha
+   Para mudar as cores de uma cartilha, altere só este bloco.
+   ========================================================== */
+
+@font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 500; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 700; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 800; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 900; font-style: normal; font-display: block; src: url("../assets/fonts/inter-latin-900-normal.woff2") format("woff2"); }
+
+:root {
+  /* Marca Orbion */
+  --ink: #0A1123;            /* azul noturno: textos e títulos */
+  --brand: #295D86;          /* azul estratégico: navegação, números, rótulos */
+  --brand-soft: #EAF1F7;
+  --brand-mint: #74FAA5;     /* verde orbital: só detalhe decorativo, nunca texto */
+
+  /* Neutros */
+  --paper: #FFFFFF;
+  --gray-50: #F4F4F4;
+  --gray-200: #E2E2E2;
+  --gray-500: #737373;
+  --gray-700: #4A4A4A;
+
+  /* Cores funcionais (cada uma tem UMA função) */
+  --go: #1F9D62;             /* verde: SOMENTE ação recomendada */
+  --go-ink: #136B41;
+  --go-soft: #EAF6EF;
+  --stop: #D94A4A;           /* vermelho: SOMENTE erro / não fazer */
+  --stop-ink: #A83232;
+  --stop-soft: #FCEEEE;
+  --warn: #F4B740;           /* amarelo: SOMENTE atenção / personalizar */
+  --warn-soft: #FFF5DD;
+
+  /* Tipografia */
+  --font: "Inter", Arial, Helvetica, sans-serif;
+
+  /* Formato de página (A5 vertical) */
+  --page-w: 148mm;
+  --page-h: 210mm;
+  --bleed: 0mm;              /* vira 3mm no modo gráfica (?sangria=1) */
+  --safe: 11mm;              /* margem segura (mínimo exigido: 10mm) */
+}

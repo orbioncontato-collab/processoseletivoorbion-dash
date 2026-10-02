@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Cartilhas: projeto estático separado (cartilhas/README.md)
+    "cartilhas/**",
   ]),
 ]);
 

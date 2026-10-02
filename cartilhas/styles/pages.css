@@ -1,0 +1,383 @@
+/* ==========================================================
+   PAGES — layout de todos os tipos de página
+   Medidas em mm/pt para bater 1:1 com a impressão A5.
+   ========================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: #D9DCE1;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 800; }
+
+/* ---------- Folha ---------- */
+.page {
+  position: relative;
+  width: calc(var(--page-w) + 2 * var(--bleed));
+  height: calc(var(--page-h) + 2 * var(--bleed));
+  padding: calc(var(--bleed) + var(--safe));
+  background: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page > .content { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+
+.page-footer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2.5mm;
+  margin-top: 3mm;
+  border-top: 0.25mm solid var(--gray-200);
+  font-size: 7.5pt;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+}
+.page-footer .pg { font-weight: 800; color: var(--ink); letter-spacing: 0.02em; font-size: 8.5pt; }
+
+/* ---------- Elementos comuns ---------- */
+.eyebrow {
+  font-size: 8.5pt;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.page-title {
+  font-size: 28pt;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 900;
+}
+.label {
+  display: block;
+  font-size: 8pt;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.3mm;
+}
+.ph { /* campo personalizável dentro da mensagem */
+  background: var(--warn-soft);
+  border-bottom: 0.45mm solid var(--warn);
+  padding: 0 0.6mm;
+  font-weight: 700;
+  border-radius: 0.6mm;
+  white-space: nowrap;
+}
+.num-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 9mm; height: 9mm; padding: 0 1.5mm;
+  border-radius: 2mm;
+  background: var(--ink); color: #fff;
+  font-weight: 900; font-size: 11pt; letter-spacing: -0.01em;
+}
+
+/* ==========================================================
+   01 — CAPA
+   ========================================================== */
+.page-cover .content { justify-content: flex-start; }
+.cover-top { display: flex; justify-content: space-between; align-items: center; }
+.cover-top .eyebrow { color: var(--gray-500); }
+.cover-bar { display: flex; gap: 1.2mm; }
+.cover-bar span { display: block; height: 1.6mm; width: 12mm; border-radius: 1mm; background: var(--ink); }
+.cover-bar span:last-child { width: 5mm; background: var(--brand-mint); }
+
+.cover-title { margin-top: 10mm; }
+.cover-title .t1 { display: block; font-size: 22pt; font-weight: 800; letter-spacing: -0.01em; color: var(--brand); }
+.cover-title .t2 { display: block; font-size: 50pt; line-height: 0.92; font-weight: 900; letter-spacing: -0.035em; margin-top: 1.5mm; }
+.cover-sub { margin-top: 6mm; font-size: 13pt; line-height: 1.35; font-weight: 500; color: var(--gray-700); max-width: 112mm; }
+.cover-sub strong { color: var(--ink); font-weight: 800; }
+
+.chat {
+  margin-top: 14mm;
+  background: var(--gray-50);
+  border-radius: 4mm;
+  padding: 6mm 5mm 5mm;
+}
+.chat-out { display: flex; flex-direction: column; align-items: flex-end; }
+.chat-bubble {
+  max-width: 82mm;
+  background: var(--brand-soft);
+  border: 0.3mm solid #C9DAE8;
+  border-radius: 3.5mm 3.5mm 0.8mm 3.5mm;
+  padding: 3mm 4mm;
+  font-size: 11.5pt; line-height: 1.35; font-weight: 500;
+}
+.chat-meta { margin-top: 1.4mm; font-size: 8.5pt; color: var(--gray-500); font-weight: 600; letter-spacing: 0.02em; }
+.chat-meta .ticks { color: var(--brand); font-weight: 800; letter-spacing: -0.08em; margin-left: 1mm; }
+.chat-silence { margin-top: 5mm; display: flex; align-items: center; gap: 3mm; color: var(--gray-500); }
+.chat-silence::before, .chat-silence::after { content: ""; flex: 1; border-top: 0.35mm dashed #BDBDBD; }
+.chat-silence span { font-size: 10pt; font-weight: 600; font-style: italic; letter-spacing: 0.18em; }
+
+.cover-bottom { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 6mm; }
+.brand-mark {
+  display: block;
+  height: 6mm; width: 23mm;
+  background: var(--ink);
+  -webkit-mask: url("../assets/orbion-logo.png") no-repeat left center / contain;
+  mask: url("../assets/orbion-logo.png") no-repeat left center / contain;
+}
+.brand-text { font-size: 8pt; font-weight: 800; letter-spacing: 0.22em; color: var(--ink); }
+
+/* ==========================================================
+   02 — ABERTURA
+   ========================================================== */
+.page-intro .content { justify-content: center; }
+.intro-headline { font-size: 32pt; line-height: 1.04; font-weight: 900; letter-spacing: -0.03em; }
+.intro-comp { margin-top: 5mm; font-size: 15pt; font-weight: 800; color: var(--brand); }
+.intro-rule { width: 14mm; height: 1.4mm; border-radius: 1mm; background: var(--ink); margin: 9mm 0 7mm; }
+.intro-text p { font-size: 12pt; line-height: 1.55; color: var(--gray-700); }
+.intro-text p + p { margin-top: 4mm; }
+.intro-text p:last-child { color: var(--ink); font-weight: 600; }
+.intro-pointer { margin-top: 10mm; display: inline-flex; align-items: center; gap: 2.5mm; font-size: 10.5pt; font-weight: 700; color: var(--brand); }
+.intro-pointer .arrow { font-size: 13pt; }
+
+/* ==========================================================
+   03 — COMO USAR
+   ========================================================== */
+.steps { margin-top: 9mm; display: flex; flex-direction: column; }
+.step { display: grid; grid-template-columns: 16mm 1fr; gap: 0 4mm; position: relative; padding-bottom: 7mm; }
+.step:last-child { padding-bottom: 0; }
+.step::before { /* linha que liga as etapas */
+  content: ""; position: absolute; left: 8mm; top: 16mm; bottom: 0;
+  border-left: 0.5mm dashed #B9C6D3;
+}
+.step:last-child::before { display: none; }
+.step-num {
+  width: 16mm; height: 16mm; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ink); color: #fff; font-size: 15pt; font-weight: 900;
+}
+.step:last-child .step-num { background: var(--go); }
+.step-body { padding-top: 2.2mm; }
+.step-title { font-size: 13pt; font-weight: 900; line-height: 1.15; letter-spacing: -0.005em; }
+.step-desc { margin-top: 1.5mm; font-size: 10.5pt; line-height: 1.45; color: var(--gray-700); }
+.howto-foot {
+  margin-top: auto;
+  background: var(--gray-50);
+  border-radius: 3mm;
+  padding: 4.5mm 5mm;
+  font-size: 11pt; line-height: 1.45; font-weight: 600;
+}
+
+/* ==========================================================
+   04 — MAPA  /  41 — COLA RÁPIDA (mesmo sistema de linhas)
+   ========================================================== */
+.map-list { margin-top: 7mm; display: flex; flex-direction: column; gap: 2.4mm; }
+.map-row {
+  display: grid;
+  grid-template-columns: 9mm 1fr auto;
+  align-items: center;
+  gap: 3.5mm;
+  padding: 3mm 3.5mm;
+  border: 0.3mm solid var(--gray-200);
+  border-radius: 2.5mm;
+}
+.map-row .situ { font-size: 11.5pt; font-weight: 700; line-height: 1.25; }
+.map-row .go-to { text-align: right; white-space: nowrap; }
+.map-row .go-to .msgs { display: block; font-size: 11pt; font-weight: 900; }
+.map-row .go-to .msgs .arr { color: var(--brand); margin-right: 1mm; }
+.map-row .go-to .pgs { display: block; font-size: 8pt; font-weight: 600; color: var(--gray-500); margin-top: 0.6mm; letter-spacing: 0.04em; }
+.map-hint { margin-top: auto; font-size: 9.5pt; color: var(--gray-500); line-height: 1.45; }
+.map-hint strong { color: var(--ink); }
+
+.page-cheat .page-title { font-size: 34pt; }
+.cheat-list { margin-top: 7mm; display: flex; flex-direction: column; }
+.cheat-row {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4mm;
+  padding: 3.6mm 0;
+  border-bottom: 0.35mm solid var(--gray-200);
+}
+.cheat-row:first-child { border-top: 0.8mm solid var(--ink); }
+.cheat-row .situ { font-size: 13pt; font-weight: 700; line-height: 1.2; display: flex; align-items: center; gap: 3mm; }
+.cheat-row .situ .num-badge { min-width: 8mm; height: 8mm; font-size: 10pt; }
+.cheat-row .range {
+  font-size: 17pt; font-weight: 900; letter-spacing: -0.01em; white-space: nowrap;
+}
+.cheat-row .range .arr { color: var(--brand); font-size: 13pt; margin-right: 1.5mm; }
+.cheat-foot { margin-top: auto; font-size: 9.5pt; color: var(--gray-500); line-height: 1.45; }
+
+/* ==========================================================
+   SEPARADOR DE CATEGORIA (mesmo layout para todas)
+   ========================================================== */
+.page-divider { background: var(--paper); }
+.page-divider::before { /* faixa superior decorativa, pode ir até a sangria */
+  content: ""; position: absolute; left: 0; right: 0; top: 0;
+  height: calc(var(--bleed) + 78mm);
+  background: var(--gray-50);
+}
+.page-divider .content { position: relative; }
+.div-top { display: flex; justify-content: space-between; align-items: baseline; }
+.div-num { margin-top: 5mm; font-size: 88pt; line-height: 0.85; font-weight: 900; letter-spacing: -0.05em; color: var(--brand); }
+.div-title { margin-top: 7mm; font-size: 27pt; line-height: 1.04; font-weight: 900; letter-spacing: -0.025em; }
+.div-sub { margin-top: 13mm; font-size: 12.5pt; line-height: 1.4; font-weight: 600; color: var(--gray-700); }
+.div-note {
+  margin-top: 6mm;
+  padding: 1mm 0 1mm 4mm;
+  border-left: 1.2mm solid var(--ink);
+  font-size: 12pt; line-height: 1.4; font-weight: 700; font-style: italic;
+}
+.div-warn {
+  margin-top: 6mm;
+  background: var(--warn-soft);
+  border-left: 1.2mm solid var(--warn);
+  border-radius: 0 2mm 2mm 0;
+  padding: 3mm 4mm;
+  font-size: 10pt; line-height: 1.45; font-weight: 500;
+}
+.div-warn .label { color: var(--ink); }
+.div-index { margin-top: auto; }
+.div-index .label { color: var(--gray-500); }
+.div-index ul { list-style: none; margin: 0; padding: 0; border-top: 0.35mm solid var(--gray-200); }
+.div-index li {
+  display: grid; grid-template-columns: 12mm 1fr auto; gap: 2mm; align-items: baseline;
+  padding: 2mm 0; border-bottom: 0.35mm solid var(--gray-200);
+  font-size: 10pt; line-height: 1.3;
+}
+.div-index li .n { font-weight: 900; color: var(--brand); }
+.div-index li .t { font-weight: 600; }
+.div-index li .p { font-size: 8pt; color: var(--gray-500); font-weight: 600; white-space: nowrap; }
+
+/* ==========================================================
+   PÁGINA DE MENSAGEM (template único para as 27)
+   ========================================================== */
+.msg-head { display: flex; justify-content: space-between; align-items: center; gap: 3mm; }
+.msg-tag {
+  font-size: 7.5pt; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--gray-500);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.msg-tag b { color: var(--brand); font-weight: 900; }
+.msg-title { margin-top: 3mm; font-size: 21pt; line-height: 1.1; font-weight: 900; letter-spacing: -0.02em; }
+.msg-when { margin-top: 3.5mm; }
+.msg-when .label { color: var(--gray-500); }
+.msg-when p { font-size: 10.5pt; line-height: 1.42; color: var(--gray-700); }
+
+.box { border-radius: 2.5mm; padding: 3mm 3.8mm; }
+.box-dont { margin-top: 3.5mm; background: var(--stop-soft); border-left: 1.3mm solid var(--stop); }
+.box-dont .label { color: var(--stop-ink); }
+.box-dont .bad { font-size: 11pt; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.box-dont .why { margin-top: 1.4mm; font-size: 10pt; line-height: 1.38; color: var(--gray-700); }
+.box-dont .why b { color: var(--stop-ink); }
+
+.box-do { margin-top: 3mm; background: var(--go-soft); border: 0.35mm solid #BFE3CF; border-left: 1.3mm solid var(--go); }
+.box-do .label { color: var(--go-ink); }
+.bubble {
+  background: #fff;
+  border: 0.3mm solid #CFE6D9;
+  border-radius: 3mm 3mm 0.8mm 3mm;
+  padding: 3.2mm 3.8mm;
+  font-size: 11.5pt; line-height: 1.45; font-weight: 500;
+}
+.bubble p + p { margin-top: 2mm; }
+.box-do .tip {
+  margin-top: 2.2mm; display: flex; gap: 2mm; align-items: flex-start;
+  font-size: 9.5pt; line-height: 1.35; color: var(--gray-700);
+}
+.box-do .tip .ico { flex: 0 0 auto; width: 4mm; height: 4mm; border-radius: 50%; background: var(--warn); color: var(--ink); font-weight: 900; font-size: 7.5pt; display: inline-flex; align-items: center; justify-content: center; margin-top: 0.3mm; }
+
+.msg-grid { margin-top: 3mm; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3mm; }
+.box-custom { background: var(--gray-50); }
+.box-custom .label { color: var(--gray-700); }
+.chips { display: flex; flex-wrap: wrap; gap: 1.4mm; }
+.chips .ph { font-size: 9.5pt; padding: 0.4mm 1.2mm; }
+.box-next { background: var(--brand-soft); }
+.box-next .label { color: var(--brand); }
+.box-next p { font-size: 10pt; line-height: 1.4; }
+
+.msg-goal { margin-top: auto; padding-top: 3mm; }
+.msg-goal .label { color: var(--ink); }
+.msg-goal p { font-size: 10pt; line-height: 1.4; color: var(--gray-700); font-weight: 500; }
+
+/* ==========================================================
+   39 — NÃO MANDE ISSO
+   ========================================================== */
+.dont-intro { margin-top: 3mm; font-size: 10pt; line-height: 1.4; color: var(--gray-700); }
+.dont-list { margin-top: 4mm; display: flex; flex-direction: column; gap: 2mm; }
+.dont-card {
+  display: grid; grid-template-columns: 1fr auto; gap: 1mm 3mm; align-items: start;
+  padding: 2.3mm 3.2mm;
+  border: 0.3mm solid var(--gray-200);
+  border-left: 1.3mm solid var(--stop);
+  border-radius: 2mm;
+}
+.dont-card .phrase { font-size: 10.5pt; font-weight: 800; line-height: 1.25; }
+.dont-card .phrase::before { content: "✕"; color: var(--stop); margin-right: 1.6mm; font-weight: 900; }
+.dont-card .why { grid-column: 1 / -1; font-size: 9.5pt; line-height: 1.33; color: var(--gray-700); }
+.dont-card .alt {
+  grid-column: 2; grid-row: 1;
+  font-size: 8.5pt; font-weight: 800; color: var(--go-ink);
+  background: var(--go-soft); border-radius: 1.2mm; padding: 0.6mm 1.6mm; white-space: nowrap;
+}
+
+/* ==========================================================
+   40 — 7 ERROS
+   ========================================================== */
+.err-list { margin-top: 4.5mm; list-style: none; padding: 0; margin-bottom: 0; display: flex; flex-direction: column; }
+.err-list li {
+  display: grid; grid-template-columns: 9mm 1fr; gap: 3.5mm; align-items: start;
+  padding: 2.3mm 0; border-bottom: 0.35mm solid var(--gray-200);
+}
+.err-list li:first-child { border-top: 0.35mm solid var(--gray-200); }
+.err-list .n {
+  width: 8mm; height: 8mm; border-radius: 50%;
+  border: 0.5mm solid var(--stop); color: var(--stop-ink);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 10pt;
+}
+.err-list .t { font-size: 11.5pt; font-weight: 800; line-height: 1.25; }
+.err-list .e { margin-top: 1mm; font-size: 10pt; line-height: 1.4; color: var(--gray-700); }
+
+/* ==========================================================
+   42/43 — FOLHA DE CONTROLE (tabela em paisagem dentro do A5)
+   ========================================================== */
+.page-tracking .content { position: relative; }
+.tracking-rotated {
+  position: absolute;
+  /* área útil tem ~126 x 188mm; girada vira 188 x 126 */
+  width: calc(var(--page-h) - 2 * var(--safe));
+  height: calc(var(--page-w) - 2 * var(--safe));
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  display: flex; flex-direction: column;
+}
+.tracking-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3mm; }
+.tracking-head .page-title { font-size: 22pt; }
+.tracking-head .meta { text-align: right; }
+.tracking-head .meta .print-note { font-size: 9pt; font-weight: 900; letter-spacing: 0.08em; color: var(--brand); }
+.tracking-head .meta .pg { display: block; font-size: 8pt; font-weight: 700; color: var(--gray-500); margin-top: 1mm; letter-spacing: 0.08em; }
+.track { width: 100%; flex: 1; border-collapse: collapse; table-layout: fixed; }
+.track th {
+  background: var(--ink); color: #fff;
+  font-size: 7.5pt; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase;
+  text-align: left; padding: 1.8mm 1.6mm; line-height: 1.15;
+  border-right: 0.3mm solid #2A3550;
+}
+.track th:last-child { border-right: 0; }
+.track td { border: 0.3mm solid #C9C9C9; padding: 0 1.6mm; font-size: 8pt; color: var(--gray-500); }
+.track tr:nth-child(even) td { background: #FAFAFA; }
+.track td.yn { white-space: nowrap; font-weight: 700; letter-spacing: 0.02em; }
+
+/* ==========================================================
+   44 — CONTRACAPA
+   ========================================================== */
+.page-back .content { justify-content: space-between; }
+.back-lines { margin-top: 18mm; }
+.back-lines p { font-size: 25pt; line-height: 1.22; font-weight: 900; letter-spacing: -0.02em; }
+.back-lines p:first-child { color: var(--brand); }
+.back-lines p:nth-child(2) { margin-bottom: 5mm; }
+.back-lines p.step-line { color: var(--ink); }
+.back-lines p.step-line::before { content: "→ "; color: var(--go); }
+.back-sign { border-top: 0.35mm solid var(--gray-200); padding-top: 5mm; display: flex; justify-content: space-between; align-items: flex-end; }
+.back-sign .name { font-size: 11pt; font-weight: 900; letter-spacing: 0.02em; line-height: 1.2; }
+.back-sign .name small { display: block; font-size: 8pt; font-weight: 800; letter-spacing: 0.22em; color: var(--gray-500); margin-top: 1.5mm; }
