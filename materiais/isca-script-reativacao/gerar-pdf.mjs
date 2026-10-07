@@ -16,7 +16,7 @@ try {
 }
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
-const saida = path.join(dir, 'Script-de-Reativacao-de-Base-Orbion.pdf');
+const saida = path.join(dir, 'Script-de-Reativacao-de-Base-Orbion-v2.pdf');
 const gerarPng = process.argv.includes('--png');
 
 const browser = await playwright.chromium.launch();
