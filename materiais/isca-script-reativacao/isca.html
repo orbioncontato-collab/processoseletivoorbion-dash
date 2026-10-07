@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <title>Script de Reativação de Base | Orbion</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  @font-face { font-family: 'Inter'; font-style: italic; font-weight: 400; src: url('fontes/Inter-400-italic.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-style: italic; font-weight: 600; src: url('fontes/Inter-600-italic.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; src: url('fontes/Inter-400.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; src: url('fontes/Inter-500.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; src: url('fontes/Inter-600.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; src: url('fontes/Inter-700.ttf') format('truetype'); }
+  @font-face { font-family: 'Sora'; font-style: normal; font-weight: 400; src: url('fontes/Sora-400.ttf') format('truetype'); }
+  @font-face { font-family: 'Sora'; font-style: normal; font-weight: 600; src: url('fontes/Sora-600.ttf') format('truetype'); }
+  @font-face { font-family: 'Sora'; font-style: normal; font-weight: 700; src: url('fontes/Sora-700.ttf') format('truetype'); }
+  @font-face { font-family: 'Sora'; font-style: normal; font-weight: 800; src: url('fontes/Sora-800.ttf') format('truetype'); }
+
   :root {
     --navy: #0A1123;
     --navy-2: #111B33;
@@ -51,6 +59,8 @@
   h1, h2, h3, h4, .sora { font-family: 'Sora', 'Inter', sans-serif; color: var(--ink); }
   h2 { font-size: 21pt; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; }
   h3 { font-size: 12.5pt; line-height: 1.3; font-weight: 700; }
+  h1, h2, h3 { text-wrap: balance; }
+  p, li { text-wrap: pretty; }
   p + p { margin-top: 8px; }
   strong { color: var(--ink); font-weight: 700; }
 
@@ -67,13 +77,13 @@
   .rodape {
     position: absolute;
     left: 18mm; right: 18mm; bottom: 10mm;
-    display: flex; justify-content: space-between; align-items: center;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
     font-size: 7.5pt; color: var(--muted);
     border-top: 1px solid var(--linha);
     padding-top: 3mm;
   }
   .rodape img { height: 11px; filter: brightness(0); opacity: 0.85; }
-  .rodape .num { font-family: 'Sora', sans-serif; font-weight: 700; color: var(--ink); }
+  .rodape .num { font-family: 'Sora', sans-serif; font-weight: 700; color: var(--ink); justify-self: end; }
 
   /* ---------- CAPA ---------- */
   .capa {
@@ -82,7 +92,7 @@
     padding: 22mm 20mm;
   }
   .capa .orbita {
-    position: absolute; right: -60mm; top: 40mm;
+    position: absolute; right: -88mm; top: 22mm;
     width: 190mm; height: 190mm; opacity: 0.9;
   }
   .capa .logo { height: 34px; position: relative; display: block; }
@@ -104,7 +114,7 @@
   .capa h1 span { color: var(--verde); }
   .capa .sub {
     position: relative;
-    margin-top: 8mm; max-width: 128mm;
+    margin-top: 8mm; max-width: 108mm;
     font-size: 13.5pt; line-height: 1.5; color: #C9D4E2;
   }
   .capa .inclui {
@@ -151,10 +161,11 @@
   .sua-conta {
     margin-top: 4mm;
     display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: end; gap: 2.5mm;
-    text-align: center; font-size: 8pt; color: #9FB0C6;
+    text-align: center; font-size: 8pt; color: var(--muted);
+    background: #fff; border-radius: 10px; padding: 2mm 4mm 2.5mm;
   }
-  .sua-conta .campo { border-bottom: 1.5px solid rgba(255,255,255,0.45); height: 9mm; }
-  .sua-conta .op { font-family: 'Sora', sans-serif; font-size: 13pt; color: var(--verde); font-weight: 700; padding-bottom: 1mm; }
+  .sua-conta .campo { border-bottom: 1.5px solid #B9C4D2; height: 8mm; }
+  .sua-conta .op { font-family: 'Sora', sans-serif; font-size: 13pt; color: var(--verde-prof); font-weight: 700; padding-bottom: 1mm; }
   .nota { font-size: 8.5pt; color: var(--muted); margin-top: 3mm; }
   .caixa-conta .nota { color: #9FB0C6; }
 
@@ -206,13 +217,14 @@
   ul.checklist .box { width: 5mm; height: 5mm; border: 1.8px solid var(--verde-prof); border-radius: 4px; margin-top: 0.3mm; }
 
   /* ---------- MAPA ---------- */
-  .mapa-full .mapa { margin-top: 7mm; }
-  .mapa-full .grupo + .grupo { margin-top: 5mm; }
+  .mapa-full .mapa { margin-top: 5mm; }
+  .mapa-full .grupo + .grupo { margin-top: 4mm; }
   .mapa-full .etapas { gap: 2.8mm; }
   .mapa-full .et { padding: 3.4mm 4.5mm; }
   .mapa-full .et h3 { font-size: 11.5pt; }
   .mapa-full .et .linhas { font-size: 9.3pt; margin-top: 1.5mm; }
-  .mapa-full .grupo .rotulo b { font-size: 12pt; }
+  .mapa-full .grupo .rotulo { padding: 3mm 1mm; }
+  .mapa-full .grupo .rotulo b { font-size: 10pt; }
   .mapa-full .grupo .rotulo span { font-size: 8pt; }
   .mapa { margin-top: 6mm; }
   .grupo { display: grid; grid-template-columns: 24mm 1fr; gap: 4mm; }
@@ -248,6 +260,7 @@
     font-family: 'Sora', sans-serif; font-weight: 800; font-size: 30pt; line-height: 1;
     color: var(--navy);
     background: var(--verde); border-radius: 12px; padding: 2.5mm 4mm;
+    min-width: 24mm; text-align: center;
   }
   .etapa-head h2 { font-size: 18pt; }
   .etapa-head .obj { font-size: 9.5pt; color: var(--muted); margin-top: 1mm; }
@@ -301,6 +314,7 @@
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
+  .ph.curto { white-space: nowrap; }
 
   .dica {
     margin-top: 5mm;
@@ -335,16 +349,16 @@
     content: ""; width: 3mm; height: 3mm; border-radius: 50%; background: var(--verde); border: 2px solid var(--verde-prof);
   }
   .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 6mm; }
-  .campo-f { break-inside: avoid; }
+  .campo-f { break-inside: avoid; display: flex; flex-direction: column; }
   .campo-f.full { grid-column: 1 / -1; }
   .campo-f .q { font-size: 9pt; font-weight: 600; color: var(--ink); line-height: 1.35; }
-  .campo-f .tags { margin-top: 0.8mm; font-size: 7pt; line-height: 1.5; color: var(--muted); }
-  .campo-f .tags .ph { font-size: 6.6pt; font-weight: 600; padding: 0 1mm; }
+  .campo-f .tags { margin-top: 0.8mm; margin-bottom: auto; font-size: 7pt; line-height: 1.5; color: var(--muted); }
+  .campo-f .tags .ph { display: inline-block; font-size: 7pt; font-weight: 600; padding: 0 1mm; margin: 0 0.5mm 0.6mm 0; line-height: 1.4; }
   .campo-f .linha { border-bottom: 1px solid #B9C4D2; height: 6.6mm; }
 
   /* ---------- PAINEL ---------- */
   table.painel { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 5mm; font-size: 9pt; }
-  table.painel th, table.painel td { border-bottom: 1px solid var(--linha); padding: 2.6mm 3mm; text-align: left; }
+  table.painel th, table.painel td { border-bottom: 1px solid var(--linha); padding: 1.8mm 3mm; text-align: left; }
   table.painel thead th {
     background: var(--navy); color: #fff; font-family: 'Sora', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   }
@@ -356,7 +370,7 @@
   table.painel tr.calc td { background: var(--fundo-suave); }
   table.painel tr.calc td:first-child { color: var(--verde-prof); }
 
-  .leitura { margin-top: 6mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .leitura { margin-top: 4mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
   .leitura .cartao h3 { font-size: 10pt; }
   .leitura .cartao p { font-size: 8.8pt; margin-top: 1.5mm; line-height: 1.45; }
   .leitura .sinal {
@@ -397,7 +411,8 @@
   .cta .url { display: block; margin-top: 2.5mm; font-size: 8.5pt; color: var(--azul); text-decoration: none; font-weight: 600; }
   .cta .qr { text-align: center; }
   .cta .qr img { width: 33mm; height: 33mm; display: block; }
-  .cta .qr span { display: block; margin-top: 2mm; font-size: 7.5pt; color: var(--muted); }
+  .cta .qr a { display: block; }
+  .cta .qr span { display: block; margin-top: 4mm; font-size: 7.5pt; line-height: 1.35; color: var(--muted); max-width: 33mm; }
   .cta .copy { position: absolute; left: 20mm; right: 20mm; bottom: 12mm; font-size: 7.5pt; color: #7F8EA3; }
 </style>
 </head>
@@ -416,7 +431,7 @@
   <img class="logo" src="orbion-logo.png" alt="Orbion">
   <div class="selo">Material gratuito</div>
   <h1>Script de<br>Reativação<br>de <span>Base</span></h1>
-  <p class="sub">A ligação em 7 etapas para vender para quem já conhece a sua empresa e ainda sair dela com novas indicações.</p>
+  <p class="sub">Uma ligação em 7 etapas que vende para quem já conhece a sua empresa e ainda traz novas indicações.</p>
   <div class="inclui">
     <div><b>7</b><span>etapas do script completo, com dicas em cada uma</span></div>
     <div><b>1</b><span>folha para adaptar o script ao seu negócio</span></div>
@@ -439,17 +454,17 @@
     <div class="formula">
       <div class="t">Leads parados na sua base</div><div class="op">×</div>
       <div class="t">% que compraria com uma boa ligação</div><div class="op">×</div>
-      <div class="t">Ticket médio</div><div class="op">=</div>
-      <div class="t res">Dinheiro esquecido</div>
+      <div class="t">Ticket médio (valor médio de cada venda)</div><div class="op">=</div>
+      <div class="t res">Dinheiro parado</div>
     </div>
     <p class="exemplo">Exemplo: <b>500</b> leads × <b>3%</b> × <b>R$ 2.000</b> = <b>R$ 30.000</b> que podem estar esperando uma ligação.</p>
     <div class="sua-conta">
       <div><div class="campo"></div>leads</div><div class="op">×</div>
       <div><div class="campo"></div>%</div><div class="op">×</div>
-      <div><div class="campo"></div>ticket (R$)</div><div class="op">=</div>
-      <div><div class="campo"></div>R$ parados</div>
+      <div><div class="campo"></div>ticket médio (R$)</div><div class="op">=</div>
+      <div><div class="campo"></div>dinheiro parado (R$)</div>
     </div>
-    <p class="nota">O 3% do exemplo serve só como referência. Use um número que faça sentido para o seu mercado e prefira ser conservador.</p>
+    <p class="nota">Os 3% do exemplo são só uma referência. Use a porcentagem que faça sentido para o seu mercado e, na dúvida, escolha uma mais baixa.</p>
   </div>
 
   <div class="duas-col" style="margin-top:7mm">
@@ -458,13 +473,13 @@
       <ul class="lista" style="margin-top:3mm; font-size:9.6pt">
         <li>Donos e gestores que têm um time comercial ou estão montando um.</li>
         <li>Empresas com uma base de contatos que nunca foi bem trabalhada.</li>
-        <li>Negócios que vendem por ligação, chamada de vídeo ou áudio no WhatsApp.</li>
+        <li>Negócios que vendem por ligação, chamada de vídeo ou chamada de voz no WhatsApp.</li>
       </ul>
     </div>
     <div class="cartao suave">
       <h3>O que você leva daqui</h3>
       <ul class="lista" style="margin-top:3mm; font-size:9.6pt">
-        <li>Um roteiro de ligação do primeiro "alô" até o pagamento.</li>
+        <li>Um roteiro de ligação do primeiro “alô” até o pagamento.</li>
         <li>Um jeito simples de pedir indicações na mesma ligação.</li>
         <li>Os números que mostram se o script está funcionando.</li>
       </ul>
@@ -474,13 +489,13 @@
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">02</span></div>
 </section>
 
-<!-- ======================= 3. COMO USAR + MAPA ======================= -->
+<!-- ======================= 3. COMO USAR + CHECKLIST ======================= -->
 <section class="page">
   <div class="kicker">Como usar</div>
   <h2 style="margin-top:3mm">Três passos para colocar o script na rua</h2>
   <div class="passos">
-    <div class="passo"><div class="n">1</div><div><h3>Entenda a lógica</h3><p>Leia o mapa abaixo. Cada etapa tem uma função, e saber o porquê de cada uma ajuda o vendedor a não se perder quando a conversa sai do roteiro.</p></div></div>
-    <div class="passo"><div class="n">2</div><div><h3>Adapte para a sua empresa</h3><p>Preencha a folha de adaptação (página 15). Todo texto que aparece <span class="ph">[ASSIM]</span> no script precisa ser trocado pela realidade do seu negócio.</p></div></div>
+    <div class="passo"><div class="n">1</div><div><h3>Entenda a lógica</h3><p>Leia o mapa da próxima página. Cada etapa tem uma função, e saber o porquê de cada uma ajuda o vendedor a não se perder quando a conversa sai do roteiro.</p></div></div>
+    <div class="passo"><div class="n">2</div><div><h3>Adapte para a sua empresa</h3><p>Preencha a folha de adaptação (páginas 15 e 16). Todo texto que aparece <span class="ph">[ASSIM]</span> no script precisa ser trocado pela realidade do seu negócio.</p></div></div>
     <div class="passo"><div class="n">3</div><div><h3>Treine, ligue e meça</h3><p>Ensaie com o time, faça as ligações e anote os resultados no painel da página 17. Ajuste o script olhando os números.</p></div></div>
   </div>
 
@@ -494,6 +509,12 @@
     <li><span class="box"></span><div><b>Mensagem de indicação salva.</b> O texto da etapa 7 guardado no WhatsApp para copiar e colar.</div></li>
     <li><span class="box"></span><div><b>Horário reservado só para ligar.</b> Um bloco fixo na agenda, sem reunião e sem interrupção.</div></li>
   </ul>
+
+  <div class="aviso" style="margin-top:6mm">
+    <h3>Quem liga e quantas vezes</h3>
+    <p>Escolha uma ou duas pessoas do time para tocar a campanha. O dono acompanha pelos números do painel da página 17. Comece pelos leads que falaram com a empresa há menos tempo.</p>
+    <p>Tente cada lead até 3 vezes, em dias e horários diferentes, e mande uma mensagem no WhatsApp quando ele não atender. Quem disser não volta para a base com o motivo anotado. Quem pedir para não receber mais contato sai da lista na hora.</p>
+  </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">03</span></div>
 </section>
@@ -509,14 +530,14 @@
       <div class="etapas">
         <div class="et"><div class="n">1</div><div><h3>Apresentação</h3><div class="linhas"><div><em>Objetivo</em>Quebrar o gelo e lembrar o lead de onde ele conhece a empresa.</div><div class="erro"><em>Erro comum</em>Começar falando do produto antes de saber quem está do outro lado.</div></div></div></div>
         <div class="et"><div class="n">2</div><div><h3>Conexão</h3><div class="linhas"><div><em>Objetivo</em>Fazer o lead contar, com as palavras dele, o que hoje não está bom.</div><div class="erro"><em>Erro comum</em>Perguntar e não escutar. Ou pular a etapa para chegar logo na oferta.</div></div></div></div>
-        <div class="et"><div class="n">3</div><div><h3>Combinado</h3><div class="linhas"><div><em>Objetivo</em>Combinar que, no fim, ele vai dizer um sim ou um não claro.</div><div class="erro"><em>Erro comum</em>Deixar espaço para o "vou pensar" e perder a venda no silêncio.</div></div></div></div>
+        <div class="et"><div class="n">3</div><div><h3>Combinado</h3><div class="linhas"><div><em>Objetivo</em>Combinar que, no fim, o lead vai dizer um sim ou um não claro.</div><div class="erro"><em>Erro comum</em>Deixar espaço para o “vou pensar” e perder a venda no silêncio.</div></div></div></div>
       </div>
     </div>
     <div class="grupo">
       <div class="rotulo"><b>Vender</b><span>Etapas 4 e 5</span></div>
       <div class="etapas">
         <div class="et"><div class="n">4</div><div><h3>Apresentação da solução</h3><div class="linhas"><div><em>Objetivo</em>Mostrar autoridade e ligar o produto à dor que o lead contou.</div><div class="erro"><em>Erro comum</em>Listar recursos que o lead nem pediu e esquecer o que ele falou.</div></div></div></div>
-        <div class="et"><div class="n">5</div><div><h3>Financeiro</h3><div class="linhas"><div><em>Objetivo</em>Mostrar o valor, apresentar o preço, fechar e oferecer um adicional.</div><div class="erro"><em>Erro comum</em>Falar o preço cedo demais ou oferecer desconto antes de ouvir uma objeção.</div></div></div></div>
+        <div class="et"><div class="n">5</div><div><h3>Financeiro</h3><div class="linhas"><div><em>Objetivo</em>Mostrar quanto a solução vale, falar o preço, fechar e oferecer um adicional.</div><div class="erro"><em>Erro comum</em>Falar o preço cedo demais ou oferecer desconto antes de ouvir uma objeção.</div></div></div></div>
       </div>
     </div>
     <div class="grupo">
@@ -538,6 +559,7 @@
     <h3>Um aviso antes do script</h3>
     <p>Script copiado sem adaptação costuma dar errado. Cada empresa tem um cliente, um jeito de falar e um preço. Use este roteiro como esqueleto e coloque a realidade do seu negócio dentro dele.</p>
     <p>As respostas do lead que aparecem aqui mostram o caminho ideal. Na vida real ele vai fugir do roteiro. Quando isso acontecer, escute, responda com calma e volte para a próxima pergunta da etapa.</p>
+    <p>Algumas falas usam palavras como “técnicas”, “conteúdo” e “acesso”. Troque pelo que o seu cliente compra de verdade. Se a sua venda fecha com proposta ou reunião, adapte o combinado da etapa 3 e o fechamento da etapa 5 para marcar esse passo com dia e hora.</p>
   </div>
 
   <div class="etapa-head" style="margin-top:7mm">
@@ -558,8 +580,8 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p>Use essa abertura só com quem <strong>realmente já teve contato</strong> com a empresa. É isso que deixa a ligação verdadeira e faz o lead baixar a guarda.</p>
-    <p>Fale o nome da pessoa logo no começo e mantenha o tom leve, como quem liga para um conhecido. Nos primeiros 20 segundos o lead decide se vai conversar ou desligar.</p>
+    <p>Use essa abertura só com quem <strong>realmente já teve contato</strong> com a empresa. Se tiver o histórico, seja específico: “você pediu um orçamento com a gente em março”. Isso mostra que a ligação tem motivo e faz o lead baixar a guarda.</p>
+    <p>Fale o nome da pessoa logo no começo e mantenha o tom leve, como quem liga para um conhecido. Os primeiros segundos decidem se o lead vai conversar ou desligar.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">05</span></div>
@@ -588,9 +610,9 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>Anote as palavras exatas que o lead usar.</strong> Se ele disse "sinto que perco oportunidades", é essa frase que você vai devolver na etapa 4. Gente compra quando escuta a própria dor sendo descrita.</p>
+    <p><strong>Anote as palavras exatas que o lead usar.</strong> Se ele disser “sinto que ainda perco algumas oportunidades”, é essa frase que você vai repetir na etapa 4. Gente compra quando escuta a própria dor sendo descrita.</p>
     <p>Depois de cada pergunta, fique em silêncio e deixe a pessoa falar. Quanto mais ela fala aqui, mais fácil fica o fechamento.</p>
-    <p>A pergunta da "situação comum" é a mais importante da etapa. Escolha uma cena que o seu cliente vive de verdade, como uma venda que escapou ou um cliente que sumiu depois do orçamento.</p>
+    <p>A pergunta da “situação comum” é a mais importante da etapa. Escolha uma cena que o seu cliente vive de verdade, como perder uma oportunidade que parecia certa, gastar com algo que não deu resultado ou deixar um problema crescer por falta de tempo.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">06</span></div>
@@ -625,7 +647,7 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>Por que combinar antes de mostrar o produto?</strong> Porque depois que o preço aparece, fica difícil para o lead dizer um não claro. Ele foge para o "vou pensar" e some. Com o combinado feito antes, o sim e o não ficam liberados.</p>
+    <p><strong>Por que combinar antes de mostrar o produto?</strong> Porque depois que o preço aparece, fica difícil para o lead dizer um não claro. Ele foge para o “vou pensar” e some. Com o combinado feito antes, o lead fica à vontade para dizer sim ou não na hora.</p>
     <p>Se o lead disser que precisa falar com alguém (sócio, cônjuge, financeiro), pare aqui. Marque uma nova conversa com todos que decidem juntos. Apresentar para quem não decide gera retrabalho.</p>
   </div>
 
@@ -649,15 +671,15 @@
     <p class="v">E foi justamente para transformar toda essa experiência em algo que mais pessoas pudessem acessar que a gente criou [NOME DO PRODUTO].</p>
     <p>[NOME DO PRODUTO] é [EXPLIQUE EM UMA FRASE SIMPLES O QUE É O PRODUTO].</p>
     <p>Lá dentro você encontra [PRINCIPAIS ENTREGAS OU CONTEÚDOS DO PRODUTO].</p>
-    <p>E tudo isso tem um objetivo: ajudar você a [PRINCIPAL TRANSFORMAÇÃO].</p>
-    <p>Ter mais [GANHO 1], mais [GANHO 2] e principalmente mais alternativas quando estiver enfrentando [PRINCIPAL DOR QUE SEU PRODUTO RESOLVE].</p>
+    <p>E o objetivo é ajudar você a [PRINCIPAL TRANSFORMAÇÃO].</p>
+    <p>É fazer você ter mais [GANHO 1], mais [GANHO 2] e principalmente mais alternativas quando estiver enfrentando [PRINCIPAL DOR QUE SEU PRODUTO RESOLVE].</p>
     <p>Por exemplo, você mesmo acabou de me falar que já [RETOME A SITUAÇÃO QUE O CLIENTE CONTOU NA CONEXÃO].</p>
     <p class="l"><span class="fala-lead">Sim.</span></p>
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>Use só provas reais.</strong> Se a empresa é nova, conte a experiência do fundador ou o resultado de um cliente. Um número verdadeiro e pequeno convence mais do que um número grande que o lead não acredita.</p>
-    <p>O momento mais forte desta etapa é quando você <strong>retoma a situação que o lead contou</strong> na conexão. Use as palavras dele.</p>
+    <p><strong>Use só provas reais.</strong> Se a empresa é nova, conte a experiência do fundador ou o resultado de um cliente. Prefira um número pequeno e verdadeiro. Quando o número parece bom demais, o lead desconfia.</p>
+    <p>O momento mais forte desta etapa é quando você <strong>retoma a situação que o lead contou</strong> na etapa 2. Use as palavras dele.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">08</span></div>
@@ -690,7 +712,7 @@
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
     <p><strong>O bônus precisa ser real e ter prazo.</strong> Um bônus que existe o ano inteiro perde a força e o time perde a credibilidade. Defina com a gestão o que entra na campanha e até quando.</p>
-    <p>As perguntas "faz sentido para você?" e "é algo que você usaria?" são pequenos sins. Se a resposta vier fraca, volte para a dor da etapa 2 antes de falar de preço.</p>
+    <p>As perguntas “faz sentido para você?” e “é algo que você acredita que usaria?” fazem o lead dizer pequenos sins pelo caminho. Se a resposta vier fraca, volte para a dor da etapa 2 antes de falar de preço.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">09</span></div>
@@ -700,7 +722,7 @@
 <section class="page">
   <div class="etapa-head">
     <div class="big">05</div>
-    <div><div class="kicker">Etapa 5 de 7</div><h2>Financeiro</h2><p class="obj"><b>Objetivo:</b> mostrar o valor, apresentar o preço, fechar e oferecer um adicional.</p></div>
+    <div><div class="kicker">Etapa 5 de 7</div><h2>Financeiro</h2><p class="obj"><b>Objetivo:</b> mostrar quanto a solução vale, falar o preço, fechar e oferecer um adicional.</p></div>
   </div>
   <div class="dialogo">
     <p class="v">(NOME), quando você olha para uma solução que te ajuda a [PRINCIPAL RESULTADO], entrega [PRINCIPAIS ENTREGAS] e ainda te dá acesso a [DIFERENCIAL PRINCIPAL], você tem ideia de quanto normalmente custaria um investimento desse no mercado?</p>
@@ -725,7 +747,7 @@
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
     <p><strong>Use um valor de referência verdadeiro</strong>, como o preço cheio do produto ou o preço de soluções parecidas no mercado. Depois fale o preço da campanha uma vez, com calma, e espere a resposta em silêncio.</p>
-    <p>"Visa ou Mastercard?" é uma pergunta de escolha: as duas respostas levam ao fechamento. Prefira sempre mandar o link de pagamento para o próprio cliente preencher. É mais seguro para os dois lados.</p>
+    <p>“Visa ou Mastercard?” é uma pergunta de escolha: as duas respostas levam ao fechamento. Prefira sempre mandar o link para o próprio cliente preencher. Se ele pedir para você fazer, digite direto na tela de pagamento e nunca anote os dados do cartão.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">10</span></div>
@@ -756,8 +778,14 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>A oferta adicional entra logo depois do sim</strong>, quando o cliente já decidiu. Ofereça algo que combina com o que ele acabou de comprar e que deixa o resultado mais rápido ou mais fácil.</p>
-    <p>Fique na linha enquanto ele paga. Desligar antes do "aprovado" abre espaço para a dúvida voltar.</p>
+    <p><strong>A oferta adicional entra logo depois do sim</strong>, quando o cliente já decidiu. Ofereça algo que combine com o que ele acabou de comprar e que deixe o resultado mais rápido ou mais fácil.</p>
+    <p>Fique na linha enquanto ele paga. Desligar antes do “aprovado” abre espaço para a dúvida voltar.</p>
+    <p>Para consumidor final, a compra por telefone pode ser cancelada em até 7 dias (art. 49 do Código de Defesa do Consumidor). Feche só quando o lead tiver entendido o que está comprando.</p>
+  </div>
+  <div class="aviso" style="margin-top:5mm; font-size:9.3pt">
+    <h3>Se o lead travar no fechamento</h3>
+    <p><b>“Vou pensar.”</b> Retome o combinado com leveza: “Lá no começo a gente combinou um sim ou um não. O que ficou em dúvida: o produto, o momento ou o valor?” Resolva essa dúvida ou aceite o não.</p>
+    <p><b>“Tá caro.”</b> Pergunte com calma: “Caro comparado com o quê?”. Depois volte para a dor que ele contou na etapa 2. Desconto só com aprovação da gestão, definida antes da campanha.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">11</span></div>
@@ -794,7 +822,6 @@
     <p>A ideia é simplesmente você lembrar de pessoas e eu mesmo vejo com elas se faz sentido ou não.</p>
     <p>Seleciona amigos seus que [DESCREVA OS PERFIS QUE NORMALMENTE SE BENEFICIAM DO SEU PRODUTO].</p>
     <p>Pessoas que você acredita que vale a pena eu conversar e apresentar a mesma oportunidade.</p>
-    <p>Seleciona de A a Z, que aí você não precisa lembrar de cabeça. É só ir rolando para baixo.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">12</span></div>
@@ -803,6 +830,7 @@
 <section class="page">
   <div class="continua">Etapa 6 · Indicações (continuação)</div>
   <div class="dialogo">
+    <p class="v">Seleciona de A a Z, que aí você não precisa lembrar de cabeça. É só ir rolando para baixo.</p>
     <p class="l"><span class="fala-lead">Beleza. Estou selecionando.</span></p>
     <p class="v">Pode selecionar tranquilo.</p>
     <p class="l"><span class="fala-lead">Pronto. Selecionei.</span></p>
@@ -811,8 +839,8 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>Peça indicação logo depois do "aprovado".</strong> É o momento em que o cliente está mais animado com a decisão. Se ficar para outro dia, o pedido perde a força.</p>
-    <p>As três perguntas de "você gostou?" geram três sins seguidos e deixam o pedido natural. Pedir para rolar a agenda de A a Z ajuda a pessoa a lembrar de nomes sem esforço.</p>
+    <p><strong>Peça indicação logo depois do “aprovado”.</strong> É o momento em que o cliente está mais animado com a decisão. Se ficar para outro dia, o pedido perde a força.</p>
+    <p>As três perguntas de “você gostou?” geram três sins seguidos e deixam o pedido natural. Pedir para rolar a agenda de A a Z ajuda a pessoa a lembrar de nomes sem esforço.</p>
   </div>
 
   <div class="divisor-etapa"></div>
@@ -855,8 +883,13 @@
   </div>
   <div class="dica">
     <div class="tit"><svg viewBox="0 0 24 24" fill="none" stroke="#74FAA5" stroke-width="2.4" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>Dica Orbion</div>
-    <p><strong>Indicado avisado atende o telefone.</strong> A mensagem do cliente faz a pessoa saber quem vai ligar e por quê. A conversa já começa com confiança.</p>
-    <p>Anote de onde o cliente conhece cada indicado e ligue em até 24 horas. Na primeira ligação, comece por aí: "O [NOME DO CLIENTE] me passou seu contato, vocês são [RELAÇÃO], né?"</p>
+    <p><strong>O indicado que foi avisado tem muito mais chance de atender.</strong> A mensagem do cliente faz a pessoa saber quem vai ligar e por quê. A conversa já começa com confiança.</p>
+    <p>Anote de onde o cliente conhece cada indicado e ligue em até 24 horas. Na primeira ligação, comece por aí: “[NOME DO CLIENTE] me passou seu contato. Vocês são [RELAÇÃO], né?”</p>
+    <p><strong>Respeite quem foi indicado.</strong> Se o cliente contar que alguém não quer conversa, ou se a pessoa disser isso na ligação, agradeça e tire o contato da lista na hora. Use esses números só para esta campanha, sem colocar em listas de transmissão.</p>
+  </div>
+  <div class="aviso" style="margin-top:7mm">
+    <h3>Fim do script. Agora é a sua vez.</h3>
+    <p>Você viu as 7 etapas da ligação. O próximo passo é preencher a folha de adaptação nas páginas 15 e 16, treinar o time com o script já adaptado e começar as ligações pela parte mais quente da base.</p>
   </div>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">14</span></div>
@@ -866,13 +899,13 @@
 <section class="page">
   <div class="kicker">Folha de adaptação</div>
   <h2 style="margin-top:3mm">Coloque a sua empresa dentro do script</h2>
-  <p class="folha-intro">Responda as perguntas abaixo antes de treinar o time. Embaixo de cada pergunta aparecem os campos do script que ela preenche. Se tiver dúvida em alguma, pense no seu melhor cliente e responda olhando para ele.</p>
+  <p class="folha-intro">Responda às perguntas abaixo antes de treinar o time. Embaixo de cada pergunta aparecem os campos do script que ela preenche. Se tiver dúvida em alguma, pense no seu melhor cliente e responda olhando para ele.</p>
 
   <div class="bloco-folha">
     <h3>Sobre a sua empresa</h3>
     <div class="campos">
       <div class="campo-f"><div class="q">Qual o nome da empresa e com o que ela trabalha?</div><div class="tags">[NOME DA EMPRESA] [SUA ÁREA DE ATUAÇÃO] [SUA ESPECIALIDADE]</div><div class="linha"></div><div class="linha"></div></div>
-      <div class="campo-f"><div class="q">Para quem é esta campanha de ligações?</div><div class="tags">[PÚBLICO QUE VOCÊ QUER ATINGIR] [PÚBLICO QUE VOCÊ ATENDE]</div><div class="linha"></div><div class="linha"></div></div>
+      <div class="campo-f"><div class="q">Para quem é esta campanha de ligações? E qual público a empresa atende no dia a dia?</div><div class="tags">[PÚBLICO QUE VOCÊ QUER ATINGIR] [PÚBLICO QUE VOCÊ ATENDE]</div><div class="linha"></div><div class="linha"></div></div>
       <div class="campo-f"><div class="q">Quem é a principal autoridade da empresa e qual o fato mais forte da história dessa pessoa?</div><div class="tags">[NOME DA PRINCIPAL AUTORIDADE DA EMPRESA] [CARGO OU PAPEL NA EMPRESA] [PRINCIPAL FATO DE AUTORIDADE]</div><div class="linha"></div><div class="linha"></div></div>
       <div class="campo-f"><div class="q">Quanto tempo de experiência e quais números provam o que vocês fazem?</div><div class="tags">[TEMPO DE EXPERIÊNCIA] [NÚMERO OU PROVA DE AUTORIDADE 1] [NÚMERO OU PROVA DE AUTORIDADE 2]</div><div class="linha"></div><div class="linha"></div></div>
       <div class="campo-f full"><div class="q">De qual vivência prática nasceu o seu método ou produto?</div><div class="tags">[PROBLEMA OU MERCADO EM QUE VOCÊ ATUA] [EXPERIÊNCIA PRÁTICA RELEVANTE] [CONTEXTO EM QUE O MÉTODO FOI APLICADO]</div><div class="linha"></div><div class="linha"></div></div>
@@ -899,9 +932,9 @@
   <div class="bloco-folha" style="margin-top:0">
     <h3>Sobre o produto</h3>
     <div class="campos">
-      <div class="campo-f"><div class="q">Qual o nome do produto e como você explica ele em uma frase?</div><div class="tags">[NOME DO PRODUTO] [PRODUTO PRINCIPAL] [EXPLIQUE EM UMA FRASE SIMPLES O QUE É O PRODUTO]</div><div class="linha"></div><div class="linha"></div></div>
-      <div class="campo-f"><div class="q">O que o cliente recebe lá dentro e o que vocês têm de diferente?</div><div class="tags">[PRINCIPAIS ENTREGAS OU CONTEÚDOS DO PRODUTO] [PRINCIPAIS ENTREGAS] [DIFERENCIAL PRINCIPAL]</div><div class="linha"></div><div class="linha"></div></div>
-      <div class="campo-f"><div class="q">Qual a grande transformação que o produto gera? Cite dois ganhos concretos.</div><div class="tags">[PRINCIPAL TRANSFORMAÇÃO] [PRINCIPAL TRANSFORMAÇÃO DO PRODUTO] [PRINCIPAL RESULTADO GERADO] [PRINCIPAL RESULTADO] [GANHO 1] [GANHO 2] [BENEFÍCIO PRINCIPAL DO PRODUTO] [TRANSFORMAÇÃO FINAL QUE SEU PRODUTO PROMETE]</div><div class="linha"></div><div class="linha"></div></div>
+      <div class="campo-f"><div class="q">Qual o nome do produto e como você explica o que ele é em uma frase?</div><div class="tags">[NOME DO PRODUTO] [PRODUTO PRINCIPAL] [EXPLIQUE EM UMA FRASE SIMPLES O QUE É O PRODUTO]</div><div class="linha"></div><div class="linha"></div></div>
+      <div class="campo-f"><div class="q">O que o cliente recebe ao comprar e o que vocês têm de diferente?</div><div class="tags">[PRINCIPAIS ENTREGAS OU CONTEÚDOS DO PRODUTO] [PRINCIPAIS ENTREGAS] [DIFERENCIAL PRINCIPAL]</div><div class="linha"></div><div class="linha"></div></div>
+      <div class="campo-f"><div class="q">Qual a grande transformação que o produto gera? Escreva começando com um verbo, como “aumentar o faturamento”. Depois cite dois ganhos concretos, como “tempo” e “tranquilidade”.</div><div class="tags">[PRINCIPAL TRANSFORMAÇÃO] [PRINCIPAL TRANSFORMAÇÃO DO PRODUTO] [PRINCIPAL RESULTADO GERADO] [PRINCIPAL RESULTADO] [GANHO 1] [GANHO 2] [BENEFÍCIO PRINCIPAL DO PRODUTO] [TRANSFORMAÇÃO FINAL QUE SEU PRODUTO PROMETE]</div><div class="linha"></div><div class="linha"></div></div>
       <div class="campo-f"><div class="q">O que o produto ensina ou entrega na prática? Quais habilidades ou resultados ele melhora?</div><div class="tags">[AÇÃO QUE O PRODUTO ENSINA OU ENTREGA] [HABILIDADE OU RESULTADO 1] [HABILIDADE OU RESULTADO 2]</div><div class="linha"></div><div class="linha"></div></div>
     </div>
   </div>
@@ -924,7 +957,7 @@
     </div>
   </div>
 
-  <p class="nota" style="margin-top:5mm">Os campos que ficaram de fora, como (NOME), [NOME 1] e [RETOME A SITUAÇÃO QUE O CLIENTE CONTOU NA CONEXÃO], são preenchidos na hora, durante a ligação, com o que o lead falar.</p>
+  <p class="nota" style="margin-top:5mm">Os campos que ficaram de fora são preenchidos na hora da ligação. (NOME) é o nome do lead, que já está na sua lista de contatos, e (SEU NOME) é o nome de quem liga. Os outros, como [NOME 1] e [RETOME A SITUAÇÃO QUE O CLIENTE CONTOU NA CONEXÃO], vêm do que o lead falar.</p>
 
   <div class="rodape"><img src="orbion-logo.png" alt="Orbion"><span>Script de Reativação de Base</span><span class="num">16</span></div>
 </section>
@@ -932,25 +965,27 @@
 <!-- ======================= 15. PAINEL DE NÚMEROS ======================= -->
 <section class="page">
   <div class="kicker">Painel de números</div>
-  <h2 style="margin-top:3mm">O que não é medido não melhora</h2>
-  <p style="margin-top:4mm; font-size:10.5pt">Anote estes números toda semana. Eles mostram em qual etapa da ligação o time está perdendo vendas, e assim você sabe exatamente o que treinar.</p>
+  <h2 style="margin-top:3mm">Os números mostram o que treinar</h2>
+  <p style="margin-top:4mm; font-size:10.5pt">Anote estes números toda semana e compare o valor vendido com a conta da página 2. Eles mostram em qual etapa da ligação o time está perdendo vendas, e assim você sabe exatamente o que treinar.</p>
 
   <table class="painel">
     <thead><tr><th>Indicador</th><th>Sem. 1</th><th>Sem. 2</th><th>Sem. 3</th><th>Sem. 4</th><th>Total</th></tr></thead>
     <tbody>
       <tr><td>Ligações feitas<small>Todas as tentativas, atendidas ou não</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td>Conversas<small>O lead atendeu e conversou</small></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>Combinados feitos<small>Chegou na etapa 3 e o lead topou</small></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Combinados feitos<small>A ligação chegou à etapa 3 e o lead topou o combinado</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td>Vendas<small>Pagamento aprovado na ligação</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td>Ofertas adicionais<small>Vendas que levaram o adicional</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td>Indicações recebidas<small>Contatos enviados pelos clientes</small></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr class="calc"><td>Taxa de conversa<small>Conversas ÷ ligações × 100</small></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>Valor vendido (R$)<small>Vendas e adicionais aprovados, menos cancelamentos</small></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="calc"><td>Taxa de atendimento<small>Conversas ÷ ligações × 100</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr class="calc"><td>Taxa de fechamento<small>Vendas ÷ conversas × 100</small></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr class="calc"><td>Indicações por venda<small>Indicações ÷ vendas</small></td><td></td><td></td><td></td><td></td><td></td></tr>
     </tbody>
   </table>
+  <p class="nota">Nas linhas de taxa, calcule o Total com os totais do mês. Não some as porcentagens das semanas.</p>
 
-  <div class="kicker" style="margin-top:7mm">Como ler os números</div>
+  <div class="kicker" style="margin-top:5mm">Como ler os números</div>
   <div class="leitura">
     <div class="cartao">
       <div class="sinal">Sinal 1</div>
@@ -960,12 +995,12 @@
     <div class="cartao">
       <div class="sinal">Sinal 2</div>
       <h3>Muitas conversas, poucas vendas</h3>
-      <p>Quase sempre a falha está na Conexão ou no Combinado. Ouça gravações e veja se o lead contou a dor dele com as próprias palavras.</p>
+      <p>Compare combinados com conversas. Poucos combinados: reveja a Conexão. Muitos combinados e poucas vendas: reveja as etapas 4 e 5. Ouça gravações para confirmar.</p>
     </div>
     <div class="cartao">
       <div class="sinal">Sinal 3</div>
       <h3>Vendas sem indicações</h3>
-      <p>O pedido está ficando para depois. Treine o time para pedir indicações logo depois do "aprovado", ainda na mesma ligação.</p>
+      <p>O pedido está ficando para depois. Treine o time para pedir indicações logo depois do “aprovado”, ainda na mesma ligação.</p>
     </div>
   </div>
 
@@ -977,17 +1012,16 @@
   <svg class="orbita" viewBox="0 0 200 200" fill="none" aria-hidden="true">
     <ellipse cx="100" cy="100" rx="92" ry="52" transform="rotate(-38 100 100)" stroke="#74FAA5" stroke-opacity="0.18" stroke-width="0.6"/>
     <ellipse cx="100" cy="100" rx="74" ry="38" transform="rotate(-38 100 100)" stroke="#295D86" stroke-opacity="0.7" stroke-width="0.8"/>
-    <circle cx="150" cy="40" r="2.6" fill="#74FAA5"/>
   </svg>
   <img class="logo" src="orbion-logo.png" alt="Orbion">
   <h2>Quer ver esse processo rodando no seu time <span>toda semana?</span></h2>
   <div class="texto">
-    <p>Um bom script ajuda o vendedor a não se perder na ligação. Para as vendas virem todo mês, a empresa precisa de mais três coisas trabalhando juntas.</p>
+    <p>Lembra da conta do dinheiro parado na página 2? O script ajuda o vendedor a buscar esse dinheiro em cada ligação. Para as vendas virem todo mês, três coisas precisam trabalhar juntas.</p>
   </div>
   <div class="pilares">
     <div><b>Processo</b><span>Um caminho claro do primeiro contato até o fechamento.</span></div>
-    <div><b>Time</b><span>Setters e closers treinados para executar esse caminho.</span></div>
-    <div><b>Gestão</b><span>Rotina semanal olhando os números e ajustando o que precisa.</span></div>
+    <div><b>Time</b><span>Quem agenda (setter) e quem fecha (closer), treinados para seguir esse caminho.</span></div>
+    <div><b>Gestão</b><span>Uma reunião por semana para olhar os números e ajustar o que for preciso.</span></div>
   </div>
   <div class="texto">
     <p>É isso que a Orbion monta com as empresas no <strong>Método Máquina Comercial</strong>: um comercial previsível, que vende sem depender do dono em cada ligação.</p>
@@ -1001,8 +1035,8 @@
       <a class="url" href="https://orbionsales.com/?utm_source=isca_pdf&amp;utm_medium=pdf&amp;utm_campaign=script_reativacao_base">orbionsales.com</a>
     </div>
     <div class="qr">
-      <img src="qrcode.svg" alt="QR code para orbionsales.com">
-      <span>Aponte a câmera do celular</span>
+      <a href="https://orbionsales.com/?utm_source=isca_pdf&amp;utm_medium=pdf&amp;utm_campaign=script_reativacao_base"><img src="qrcode.svg" alt="QR code para orbionsales.com"></a>
+      <span>Lendo no computador? Aponte a câmera do celular</span>
     </div>
   </div>
   <div class="copy">© 2026 Orbion Company. Todos os direitos reservados.</div>

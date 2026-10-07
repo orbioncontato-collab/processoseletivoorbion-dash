@@ -40,6 +40,7 @@ await page.evaluate(() => {
       if (idx > last) frag.appendChild(document.createTextNode(node.nodeValue.slice(last, idx)));
       const span = document.createElement('span');
       span.className = 'ph';
+      if (m.length <= 36) span.classList.add('curto');
       span.textContent = m;
       frag.appendChild(span);
       last = idx + m.length;
