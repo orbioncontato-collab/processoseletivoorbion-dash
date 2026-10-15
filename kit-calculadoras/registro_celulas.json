@@ -1,0 +1,2217 @@
+{
+ "calcs": {
+  "1": {
+   "tool_sel": "C18",
+   "tool_summary": "C19",
+   "tools": [
+    {
+     "title_row": 22,
+     "my": {
+      "V": "E30",
+      "uV": "E31",
+      "t": "E32",
+      "ut": "E33"
+     },
+     "inuse": {
+      "V": "G30",
+      "uV": "G31",
+      "t": "G32",
+      "ut": "G33"
+     },
+     "ex": {
+      "V": [
+       "$C$30",
+       "$D$30"
+      ],
+      "uV": [
+       "$C$31",
+       "$D$31"
+      ],
+      "t": [
+       "$C$32",
+       "$D$32"
+      ],
+      "ut": [
+       "$C$33",
+       "$D$33"
+      ]
+     },
+     "scen": "C26",
+     "ok": "$L$14",
+     "err": "$L$13",
+     "main": "B37",
+     "sec": [
+      "G37",
+      "G38",
+      "G39"
+     ],
+     "interp": "C41",
+     "status": "C42",
+     "summary": "$L$31"
+    },
+    {
+     "title_row": 58,
+     "my": {
+      "D": "E66",
+      "uD": "E67",
+      "v": "E68"
+     },
+     "inuse": {
+      "D": "G66",
+      "uD": "G67",
+      "v": "G68"
+     },
+     "ex": {
+      "D": [
+       "$C$66",
+       "$D$66"
+      ],
+      "uD": [
+       "$C$67",
+       "$D$67"
+      ],
+      "v": [
+       "$C$68",
+       "$D$68"
+      ]
+     },
+     "scen": "C62",
+     "ok": "$L$40",
+     "err": "$L$39",
+     "main": "B72",
+     "sec": [
+      "G72",
+      "G73",
+      "G74"
+     ],
+     "interp": "C76",
+     "status": "C77",
+     "summary": "$L$55"
+    },
+    {
+     "title_row": 93,
+     "my": {
+      "Q": "E101",
+      "uQ": "E102",
+      "D": "E103",
+      "uD": "E104"
+     },
+     "inuse": {
+      "Q": "G101",
+      "uQ": "G102",
+      "D": "G103",
+      "uD": "G104"
+     },
+     "ex": {
+      "Q": [
+       "$C$101",
+       "$D$101"
+      ],
+      "uQ": [
+       "$C$102",
+       "$D$102"
+      ],
+      "D": [
+       "$C$103",
+       "$D$103"
+      ],
+      "uD": [
+       "$C$104",
+       "$D$104"
+      ]
+     },
+     "scen": "C97",
+     "ok": "$L$64",
+     "err": "$L$63",
+     "main": "B108",
+     "sec": [
+      "G108",
+      "G109",
+      "G110"
+     ],
+     "interp": "C112",
+     "status": "C113",
+     "summary": "$L$77"
+    },
+    {
+     "title_row": 129,
+     "my": {
+      "V": "E137",
+      "uV": "E138",
+      "Q": "E139",
+      "uQ": "E140"
+     },
+     "inuse": {
+      "V": "G137",
+      "uV": "G138",
+      "Q": "G139",
+      "uQ": "G140"
+     },
+     "ex": {
+      "V": [
+       "$C$137",
+       "$D$137"
+      ],
+      "uV": [
+       "$C$138",
+       "$D$138"
+      ],
+      "Q": [
+       "$C$139",
+       "$D$139"
+      ],
+      "uQ": [
+       "$C$140",
+       "$D$140"
+      ]
+     },
+     "scen": "C133",
+     "ok": "$L$87",
+     "err": "$L$86",
+     "main": "B144",
+     "sec": [
+      "G144",
+      "G145"
+     ],
+     "interp": "C148",
+     "status": "C149",
+     "summary": "$L$100"
+    }
+   ]
+  },
+  "2": {
+   "tool_sel": "C17",
+   "tool_summary": "C18",
+   "tools": [
+    {
+     "title_row": 21,
+     "my": {
+      "P": "E29",
+      "Q": "E30",
+      "uQ": "E31",
+      "C": "E32"
+     },
+     "inuse": {
+      "P": "G29",
+      "Q": "G30",
+      "uQ": "G31",
+      "C": "G32"
+     },
+     "ex": {
+      "P": [
+       "$C$29",
+       "$D$29"
+      ],
+      "Q": [
+       "$C$30",
+       "$D$30"
+      ],
+      "uQ": [
+       "$C$31",
+       "$D$31"
+      ],
+      "C": [
+       "$C$32",
+       "$D$32"
+      ]
+     },
+     "scen": "C25",
+     "ok": "$L$12",
+     "err": "$L$11",
+     "main": "B36",
+     "sec": [
+      "G36",
+      "G37",
+      "G38"
+     ],
+     "interp": "C40",
+     "status": "C41",
+     "summary": "$L$25"
+    },
+    {
+     "title_row": 57,
+     "my": {
+      "P": "E65",
+      "L": "E66",
+      "Q": "E67",
+      "uQ": "E68"
+     },
+     "inuse": {
+      "P": "G65",
+      "L": "G66",
+      "Q": "G67",
+      "uQ": "G68"
+     },
+     "ex": {
+      "P": [
+       "$C$65",
+       "$D$65"
+      ],
+      "L": [
+       "$C$66",
+       "$D$66"
+      ],
+      "Q": [
+       "$C$67",
+       "$D$67"
+      ],
+      "uQ": [
+       "$C$68",
+       "$D$68"
+      ]
+     },
+     "scen": "C61",
+     "ok": "$L$33",
+     "err": "$L$32",
+     "main": "B72",
+     "sec": [
+      "G72",
+      "G73",
+      "G74"
+     ],
+     "interp": "C76",
+     "status": "C77",
+     "summary": "$L$42"
+    },
+    {
+     "title_row": 93,
+     "my": {
+      "P": "E101",
+      "L": "E102",
+      "C": "E103"
+     },
+     "inuse": {
+      "P": "G101",
+      "L": "G102",
+      "C": "G103"
+     },
+     "ex": {
+      "P": [
+       "$C$101",
+       "$D$101"
+      ],
+      "L": [
+       "$C$102",
+       "$D$102"
+      ],
+      "C": [
+       "$C$103",
+       "$D$103"
+      ]
+     },
+     "scen": "C97",
+     "ok": "$L$49",
+     "err": "$L$48",
+     "main": "B107",
+     "sec": [
+      "G107",
+      "G108"
+     ],
+     "interp": "C111",
+     "status": "C112",
+     "summary": "$L$60"
+    }
+   ]
+  },
+  "3": {
+   "tool_sel": "C16",
+   "tool_summary": "C17",
+   "tools": [
+    {
+     "title_row": 20,
+     "my": {
+      "P": "E28",
+      "Ce": "E29",
+      "Cs": "E30"
+     },
+     "inuse": {
+      "P": "G28",
+      "Ce": "G29",
+      "Cs": "G30"
+     },
+     "ex": {
+      "P": [
+       "$C$28",
+       "$D$28"
+      ],
+      "Ce": [
+       "$C$29",
+       "$D$29"
+      ],
+      "Cs": [
+       "$C$30",
+       "$D$30"
+      ]
+     },
+     "scen": "C24",
+     "ok": "$L$11",
+     "err": "$L$10",
+     "main": "B34",
+     "sec": [
+      "G34",
+      "G35"
+     ],
+     "interp": "C38",
+     "status": "C39",
+     "summary": "$L$22"
+    },
+    {
+     "title_row": 72,
+     "my": {
+      "P": "E80",
+      "Qe": "E81",
+      "Ce": "E82",
+      "Qs": "E83",
+      "Cs": "E84"
+     },
+     "inuse": {
+      "P": "G80",
+      "Qe": "G81",
+      "Ce": "G82",
+      "Qs": "G83",
+      "Cs": "G84"
+     },
+     "ex": {
+      "P": [
+       "$C$80",
+       "$D$80"
+      ],
+      "Qe": [
+       "$C$81",
+       "$D$81"
+      ],
+      "Ce": [
+       "$C$82",
+       "$D$82"
+      ],
+      "Qs": [
+       "$C$83",
+       "$D$83"
+      ],
+      "Cs": [
+       "$C$84",
+       "$D$84"
+      ]
+     },
+     "scen": "C76",
+     "ok": "$L$31",
+     "err": "$L$30",
+     "main": "B88",
+     "sec": [
+      "G88",
+      "G89",
+      "G90",
+      "G91"
+     ],
+     "interp": "C92",
+     "status": "C93",
+     "summary": "$L$50"
+    }
+   ]
+  },
+  "4": {
+   "tool_sel": "C17",
+   "tool_summary": "C18",
+   "tools": [
+    {
+     "title_row": 21,
+     "my": {
+      "Q1": "E29",
+      "C1": "E30",
+      "Q2": "E31",
+      "C2": "E32"
+     },
+     "inuse": {
+      "Q1": "G29",
+      "C1": "G30",
+      "Q2": "G31",
+      "C2": "G32"
+     },
+     "ex": {
+      "Q1": [
+       "$C$29",
+       "$D$29"
+      ],
+      "C1": [
+       "$C$30",
+       "$D$30"
+      ],
+      "Q2": [
+       "$C$31",
+       "$D$31"
+      ],
+      "C2": [
+       "$C$32",
+       "$D$32"
+      ]
+     },
+     "scen": "C25",
+     "ok": "$L$14",
+     "err": "$L$13",
+     "main": "B36",
+     "sec": [
+      "G36",
+      "G37",
+      "G38",
+      "G39"
+     ],
+     "interp": "C40",
+     "status": "C41",
+     "summary": "$L$35"
+    },
+    {
+     "title_row": 73,
+     "my": {
+      "Qe": "E81",
+      "Ce": "E82",
+      "Qa": "E83",
+      "Ca": "E84",
+      "Ql": "E85"
+     },
+     "inuse": {
+      "Qe": "G81",
+      "Ce": "G82",
+      "Qa": "G83",
+      "Ca": "G84",
+      "Ql": "G85"
+     },
+     "ex": {
+      "Qe": [
+       "$C$81",
+       "$D$81"
+      ],
+      "Ce": [
+       "$C$82",
+       "$D$82"
+      ],
+      "Qa": [
+       "$C$83",
+       "$D$83"
+      ],
+      "Ca": [
+       "$C$84",
+       "$D$84"
+      ],
+      "Ql": [
+       "$C$85",
+       "$D$85"
+      ]
+     },
+     "scen": "C77",
+     "ok": "$L$49",
+     "err": "$L$48",
+     "main": "B89",
+     "sec": [
+      "G89",
+      "G90",
+      "G91",
+      "G92"
+     ],
+     "interp": "C93",
+     "status": "C94",
+     "summary": "$L$74"
+    },
+    {
+     "title_row": 126,
+     "my": {
+      "uM": "E134",
+      "E": "E135",
+      "Sd": "E136",
+      "G": "E137",
+      "Cn": "E138"
+     },
+     "inuse": {
+      "uM": "G134",
+      "E": "G135",
+      "Sd": "G136",
+      "G": "G137",
+      "Cn": "G138"
+     },
+     "ex": {
+      "uM": [
+       "$C$134",
+       "$D$134"
+      ],
+      "E": [
+       "$C$135",
+       "$D$135"
+      ],
+      "Sd": [
+       "$C$136",
+       "$D$136"
+      ],
+      "G": [
+       "$C$137",
+       "$D$137"
+      ],
+      "Cn": [
+       "$C$138",
+       "$D$138"
+      ]
+     },
+     "scen": "C130",
+     "ok": "$L$81",
+     "err": "$L$80",
+     "main": "B142",
+     "sec": [
+      "G142",
+      "G143"
+     ],
+     "interp": "C146",
+     "status": "C147",
+     "summary": "$L$94"
+    }
+   ]
+  },
+  "5": {
+   "tools": [
+    {
+     "title_row": 15,
+     "my": {
+      "modo": "E23",
+      "C1": "E24",
+      "uC1": "E25",
+      "V1": "E26",
+      "uV1": "E27",
+      "C2": "E28",
+      "uC2": "E29",
+      "V2": "E30",
+      "uV2": "E31"
+     },
+     "inuse": {
+      "modo": "G23",
+      "C1": "G24",
+      "uC1": "G25",
+      "V1": "G26",
+      "uV1": "G27",
+      "C2": "G28",
+      "uC2": "G29",
+      "V2": "G30",
+      "uV2": "G31"
+     },
+     "ex": {
+      "modo": [
+       "$C$23",
+       "$D$23"
+      ],
+      "C1": [
+       "$C$24",
+       "$D$24"
+      ],
+      "uC1": [
+       "$C$25",
+       "$D$25"
+      ],
+      "V1": [
+       "$C$26",
+       "$D$26"
+      ],
+      "uV1": [
+       "$C$27",
+       "$D$27"
+      ],
+      "C2": [
+       "$C$28",
+       "$D$28"
+      ],
+      "uC2": [
+       "$C$29",
+       "$D$29"
+      ],
+      "V2": [
+       "$C$30",
+       "$D$30"
+      ],
+      "uV2": [
+       "$C$31",
+       "$D$31"
+      ]
+     },
+     "scen": "C19",
+     "ok": "$L$35",
+     "err": "$L$34",
+     "main": "B35",
+     "sec": [
+      "G35",
+      "G36",
+      "G37",
+      "G38"
+     ],
+     "interp": "C39",
+     "status": "C40",
+     "summary": "$L$64"
+    }
+   ]
+  },
+  "6": {
+   "tools": [
+    {
+     "title_row": 15,
+     "my": {
+      "prod": "E23",
+      "Q": "E24",
+      "uQ": "E25",
+      "D": "E26",
+      "pct": "E27",
+      "dens": "E28"
+     },
+     "inuse": {
+      "prod": "G23",
+      "Q": "G24",
+      "uQ": "G25",
+      "D": "G26",
+      "pct": "G27",
+      "dens": "G28"
+     },
+     "ex": {
+      "prod": [
+       "$C$23",
+       "$D$23"
+      ],
+      "Q": [
+       "$C$24",
+       "$D$24"
+      ],
+      "uQ": [
+       "$C$25",
+       "$D$25"
+      ],
+      "D": [
+       "$C$26",
+       "$D$26"
+      ],
+      "pct": [
+       "$C$27",
+       "$D$27"
+      ],
+      "dens": [
+       "$C$28",
+       "$D$28"
+      ]
+     },
+     "scen": "C19",
+     "ok": "$L$14",
+     "err": "$L$13",
+     "main": "B32",
+     "sec": [
+      "G32",
+      "G33",
+      "G34",
+      "G35"
+     ],
+     "interp": "C36",
+     "status": "C37",
+     "summary": "$L$33"
+    }
+   ]
+  }
+ },
+ "n_exemplos": 28,
+ "dyn": [
+  [
+   "02 — Vazão e Hidráulica",
+   41,
+   "C41",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   42,
+   "C42",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   47,
+   "C47",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   48,
+   "C48",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   49,
+   "C49",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   76,
+   "C76",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   77,
+   "C77",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   82,
+   "C82",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   83,
+   "C83",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   84,
+   "C84",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   112,
+   "C112",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   113,
+   "C113",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   118,
+   "C118",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   119,
+   "C119",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   120,
+   "C120",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   148,
+   "C148",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   149,
+   "C149",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   154,
+   "C154",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   155,
+   "C155",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   156,
+   "C156",
+   97,
+   10
+  ],
+  [
+   "02 — Vazão e Hidráulica",
+   20,
+   "C20",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   40,
+   "C40",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   41,
+   "C41",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   46,
+   "C46",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   47,
+   "C47",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   48,
+   "C48",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   76,
+   "C76",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   77,
+   "C77",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   82,
+   "C82",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   83,
+   "C83",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   84,
+   "C84",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   111,
+   "C111",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   112,
+   "C112",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   117,
+   "C117",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   118,
+   "C118",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   119,
+   "C119",
+   97,
+   10
+  ],
+  [
+   "03 — Carga Poluidora",
+   19,
+   "C19",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   38,
+   "C38",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   39,
+   "C39",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   44,
+   "C44",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   45,
+   "C45",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   46,
+   "C46",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   92,
+   "C92",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   93,
+   "C93",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   98,
+   "C98",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   99,
+   "C99",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   100,
+   "C100",
+   97,
+   10
+  ],
+  [
+   "04 — Eficiência de Tratamento",
+   18,
+   "C18",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   40,
+   "C40",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   41,
+   "C41",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   46,
+   "C46",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   47,
+   "C47",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   48,
+   "C48",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   93,
+   "C93",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   94,
+   "C94",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   99,
+   "C99",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   100,
+   "C100",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   101,
+   "C101",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   146,
+   "C146",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   147,
+   "C147",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   152,
+   "C152",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   153,
+   "C153",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   154,
+   "C154",
+   97,
+   10
+  ],
+  [
+   "05 — Balanço de Massa",
+   19,
+   "C19",
+   97,
+   10
+  ],
+  [
+   "06 — Diluição de Soluções",
+   39,
+   "C39",
+   97,
+   10
+  ],
+  [
+   "06 — Diluição de Soluções",
+   40,
+   "C40",
+   97,
+   10
+  ],
+  [
+   "06 — Diluição de Soluções",
+   49,
+   "C49",
+   97,
+   10
+  ],
+  [
+   "06 — Diluição de Soluções",
+   50,
+   "C50",
+   97,
+   10
+  ],
+  [
+   "06 — Diluição de Soluções",
+   51,
+   "C51",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   36,
+   "C36",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   37,
+   "C37",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   41,
+   "C41",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   43,
+   "C43",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   45,
+   "C45",
+   97,
+   10
+  ],
+  [
+   "07 — Dosagem Química",
+   47,
+   "C47",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   19,
+   "C19",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   21,
+   "C21",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   22,
+   "C22",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   23,
+   "C23",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   24,
+   "C24",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   29,
+   "C29",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   31,
+   "C31",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   32,
+   "C32",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   33,
+   "C33",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   34,
+   "C34",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   39,
+   "C39",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   41,
+   "C41",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   42,
+   "C42",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   43,
+   "C43",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   44,
+   "C44",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   49,
+   "C49",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   51,
+   "C51",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   52,
+   "C52",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   53,
+   "C53",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   54,
+   "C54",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   59,
+   "C59",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   61,
+   "C61",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   62,
+   "C62",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   63,
+   "C63",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   64,
+   "C64",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   69,
+   "C69",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   71,
+   "C71",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   72,
+   "C72",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   73,
+   "C73",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   74,
+   "C74",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   79,
+   "C79",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   81,
+   "C81",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   82,
+   "C82",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   83,
+   "C83",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   84,
+   "C84",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   89,
+   "C89",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   91,
+   "C91",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   92,
+   "C92",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   93,
+   "C93",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   94,
+   "C94",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   102,
+   "C102",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   104,
+   "C104",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   105,
+   "C105",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   106,
+   "C106",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   107,
+   "C107",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   112,
+   "C112",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   114,
+   "C114",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   115,
+   "C115",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   116,
+   "C116",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   117,
+   "C117",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   122,
+   "C122",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   124,
+   "C124",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   125,
+   "C125",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   126,
+   "C126",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   127,
+   "C127",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   132,
+   "C132",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   134,
+   "C134",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   135,
+   "C135",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   136,
+   "C136",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   137,
+   "C137",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   142,
+   "C142",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   144,
+   "C144",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   145,
+   "C145",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   146,
+   "C146",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   147,
+   "C147",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   152,
+   "C152",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   154,
+   "C154",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   155,
+   "C155",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   156,
+   "C156",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   157,
+   "C157",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   165,
+   "C165",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   167,
+   "C167",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   168,
+   "C168",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   169,
+   "C169",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   170,
+   "C170",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   175,
+   "C175",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   177,
+   "C177",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   178,
+   "C178",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   179,
+   "C179",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   180,
+   "C180",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   185,
+   "C185",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   187,
+   "C187",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   188,
+   "C188",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   189,
+   "C189",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   190,
+   "C190",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   195,
+   "C195",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   197,
+   "C197",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   198,
+   "C198",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   199,
+   "C199",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   200,
+   "C200",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   208,
+   "C208",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   210,
+   "C210",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   211,
+   "C211",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   212,
+   "C212",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   213,
+   "C213",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   218,
+   "C218",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   220,
+   "C220",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   221,
+   "C221",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   222,
+   "C222",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   223,
+   "C223",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   228,
+   "C228",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   230,
+   "C230",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   231,
+   "C231",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   232,
+   "C232",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   233,
+   "C233",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   238,
+   "C238",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   240,
+   "C240",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   241,
+   "C241",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   242,
+   "C242",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   243,
+   "C243",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   248,
+   "C248",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   250,
+   "C250",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   251,
+   "C251",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   252,
+   "C252",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   253,
+   "C253",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   258,
+   "C258",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   260,
+   "C260",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   261,
+   "C261",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   262,
+   "C262",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   263,
+   "C263",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   271,
+   "C271",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   273,
+   "C273",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   274,
+   "C274",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   275,
+   "C275",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   276,
+   "C276",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   281,
+   "C281",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   283,
+   "C283",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   284,
+   "C284",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   285,
+   "C285",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   286,
+   "C286",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   294,
+   "C294",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   296,
+   "C296",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   297,
+   "C297",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   298,
+   "C298",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   299,
+   "C299",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   304,
+   "C304",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   306,
+   "C306",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   307,
+   "C307",
+   97,
+   10
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   308,
+   "C308",
+   97,
+   11.0
+  ],
+  [
+   "08 — Exemplos Resolvidos",
+   309,
+   "C309",
+   97,
+   10
+  ]
+ ]
+}
