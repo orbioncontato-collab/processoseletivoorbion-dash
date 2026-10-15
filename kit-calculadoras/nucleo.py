@@ -101,7 +101,10 @@ def box(ws, rng, v=None, font=None, fill=None, al=None, border=None, fmt=None, u
 
 
 def link(cell, sheet, ref="A1"):
-    cell.hyperlink = Hyperlink(ref=cell.coordinate, location=f"{q(sheet)}!{ref}")
+    # display é obrigatório: sem ele o Google Planilhas mostra o endereço (#gid=...) no lugar do texto
+    texto = cell.value if isinstance(cell.value, str) else str(cell.value or "")
+    cell.hyperlink = Hyperlink(ref=cell.coordinate, location=f"{q(sheet)}!{ref}", display=texto,
+                               tooltip=f"Ir para {sheet}")
 
 
 def altura_texto(texto, largura, size=10, bold=False, minimo=18, extra=6):
