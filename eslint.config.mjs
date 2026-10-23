@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Kit digital (HTML/PDF gerado à parte, fora do app Next)
     "kit-mensagens-mtr-cdf/**",
+    "kit-pre-mtr/**",
   ]),
 ]);
 
