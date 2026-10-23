@@ -16,7 +16,9 @@ Os PDFs não têm campos digitais editáveis. Para preencher no computador, use 
 * macOS ou Linux: `bash copiar_para_downloads.sh`
 * Windows (PowerShell): `powershell -ExecutionPolicy Bypass -File .\copiar_para_downloads.ps1`
 
-Os scripts localizam a pasta Downloads do usuário e não sobrescrevem arquivos existentes (criam `_2`, `_3`...).
+Os scripts criam a pasta `Kit_Pre_MTR_15_Formularios` dentro de Downloads e copiam para ela o HTML, os dois PDFs, o LEIA-ME e a pasta `formularios_individuais`. Se a pasta já existir, criam `Kit_Pre_MTR_15_Formularios_2`, `_3`... sem apagar nada.
+
+Outra opção: baixe `Kit_Pre_MTR_15_Formularios.zip` e extraia. Ele já abre como a pasta `Kit_Pre_MTR_15_Formularios`.
 
 ## Gerar novamente (pasta `fonte/`)
 
