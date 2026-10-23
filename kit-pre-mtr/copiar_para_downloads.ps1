@@ -17,7 +17,7 @@ $n = 2
 while (Test-Path $destino) { $destino = Join-Path $downloads ("{0}_{1}" -f $nome, $n); $n++ }
 New-Item -ItemType Directory -Path $destino | Out-Null
 
-foreach ($arq in 'Kit_Pre_MTR_15_Formularios.html', 'Kit_Pre_MTR_15_Formularios.pdf', 'Kit_Pre_MTR_Formularios_Impressao.pdf', 'LEIA-ME.md') {
+foreach ($arq in 'Kit_Pre_MTR_15_Formularios.html', 'Kit_Pre_MTR_15_Formularios.xlsx', 'Kit_Pre_MTR_15_Formularios.pdf', 'Kit_Pre_MTR_Formularios_Impressao.pdf', 'LEIA-ME.md') {
   Copy-Item (Join-Path $origem $arq) $destino
 }
 Copy-Item (Join-Path $origem 'formularios_individuais') $destino -Recurse

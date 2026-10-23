@@ -25,7 +25,7 @@ DESTINO="$DOWNLOADS/$NOME"; n=2
 while [ -e "$DESTINO" ]; do DESTINO="$DOWNLOADS/${NOME}_${n}"; n=$((n + 1)); done
 mkdir -p "$DESTINO"
 
-for arq in Kit_Pre_MTR_15_Formularios.html Kit_Pre_MTR_15_Formularios.pdf Kit_Pre_MTR_Formularios_Impressao.pdf LEIA-ME.md; do
+for arq in Kit_Pre_MTR_15_Formularios.html Kit_Pre_MTR_15_Formularios.xlsx Kit_Pre_MTR_15_Formularios.pdf Kit_Pre_MTR_Formularios_Impressao.pdf LEIA-ME.md; do
   cp "$ORIGEM/$arq" "$DESTINO/"
 done
 cp -R "$ORIGEM/formularios_individuais" "$DESTINO/"
