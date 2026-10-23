@@ -15,6 +15,7 @@ const eslintConfig = defineConfig([
     // Kit digital (HTML/PDF gerado à parte, fora do app Next)
     "kit-mensagens-mtr-cdf/**",
     "kit-pre-mtr/**",
+    "kit-10-relatorios/**",
   ]),
 ]);
 

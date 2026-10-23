@@ -1,0 +1,41 @@
+KIT DE 10 RELATÓRIOS PRONTOS DE GESTÃO DE RESÍDUOS
+Modelos profissionais editáveis para organizar informações, apresentar resultados
+e comunicar o acompanhamento da gestão de resíduos.
+
+ARQUIVOS
+- Kit_10_Relatorios_Gestao_Residuos.html
+  Central de Relatórios interativa. Abra no navegador (Chrome, Edge, Firefox ou Safari),
+  no computador ou no celular. Funciona sem internet e sem instalar nada.
+- Kit_10_Relatorios_Gestao_Residuos.pdf
+  Os 10 modelos em branco, com textos-base, para consulta e impressão.
+- Relatorios_Individuais/
+  Um PDF em branco para cada modelo, numerados de 01 a 10.
+
+Os PDFs são documentos para impressão e consulta. Eles não têm campos digitais editáveis.
+Para preencher no computador, use o arquivo HTML.
+
+COMO USAR A CENTRAL (HTML)
+1. Abra o arquivo HTML e, se quiser, cadastre os dados da empresa e o logotipo em
+   "Dados da empresa".
+2. Clique em "Abrir relatório" no modelo desejado.
+3. Preencha a identificação (ou use "Usar dados salvos da empresa"), as tabelas e os
+   textos-base. Substitua os trechos entre colchetes pelos fatos do período.
+   Os indicadores e gráficos são calculados a partir das tabelas preenchidas.
+4. Clique em "Salvar relatório em PDF" e escolha "Salvar como PDF" no destino da janela
+   de impressão. Só o relatório aberto é incluído, com os dados digitados.
+
+GUARDAR E CONTINUAR DEPOIS
+- "Exportar dados" gera um arquivo .json com os relatórios, os dados da empresa e o logotipo.
+- "Importar dados" carrega esse arquivo para continuar de onde parou.
+- O navegador também guarda um rascunho automático, mas ele pode se perder se o histórico
+  for apagado. Exporte os dados para ter uma cópia segura.
+- Nada é enviado para a internet.
+
+IMPORTANTE
+Os relatórios deste kit são modelos gerenciais editáveis. As informações devem ser
+preenchidas e conferidas pelo responsável, conforme a documentação disponível e os
+procedimentos aplicáveis. Os relatórios não substituem MTR, CDF ou outros documentos
+oficiais, nem constituem declaração de conformidade ambiental.
+
+Quantidades são somadas apenas dentro da mesma unidade de medida. Os relatórios não
+fazem conversões entre peso, volume e número de volumes.
