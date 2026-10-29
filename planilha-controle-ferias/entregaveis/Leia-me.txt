@@ -1,0 +1,118 @@
+﻿PLANILHA PRONTA DE CONTROLE DE FÉRIAS
+Bônus do produto "160 Mapas Visuais de Departamento Pessoal"
+=====================================================================
+
+VERSÃO
+  Versão: 1.0
+  Data de criação: 29/10/2026
+  Data de revisão das regras: 29/10/2026
+
+ARQUIVOS
+  Controle_de_Ferias.xlsx ............... versão limpa, pronta para os seus dados
+  Controle_de_Ferias_Demonstracao.xlsx .. versão com 18 vínculos fictícios (data de referência fixa em 15/10/2026)
+  Guia_Rapido_Controle_de_Ferias.pdf .... guia visual de preenchimento e uso
+  Leia-me.txt ........................... este arquivo
+
+VERSÃO DO EXCEL
+  Referência: Microsoft Excel 2016, 2019, 2021 ou Microsoft 365, em Windows ou Mac.
+  Versão mínima pelos recursos usados: Excel 2010. A planilha usa tabelas estruturadas,
+  SOMASES/CONT.SES, ÍNDICE/CORRESP, SEERRO, DATAM, FIMMÊS, DIATRABALHO.INTL, validação de dados
+  e formatação condicional. Não usa macros, VBA, matrizes dinâmicas (FILTRO, CLASSIFICAR, LET)
+  nem PROCX.
+
+COMPATIBILIDADE EFETIVAMENTE TESTADA
+  - LibreOffice Calc 24.2 (Linux), em modo automático: abertura, recálculo completo de todas
+    as fórmulas, ausência de erros de fórmula e exportação em PDF para conferência visual.
+  - Os arquivos foram gerados no formato .xlsx (Office Open XML) com a biblioteca XlsxWriter.
+  - NÃO houve teste no Microsoft Excel. As fórmulas foram escolhidas entre funções que existem
+    no Excel desde 2010, mas abertura, desempenho e impressão no Excel não foram verificados.
+  - NÃO houve teste no Google Planilhas. Guardar o arquivo no Google Drive não altera o arquivo.
+    Para usar, baixe e abra no Excel. A conversão para Google Planilhas pode não reproduzir
+    proteção, validações, nomes definidos e algumas fórmulas.
+  - O uso do LibreOffice como ferramenta do dia a dia não foi avaliado. Ele foi usado como
+    motor de cálculo para conferir os resultados.
+
+CAPACIDADE
+  Linhas prontas (com fórmulas, listas e cores):
+    Funcionários (vínculos) ....... 600
+    Períodos e saldos ............. 1500
+    Programação (parcelas) ........ 2000
+    Providências .................. 2000
+    Ocorrências ................... 500
+    Estimativa de valores ......... 300
+    Feriados ...................... 400
+    Descansos de escala variável .. 1500
+  Calendário: até 60 programações por filtro. Painel: as 40 pendências mais urgentes.
+  Ficha individual: até 12 períodos, 20 programações e 10 ocorrências por vínculo.
+
+  Volume testado: 500 vínculos, 1360 períodos, 1781 programações,
+  1021 providências e 100 ocorrências (dados fictícios gerados por script).
+  Recálculo completo no LibreOffice 24.2: 30.7 segundos (inclui abrir e salvar o arquivo).
+  Erros de fórmula no teste de volume: 0.
+  Comparações com o modelo independente no volume: 42586, divergências: 0.
+  Tamanho dos arquivos: limpa 7.75 MB, demonstração 7.77 MB.
+  O tamanho vem das linhas prontas com fórmulas. A abertura pode levar alguns segundos.
+
+COMO ADICIONAR LINHAS ALÉM DO LIMITE
+  1. Revisão > Desproteger Planilha (senha abaixo).
+  2. Arraste a alça do canto inferior direito da tabela para baixo (ou digite logo abaixo
+     da última linha). O Excel copia as fórmulas das colunas calculadas e a formatação.
+  3. Confira se as validações e cores chegaram às novas linhas. Se não, copie uma linha
+     vazia existente e cole as formatações.
+  4. Revisão > Proteger Planilha, marcando "Selecionar células desbloqueadas" e "Usar AutoFiltro".
+  As listas de seleção de IDs crescem sozinhas porque usam intervalos dinâmicos.
+  Com a planilha protegida o Excel não permite inserir linhas dentro das tabelas. Por isso as
+  linhas já vêm prontas.
+
+PROTEÇÃO CONTRA EDIÇÃO ACIDENTAL
+  Senha de todas as abas: FERIAS
+  A senha só evita que uma fórmula seja apagada sem querer. Ela não é segurança nem
+  criptografia. Qualquer pessoa com o arquivo consegue remover a proteção.
+  Filtros continuam disponíveis com a planilha protegida. A ordenação pelo filtro fica
+  bloqueada, porque mexeria em células protegidas.
+
+CÓPIA DE SEGURANÇA
+  - Antes de mudanças grandes, salve uma cópia com a data no nome, por exemplo
+    Controle_de_Ferias_2026-10-29.xlsx.
+  - Guarde cópias fora do computador (pasta da empresa ou nuvem).
+  - A planilha não guarda histórico automático de quem alterou cada célula. Use os campos
+    de responsável, data e justificativa.
+
+REGRAS E FONTES
+  CLT (Decreto-Lei 5.452/1943), arts. 129 a 145, com redação da Lei 13.467/2017; art. 58-A, §7º.
+  Feriados nacionais: Lei 662/1949 (red. Lei 10.607/2002), Lei 6.802/1980 e Lei 14.759/2023.
+  Fontes indicadas: planalto.gov.br/ccivil_03/decreto-lei/del5452compilado.htm,
+  www2.camara.leg.br (texto atualizado da CLT) e gov.br/trabalho-e-emprego (perguntas frequentes).
+  LIMITAÇÃO: no ambiente de criação, os sites planalto.gov.br e camara.leg.br não puderam ser
+  acessados (bloqueio de rede). As regras foram conferidas em transcrições públicas da lei
+  encontradas por busca (por exemplo legjur.com e admdireito.com.br) em 29/10/2026.
+  Confira o texto oficial antes de usar.
+  Convenção adotada para admissão em 29/02: em ano não bissexto o aniversário do contrato é 01/03
+  (dia imediato, por analogia ao art. 132, §3º, do Código Civil). Exemplo: admissão 29/02/2024,
+  período aquisitivo 29/02/2024 a 28/02/2025. Confira se a empresa adota outra convenção.
+
+TESTES REALIZADOS (resumo)
+  - Cenários com resultado esperado escrito à mão: 76 verificações, 0 falhas.
+  - Comparação com o modelo independente em Python (datas, direito, saldos, reservas, abono,
+    parcelas, fracionamento, efeitos de cada situação, conflitos por sobreposição real,
+    vedação de início e retorno): cenários 1119 comparações (0 divergências);
+    demonstração 650 comparações (0 divergências).
+  - Erros de fórmula após recálculo: limpa 0, demonstração 0, cenários 0.
+  - Linhas vazias sem datas, alertas ou zeros nas colunas visíveis: 2106 células conferidas
+    na demonstração, 0 falhas.
+  Detalhes em codigo-fonte/testes/RELATORIO_DE_TESTES.md.
+
+LIMITAÇÕES CONHECIDAS
+  - Alertas só mudam quando a planilha é aberta ou recalculada. Não há e-mail, WhatsApp
+    nem qualquer notificação.
+  - A ordem das listas da Ficha individual segue a ordem das linhas nas abas de dados.
+  - O retorno previsto considera escala fixa (DSR e folga fixa) e pula no máximo os dias de
+    descanso. Se o primeiro dia útil cair em feriado, a planilha pede conferência.
+  - Escalas variáveis dependem das datas de descanso cadastradas.
+  - Regimes especiais, férias coletivas, perda do direito (art. 133) e regras de norma
+    coletiva não são calculados. A planilha sinaliza e guarda o resultado da sua análise.
+  - Não calcula dobra, multa, INSS, IRRF, líquido nem custo da empresa.
+  - Feriados estaduais e municipais precisam ser cadastrados por você. Os da demonstração
+    são exemplos.
+  - Ao abrir um arquivo baixado da internet, o Excel pode usar o Modo de Exibição Protegido.
+    Clique em Habilitar Edição para recalcular com a data de hoje.

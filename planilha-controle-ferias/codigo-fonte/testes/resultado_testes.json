@@ -1,0 +1,183 @@
+{
+ "gerado_em": "29/10/2026 20:05",
+ "limpa": {
+  "recalculo_segundos": 20.7,
+  "erros_formula": [],
+  "qtd_erros": 0,
+  "modelo": {
+   "comparacoes": 0,
+   "divergencias": [],
+   "qtd_divergencias": 0
+  },
+  "linhas_vazias": {
+   "celulas_conferidas": 2106,
+   "falhas": [],
+   "qtd_falhas": 0
+  },
+  "estrutura": [
+   [
+    "Tabelas estruturadas no arquivo",
+    20
+   ],
+   [
+    "Colunas com fórmula de coluna calculada",
+    260
+   ],
+   [
+    "Abas protegidas",
+    "12 de 12"
+   ],
+   [
+    "Regras de validação de dados",
+    112
+   ],
+   [
+    "Nomes definidos",
+    94
+   ],
+   [
+    "Áreas de impressão definidas",
+    12
+   ],
+   [
+    "Links externos",
+    0
+   ],
+   [
+    "Macros (vbaProject)",
+    0
+   ]
+  ],
+  "protecao": {
+   "celulas_conferidas": 1035,
+   "falhas": [],
+   "qtd_falhas": 0
+  },
+  "tamanho_mb": 7.75
+ },
+ "demonstracao": {
+  "recalculo_segundos": 22.6,
+  "erros_formula": [],
+  "qtd_erros": 0,
+  "modelo": {
+   "comparacoes": 650,
+   "divergencias": [],
+   "qtd_divergencias": 0
+  },
+  "linhas_vazias": {
+   "celulas_conferidas": 2106,
+   "falhas": [],
+   "qtd_falhas": 0
+  },
+  "estrutura": [
+   [
+    "Tabelas estruturadas no arquivo",
+    20
+   ],
+   [
+    "Colunas com fórmula de coluna calculada",
+    260
+   ],
+   [
+    "Abas protegidas",
+    "12 de 12"
+   ],
+   [
+    "Regras de validação de dados",
+    112
+   ],
+   [
+    "Nomes definidos",
+    94
+   ],
+   [
+    "Áreas de impressão definidas",
+    12
+   ],
+   [
+    "Links externos",
+    0
+   ],
+   [
+    "Macros (vbaProject)",
+    0
+   ]
+  ],
+  "protecao": {
+   "celulas_conferidas": 1035,
+   "falhas": [],
+   "qtd_falhas": 0
+  },
+  "kpis": {
+   "conferidos": 4,
+   "falhas": [],
+   "esperado": {
+    "Vínculos ativos": 16,
+    "Pessoas em férias na data de referência": 1,
+    "Programações aprovadas para os próximos 30 dias": 2,
+    "Programações com conflito de equipe": 2
+   }
+  },
+  "tamanho_mb": 7.77
+ },
+ "cenarios": {
+  "erros_formula": 0,
+  "modelo": [
+   1119,
+   0,
+   []
+  ],
+  "esperado": [
+   76,
+   0,
+   []
+  ],
+  "vazias": [
+   2106,
+   0
+  ]
+ },
+ "atualizacao": {
+  "alteracao": "PG0004 e PG0008 passam para Cancelada",
+  "erros_formula": 0,
+  "modelo": [
+   647,
+   0,
+   []
+  ],
+  "kpis": [
+   4,
+   0,
+   [],
+   {
+    "Vínculos ativos": 16,
+    "Pessoas em férias na data de referência": 1,
+    "Programações aprovadas para os próximos 30 dias": 1,
+    "Programações com conflito de equipe": 0
+   }
+  ],
+  "kpis_antes": {
+   "Vínculos ativos": 16,
+   "Pessoas em férias na data de referência": 1,
+   "Programações aprovadas para os próximos 30 dias": 2,
+   "Programações com conflito de equipe": 2
+  }
+ },
+ "volume": {
+  "vinculos": 500,
+  "periodos": 1360,
+  "programacoes": 1781,
+  "providencias": 1021,
+  "ocorrencias": 100,
+  "geracao_segundos": 74.5,
+  "recalculo_libreoffice_segundos": 30.7,
+  "erros_formula": 0,
+  "modelo": [
+   42586,
+   0,
+   []
+  ],
+  "tamanho_mb": 7.84,
+  "observacao": "resultado da última execução completa (gerar_tudo.py sem --rapido)"
+ }
+}

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Guia Rápido: Controle de Férias</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 16mm 15mm; }
+  :root { --navy:#1F3864; --navy2:#2E4A7D; --light:#E8F1FB; --gray:#F2F2F2; --red:#FFC7CE; --redt:#9C0006;
+          --yel:#FFEB9C; --yelt:#7F6000; --blue:#D6E6F7; --bluet:#1F4E79; --green:#C6EFCE; --greent:#006100; --grey:#E7E6E6; }
+  * { box-sizing: border-box; }
+  body { font-family: "Liberation Sans", Arial, sans-serif; color:#1f1f1f; font-size: 10.5pt; line-height: 1.45; margin:0; }
+  h1 { color: var(--navy); font-size: 26pt; margin: 0 0 4mm; line-height:1.1; }
+  h2 { color: #fff; background: var(--navy); font-size: 13pt; padding: 2.2mm 4mm; margin: 7mm 0 3mm; border-radius: 1.5mm; break-after: avoid; }
+  h3 { color: var(--navy); font-size: 11pt; margin: 4mm 0 1.5mm; break-after: avoid; }
+  p { margin: 0 0 2.2mm; }
+  .capa { height: 255mm; display:flex; flex-direction:column; justify-content:center; padding: 0 6mm; break-after: page; }
+  .capa .tag { color:#5F7391; font-size: 11pt; letter-spacing: .5px; }
+  .capa .sub { font-size: 13pt; color:#333; max-width: 150mm; }
+  .capa .faixa { margin-top: 10mm; background: var(--navy); color:#fff; padding: 5mm 6mm; font-weight:bold; font-size: 12pt; border-radius: 2mm; }
+  .capa .meta { margin-top: 12mm; color:#5F7391; font-size: 9.5pt; }
+  .caixa { background: var(--light); border-left: 4px solid var(--navy2); padding: 3mm 4mm; margin: 3mm 0; border-radius: 1mm; break-inside: avoid; }
+  .alerta { background: var(--yel); color: var(--yelt); border-left: 4px solid #BF9000; padding: 3mm 4mm; margin: 3mm 0; border-radius: 1mm; break-inside: avoid; }
+  table { border-collapse: collapse; width: 100%; margin: 2mm 0 3mm; font-size: 9.5pt; break-inside: avoid; }
+  th { background: var(--navy); color:#fff; text-align:left; padding: 1.8mm 2.2mm; font-weight: bold; }
+  td { border-bottom: 1px solid #D0D7E2; padding: 1.6mm 2.2mm; vertical-align: top; }
+  .passos { display:grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 3mm 0; }
+  .passo { background: var(--gray); border-radius: 2mm; padding: 3mm; break-inside: avoid; border-top: 4px solid var(--navy2); }
+  .passo b { display:block; color: var(--navy); font-size: 10.5pt; margin-bottom: 1mm; }
+  .passo .n { display:inline-block; background: var(--navy); color:#fff; border-radius: 50%; width: 6mm; height: 6mm; text-align:center; line-height: 6mm; font-size: 9pt; margin-right: 1.5mm; }
+  .chip { display:inline-block; padding: .6mm 2.4mm; border-radius: 1mm; font-weight: bold; font-size: 9pt; }
+  .r { background: var(--red); color: var(--redt); } .y { background: var(--yel); color: var(--yelt); }
+  .b { background: var(--blue); color: var(--bluet); } .g { background: var(--green); color: var(--greent); }
+  .c { background: var(--grey); color: #595959; } .in { background:#fff; border:1px solid var(--navy); color:#1f1f1f; }
+  .calc { background: var(--gray); border:1px solid #5F7391; color:#262626; }
+  figure { margin: 3mm 0 4mm; break-inside: avoid; }
+  figure img { width: 100%; max-height: 120mm; object-fit: contain; border: 1px solid #D0D7E2; border-radius: 1mm; }
+  figcaption { font-size: 8.5pt; color:#555; margin-top: 1mm; }
+  .duas { display:grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  ul { margin: 0 0 2mm; padding-left: 5mm; } li { margin-bottom: 1mm; }
+  .peq { font-size: 8.5pt; color:#555; }
+  .quebra { break-before: page; }
+</style>
+</head>
+<body>
+
+<section class="capa">
+  <div class="tag">BÔNUS · 160 MAPAS VISUAIS DE DEPARTAMENTO PESSOAL</div>
+  <h1>Planilha Pronta de<br>Controle de Férias</h1>
+  <div class="sub">Guia rápido de preenchimento e uso. Feito para quem usa o Excel no dia a dia e quer saber, em poucos minutos, quem tem direito, quanto falta gozar, o que já está reservado e o que precisa ser feito primeiro.</div>
+  <div class="faixa">Programar férias não significa que elas foram gozadas. Prever um pagamento não significa que ele foi realizado.</div>
+  <div class="meta">Versão {{VERSAO}} · Criada em {{DATA}} · Regras revisadas em {{REVISAO}} · Feita para Excel 2010 ou mais recente · Sem macros</div>
+</section>
+
+<h2>1. O que vem no pacote</h2>
+<table>
+  <tr><th style="width:38%">Arquivo</th><th>Para que serve</th></tr>
+  <tr><td><b>Controle_de_Ferias.xlsx</b></td><td>Versão limpa, pronta para os seus dados. Já traz feriados nacionais de 2026 a 2028, tipos de ocorrência e três modelos de escala.</td></tr>
+  <tr><td><b>Controle_de_Ferias_Demonstracao.xlsx</b></td><td>Mesma planilha com 18 vínculos fictícios em duas empresas. Mostra todos os alertas funcionando. Data de referência fixa em 15/10/2026.</td></tr>
+  <tr><td><b>Guia_Rapido_Controle_de_Ferias.pdf</b></td><td>Este guia.</td></tr>
+  <tr><td><b>Leia-me.txt</b></td><td>Versão, compatibilidade testada, limites, senha da proteção e cópia de segurança.</td></tr>
+</table>
+<div class="caixa"><b>Dica:</b> abra primeiro a demonstração e passeie pelas abas 09 Painel, 08 Calendário e 10 Ficha individual. Depois use a versão limpa com os seus dados.</div>
+<div class="alerta"><b>Depois de baixar:</b> se o Excel abrir o arquivo em Modo de Exibição Protegido, clique em <b>Habilitar Edição</b>. Só assim as fórmulas recalculam com a data de hoje. Se você guardar o arquivo no Google Drive, baixe e abra no Excel para usar. O uso direto no Google Planilhas não foi testado.</div>
+
+<h2>2. Como a planilha está organizada</h2>
+<div class="passos">
+  <div class="passo"><b><span class="n">1</span>Configurações</b>Empresas, estabelecimentos, localidades, equipes, escalas, feriados e responsáveis.</div>
+  <div class="passo"><b><span class="n">2</span>Funcionários</b>Uma linha por vínculo, com escala e localidade.</div>
+  <div class="passo"><b><span class="n">3</span>Períodos e saldos</b>Um período aquisitivo por linha. Faltas conferidas e histórico anterior.</div>
+  <div class="passo"><b><span class="n">4</span>Ocorrências</b>Afastamentos e licenças que podem mexer no direito ou no gozo.</div>
+  <div class="passo"><b><span class="n">5</span>Programação</b>Uma parcela de férias por linha, com a situação.</div>
+  <div class="passo"><b><span class="n">6</span>Providências</b>Aviso, ciência, valores, pagamento, registro e arquivo.</div>
+  <div class="passo"><b><span class="n">7</span>Consulta</b>Painel, Calendário e Ficha individual.</div>
+  <div class="passo"><b><span class="n">+</span>Estimativa</b>Valor bruto aproximado de férias, terço e abono.</div>
+</div>
+<p>Os registros se ligam por identificadores: <b>empresa → vínculo → período aquisitivo → programação</b>. As providências pertencem a uma programação. As ocorrências pertencem a um vínculo e, quando você informa, a um período. Por isso duas pessoas com o mesmo nome ou a mesma matrícula em empresas diferentes nunca se misturam.</p>
+
+<h3>O que cada cor quer dizer</h3>
+<table>
+  <tr><th style="width:24%">Cor</th><th>Significado</th></tr>
+  <tr><td><span class="chip in">Você preenche</span></td><td>Célula branca com cabeçalho azul-marinho. É o único lugar onde você digita.</td></tr>
+  <tr><td><span class="chip calc">Calculado</span></td><td>Célula cinza-clara com cabeçalho cinza-azulado. Está protegida contra edição acidental.</td></tr>
+  <tr><td><span class="chip r">Vermelho</span></td><td>Pendência crítica, prazo encerrado ou inconsistência. Exemplos: Saldo insuficiente, Aviso atrasado.</td></tr>
+  <tr><td><span class="chip y">Amarelo</span></td><td>Atenção, prazo próximo ou análise necessária. Exemplos: Conferir direito, Conferir escala, Calendário incompleto.</td></tr>
+  <tr><td><span class="chip b">Azul</span></td><td>Em acompanhamento. Exemplo: Pagamento previsto até a data indicada.</td></tr>
+  <tr><td><span class="chip g">Verde</span></td><td>Etapa conferida ou concluída segundo os registros. Vale só para a etapa indicada.</td></tr>
+  <tr><td><span class="chip c">Cinza</span></td><td>Cancelado, simulação, histórico ou não aplicável.</td></tr>
+</table>
+
+<h2>3. Painel: o que fazer primeiro</h2>
+<figure><img src="img/painel.png"><figcaption>Aba 09 Painel na demonstração. Os cartões mostram quantidades com a unidade escrita (vínculos, pessoas, programações, períodos, dias). A lista abaixo ordena as pendências pela gravidade e pelo prazo.</figcaption></figure>
+<ul>
+  <li><b>1 Crítica:</b> prazo encerrado ou erro que impede seguir. Resolva primeiro.</li>
+  <li><b>2 Alta</b> e <b>3 Média:</b> prazos próximos e conferências pendentes.</li>
+  <li><b>4 Acompanhar:</b> itens sem urgência, como um pagamento ainda distante.</li>
+</ul>
+<div class="caixa">Os números mudam quando a planilha é aberta ou recalculada. A planilha não manda e-mail nem mensagem. Crie o hábito de abrir o Painel toda semana.</div>
+
+<h2>4. Passo a passo do preenchimento</h2>
+<h3>4.1 Configurações (aba 02)</h3>
+<ul>
+  <li>Cadastre empresas (ID curto, como E01), estabelecimentos e localidades (município e UF).</li>
+  <li>Cadastre equipes e, se quiser, o <b>limite interno</b> de pessoas ausentes ao mesmo tempo. Esse limite é uma regra da sua gestão. A lei não fixa esse número.</li>
+  <li>Em <b>Escalas</b>, informe o dia do descanso semanal remunerado (DSR). Escala 12x36 ou outra variável: marque Variável e registre os dias de descanso na tabela própria.</li>
+  <li>Em <b>Feriados</b>, complete os estaduais e municipais. Depois marque o ano e a localidade em <b>Calendários revisados</b>. Sem isso a planilha mostra Calendário incompleto.</li>
+  <li>Alertas internos (90, 60 e 30 dias antes do fim do concessivo) podem ser alterados. Eles também são parâmetros internos.</li>
+</ul>
+<h3>4.2 Funcionários (aba 03)</h3>
+<ul>
+  <li>Uma linha por vínculo. Use o ID sugerido no topo da aba (V0001, V0002...).</li>
+  <li>Readmissão: novo ID de vínculo. O vínculo antigo fica como Desligado, com a data.</li>
+  <li>Não registre CPF completo, dados bancários ou diagnósticos médicos.</li>
+</ul>
+<h3>4.3 Períodos e saldos (aba 04)</h3>
+<p>Informe o vínculo e o número do período (1 para o primeiro ano de contrato). As datas são calculadas pelo aniversário da admissão. Depois informe as <b>faltas injustificadas conferidas</b> e a situação da apuração.</p>
+<table>
+  <tr><th>Faltas injustificadas no aquisitivo</th><th>Até 5</th><th>6 a 14</th><th>15 a 23</th><th>24 a 32</th><th>Acima de 32</th></tr>
+  <tr><td>Dias de direito (CLT, art. 130)</td><td>30</td><td>24</td><td>18</td><td>12</td><td>0, conferir</td></tr>
+</table>
+<p><b>Histórico de antes da planilha:</b> use Gozo anterior, Abono anterior, Parcelas anteriores e Maior parcela anterior. Não repita essas parcelas na aba 05.</p>
+<figure><img src="img/periodos.png"><figcaption>Saldos separados: direito, gozo confirmado, abono confirmado, reservas e saldo disponível.</figcaption></figure>
+<div class="caixa"><b>Exemplo de saldo:</b> direito 30, gozo confirmado 10, abono confirmado 0 e 14 dias aprovados para o futuro. Saldo ainda não gozado = 30 − 10 − 0 = 20. Saldo disponível para programar = 20 − 14 = 6.</div>
+
+<h3>4.4 Programação (aba 05)</h3>
+<p>Uma linha por parcela. A situação é sempre escolhida por você. A data passar não conclui as férias nem confirma pagamento.</p>
+<table>
+  <tr><th style="width:18%">Situação</th><th>Efeito no saldo</th></tr>
+  <tr><td><span class="chip c">Rascunho</span></td><td>Simulação. Não reserva nada.</td></tr>
+  <tr><td><span class="chip y">Solicitada</span></td><td>Aparece como demanda. Não reserva até ser aprovada.</td></tr>
+  <tr><td><span class="chip b">Aprovada</span></td><td>Reserva os dias.</td></tr>
+  <tr><td><span class="chip b">Em gozo</span></td><td>Continua reservada e indica ausência no calendário.</td></tr>
+  <tr><td><span class="chip g">Concluída</span></td><td>A reserva vira gozo confirmado.</td></tr>
+  <tr><td><span class="chip c">Cancelada</span></td><td>Libera os dias e mantém o registro.</td></tr>
+</table>
+<figure><img src="img/programacao.png"><figcaption>Cada parcela mostra término, retorno previsto pela escala, prazos legais, aviso, pagamento, conflito de equipe e a validação do conjunto do período.</figcaption></figure>
+<ul>
+  <li><b>Término</b> = início + dias de gozo − 1. Exemplo: início 30/12/2026 com 5 dias termina em 03/01/2027.</li>
+  <li><b>Retorno previsto</b> só aparece com escala fixa e calendário revisado. Fora disso a planilha mostra Conferir escala ou Calendário incompleto.</li>
+  <li><b>Fracionamento:</b> até 3 parcelas, uma com 14 dias ou mais e as outras com 5 ou mais, com concordância do empregado. A planilha avalia todas as parcelas do período juntas.</li>
+  <li><b>Validação do conjunto:</b> Parcial (ainda falta programar, mas a combinação fecha), Incompatível (a combinação não fecha ou há erro) ou Completa e conferida segundo registros.</li>
+  <li><b>Reagendar:</b> marque a parcela antiga como Cancelada, escreva o motivo e crie outra linha com novo ID, informando a antiga em Programação anterior relacionada.</li>
+  <li><b>Início vedado:</b> as férias não podem começar nos 2 dias antes de feriado ou do DSR (CLT, art. 134, §3º).</li>
+</ul>
+
+<h3>4.5 Providências (aba 07)</h3>
+<p>Uma linha por programação aprovada. A planilha calcula os dois prazos legais, que são diferentes:</p>
+<table>
+  <tr><th>Etapa</th><th>Prazo da regra geral</th><th>Exemplo para férias em 09/11/2026</th></tr>
+  <tr><td>Aviso por escrito</td><td>30 dias antes do início (art. 135)</td><td>10/10/2026</td></tr>
+  <tr><td>Pagamento</td><td>2 dias antes do início (art. 145)</td><td>07/11/2026</td></tr>
+</table>
+<p>O pagamento tem quatro estados: <b>Previsto</b>, <b>Agendado</b>, <b>Realizado</b> e <b>Confirmado</b>. Só Confirmado encerra a pendência. No aviso, informe a data de ciência e marque Conteúdo conferido. Um link de evidência sozinho não conta como conferência.</p>
+
+<h3>4.6 Ocorrências (aba 06)</h3>
+<p>Registre afastamentos, licenças e situações que podem afetar o direito. Use só a referência do documento, sem diagnóstico. Enquanto a análise estiver pendente, o período mostra <span class="chip y">Direito pendente de conferência</span>. Quando a análise mudar o direito ou as datas, registre o resultado também na aba 04.</p>
+
+<h2>5. Calendário e Ficha individual</h2>
+<figure><img src="img/calendario.png"><figcaption>Aba 08 Calendário: S solicitada, A aprovada, G em gozo, C concluída. A linha de baixo compara as ausências de cada dia com o limite interno da equipe filtrada.</figcaption></figure>
+<ul>
+  <li>Escolha mês, ano, empresa, estabelecimento, setor e equipe. Mostra até 60 programações por filtro.</li>
+  <li>O conflito usa as datas reais. Duas férias no mesmo mês sem dias em comum não geram conflito.</li>
+  <li>Sem limite cadastrado aparece <b>Limite não definido</b>.</li>
+</ul>
+<figure><img src="img/ficha.png"><figcaption>Aba 10 Ficha individual. Escolha o vínculo e imprima: A4 paisagem, ajustada à largura, cabeçalho repetido e páginas numeradas.</figcaption></figure>
+
+<h2>6. Estimativa de valores (aba 11)</h2>
+<ul>
+  <li>Calcula valor <b>bruto</b>: remuneração do gozo, terço do gozo, abono e terço do abono, com base mensal ÷ 30 para mensalista.</li>
+  <li>Médias e adicionais você informa já apurados. A planilha não inventa percentual de média.</li>
+  <li>Não calcula INSS, IRRF, descontos, valor líquido nem custo da empresa. Não soma salário do mês nem adiantamento de 13º.</li>
+  <li>Os valores não alteram nenhum saldo de dias.</li>
+</ul>
+
+<h2>7. Adicionar linhas, proteção e cópia de segurança</h2>
+<table>
+  <tr><th>Tabela</th><th>Linhas prontas</th></tr>
+  <tr><td>Funcionários</td><td>600</td></tr><tr><td>Períodos e saldos</td><td>1.500</td></tr>
+  <tr><td>Programação</td><td>2.000</td></tr><tr><td>Providências</td><td>2.000</td></tr>
+  <tr><td>Ocorrências</td><td>500</td></tr><tr><td>Estimativa de valores</td><td>300</td></tr>
+</table>
+<ul>
+  <li>Digite sempre na próxima linha branca. Fórmulas, listas e cores já estão lá.</li>
+  <li>Para passar desses limites: <b>Revisão &gt; Desproteger Planilha</b> (senha <b>FERIAS</b>), arraste a alça do canto inferior direito da tabela para baixo e proteja de novo com <b>Revisão &gt; Proteger Planilha</b>, marcando "Usar AutoFiltro". O Excel copia as fórmulas das colunas calculadas.</li>
+  <li>A senha só evita apagar fórmulas sem querer. Ela não é segurança nem criptografia dos dados.</li>
+  <li>A planilha não registra sozinha quem alterou cada célula. Use os campos de responsável, data e justificativa.</li>
+  <li><b>Cópia de segurança:</b> antes de mudanças grandes, salve uma cópia com a data no nome (Controle_de_Ferias_2026-10-29.xlsx) e guarde em outra pasta ou na nuvem.</li>
+</ul>
+
+<h2>8. Regras usadas e limites</h2>
+<p>Base: CLT (Decreto-Lei 5.452/1943), arts. 129 a 145, com a redação da Lei 13.467/2017. Revisão em {{REVISAO}}. Os sites oficiais não puderam ser abertos no ambiente onde a planilha foi criada. A conferência foi feita em transcrições públicas da lei. Confira o texto oficial em planalto.gov.br antes de usar.</p>
+<ul>
+  <li>Doméstico, intermitente e outros regimes especiais aparecem como Análise específica.</li>
+  <li>Férias coletivas podem ser registradas em Ocorrências, sem cálculo automático.</li>
+  <li>Concessão fora do prazo e pagamento atrasado geram alertas separados. A planilha não calcula dobra nem penalidade.</li>
+  <li>Convenções e acordos coletivos podem ter regras próprias. Registre a referência e confira caso a caso.</li>
+  <li>A planilha organiza e confere registros. Ela não substitui o sistema de folha nem uma análise jurídica.</li>
+</ul>
+<p class="peq" style="margin-top:2mm">Nomes, empresas e valores da demonstração são fictícios. Feriados estaduais e municipais da demonstração são exemplos e precisam ser conferidos no ato oficial de cada local.</p>
+</body>
+</html>
