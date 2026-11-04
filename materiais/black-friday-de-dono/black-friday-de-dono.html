@@ -1,0 +1,1380 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Black Friday de Dono | Marcelo Alves</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --navy:#0A1123; --green:#74FAA5; --blue:#295D86; --deep:#265C58;
+  --white:#FFFFFF; --gray:#F4F7FA; --ink:#0A1123; --muted:#46566B;
+  --line:#D9E1EA; --line2:#E8EDF3;
+}
+@page{ size:A4; margin:0; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ background:#C9D2DC; }
+body{ font-family:"Inter",sans-serif; color:var(--ink); font-size:13.5px; line-height:1.5;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact; font-feature-settings:"tnum" 1,"cv11" 1; }
+@media screen{ .page{ margin:24px auto; box-shadow:0 6px 30px rgba(10,17,35,.25);} }
+
+.page{ width:210mm; height:297mm; position:relative; overflow:hidden; background:var(--white);
+  padding:15mm 17mm 21mm; page-break-after:always; break-after:page; display:flex; flex-direction:column; }
+.page:last-child{ page-break-after:auto; break-after:auto; }
+.page.dark{ background:var(--navy); color:#fff; }
+.content{ flex:1; display:flex; flex-direction:column; min-height:0; }
+.content > *{ flex-shrink:0; }
+
+/* ---------- tipografia ---------- */
+.display{ font-family:"Inter Display","Inter",sans-serif; }
+h1.title{ font-family:"Inter Display","Inter",sans-serif; font-weight:800; font-size:31px; line-height:1.12;
+  letter-spacing:-.6px; margin:5mm 0 3mm; max-width:176mm; }
+h2.sub{ font-family:"Inter Display","Inter",sans-serif; font-weight:700; font-size:17px; line-height:1.25; margin:0 0 2.5mm; letter-spacing:-.2px; }
+h3{ font-weight:700; font-size:14px; line-height:1.3; }
+p{ margin:0 0 2mm; }
+.lead{ font-size:14.5px; color:var(--muted); max-width:160mm; }
+.dark .lead{ color:#C3CCDA; }
+.muted{ color:var(--muted); }
+.dark .muted{ color:#AEB9CA; }
+.small{ font-size:11.5px; }
+.green{ color:var(--green); }
+.blue{ color:var(--blue); }
+.hl{ background:linear-gradient(transparent 62%, rgba(116,250,165,.55) 62%); }
+.dark .hl{ background:none; color:var(--green); }
+b,strong{ font-weight:700; }
+
+/* ---------- topo ---------- */
+.top{ display:flex; align-items:center; justify-content:space-between; font-size:10.5px; letter-spacing:1.6px;
+  text-transform:uppercase; font-weight:700; color:var(--blue); }
+.dark .top{ color:var(--green); }
+.top .tag{ display:flex; align-items:center; gap:8px; }
+.top .tag::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px rgba(116,250,165,.25); }
+.progress{ display:flex; gap:4px; align-items:center; color:#8A97A8; letter-spacing:1.2px; }
+.dark .progress{ color:#7F8BA0; }
+.progress i{ width:14px; height:4px; border-radius:2px; background:var(--line); display:inline-block; }
+.dark .progress i{ background:rgba(255,255,255,.14); }
+.progress i.on{ background:var(--green); }
+.progress i.done{ background:var(--blue); }
+.dark .progress i.done{ background:#4F7FA8; }
+.progress span{ margin-left:6px; }
+
+/* ---------- rodapé ---------- */
+.foot{ position:absolute; left:17mm; right:17mm; bottom:8mm; display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; color:#7B889A; border-top:1px solid var(--line2); padding-top:3mm; letter-spacing:.3px; }
+.dark .foot{ color:#8390A6; border-top-color:rgba(255,255,255,.1); }
+.foot .pn{ font-weight:700; color:var(--navy); font-size:11px; }
+.dark .foot .pn{ color:var(--green); }
+.foot .mid{ text-transform:uppercase; letter-spacing:1.5px; font-size:9.5px; }
+
+/* ---------- cards ---------- */
+.card{ border:1px solid var(--line); border-radius:10px; padding:4mm 4.5mm; background:#fff; }
+.card.soft{ background:var(--gray); border-color:var(--gray); }
+.card.navy{ background:var(--navy); color:#fff; border-color:var(--navy); }
+.dark .card{ background:rgba(255,255,255,.045); border-color:rgba(255,255,255,.12); color:#fff; }
+.dark .card.white{ background:#fff; color:var(--ink); border-color:#fff; }
+.grid{ display:grid; gap:4mm; }
+.g2{ grid-template-columns:1fr 1fr; } .g3{ grid-template-columns:1fr 1fr 1fr; } .g4{ grid-template-columns:repeat(4,1fr); }
+.ic{ width:30px; height:30px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center;
+  background:rgba(41,93,134,.1); color:var(--blue); flex:none; }
+.ic svg{ width:17px; height:17px; }
+.dark .ic{ background:rgba(116,250,165,.12); color:var(--green); }
+.card.navy .ic{ background:rgba(116,250,165,.12); color:var(--green); }
+.chip{ display:inline-flex; align-items:center; gap:5px; font-size:9.5px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;
+  padding:3px 8px; border-radius:20px; background:rgba(41,93,134,.1); color:var(--blue); }
+.dark .chip, .card.navy .chip{ background:rgba(116,250,165,.14); color:var(--green); }
+.chip.ilus::before{ content:"i"; font-style:italic; font-family:Georgia,serif; font-weight:700; width:11px; height:11px; border-radius:50%;
+  border:1px solid currentColor; display:inline-flex; align-items:center; justify-content:center; font-size:8px; letter-spacing:0; }
+.num-badge{ font-family:"Inter Display"; font-weight:800; font-size:12px; color:var(--blue); letter-spacing:.5px; }
+.dark .num-badge{ color:var(--green); }
+
+.callout{ border-left:3px solid var(--green); background:var(--gray); padding:3.5mm 4.5mm; border-radius:0 8px 8px 0; }
+.dark .callout{ background:rgba(116,250,165,.07); }
+.callout.q{ background:var(--navy); color:#fff; border-left-color:var(--green); }
+
+/* ---------- checklist ---------- */
+.checklist{ border-radius:10px; background:var(--gray); padding:4mm 5mm 3mm; position:relative; }
+.dark .checklist{ background:rgba(255,255,255,.05); border:1px solid rgba(116,250,165,.25); }
+.cl-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:2.5mm; padding-bottom:2mm; border-bottom:1px solid var(--line); }
+.dark .cl-head{ border-bottom-color:rgba(255,255,255,.12); }
+.cl-head .k{ font-size:10.5px; font-weight:800; letter-spacing:1.8px; color:var(--blue); }
+.dark .cl-head .k{ color:var(--green); }
+.cl-head .r{ font-family:"Inter Display"; font-weight:800; font-size:17px; }
+.cl-head .a{ margin-left:auto; font-size:11px; color:var(--muted); }
+.dark .cl-head .a{ color:#AEB9CA; }
+.checklist ul{ list-style:none; }
+.checklist li{ display:flex; align-items:flex-start; gap:10px; padding:1.6mm 0; border-bottom:1px dashed var(--line); font-size:13.5px; line-height:1.4; }
+.dark .checklist li{ border-bottom-color:rgba(255,255,255,.1); }
+.checklist li:last-child{ border-bottom:0; }
+.checklist .n{ font-weight:800; font-size:11.5px; color:var(--blue); width:20px; flex:none; padding-top:1px; }
+.dark .checklist .n{ color:var(--green); }
+.cb{ width:16px; height:16px; border:1.6px solid var(--blue); border-radius:3px; flex:none; margin-top:1px; background:#fff; display:inline-block; }
+.dark .cb{ border-color:var(--green); background:transparent; }
+
+/* ---------- campos ---------- */
+.field{ display:block; border-bottom:1.2px solid #9AA8B8; height:24px; }
+.dark .field{ border-bottom-color:rgba(255,255,255,.4); }
+.flabel{ font-size:10.5px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase; color:var(--blue); }
+.dark .flabel{ color:var(--green); }
+
+/* ---------- tabelas ---------- */
+table{ width:100%; border-collapse:separate; border-spacing:0; font-size:13px; }
+th{ background:var(--navy); color:#fff; text-align:left; font-size:10.5px; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; padding:2.6mm 3.5mm; }
+th:first-child{ border-radius:8px 0 0 0; } th:last-child{ border-radius:0 8px 0 0; }
+td{ padding:2.2mm 3.5mm; border-bottom:1px solid var(--line); vertical-align:middle; }
+tr:nth-child(even) td{ background:#FAFBFD; }
+td.r, th.r{ text-align:right; white-space:nowrap; }
+td.fill{ position:relative; }
+td.fill .field{ height:20px; border-bottom-color:#B5C1CE; }
+table.tight td{ padding-top:1.5mm; padding-bottom:1.5mm; }
+table.tall td{ padding-top:3mm; padding-bottom:3mm; }
+tr.total td{ background:var(--gray); font-weight:800; border-bottom:0; }
+.dark table td{ border-bottom-color:rgba(255,255,255,.1); }
+
+/* ---------- utilidades ---------- */
+.row{ display:flex; gap:4mm; } .col{ flex:1; min-width:0; }
+.mt1{ margin-top:2mm !important; } .mt2{ margin-top:4.5mm !important; } .mt3{ margin-top:7mm !important; } .mb1{ margin-bottom:2mm; } .mb2{ margin-bottom:4mm; }
+.card.navy .kicker{ color:var(--green); }
+.dark .card.white .field{ border-bottom-color:#9AA8B8; }
+.dark .card.white .kicker{ color:var(--blue); }
+.spacer{ flex:1; }
+.center{ text-align:center; }
+.kicker{ font-size:10.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--blue); margin-bottom:2mm; }
+.dark .kicker{ color:var(--green); }
+.divider{ height:1px; background:var(--line); margin:4mm 0; }
+.dark .divider{ background:rgba(255,255,255,.12); }
+svg.i{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- capa ---------- */
+.cover{ padding:0; }
+.cover .orbit{ position:absolute; right:-95mm; top:-70mm; width:230mm; height:230mm; }
+.cover .inner{ position:relative; padding:20mm 18mm 18mm; height:100%; display:flex; flex-direction:column; }
+.cover .brandline{ display:flex; justify-content:space-between; font-size:11px; letter-spacing:2.2px; text-transform:uppercase; color:#AEB9CA; font-weight:600; }
+.cover .brandline b{ color:#fff; }
+.cover h1{ font-family:"Inter Display"; font-weight:900; font-size:78px; line-height:.92; letter-spacing:-2.5px; margin-top:52mm; }
+.cover h1 .g{ color:var(--green); }
+.cover .subt{ font-size:21px; line-height:1.3; font-weight:500; color:#E3E8F0; margin-top:8mm; max-width:140mm; }
+.cover .stat{ margin-top:12mm; display:flex; gap:6mm; align-items:center; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14); padding:6mm 0; }
+.cover .stat .big{ font-family:"Inter Display"; font-weight:900; font-size:64px; line-height:1; color:var(--green); letter-spacing:-2px; }
+.cover .stat p{ font-size:15px; line-height:1.45; color:#D5DCE7; max-width:120mm; margin:0; }
+.cover .stat p b{ color:#fff; }
+.cover .who{ display:flex; justify-content:space-between; align-items:flex-end; }
+.cover .who .name{ font-family:"Inter Display"; font-size:22px; font-weight:800; }
+.cover .who .role{ font-size:13px; color:#AEB9CA; letter-spacing:.6px; margin-top:1mm; }
+.cover .who .guide{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--green); font-weight:700; text-align:right; }
+
+/* ---------- mapa (p3) ---------- */
+.map{ display:grid; grid-template-columns:1fr 16mm 1fr; grid-template-rows:repeat(9, 1fr); flex:1; position:relative; margin-top:3mm; }
+.map::before{ content:""; position:absolute; left:50%; top:4%; bottom:4%; width:1.5px; background:linear-gradient(var(--green), rgba(116,250,165,.15)); transform:translateX(-50%); }
+.map .mc{ grid-row:span 2; align-self:center; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:3.2mm 4mm; position:relative; }
+.map .mc.l{ grid-column:1; } .map .mc.r{ grid-column:3; }
+.map .mc .h{ display:flex; align-items:center; gap:8px; margin-bottom:1.4mm; }
+.map .mc .nn{ font-family:"Inter Display"; font-weight:900; font-size:19px; color:var(--green); }
+.map .mc h3{ font-size:14px; }
+.map .mc p{ font-size:12.3px; color:#C3CCDA; margin:0; line-height:1.42; }
+.map .mc .it{ font-size:9.5px; letter-spacing:1.2px; text-transform:uppercase; color:#7F8BA0; margin-top:1.6mm; font-weight:700; }
+.map .mc::after{ content:""; position:absolute; top:50%; width:8mm; height:1.5px; background:rgba(116,250,165,.5); }
+.map .mc.l::after{ right:-8mm; } .map .mc.r::after{ left:-8mm; }
+.map .node{ grid-column:2; grid-row:span 2; align-self:center; justify-self:center; width:11px; height:11px; border-radius:50%; background:var(--navy); border:2px solid var(--green); z-index:1; }
+
+/* ---------- funil ---------- */
+.funnel{ display:flex; flex-direction:column; align-items:center; gap:1.2mm; }
+.funnel .fb{ height:12mm; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13.5px; border-radius:4px; position:relative; }
+.funnel .fb b{ font-family:"Inter Display"; font-size:19px; margin-right:6px; font-weight:800; }
+.funnel .rate{ font-size:10.5px; color:var(--green); font-weight:700; letter-spacing:.6px; }
+.funnel .res{ background:var(--green); color:var(--navy); padding:2.5mm 6mm; border-radius:30px; font-weight:800; font-size:15px; margin-top:1mm; }
+
+/* ---------- etapas numeradas ---------- */
+.steps{ display:flex; flex-direction:column; gap:2.4mm; }
+.step{ display:flex; gap:4mm; align-items:flex-start; }
+.step .sn{ width:30px; height:30px; border-radius:50%; border:1.5px solid var(--blue); color:var(--blue); font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none; }
+.dark .step .sn{ border-color:var(--green); color:var(--green); }
+
+/* ---------- linha do tempo horizontal ---------- */
+.htl{ display:grid; grid-template-columns:repeat(4,1fr); gap:4mm; position:relative; }
+.htl::before{ content:""; position:absolute; top:15px; left:12%; right:12%; height:1.5px; background:var(--line); }
+.htl .hs{ position:relative; text-align:left; }
+.htl .dot{ width:30px; height:30px; border-radius:50%; background:var(--navy); color:var(--green); font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; margin-bottom:3mm; position:relative; }
+
+/* ---------- mensagens ---------- */
+.msg{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:3.6mm 4mm; display:flex; flex-direction:column; }
+.msg .mh{ display:flex; align-items:center; gap:7px; margin-bottom:1.6mm; }
+.msg .mh .mn{ font-size:9.5px; font-weight:800; letter-spacing:1.3px; color:var(--blue); text-transform:uppercase; }
+.msg h3{ font-size:13.5px; margin-bottom:1.2mm; }
+.msg .ctx{ font-size:10.8px; color:var(--deep); font-weight:600; margin-bottom:1.6mm; }
+.msg .bubble{ background:var(--gray); border-radius:3px 10px 10px 10px; padding:2.6mm 3.2mm; font-size:11.8px; line-height:1.45; color:#1B2638; flex:1; }
+.msg .bubble p{ margin:0 0 1.3mm; } .msg .bubble p:last-child{ margin:0; }
+.ph{ color:var(--blue); font-weight:700; }
+</style>
+</head>
+<body>
+
+<!-- ===== ÍCONES ===== -->
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M21 20H3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.4"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6" rx="6" ry="2.5"/><path d="M3 6v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V6"/><path d="M9 15.5c.6 1.2 3 2 6 2 3.3 0 6-1.1 6-2.5v-4c0-1.2-1.9-2.2-4.6-2.4"/><path d="M21 15v4c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-3.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.3 2.5 3.5 5.2"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1-4.2A8 8 0 1 1 20 12z"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 10v4h4l8 5V5L7 10z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></symbol>
+  <symbol id="i-crm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16M5 8h2M11 8h2M17 8h2M11 11h2"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-6"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2.5 4L17 12H5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-4.5L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.5 4.5L20 16"/><path d="M20 21v-5h-5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5M4 9v11h16V9M3 9h18"/><path d="M9 20v-6h6v6"/></symbol>
+  <symbol id="i-click" viewBox="0 0 24 24"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3"/><path d="M10 10l10 4-4 2-2 4z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10.5 9.5v5l4-2.5z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-funnel" viewBox="0 0 24 24"><path d="M3 4h18l-7 8v7l-4 2v-9z"/></symbol>
+  <symbol id="i-pct" viewBox="0 0 24 24"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3L3 6l2 4 3-1v12h8V9l3 1 2-4-5-3c-.5 1.5-2 2.5-4 2.5S8.5 4.5 8 3z"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.5 5.5a4 4 0 0 0 4.9 4.9L10 19.8a2.1 2.1 0 0 1-3-3z"/><path d="M14.5 5.5L17 3l4 4-2.5 2.5"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 12h18"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 10l7 3 3 7z"/><path d="M10 13L21 3"/></symbol>
+  <symbol id="i-door" viewBox="0 0 24 24"><path d="M3 21h18M6 21V3h10v18"/><path d="M13 12h.01"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 15a1.5 1.5 0 0 1 2.4-1.8L7 14.5V11"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+ </defs>
+</svg>
+
+<!-- =========================================================
+     PÁGINA 01 | CAPA
+========================================================= -->
+<section class="page dark cover">
+  <svg class="orbit" viewBox="0 0 400 400" fill="none">
+    <circle cx="200" cy="200" r="190" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+    <circle cx="200" cy="200" r="150" stroke="rgba(255,255,255,.09)" stroke-width="1"/>
+    <circle cx="200" cy="200" r="110" stroke="rgba(41,93,134,.55)" stroke-width="1"/>
+    <circle cx="200" cy="200" r="70" stroke="rgba(116,250,165,.35)" stroke-width="1"/>
+    <circle cx="200" cy="200" r="30" fill="rgba(41,93,134,.35)"/>
+    <ellipse cx="200" cy="200" rx="190" ry="62" stroke="rgba(116,250,165,.22)" stroke-width="1" transform="rotate(-24 200 200)"/>
+    <circle cx="176" cy="307.5" r="5" fill="#74FAA5"/>
+    <circle cx="310" cy="120" r="3.5" fill="#295D86"/>
+    <circle cx="200" cy="50" r="2.5" fill="rgba(255,255,255,.5)"/>
+  </svg>
+  <div class="inner">
+    <div class="brandline"><span><b>Marcelo Alves</b> &nbsp;|&nbsp; Orbion Sales</span><span>Edição Black Friday 2026</span></div>
+    <h1>BLACK<br>FRIDAY<br><span class="g">DE DONO</span></h1>
+    <p class="subt">O Checklist Comercial para Preparar sua Empresa e Vender Mais</p>
+    <div class="stat">
+      <div class="big">40</div>
+      <p><b>pontos de verificação</b> para organizar suas ofertas, ativar clientes, preparar o time e acompanhar os resultados da campanha.</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="who">
+      <div>
+        <div class="name">Marcelo Alves</div>
+        <div class="role">CEO | Orbion Sales &nbsp;·&nbsp; @alvesmarcelobr</div>
+      </div>
+      <div class="guide">Um guia prático<br>para empresários</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 02 | MENSAGEM DE ABERTURA
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Mensagem de abertura</span><span class="progress">Antes de começar</span></div>
+    <h1 class="title">Antes de começar sua Black Friday, leia isso.</h1>
+    <div class="row mt2" style="gap:9mm; flex:1;">
+      <div class="col" style="flex:1.55; font-size:14.5px; line-height:1.62;">
+        <p>Todos os anos, milhares de empresas se preparam para a Black Friday criando promoções, divulgando ofertas e tentando atrair novos clientes.</p>
+        <p>Mas existe uma pergunta que todo empresário deveria fazer antes de começar:</p>
+        <div class="callout q" style="margin:4mm 0 5mm; padding:5mm 6mm;">
+          <p class="display" style="font-size:19px; line-height:1.3; font-weight:700; margin:0;">Minha empresa está preparada para transformar essa demanda em <span class="green">vendas lucrativas?</span></p>
+        </div>
+        <p>Uma campanha envolve várias decisões.</p>
+        <p>É necessário definir as ofertas certas, conhecer as margens, preparar o atendimento, aproveitar os clientes que já conhecem sua empresa e acompanhar os resultados.</p>
+        <p>Foi pensando nisso que organizei este material.</p>
+        <p>Aqui você encontrará um checklist para avaliar sua operação e um plano prático para preparar sua Black Friday.</p>
+        <p>Meu conselho é simples: <b class="hl">não deixe todas as decisões para a semana da campanha.</b></p>
+        <p>Uma boa preparação dá mais clareza para o empresário e mais organização para a equipe.</p>
+        <div style="margin-top:7mm; padding-top:4mm; border-top:1px solid var(--line); width:70mm;">
+          <div class="display" style="font-weight:800; font-size:18px;">Marcelo Alves</div>
+          <div class="muted small">Gestão e Estruturação Comercial</div>
+        </div>
+      </div>
+      <div class="col" style="flex:1;">
+        <div class="card soft" style="padding:5mm;">
+          <div class="kicker">O que você vai encontrar</div>
+          <div class="steps" style="gap:3.6mm;">
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-crm"/></svg></span><div><h3>8 áreas da campanha</h3><p class="small muted" style="margin:0">Um mapa do que precisa estar pronto.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><h3>40 pontos de verificação</h3><p class="small muted" style="margin:0">Para marcar o que já foi feito.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-coins"/></svg></span><div><h3>Exemplos com números</h3><p class="small muted" style="margin:0">Metas, funil e margem explicados passo a passo.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-doc"/></svg></span><div><h3>Tabelas para preencher</h3><p class="small muted" style="margin:0">Use os seus números no lugar dos exemplos.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-msg"/></svg></span><div><h3>6 modelos de mensagem</h3><p class="small muted" style="margin:0">Prontos para personalizar.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-gauge"/></svg></span><div><h3>Raio-X com pontuação</h3><p class="small muted" style="margin:0">Uma autoavaliação de 0 a 80 pontos.</p></div></div>
+            <div class="step"><span class="ic"><svg class="i"><use href="#i-flag"/></svg></span><div><h3>Plano de ação</h3><p class="small muted" style="margin:0">Suas 3 prioridades, com responsável e prazo.</p></div></div>
+          </div>
+        </div>
+        <div class="card mt2" style="padding:4mm 5mm;">
+          <div class="kicker">Como usar</div>
+          <p class="small" style="margin:0">Leia uma etapa, marque o checklist e preencha as tabelas. Você pode imprimir o material ou preencher direto no PDF, pelo computador.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">02</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 03 | MAPA DA CAMPANHA
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">O mapa da campanha</span><span class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><span>8 áreas</span></span></div>
+    <h1 class="title">As 8 áreas que você precisa preparar</h1>
+    <p class="lead">Essas oito áreas formam os <b class="green">40 pontos de verificação</b> do checklist. Cada área tem 5 pontos. Siga a ordem: uma etapa prepara a próxima.</p>
+    <div class="map">
+      <div class="mc l" style="grid-row:1 / span 2"><div class="h"><span class="nn">01</span><h3>Diagnóstico e metas</h3></div><p>Entender o cenário atual e estabelecer o resultado esperado.</p><div class="it">Itens 01 a 05</div></div>
+      <div class="node" style="grid-row:1 / span 2"></div>
+      <div class="mc r" style="grid-row:2 / span 2"><div class="h"><span class="nn">02</span><h3>Ofertas e lucratividade</h3></div><p>Criar condições atrativas, considerando os custos e as margens.</p><div class="it">Itens 06 a 10</div></div>
+      <div class="node" style="grid-row:2 / span 2"></div>
+      <div class="mc l" style="grid-row:3 / span 2"><div class="h"><span class="nn">03</span><h3>Base de clientes</h3></div><p>Identificar oportunidades de recompra e negociações que podem ser retomadas.</p><div class="it">Itens 11 a 15</div></div>
+      <div class="node" style="grid-row:3 / span 2"></div>
+      <div class="mc r" style="grid-row:4 / span 2"><div class="h"><span class="nn">04</span><h3>Lista VIP e comunicação</h3></div><p>Organizar os interessados e preparar a divulgação antecipada.</p><div class="it">Itens 16 a 20</div></div>
+      <div class="node" style="grid-row:4 / span 2"></div>
+      <div class="mc l" style="grid-row:5 / span 2"><div class="h"><span class="nn">05</span><h3>Operação comercial</h3></div><p>Definir atendimento, responsáveis, CRM e acompanhamento.</p><div class="it">Itens 21 a 25</div></div>
+      <div class="node" style="grid-row:5 / span 2"></div>
+      <div class="mc r" style="grid-row:6 / span 2"><div class="h"><span class="nn">06</span><h3>Divulgação e aquisição</h3></div><p>Planejar os canais e os investimentos para alcançar o público certo.</p><div class="it">Itens 26 a 30</div></div>
+      <div class="node" style="grid-row:6 / span 2"></div>
+      <div class="mc l" style="grid-row:7 / span 2"><div class="h"><span class="nn">07</span><h3>Indicadores e execução</h3></div><p>Monitorar os resultados e tomar decisões durante a campanha.</p><div class="it">Itens 31 a 35</div></div>
+      <div class="node" style="grid-row:7 / span 2"></div>
+      <div class="mc r" style="grid-row:8 / span 2"><div class="h"><span class="nn">08</span><h3>Pós-Black Friday</h3></div><p>Aproveitar as oportunidades que continuam após o encerramento.</p><div class="it">Itens 36 a 40</div></div>
+      <div class="node" style="grid-row:8 / span 2"></div>
+    </div>
+    <div class="row" style="margin-top:4mm; gap:4mm; align-items:stretch;">
+      <div class="card" style="flex:1; display:flex; align-items:center; gap:5mm; padding:3.5mm 5mm;">
+        <span class="display green" style="font-size:30px; font-weight:900; letter-spacing:-1px; white-space:nowrap;">8 × 5 = 40</span>
+        <span class="small" style="color:#C3CCDA;">8 áreas com 5 pontos cada. No final, você soma tudo no Raio-X e descobre quais áreas pedem mais atenção.</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">03</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 04 | ETAPA 1: DIAGNÓSTICO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 1 · Diagnóstico</span><span class="progress"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>Área 01 de 08</span></span></div>
+    <h1 class="title">Comece olhando para os números da sua empresa.</h1>
+    <p class="lead">Antes de definir quanto deseja vender, descubra como seu comercial está funcionando hoje. Levante os números dos <b style="color:var(--ink)">últimos 30 a 90 dias</b>.</p>
+
+    <div class="kicker mt2">Informações que você precisa conhecer</div>
+    <div class="grid g4" style="gap:2.6mm;">
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-coins"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Faturamento mensal</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-receipt"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Quantidade de vendas</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-tag"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Ticket médio</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-users"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Quantidade de novos interessados</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-doc"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Quantidade de propostas ou orçamentos</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-pct"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Taxa de conversão</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-chart"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Margem de contribuição</div></div>
+      <div class="card" style="padding:3mm 3.4mm;"><span class="ic"><svg class="i"><use href="#i-box"/></svg></span><div style="font-weight:700; margin-top:2mm; font-size:13px;">Capacidade de atendimento e entrega</div></div>
+    </div>
+
+    <div class="card navy mt2" style="padding:5mm 6mm;">
+      <div class="row" style="align-items:center; justify-content:space-between; margin-bottom:3mm;">
+        <h2 class="sub" style="margin:0;">Exemplo prático</h2><span class="chip ilus">Números ilustrativos</span>
+      </div>
+      <p style="color:#D5DCE7; font-size:13.5px;">Uma empresa recebe <b style="color:#fff">200 oportunidades</b> em um mês e fecha <b style="color:#fff">20 vendas</b>. Sua conversão de oportunidades em vendas é de <b style="color:#fff">10%</b>. Se ela conseguir aumentar a conversão para <b class="green">15%</b>, mantendo o mesmo volume de oportunidades, poderá realizar <b class="green">30 vendas</b>.</p>
+      <div style="margin-top:3mm; display:grid; grid-template-columns:34mm 1fr 22mm; gap:2.4mm 4mm; align-items:center; font-size:12.5px;">
+        <span style="color:#AEB9CA">Conversão de 10%</span>
+        <div style="height:9mm; background:rgba(255,255,255,.07); border-radius:4px;"><div style="width:66.6%; height:100%; background:#295D86; border-radius:4px;"></div></div>
+        <span style="font-weight:800; font-size:15px;">20 vendas</span>
+        <span style="color:#AEB9CA">Conversão de 15%</span>
+        <div style="height:9mm; background:rgba(255,255,255,.07); border-radius:4px;"><div style="width:100%; height:100%; background:#74FAA5; border-radius:4px;"></div></div>
+        <span style="font-weight:800; font-size:15px;" class="green">30 vendas</span>
+      </div>
+      <p class="small" style="color:#AEB9CA; margin:3mm 0 0;">Mesmas 200 oportunidades nos dois casos. Esse exemplo mostra por que vale a pena analisar o processo comercial antes de investir mais em divulgação.</p>
+    </div>
+
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">01 a 05</span><span class="a">Diagnóstico e metas</span></div>
+      <ul>
+        <li><span class="cb" data-name="p04_c01"></span><span class="n">01</span><span>Conheço meu faturamento atual.</span></li>
+        <li><span class="cb" data-name="p04_c02"></span><span class="n">02</span><span>Sei quantas vendas realizo por mês.</span></li>
+        <li><span class="cb" data-name="p04_c03"></span><span class="n">03</span><span>Conheço o ticket médio da empresa.</span></li>
+        <li><span class="cb" data-name="p04_c04"></span><span class="n">04</span><span>Sei minha taxa de conversão comercial.</span></li>
+        <li><span class="cb" data-name="p04_c05"></span><span class="n">05</span><span>Defini uma meta financeira para a campanha.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">04</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 05 | DEFININDO A META
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 1 · Definindo a meta</span><span class="progress"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>Área 01 de 08</span></span></div>
+    <h1 class="title">Como transformar uma meta de faturamento em um plano comercial.</h1>
+
+    <div class="card navy mt1" style="padding:5mm 6mm;">
+      <div class="row" style="align-items:center; justify-content:space-between; margin-bottom:3mm;">
+        <div><div class="kicker green" style="margin:0 0 1mm;">Meta de faturamento da Black Friday</div><div class="display" style="font-size:28px; font-weight:900; letter-spacing:-.8px;">R$ 20.000</div></div>
+        <span class="chip ilus">Exemplo ilustrativo</span>
+      </div>
+      <div class="row" style="gap:6mm; align-items:center;">
+        <div class="col" style="font-size:12.6px; color:#D5DCE7;">
+          <div style="display:grid; grid-template-columns:1fr auto; gap:1.6mm 3mm; border-top:1px solid rgba(255,255,255,.12); padding-top:2.6mm;">
+            <span>Ticket médio planejado</span><b style="color:#fff">R$ 500</b>
+            <span>Quantidade necessária de vendas</span><b style="color:#fff">40</b>
+            <span>Conversão de propostas em vendas</span><b style="color:#fff">25%</b>
+            <span>Propostas necessárias</span><b style="color:#fff">160</b>
+            <span>Contatos que recebem proposta</span><b style="color:#fff">50%</b>
+            <span>Interessados que viram qualificados</span><b style="color:#fff">80%</b>
+          </div>
+          <div style="margin-top:3mm; border-top:1px solid rgba(255,255,255,.12); padding-top:2.6mm; font-size:12px; line-height:1.65;">
+            <div class="kicker green" style="font-size:9.5px; margin-bottom:1mm;">A conta, de trás para frente</div>
+            R$ 20.000 ÷ R$ 500 = <b style="color:#fff">40 vendas</b><br>
+            40 ÷ 25% = <b style="color:#fff">160 propostas</b><br>
+            160 ÷ 50% = <b style="color:#fff">320 contatos qualificados</b><br>
+            320 ÷ 80% = <b style="color:#fff">400 interessados</b>
+          </div>
+        </div>
+        <div class="col">
+          <div class="funnel">
+            <div class="fb" style="width:100%; background:#1E3A5C;"><b>400</b> interessados</div>
+            <div class="rate">↓ 80% viram qualificados</div>
+            <div class="fb" style="width:84%; background:#295D86;"><b>320</b> qualificados</div>
+            <div class="rate">↓ 50% recebem proposta</div>
+            <div class="fb" style="width:66%; background:#265C58;"><b>160</b> propostas</div>
+            <div class="rate">↓ 25% fecham</div>
+            <div class="fb" style="width:48%; background:#2E7D6A;"><b>40</b> vendas</div>
+            <div class="rate">↓ × R$ 500 de ticket</div>
+            <div class="res">R$ 20.000 em faturamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="small muted mt1" style="margin-bottom:0;">As taxas do exemplo são hipotéticas. Cada empresa deve substituir esses percentuais pelos próprios indicadores.</p>
+
+    <h2 class="sub mt2">Sua vez de preencher</h2>
+    <table>
+      <thead><tr><th style="width:36%">Indicador</th><th style="width:38%">Como calcular</th><th style="width:26%">Minha meta</th></tr></thead>
+      <tbody>
+        <tr><td><b>Faturamento desejado</b></td><td class="small muted">Quanto quero vender na campanha</td><td class="fill"><span class="field" data-name="p05_fat" data-prefix="R$"></span></td></tr>
+        <tr><td><b>Ticket médio esperado</b></td><td class="small muted">Valor médio de cada venda</td><td class="fill"><span class="field" data-name="p05_ticket"></span></td></tr>
+        <tr><td><b>Quantidade de vendas</b></td><td class="small muted">Faturamento ÷ ticket médio</td><td class="fill"><span class="field" data-name="p05_vendas"></span></td></tr>
+        <tr><td><b>Propostas necessárias</b></td><td class="small muted">Vendas ÷ conversão de propostas</td><td class="fill"><span class="field" data-name="p05_propostas"></span></td></tr>
+        <tr><td><b>Contatos qualificados</b></td><td class="small muted">Propostas ÷ % que recebe proposta</td><td class="fill"><span class="field" data-name="p05_qualif"></span></td></tr>
+        <tr><td><b>Interessados necessários</b></td><td class="small muted">Qualificados ÷ % de qualificação</td><td class="fill"><span class="field" data-name="p05_interessados"></span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout mt2" style="display:flex; gap:4mm; align-items:center;">
+      <span class="ic"><svg class="i"><use href="#i-search"/></svg></span>
+      <p style="margin:0;"><b>Pergunta de gestão:</b> sua operação consegue atender a quantidade de oportunidades que essa meta exige?</p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">05</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 06 | ETAPA 2: COMBOS E OFERTAS
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 2 · Combos e ofertas</span><span class="progress"><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><span>Área 02 de 08</span></span></div>
+    <h1 class="title">Como montar ofertas que tenham valor para o cliente.</h1>
+    <p class="lead">Uma estratégia interessante para a Black Friday é combinar produtos ou serviços complementares. Essa combinação pode aumentar o ticket médio, melhorar a experiência do cliente e dar mais atratividade à campanha.</p>
+
+    <div class="grid g3 mt2">
+      <div class="card" style="padding:5mm;">
+        <span class="ic"><svg class="i"><use href="#i-shirt"/></svg></span>
+        <div class="kicker mt1" style="margin-top:3mm;">Exemplo 1</div>
+        <h3 style="font-size:15px; margin-bottom:2mm;">Loja de roupas</h3>
+        <p style="font-size:13.5px; color:#C3CCDA;">Monte combinações de peças que formem looks completos.</p>
+        <p style="font-size:13.5px; color:#C3CCDA; margin:0;">Em vez de promover somente uma camisa, crie uma oferta com camisa e calça.</p>
+      </div>
+      <div class="card" style="padding:5mm;">
+        <span class="ic"><svg class="i"><use href="#i-case"/></svg></span>
+        <div class="kicker" style="margin-top:3mm;">Exemplo 2</div>
+        <h3 style="font-size:15px; margin-bottom:2mm;">Empresa de serviços</h3>
+        <p style="font-size:13.5px; color:#C3CCDA;">Combine serviços que atendam a uma mesma necessidade do cliente.</p>
+        <p style="font-size:13.5px; color:#C3CCDA; margin:0;">Por exemplo, um serviço principal acompanhado de uma revisão, orientação ou suporte adicional.</p>
+      </div>
+      <div class="card" style="padding:5mm;">
+        <span class="ic"><svg class="i"><use href="#i-tool"/></svg></span>
+        <div class="kicker" style="margin-top:3mm;">Exemplo 3</div>
+        <h3 style="font-size:15px; margin-bottom:2mm;">Loja de materiais e ferramentas</h3>
+        <p style="font-size:13.5px; color:#C3CCDA; margin:0;">Crie kits para projetos específicos, reunindo produtos que normalmente são comprados juntos.</p>
+      </div>
+    </div>
+
+    <h2 class="sub" style="margin-top:10mm;">Como escolher uma boa oferta</h2>
+    <p class="muted" style="margin-bottom:3mm;">Analise quatro pontos. Se algum deles tiver resposta “não”, ajuste a oferta antes de divulgar.</p>
+    <div class="grid g2" style="gap:3.4mm;">
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:7mm 5.5mm;"><span class="display green" style="font-size:34px; font-weight:900; width:12mm;">1</span><div><span class="ic" style="width:24px;height:24px;margin-bottom:1mm;"><svg class="i" style="width:14px;height:14px"><use href="#i-chart"/></svg></span><h3>O produto ou serviço tem demanda?</h3></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:7mm 5.5mm;"><span class="display green" style="font-size:34px; font-weight:900; width:12mm;">2</span><div><span class="ic" style="width:24px;height:24px;margin-bottom:1mm;"><svg class="i" style="width:14px;height:14px"><use href="#i-layers"/></svg></span><h3>A combinação é útil para o cliente?</h3></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:7mm 5.5mm;"><span class="display green" style="font-size:34px; font-weight:900; width:12mm;">3</span><div><span class="ic" style="width:24px;height:24px;margin-bottom:1mm;"><svg class="i" style="width:14px;height:14px"><use href="#i-box"/></svg></span><h3>Existe capacidade de entrega?</h3></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:7mm 5.5mm;"><span class="display green" style="font-size:34px; font-weight:900; width:12mm;">4</span><div><span class="ic" style="width:24px;height:24px;margin-bottom:1mm;"><svg class="i" style="width:14px;height:14px"><use href="#i-coins"/></svg></span><h3>A margem continua saudável?</h3></div></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="callout" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;">
+      <span class="ic"><svg class="i"><use href="#i-bulb"/></svg></span>
+      <p style="margin:0; font-size:14px;"><b class="green">Dica de gestão:</b> compare o ticket e a margem da oferta combinada com os resultados que a empresa teria vendendo os itens separadamente.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">06</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 07 | PROTEGER A MARGEM
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 2 · Como proteger a margem</span><span class="progress"><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><span>Área 02 de 08</span></span></div>
+    <h1 class="title">Faturamento alto precisa fazer sentido no caixa.</h1>
+    <p class="lead">Toda oferta deve passar por uma análise financeira. Considere o seguinte exemplo fictício de um combo vendido por R$ 249.</p>
+
+    <div class="row mt1" style="gap:6mm; align-items:stretch;">
+      <div style="flex:1.1;">
+        <table>
+          <thead><tr><th>Componente</th><th class="r">Valor</th></tr></thead>
+          <tbody>
+            <tr><td><b>Preço do combo</b></td><td class="r"><b>R$ 249</b></td></tr>
+            <tr><td>Custo dos produtos</td><td class="r">R$ 120</td></tr>
+            <tr><td>Frete subsidiado</td><td class="r">R$ 20</td></tr>
+            <tr><td>Taxas de pagamento</td><td class="r">R$ 8</td></tr>
+            <tr><td>Tributos variáveis estimados</td><td class="r">R$ 20</td></tr>
+            <tr><td>Comissão</td><td class="r">R$ 15</td></tr>
+            <tr class="total"><td style="background:rgba(116,250,165,.35)">Margem de contribuição em reais</td><td class="r" style="background:rgba(116,250,165,.35)">R$ 66</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card soft" style="flex:1; display:flex; flex-direction:column; padding:4.5mm 5mm;">
+        <div class="row" style="justify-content:space-between; align-items:center;"><span class="kicker" style="margin:0">Para onde vai o dinheiro</span><span class="chip ilus">Fictício</span></div>
+        <div style="display:flex; height:11mm; border-radius:5px; overflow:hidden; margin:3.5mm 0 3mm;">
+          <div style="flex:120; background:#0A1123"></div><div style="flex:20; background:#295D86"></div><div style="flex:8; background:#5C86AB"></div><div style="flex:20; background:#265C58"></div><div style="flex:15; background:#7FA7A3"></div><div style="flex:66; background:#74FAA5"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:10px 1fr auto; gap:1.3mm 2.4mm; align-items:center; font-size:11.8px;">
+          <i style="width:10px;height:10px;border-radius:2px;background:#0A1123"></i><span>Custo dos produtos</span><b>48,2%</b>
+          <i style="width:10px;height:10px;border-radius:2px;background:#295D86"></i><span>Frete subsidiado</span><b>8,0%</b>
+          <i style="width:10px;height:10px;border-radius:2px;background:#5C86AB"></i><span>Taxas de pagamento</span><b>3,2%</b>
+          <i style="width:10px;height:10px;border-radius:2px;background:#265C58"></i><span>Tributos variáveis</span><b>8,0%</b>
+          <i style="width:10px;height:10px;border-radius:2px;background:#7FA7A3"></i><span>Comissão</span><b>6,0%</b>
+          <i style="width:10px;height:10px;border-radius:2px;background:#74FAA5"></i><span><b>Margem de contribuição</b></span><b>26,5%</b>
+        </div>
+        <div class="spacer"></div>
+        <p class="small" style="margin:3mm 0 0; color:var(--muted);">R$ 66 ÷ R$ 249 × 100 ≈ <b style="color:var(--ink)">26,5% da receita.</b></p>
+      </div>
+    </div>
+    <p class="small muted mt1" style="margin-bottom:0;">Esse valor ainda precisará ajudar a cobrir os gastos fixos e demais despesas não consideradas, inclusive eventuais custos de aquisição de clientes.</p>
+
+    <h2 class="sub mt2">Três cálculos importantes</h2>
+    <div class="grid g3" style="gap:3mm;">
+      <div class="card" style="padding:3.6mm 4mm;"><div class="flabel">Ticket médio</div><p style="margin:1.6mm 0 0; font-size:13px;">Faturamento ÷ número de vendas.</p></div>
+      <div class="card" style="padding:3.6mm 4mm;"><div class="flabel">Margem por venda</div><p style="margin:1.6mm 0 0; font-size:13px;">Preço de venda − custos e despesas variáveis daquela venda.</p></div>
+      <div class="card" style="padding:3.6mm 4mm;"><div class="flabel">Margem percentual</div><p style="margin:1.6mm 0 0; font-size:13px;">Margem de contribuição ÷ preço de venda × 100.</p></div>
+    </div>
+
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">06 a 10</span><span class="a">Ofertas e lucratividade</span></div>
+      <ul>
+        <li><span class="cb" data-name="p07_c06"></span><span class="n">06</span><span>Escolhi os produtos ou serviços da campanha.</span></li>
+        <li><span class="cb" data-name="p07_c07"></span><span class="n">07</span><span>Analisei a procura e o potencial de venda.</span></li>
+        <li><span class="cb" data-name="p07_c08"></span><span class="n">08</span><span>Criei ofertas ou combinações complementares.</span></li>
+        <li><span class="cb" data-name="p07_c09"></span><span class="n">09</span><span>Calculei os custos e as margens.</span></li>
+        <li><span class="cb" data-name="p07_c10"></span><span class="n">10</span><span>Validei estoque, agenda e capacidade de entrega.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">07</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 08 | ETAPA 3: ATIVE SUA BASE
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 3 · Ative sua base</span><span class="progress"><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><span>Área 03 de 08</span></span></div>
+    <h1 class="title">Sua empresa já tem pessoas que conhecem seus produtos e serviços.</h1>
+    <p class="lead">Antes de concentrar todos os esforços em atrair novos interessados, analise as oportunidades que já existem.</p>
+    <p class="lead">Seu CRM pode revelar clientes que compraram anteriormente, pessoas que solicitaram orçamento e negociações que ficaram sem conclusão.</p>
+
+    <h2 class="sub mt3">Quatro grupos importantes</h2>
+    <div class="grid g2" style="gap:4mm; flex:1; grid-auto-rows:1fr; margin-bottom:6mm;">
+      <div class="card" style="padding:5.5mm 6mm;">
+        <div class="row" style="align-items:center; justify-content:space-between;"><span class="ic"><svg class="i"><use href="#i-star"/></svg></span><span class="display" style="font-size:34px; font-weight:900; color:rgba(116,250,165,.28);">01</span></div>
+        <div class="kicker" style="margin-top:2mm;">Grupo 1</div>
+        <h3 style="font-size:18px; margin-bottom:2.4mm;">Clientes recentes</h3>
+        <p style="font-size:14px; color:#C3CCDA; margin:0;">Pessoas que compraram há pouco tempo e podem ter interesse em produtos complementares.</p>
+      </div>
+      <div class="card" style="padding:5.5mm 6mm;">
+        <div class="row" style="align-items:center; justify-content:space-between;"><span class="ic"><svg class="i"><use href="#i-refresh"/></svg></span><span class="display" style="font-size:34px; font-weight:900; color:rgba(116,250,165,.28);">02</span></div>
+        <div class="kicker" style="margin-top:2mm;">Grupo 2</div>
+        <h3 style="font-size:18px; margin-bottom:2.4mm;">Clientes inativos</h3>
+        <p style="font-size:14px; color:#C3CCDA; margin:0;">Pessoas que já compraram, mas estão há algum tempo sem retornar.</p>
+      </div>
+      <div class="card" style="padding:5.5mm 6mm;">
+        <div class="row" style="align-items:center; justify-content:space-between;"><span class="ic"><svg class="i"><use href="#i-doc"/></svg></span><span class="display" style="font-size:34px; font-weight:900; color:rgba(116,250,165,.28);">03</span></div>
+        <div class="kicker" style="margin-top:2mm;">Grupo 3</div>
+        <h3 style="font-size:18px; margin-bottom:2.4mm;">Orçamentos não fechados</h3>
+        <p style="font-size:14px; color:#C3CCDA; margin:0;">Interessados que solicitaram informações, receberam uma proposta e ainda não concluíram a compra.</p>
+      </div>
+      <div class="card" style="padding:5.5mm 6mm;">
+        <div class="row" style="align-items:center; justify-content:space-between;"><span class="ic"><svg class="i"><use href="#i-eye"/></svg></span><span class="display" style="font-size:34px; font-weight:900; color:rgba(116,250,165,.28);">04</span></div>
+        <div class="kicker" style="margin-top:2mm;">Grupo 4</div>
+        <h3 style="font-size:18px; margin-bottom:2.4mm;">Interessados recentes</h3>
+        <p style="font-size:14px; color:#C3CCDA; margin:0;">Pessoas que fizeram contato, demonstraram interesse e ainda estão avaliando.</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="callout" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;">
+      <span class="ic"><svg class="i"><use href="#i-shield"/></svg></span>
+      <p style="margin:0; font-size:14px;">Cada grupo merece uma abordagem própria, respeitando as <b class="green">preferências de comunicação e as permissões existentes.</b></p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">08</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 09 | MATRIZ DE REATIVAÇÃO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 3 · Matriz de reativação</span><span class="progress"><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><span>Área 03 de 08</span></span></div>
+    <h1 class="title">Qual oferta apresentar para cada tipo de cliente?</h1>
+
+    <table class="mt1">
+      <thead><tr><th style="width:26%">Público</th><th style="width:28%">Oportunidade</th><th>Abordagem</th></tr></thead>
+      <tbody>
+        <tr><td><b>Cliente recente</b></td><td>Venda complementar</td><td>Apresentar um item ou serviço relacionado</td></tr>
+        <tr><td><b>Cliente inativo</b></td><td>Nova compra</td><td>Convite personalizado para conhecer a campanha</td></tr>
+        <tr><td><b>Orçamento pendente</b></td><td>Retomada da negociação</td><td>Atualizar as condições e verificar o interesse</td></tr>
+        <tr><td><b>Interessado recente</b></td><td>Primeira compra</td><td>Explicar a oferta e orientar a decisão</td></tr>
+      </tbody>
+    </table>
+
+    <div class="card soft mt3" style="padding:5mm 6mm;">
+      <div class="row" style="align-items:center; justify-content:space-between; margin-bottom:3mm;"><h2 class="sub" style="margin:0">Exemplo prático</h2><span class="chip ilus">Números ilustrativos</span></div>
+      <p style="margin-bottom:3mm;">Imagine uma empresa com:</p>
+      <div style="display:grid; grid-template-columns:1fr 8mm 1fr 8mm 1fr 8mm 1.15fr; align-items:center; text-align:center;">
+        <div class="card" style="padding:3.5mm 2mm;"><div class="display" style="font-size:28px; font-weight:900;">120</div><div class="small muted">clientes antigos</div></div>
+        <div class="display" style="font-size:22px; color:var(--blue); font-weight:700;">+</div>
+        <div class="card" style="padding:3.5mm 2mm;"><div class="display" style="font-size:28px; font-weight:900;">80</div><div class="small muted">orçamentos não fechados</div></div>
+        <div class="display" style="font-size:22px; color:var(--blue); font-weight:700;">+</div>
+        <div class="card" style="padding:3.5mm 2mm;"><div class="display" style="font-size:28px; font-weight:900;">100</div><div class="small muted">interessados recentes</div></div>
+        <div class="display" style="font-size:22px; color:var(--blue); font-weight:700;">=</div>
+        <div class="card navy" style="padding:3.5mm 2mm;"><div class="display green" style="font-size:28px; font-weight:900;">300</div><div class="small" style="color:#C3CCDA">contatos para analisar</div></div>
+      </div>
+      <p style="margin:4mm 0 1.5mm;">Ela possui 300 contatos que podem ser analisados para identificar oportunidades, observadas as permissões de comunicação.</p>
+      <p style="margin:0;"><b>O próximo passo é organizar, qualificar e priorizar esses contatos.</b></p>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">11 a 15</span><span class="a">Base de clientes</span></div>
+      <ul>
+        <li><span class="cb" data-name="p09_c11"></span><span class="n">11</span><span>Organizei minha base de clientes.</span></li>
+        <li><span class="cb" data-name="p09_c12"></span><span class="n">12</span><span>Identifiquei clientes inativos.</span></li>
+        <li><span class="cb" data-name="p09_c13"></span><span class="n">13</span><span>Separei propostas e orçamentos pendentes.</span></li>
+        <li><span class="cb" data-name="p09_c14"></span><span class="n">14</span><span>Segmentei os contatos por perfil de interesse.</span></li>
+        <li><span class="cb" data-name="p09_c15"></span><span class="n">15</span><span>Preparei abordagens personalizadas e adequadas às permissões de contato.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">09</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 10 | ETAPA 4: LISTA VIP
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 4 · Lista VIP</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><span>Área 04 de 08</span></span></div>
+    <h1 class="title">Prepare o público antes do início das ofertas.</h1>
+    <p class="lead">Uma lista VIP pode ajudar a reunir clientes interessados nas condições especiais da campanha. Você pode utilizar um formulário de cadastro, uma comunidade ou um canal apropriado de comunicação.</p>
+
+    <div class="callout mt1" style="display:flex; gap:4mm; align-items:flex-start; padding:4.5mm 5mm;">
+      <span class="ic"><svg class="i"><use href="#i-shield"/></svg></span>
+      <p style="margin:0; font-size:13.5px;"><b class="green">Para o WhatsApp,</b> obtenha a autorização necessária dos participantes antes de enviar mensagens promocionais. Explique quem enviará as mensagens, a finalidade e como deixar de recebê-las.</p>
+    </div>
+
+    <h2 class="sub mt3">Como estruturar</h2>
+    <div class="steps" style="gap:0;">
+      <div class="step" style="padding:3.6mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="sn">1</span><p style="margin:5px 0 0; font-size:14.5px;"><b>Passo 1:</b> defina quais ofertas estarão disponíveis antecipadamente.</p></div>
+      <div class="step" style="padding:3.6mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="sn">2</span><p style="margin:5px 0 0; font-size:14.5px;"><b>Passo 2:</b> crie uma página ou formulário simples de inscrição.</p></div>
+      <div class="step" style="padding:3.6mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="sn">3</span><p style="margin:5px 0 0; font-size:14.5px;"><b>Passo 3:</b> divulgue o acesso antecipado aos interessados.</p></div>
+      <div class="step" style="padding:3.6mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="sn">4</span><p style="margin:5px 0 0; font-size:14.5px;"><b>Passo 4:</b> apresente as condições especiais na data prometida.</p></div>
+      <div class="step" style="padding:3.6mm 0;"><span class="sn">5</span><p style="margin:5px 0 0; font-size:14.5px;"><b>Passo 5:</b> acompanhe o interesse e encaminhe os contatos para atendimento.</p></div>
+    </div>
+
+    <h2 class="sub mt3">Exemplo de divulgação</h2>
+    <div class="row" style="gap:4mm; align-items:flex-start;">
+      <span class="ic" style="width:38px;height:38px;border-radius:50%;"><svg class="i" style="width:20px;height:20px"><use href="#i-chat"/></svg></span>
+      <div style="flex:1; background:#fff; color:var(--ink); border-radius:4px 14px 14px 14px; padding:5mm 6mm; font-size:14.5px; line-height:1.55;">
+        “Estamos preparando condições especiais para a Black Friday. Quem participar da nossa lista VIP poderá conhecer as ofertas antecipadamente. Quer receber o convite?”
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="card" style="display:flex; gap:4mm; align-items:center; padding:4mm 5mm; border-color:rgba(116,250,165,.35);">
+      <span class="ic"><svg class="i"><use href="#i-check"/></svg></span>
+      <p style="margin:0;">A condição oferecida deve ser <b class="green">verdadeira</b> e estar disponível conforme o anunciado.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">10</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 11 | PLANO DE COMUNICAÇÃO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 4 · Plano de comunicação</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><i></i><span>Área 04 de 08</span></span></div>
+    <h1 class="title">O que comunicar antes da Black Friday?</h1>
+    <p class="lead">Organize a comunicação em quatro momentos.</p>
+
+    <div class="htl mt2">
+      <div class="hs card" style="padding:4.5mm 4mm; border:0; background:var(--gray);"><div class="dot">1</div><div class="kicker" style="margin-bottom:1mm;">Momento 1</div><h3 style="font-size:15px; margin-bottom:2mm;">Preparação</h3><p style="margin:0; font-size:12.5px;">Apresente a campanha, os produtos participantes e as principais informações.</p></div>
+      <div class="hs card" style="padding:4.5mm 4mm; border:0; background:var(--gray);"><div class="dot">2</div><div class="kicker" style="margin-bottom:1mm;">Momento 2</div><h3 style="font-size:15px; margin-bottom:2mm;">Interesse</h3><p style="margin:0; font-size:12.5px;">Mostre produtos, benefícios, aplicações, demonstrações e informações que ajudem na escolha.</p></div>
+      <div class="hs card" style="padding:4.5mm 4mm; border:0; background:var(--gray);"><div class="dot">3</div><div class="kicker" style="margin-bottom:1mm;">Momento 3</div><h3 style="font-size:15px; margin-bottom:2mm;">Acesso antecipado</h3><p style="margin:0; font-size:12.5px;">Envie as ofertas para os inscritos da lista VIP, conforme as condições anunciadas.</p></div>
+      <div class="hs card navy" style="padding:4.5mm 4mm;"><div class="dot" style="background:var(--green); color:var(--navy);">4</div><div class="kicker green" style="margin-bottom:1mm;">Momento 4</div><h3 style="font-size:15px; margin-bottom:2mm;">Campanha aberta</h3><p style="margin:0; font-size:12.5px; color:#C3CCDA;">Divulgue os preços e condições para o público geral.</p></div>
+    </div>
+
+    <div class="row mt3" style="gap:4mm; align-items:center; font-size:11.5px; color:var(--muted);">
+      <span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow"/></svg></span>
+      <span>Cada momento prepara o próximo. Quem chega ao momento 4 já conhece a campanha e decide com mais segurança.</span>
+    </div>
+
+    <h2 class="sub mt3">Meu plano de comunicação</h2>
+    <table style="font-size:12.5px;">
+      <thead><tr><th style="width:26%">Momento</th><th style="width:20%">Data</th><th style="width:22%">Canal</th><th>O que vou mostrar</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. Preparação</b></td><td class="fill"><span class="field" data-name="p11_d1"></span></td><td class="fill"><span class="field" data-name="p11_c1"></span></td><td class="fill"><span class="field" data-name="p11_o1"></span></td></tr>
+        <tr><td><b>2. Interesse</b></td><td class="fill"><span class="field" data-name="p11_d2"></span></td><td class="fill"><span class="field" data-name="p11_c2"></span></td><td class="fill"><span class="field" data-name="p11_o2"></span></td></tr>
+        <tr><td><b>3. Acesso antecipado</b></td><td class="fill"><span class="field" data-name="p11_d3"></span></td><td class="fill"><span class="field" data-name="p11_c3"></span></td><td class="fill"><span class="field" data-name="p11_o3"></span></td></tr>
+        <tr><td><b>4. Campanha aberta</b></td><td class="fill"><span class="field" data-name="p11_d4"></span></td><td class="fill"><span class="field" data-name="p11_c4"></span></td><td class="fill"><span class="field" data-name="p11_o4"></span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="spacer"></div>
+    <div class="checklist">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">16 a 20</span><span class="a">Lista VIP e comunicação</span></div>
+      <ul>
+        <li><span class="cb" data-name="p11_c16"></span><span class="n">16</span><span>Escolhi o formato da lista VIP.</span></li>
+        <li><span class="cb" data-name="p11_c17"></span><span class="n">17</span><span>Preparei a página ou formulário de inscrição.</span></li>
+        <li><span class="cb" data-name="p11_c18"></span><span class="n">18</span><span>Organizei a comunicação antecipada.</span></li>
+        <li><span class="cb" data-name="p11_c19"></span><span class="n">19</span><span>Defini quais ofertas serão divulgadas primeiro.</span></li>
+        <li><span class="cb" data-name="p11_c20"></span><span class="n">20</span><span>Estruturei um atendimento para os contatos interessados.</span></li>
+      </ul>
+    </div>
+    <div class="callout mt2" style="display:flex; gap:4mm; align-items:center;">
+      <span class="ic"><svg class="i"><use href="#i-bulb"/></svg></span>
+      <p style="margin:0;"><b>Observação importante:</b> a lista VIP pode ser feita sem grandes investimentos. O essencial é ter uma proposta clara e um processo organizado.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">11</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 12 | ETAPA 5: PREPARE O COMERCIAL
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 5 · Prepare o comercial</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><span>Área 05 de 08</span></span></div>
+    <h1 class="title">Sua equipe sabe exatamente como atender durante a campanha?</h1>
+    <p class="lead">Com as ofertas definidas, é hora de preparar a operação. Uma campanha pode aumentar o volume de mensagens, solicitações de orçamento e dúvidas. A equipe precisa conhecer as condições da oferta e ter clareza sobre os próximos passos.</p>
+
+    <div class="row mt2" style="justify-content:space-between; align-items:flex-end;"><h2 class="sub" style="margin:0;">Defina cinco responsabilidades</h2><span class="small muted">Escreva o nome de quem cuida de cada uma</span></div>
+    <div class="mt1" style="display:flex; flex-direction:column; gap:3mm; margin-bottom:6mm;">
+      <div class="card" style="display:grid; grid-template-columns:10mm 1fr 58mm; gap:4mm; align-items:center; padding:5.2mm 5mm;"><span class="display green" style="font-size:26px; font-weight:900;">1</span><div><h3>Atendimento inicial</h3><p style="font-size:13px; margin:0; color:#C3CCDA;">Quem receberá os novos contatos?</p></div><div><div class="flabel" style="font-size:9px;">Responsável</div><span class="field" data-name="p12_resp1"></span></div></div>
+      <div class="card" style="display:grid; grid-template-columns:10mm 1fr 58mm; gap:4mm; align-items:center; padding:5.2mm 5mm;"><span class="display green" style="font-size:26px; font-weight:900;">2</span><div><h3>Qualificação</h3><p style="font-size:13px; margin:0; color:#C3CCDA;">Como descobrir o que cada interessado precisa?</p></div><div><div class="flabel" style="font-size:9px;">Responsável</div><span class="field" data-name="p12_resp2"></span></div></div>
+      <div class="card" style="display:grid; grid-template-columns:10mm 1fr 58mm; gap:4mm; align-items:center; padding:5.2mm 5mm;"><span class="display green" style="font-size:26px; font-weight:900;">3</span><div><h3>Apresentação</h3><p style="font-size:13px; margin:0; color:#C3CCDA;">Quem apresentará os produtos, serviços e condições?</p></div><div><div class="flabel" style="font-size:9px;">Responsável</div><span class="field" data-name="p12_resp3"></span></div></div>
+      <div class="card" style="display:grid; grid-template-columns:10mm 1fr 58mm; gap:4mm; align-items:center; padding:5.2mm 5mm;"><span class="display green" style="font-size:26px; font-weight:900;">4</span><div><h3>Acompanhamento</h3><p style="font-size:13px; margin:0; color:#C3CCDA;">Quem será responsável por retomar as conversas pendentes?</p></div><div><div class="flabel" style="font-size:9px;">Responsável</div><span class="field" data-name="p12_resp4"></span></div></div>
+      <div class="card" style="display:grid; grid-template-columns:10mm 1fr 58mm; gap:4mm; align-items:center; padding:5.2mm 5mm;"><span class="display green" style="font-size:26px; font-weight:900;">5</span><div><h3>Fechamento</h3><p style="font-size:13px; margin:0; color:#C3CCDA;">Como o cliente poderá concluir a compra ou contratação?</p></div><div><div class="flabel" style="font-size:9px;">Responsável</div><span class="field" data-name="p12_resp5"></span></div></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="card white" style="padding:4.5mm 5.5mm;">
+      <div class="row" style="align-items:center; gap:3mm; margin-bottom:2.5mm;"><span class="ic" style="background:rgba(41,93,134,.1); color:var(--blue);"><svg class="i"><use href="#i-users"/></svg></span><h2 class="sub" style="margin:0;">Perguntas para a equipe</h2><span class="small muted" style="margin-left:auto;">Todos sabem responder?</span></div>
+      <div class="grid g2" style="gap:2.6mm 6mm; font-size:13.5px;">
+        <div style="display:flex; gap:2.4mm;"><b class="blue">?</b>Quais ofertas estão disponíveis?</div>
+        <div style="display:flex; gap:2.4mm;"><b class="blue">?</b>Quais condições de pagamento são aceitas?</div>
+        <div style="display:flex; gap:2.4mm;"><b class="blue">?</b>Qual é o prazo de entrega?</div>
+        <div style="display:flex; gap:2.4mm;"><b class="blue">?</b>Quais dúvidas são mais frequentes?</div>
+        <div style="display:flex; gap:2.4mm; grid-column:1 / span 2;"><b class="blue">?</b>Quem assume um atendimento quando o responsável está ocupado?</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">12</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 13 | CRM E ACOMPANHAMENTO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 5 · CRM e acompanhamento</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i><span>Área 05 de 08</span></span></div>
+    <h1 class="title">Organize as oportunidades para não perder o controle.</h1>
+    <p class="lead">Crie etapas simples no CRM ou em uma planilha. <span style="font-size:12.5px;">(CRM é o sistema onde a empresa registra cada contato e em que ponto da negociação ele está.)</span></p>
+
+    <div class="row mt1" style="gap:5mm; align-items:stretch;">
+      <div style="flex:1;">
+        <div class="kicker">Funil sugerido</div>
+        <div style="display:flex; flex-direction:column; gap:1.2mm;">
+          <div style="background:#0A1123; color:#fff; border-radius:6px; padding:2.3mm 4mm; font-weight:600; font-size:13px; display:flex; gap:3mm;"><span class="green" style="font-weight:800">1</span>Novo interessado</div>
+          <div class="center" style="color:#9AA8B8; font-size:10px; line-height:1;">▼</div>
+          <div style="background:#16304D; color:#fff; border-radius:6px; padding:2.3mm 4mm; font-weight:600; font-size:13px; display:flex; gap:3mm;"><span class="green" style="font-weight:800">2</span>Contato realizado</div>
+          <div class="center" style="color:#9AA8B8; font-size:10px; line-height:1;">▼</div>
+          <div style="background:#295D86; color:#fff; border-radius:6px; padding:2.3mm 4mm; font-weight:600; font-size:13px; display:flex; gap:3mm;"><span class="green" style="font-weight:800">3</span>Necessidade identificada</div>
+          <div class="center" style="color:#9AA8B8; font-size:10px; line-height:1;">▼</div>
+          <div style="background:#265C58; color:#fff; border-radius:6px; padding:2.3mm 4mm; font-weight:600; font-size:13px; display:flex; gap:3mm;"><span class="green" style="font-weight:800">4</span>Oferta apresentada</div>
+          <div class="center" style="color:#9AA8B8; font-size:10px; line-height:1;">▼</div>
+          <div style="background:#2E7D6A; color:#fff; border-radius:6px; padding:2.3mm 4mm; font-weight:600; font-size:13px; display:flex; gap:3mm;"><span class="green" style="font-weight:800">5</span>Aguardando decisão</div>
+          <div class="center" style="color:#9AA8B8; font-size:10px; line-height:1;">▼</div>
+          <div style="background:#74FAA5; color:#0A1123; border-radius:6px; padding:2.3mm 4mm; font-weight:700; font-size:13px; display:flex; gap:3mm;"><span style="font-weight:800">6</span>Venda concluída ou oportunidade encerrada</div>
+        </div>
+      </div>
+      <div class="card soft" style="flex:1; padding:4mm 4.5mm;">
+        <div class="row" style="align-items:center; gap:2.5mm; margin-bottom:2mm;"><span class="ic"><svg class="i"><use href="#i-crm"/></svg></span><div><div class="kicker" style="margin:0;">Ficha do contato</div><div class="small muted">Todo contato deve ter, quando aplicável:</div></div></div>
+        <div style="display:flex; flex-direction:column;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Nome</b><span style="width:45%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Origem</b><span style="width:45%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Produto ou serviço de interesse</b><span style="width:30%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Responsável pelo atendimento</b><span style="width:30%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Etapa atual</b><span style="width:45%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Próxima ação</b><span style="width:45%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:1.45mm 0; font-size:12.5px;"><b>Data do próximo contato</b><span style="width:38%; border-bottom:1px dotted #B5C1CE;"></span></div>
+          <div style="display:flex; justify-content:space-between; padding:1.45mm 0; font-size:12.5px;"><b>Situação da venda</b><span style="width:45%; border-bottom:1px dotted #B5C1CE;"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub mt2">Rotina de acompanhamento</h2>
+    <div class="grid g2" style="gap:4mm; font-size:12.8px;">
+      <div>
+        <p>Defina uma meta interna de tempo de resposta compatível com a equipe.</p>
+        <p style="margin:0;">Por exemplo, buscar iniciar o atendimento em até <b>cinco minutos</b> durante o horário de funcionamento, quando houver capacidade para isso.</p>
+      </div>
+      <div>
+        <p>Também estabeleça uma cadência de acompanhamento para interessados que ainda estejam avaliando a compra. <span class="muted">(Cadência é a frequência combinada dos contatos de retorno.)</span></p>
+        <p style="margin:0;"><b>Evite mensagens repetitivas ou insistentes. Respeite pedidos para interromper o contato.</b></p>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">21 a 25</span><span class="a">Operação comercial</span></div>
+      <ul>
+        <li><span class="cb" data-name="p13_c21"></span><span class="n">21</span><span>Defini os responsáveis pelo atendimento.</span></li>
+        <li><span class="cb" data-name="p13_c22"></span><span class="n">22</span><span>Orientei a equipe sobre as ofertas.</span></li>
+        <li><span class="cb" data-name="p13_c23"></span><span class="n">23</span><span>Preparei o CRM ou a planilha de oportunidades.</span></li>
+        <li><span class="cb" data-name="p13_c24"></span><span class="n">24</span><span>Estabeleci um tempo de resposta como meta interna.</span></li>
+        <li><span class="cb" data-name="p13_c25"></span><span class="n">25</span><span>Organizei o acompanhamento das negociações.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">13</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 14 | ETAPA 6: DIVULGAÇÃO
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 6 · Divulgação</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><span>Área 06 de 08</span></span></div>
+    <h1 class="title">Onde divulgar sua campanha?</h1>
+    <p class="lead">Escolha os canais considerando onde seus clientes estão e a capacidade da empresa para atender.</p>
+
+    <div class="grid g2 mt2" style="gap:3.4mm;">
+      <div class="card" style="display:flex; gap:4mm; padding:6mm 5.5mm;"><span class="ic"><svg class="i"><use href="#i-phone"/></svg></span><div><h3 style="font-size:15px; margin-bottom:1.2mm;">Instagram</h3><p style="margin:0; font-size:12.8px; color:#C3CCDA;">Utilize Reels, Stories e publicações para apresentar os produtos, as condições e as vantagens.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; padding:6mm 5.5mm;"><span class="ic"><svg class="i"><use href="#i-chat"/></svg></span><div><h3 style="font-size:15px; margin-bottom:1.2mm;">WhatsApp</h3><p style="margin:0; font-size:12.8px; color:#C3CCDA;">Utilize listas de interessados autorizados, conversas comerciais e atendimento individualizado.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; padding:6mm 5.5mm;"><span class="ic"><svg class="i"><use href="#i-mail"/></svg></span><div><h3 style="font-size:15px; margin-bottom:1.2mm;">E-mail</h3><p style="margin:0; font-size:12.8px; color:#C3CCDA;">Comunique a campanha para públicos que podem receber esse tipo de mensagem, seguindo as regras aplicáveis.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; padding:6mm 5.5mm;"><span class="ic"><svg class="i"><use href="#i-click"/></svg></span><div><h3 style="font-size:15px; margin-bottom:1.2mm;">Tráfego pago</h3><p style="margin:0; font-size:12.8px; color:#C3CCDA;">Utilize anúncios para alcançar novos interessados ou públicos adequados à campanha.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; padding:6mm 5.5mm; grid-column:1 / span 2;"><span class="ic"><svg class="i"><use href="#i-store"/></svg></span><div><h3 style="font-size:15px; margin-bottom:1.2mm;">Loja física ou atendimento presencial</h3><p style="margin:0; font-size:12.8px; color:#C3CCDA;">Prepare a comunicação no ponto de venda e oriente a equipe.</p></div></div>
+    </div>
+
+    <h2 class="sub mt3">Como distribuir o investimento</h2>
+    <p class="muted">Comece definindo quanto pode investir <b style="color:#fff">sem comprometer o caixa</b>. Depois, observe três números:</p>
+    <div class="grid g3" style="gap:3mm;">
+      <div class="card" style="padding:5mm 4.5mm;"><div class="flabel">Custo por interessado</div><p style="font-size:13px; margin:2mm 0 0; color:#C3CCDA;">Investimento ÷ número de interessados gerados.</p></div>
+      <div class="card" style="padding:5mm 4.5mm;"><div class="flabel">Custo por cliente</div><p style="font-size:13px; margin:2mm 0 0; color:#C3CCDA;">Investimento ÷ número de novos clientes.</p></div>
+      <div class="card" style="padding:5mm 4.5mm;"><div class="flabel">Margem da venda</div><p style="font-size:13px; margin:2mm 0 0; color:#C3CCDA;">Quanto sobra de cada venda depois dos custos variáveis.</p></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="callout mt2" style="display:flex; gap:4mm; align-items:flex-start; padding:4.5mm 5mm;">
+      <span class="ic"><svg class="i"><use href="#i-alert"/></svg></span>
+      <div>
+        <p style="margin:0 0 1.5mm;"><b class="green">Evite escolher o orçamento de mídia apenas com base na meta de faturamento.</b></p>
+        <p class="small" style="margin:0; color:#C3CCDA;">Um sinal de alerta: se o custo para conquistar um cliente fica maior que a margem que a primeira venda deixa, cada nova venda tira dinheiro do caixa.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">14</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 15 | CRONOGRAMA
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 6 · Cronograma Black Friday 2026</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><span>Área 06 de 08</span></span></div>
+    <h1 class="title" style="margin-bottom:1mm;">Organize sua campanha por etapas.</h1>
+    <p class="small muted" style="margin-bottom:2.5mm;">Black Friday 2026: sexta-feira, 27 de novembro.</p>
+    <style>
+      .tl{ display:grid; grid-template-columns:1fr 1fr; gap:2.6mm; flex:1; grid-auto-rows:1fr; }
+      .tl .c{ border:1px solid var(--line); border-radius:9px; padding:2.8mm 3.8mm; }
+      .tl .d{ display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:800; letter-spacing:.9px; text-transform:uppercase; color:var(--blue); }
+      .tl .t{ font-weight:800; font-size:14.5px; margin:.8mm 0 1.2mm; }
+      .tl ul{ list-style:none; font-size:12.8px; line-height:1.45; color:#26334A; }
+      .tl ul li{ padding-left:11px; position:relative; }
+      .tl ul li::before{ content:""; position:absolute; left:0; top:6px; width:4px; height:4px; border-radius:50%; background:var(--blue); }
+      .tl .c.bf{ background:var(--navy); border-color:var(--navy); color:#fff; }
+      .tl .c.bf .d{ color:var(--green); } .tl .c.bf ul{ color:#D5DCE7; } .tl .c.bf ul li::before{ background:var(--green); }
+      .tl .checklist{ padding:2.8mm 3.8mm 1mm; }
+      .tl .checklist li{ font-size:12.3px; padding:1.05mm 0; gap:7px; }
+      .tl .checklist .n{ width:16px; font-size:10.5px; }
+      .tl .checklist .cb{ width:14px; height:14px; }
+      .tl .checklist .cl-head{ margin-bottom:1mm; padding-bottom:1.2mm; }
+    </style>
+    <div class="tl">
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>04 a 08 de novembro</span><div class="t">Planejamento</div><ul><li>Levantar indicadores.</li><li>Definir metas.</li><li>Escolher ofertas.</li><li>Analisar margens.</li><li>Organizar responsáveis.</li></ul></div>
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>09 a 15 de novembro</span><div class="t">Preparação comercial</div><ul><li>Segmentar contatos.</li><li>Organizar o CRM.</li><li>Preparar lista VIP.</li><li>Produzir materiais de divulgação.</li><li>Treinar o time.</li></ul></div>
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>16 a 22 de novembro</span><div class="t">Aquecimento</div><ul><li>Divulgar a campanha.</li><li>Captar interessados.</li><li>Apresentar produtos.</li><li>Testar processos de atendimento.</li><li>Corrigir problemas operacionais.</li></ul></div>
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>23 a 26 de novembro</span><div class="t">Acesso antecipado</div><ul><li>Revisar condições.</li><li>Conferir estoque e agenda.</li><li>Liberar ofertas antecipadas, se previstas.</li><li>Acompanhar oportunidades.</li><li>Ajustar o atendimento.</li></ul></div>
+      <div class="c bf"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-zap"/></svg>27 de novembro</span><div class="t">Black Friday</div><ul><li>Executar a campanha.</li><li>Acompanhar os indicadores.</li><li>Monitorar mensagens e pedidos.</li><li>Conferir resultados por oferta.</li><li>Tomar decisões com base nos números.</li></ul></div>
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>28 a 30 de novembro</span><div class="t">Continuidade <span style="font-weight:500; font-size:11px; color:var(--muted);">(caso prevista nas condições da campanha)</span></div><ul><li>Encerrar ou manter as ofertas conforme o anunciado.</li><li>Concluir os atendimentos pendentes.</li><li>Confirmar pedidos e entregas.</li><li>Organizar as informações da operação.</li></ul></div>
+      <div class="c"><span class="d"><svg class="i" style="width:13px;height:13px"><use href="#i-cal"/></svg>01 a 07 de dezembro</span><div class="t">Pós-campanha</div><ul><li>Analisar resultados.</li><li>Avaliar margens.</li><li>Reunir a equipe.</li><li>Identificar melhorias.</li><li>Planejar oportunidades de relacionamento.</li></ul></div>
+      <div class="checklist">
+        <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display" style="font-size:15px;">26 a 30</span><span class="a">Divulgação</span></div>
+        <ul>
+          <li><span class="cb" data-name="p15_c26"></span><span class="n">26</span><span>Defini os canais de divulgação.</span></li>
+          <li><span class="cb" data-name="p15_c27"></span><span class="n">27</span><span>Preparei as peças da campanha.</span></li>
+          <li><span class="cb" data-name="p15_c28"></span><span class="n">28</span><span>Estabeleci o orçamento de divulgação.</span></li>
+          <li><span class="cb" data-name="p15_c29"></span><span class="n">29</span><span>Montei um calendário de comunicação.</span></li>
+          <li><span class="cb" data-name="p15_c30"></span><span class="n">30</span><span>Testei os links, formulários, pagamentos e canais de atendimento.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">15</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 16 | ETAPA 7: EXECUÇÃO
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 7 · Execução</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><span>Área 07 de 08</span></span></div>
+    <h1 class="title">Os números que você precisa acompanhar.</h1>
+    <p class="lead">Durante a campanha, estabeleça momentos para analisar os resultados com a equipe. Estes oito indicadores mostram, em poucos minutos, onde a campanha está indo bem e onde precisa de ajuste.</p>
+    <style>
+      .kpi{ display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; flex:1; grid-auto-rows:1fr; margin-top:5mm; }
+      .kpi .k{ background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:4.5mm 5mm; display:flex; flex-direction:column; }
+      .kpi .k .hd{ display:flex; justify-content:space-between; align-items:center; }
+      .kpi .k .no{ font-size:10px; letter-spacing:1.4px; font-weight:800; color:#7F8BA0; text-transform:uppercase; }
+      .kpi .k h3{ font-size:16px; margin:3mm 0 1.4mm; }
+      .kpi .k p{ font-size:13.5px; color:#C3CCDA; margin:0; }
+      .kpi .k .mf{ margin-top:auto; display:flex; align-items:flex-end; gap:3mm; padding-top:3mm; }
+      .kpi .k .mf .field{ flex:1; height:20px; }
+    </style>
+    <div class="kpi">
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-users"/></svg></span><span class="no">Indicador 1</span></div><h3>Interessados recebidos</h3><p>Quantas pessoas entraram em contato?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta1"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-chat"/></svg></span><span class="no">Indicador 2</span></div><h3>Taxa de atendimento</h3><p>Quantos interessados receberam atendimento?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta2"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-send"/></svg></span><span class="no">Indicador 3</span></div><h3>Propostas enviadas</h3><p>Quantas oportunidades chegaram à apresentação de uma oferta?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta3"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-pct"/></svg></span><span class="no">Indicador 4</span></div><h3>Conversão comercial</h3><p>Quantas vendas foram realizadas em relação às oportunidades?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta4"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-tag"/></svg></span><span class="no">Indicador 5</span></div><h3>Ticket médio</h3><p>Qual foi o valor médio das vendas?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta5"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-coins"/></svg></span><span class="no">Indicador 6</span></div><h3>Faturamento</h3><p>Qual foi o valor total vendido?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta6"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-chart"/></svg></span><span class="no">Indicador 7</span></div><h3>Margem de contribuição</h3><p>Quanto da receita sobrou após os custos e despesas variáveis?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta7"></span></div></div>
+      <div class="k"><div class="hd"><span class="ic"><svg class="i"><use href="#i-mega"/></svg></span><span class="no">Indicador 8</span></div><h3>Investimento em divulgação</h3><p>Quanto foi investido para gerar a demanda?</p><div class="mf"><span class="flabel" style="font-size:9.5px;">Minha meta</span><span class="field" data-name="p16_meta8"></span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">16</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 17 | PAINEL DO EMPRESÁRIO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 7 · Painel do empresário</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><i></i><span>Área 07 de 08</span></span></div>
+    <h1 class="title" style="margin-bottom:2mm;">Modelo de acompanhamento diário</h1>
+
+    <div class="row" style="gap:5mm; align-items:flex-start;">
+      <div style="flex:1.25;">
+        <div class="row" style="align-items:flex-end; gap:3mm; margin-bottom:2mm;"><span class="flabel">Data</span><span class="field" data-name="p17_data" style="flex:1; height:20px;"></span></div>
+        <table style="font-size:12.5px;" class="tall">
+          <thead><tr><th style="width:44%">Indicador</th><th>Meta</th><th>Realizado</th></tr></thead>
+          <tbody>
+            <tr><td><b>Interessados</b></td><td class="fill"><span class="field" data-name="p17_m1"></span></td><td class="fill"><span class="field" data-name="p17_r1"></span></td></tr>
+            <tr><td><b>Contatos atendidos</b></td><td class="fill"><span class="field" data-name="p17_m2"></span></td><td class="fill"><span class="field" data-name="p17_r2"></span></td></tr>
+            <tr><td><b>Propostas enviadas</b></td><td class="fill"><span class="field" data-name="p17_m3"></span></td><td class="fill"><span class="field" data-name="p17_r3"></span></td></tr>
+            <tr><td><b>Vendas</b></td><td class="fill"><span class="field" data-name="p17_m4"></span></td><td class="fill"><span class="field" data-name="p17_r4"></span></td></tr>
+            <tr><td><b>Faturamento</b></td><td class="fill"><span class="field" data-name="p17_m5"></span></td><td class="fill"><span class="field" data-name="p17_r5"></span></td></tr>
+            <tr><td><b>Ticket médio</b></td><td class="fill"><span class="field" data-name="p17_m6"></span></td><td class="fill"><span class="field" data-name="p17_r6"></span></td></tr>
+            <tr><td><b>Conversão</b></td><td class="fill"><span class="field" data-name="p17_m7"></span></td><td class="fill"><span class="field" data-name="p17_r7"></span></td></tr>
+            <tr><td><b>Margem de contribuição</b></td><td class="fill"><span class="field" data-name="p17_m8"></span></td><td class="fill"><span class="field" data-name="p17_r8"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card navy" style="flex:1; padding:4mm 4.5mm;">
+        <div class="kicker green">Fórmulas úteis</div>
+        <div style="display:flex; flex-direction:column; gap:2mm; font-size:11.6px; line-height:1.38; color:#D5DCE7;">
+          <div><b style="color:#fff">Taxa de atendimento</b> = contatos atendidos ÷ interessados × 100.</div>
+          <div><b style="color:#fff">Conversão final</b> = vendas ÷ interessados × 100.</div>
+          <div><b style="color:#fff">Conversão de propostas</b> = vendas ÷ propostas enviadas × 100.</div>
+          <div><b style="color:#fff">Ticket médio</b> = faturamento ÷ vendas.</div>
+          <div><b style="color:#fff">Custo de aquisição por cliente</b> = investimento atribuível à aquisição ÷ novos clientes adquiridos.</div>
+          <div><b style="color:#fff">Margem de contribuição</b> = receita − custos e despesas variáveis.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub mt2">O que fazer com os números?</h2>
+    <div class="grid g3" style="gap:3mm;">
+      <div class="card soft" style="padding:3.4mm 3.8mm;"><div class="flabel" style="font-size:9.5px;">Sinal</div><p style="font-size:12px; margin:1mm 0 1.6mm;">Muitas pessoas estão interessadas, mas poucas recebem atendimento.</p><div class="flabel" style="font-size:9.5px; color:var(--deep);">Ação</div><p style="font-size:12px; margin:1mm 0 0;"><b>Verifique a capacidade operacional.</b></p></div>
+      <div class="card soft" style="padding:3.4mm 3.8mm;"><div class="flabel" style="font-size:9.5px;">Sinal</div><p style="font-size:12px; margin:1mm 0 1.6mm;">Muitas propostas são apresentadas, mas poucas são fechadas.</p><div class="flabel" style="font-size:9.5px; color:var(--deep);">Ação</div><p style="font-size:12px; margin:1mm 0 0;"><b>Analise as ofertas, as objeções e o processo comercial.</b></p></div>
+      <div class="card soft" style="padding:3.4mm 3.8mm;"><div class="flabel" style="font-size:9.5px;">Sinal</div><p style="font-size:12px; margin:1mm 0 1.6mm;">O faturamento cresce, mas a margem diminui.</p><div class="flabel" style="font-size:9.5px; color:var(--deep);">Ação</div><p style="font-size:12px; margin:1mm 0 0;"><b>Revise a rentabilidade da campanha.</b></p></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">31 a 35</span><span class="a">Indicadores e execução</span></div>
+      <ul>
+        <li><span class="cb" data-name="p17_c31"></span><span class="n">31</span><span>Defini as métricas que vou acompanhar.</span></li>
+        <li><span class="cb" data-name="p17_c32"></span><span class="n">32</span><span>Preparei meu painel de resultados.</span></li>
+        <li><span class="cb" data-name="p17_c33"></span><span class="n">33</span><span>Estabeleci uma rotina de análise durante a campanha.</span></li>
+        <li><span class="cb" data-name="p17_c34"></span><span class="n">34</span><span>Defini responsáveis pelos indicadores.</span></li>
+        <li><span class="cb" data-name="p17_c35"></span><span class="n">35</span><span>Preparei ações de ajuste para situações de baixo desempenho.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">17</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 18 | ETAPA 8: PÓS-BLACK FRIDAY
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Etapa 8 · Pós-Black Friday</span><span class="progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i><span>Área 08 de 08</span></span></div>
+    <h1 class="title">O que fazer depois que a campanha terminar?</h1>
+    <p class="lead">Uma boa operação comercial continua acompanhando a experiência dos clientes após a venda.</p>
+
+    <div class="mt2" style="display:flex; flex-direction:column; gap:2.6mm;">
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;"><span class="display green" style="font-size:24px; font-weight:900; width:8mm;">1</span><span class="ic"><svg class="i"><use href="#i-box"/></svg></span><div><h3 style="font-size:15.5px;">Organize as entregas</h3><p class="small" style="margin:0; color:#C3CCDA;">Confira os pedidos, os prazos e as responsabilidades.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;"><span class="display green" style="font-size:24px; font-weight:900; width:8mm;">2</span><span class="ic"><svg class="i"><use href="#i-heart"/></svg></span><div><h3 style="font-size:14.5px;">Acompanhe a satisfação</h3><p class="small" style="margin:0; color:#C3CCDA;">Verifique se os clientes receberam o que foi prometido.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;"><span class="display green" style="font-size:24px; font-weight:900; width:8mm;">3</span><span class="ic"><svg class="i"><use href="#i-chart"/></svg></span><div><h3 style="font-size:14.5px;">Analise o desempenho das ofertas</h3><p class="small" style="margin:0; color:#C3CCDA;">Identifique os produtos e serviços mais vendidos e aqueles com melhores resultados financeiros.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;"><span class="display green" style="font-size:24px; font-weight:900; width:8mm;">4</span><span class="ic"><svg class="i"><use href="#i-gauge"/></svg></span><div><h3 style="font-size:14.5px;">Avalie o comercial</h3><p class="small" style="margin:0; color:#C3CCDA;">Analise o tempo de atendimento, a conversão e as negociações pendentes.</p></div></div>
+      <div class="card" style="display:flex; gap:4mm; align-items:center; padding:5mm 5.5mm;"><span class="display green" style="font-size:24px; font-weight:900; width:8mm;">5</span><span class="ic"><svg class="i"><use href="#i-book"/></svg></span><div><h3 style="font-size:14.5px;">Aproveite os aprendizados</h3><p class="small" style="margin:0; color:#C3CCDA;">Registre os pontos que funcionaram e o que precisa melhorar na próxima campanha.</p></div></div>
+    </div>
+
+    <div class="card mt2" style="display:flex; gap:4mm; align-items:flex-end; padding:4mm 5.5mm; border-color:rgba(116,250,165,.35);">
+      <span class="ic"><svg class="i"><use href="#i-cal"/></svg></span>
+      <span style="font-weight:700; white-space:nowrap;">Reunião de avaliação com a equipe:</span>
+      <span class="field" data-name="p18_reuniao" style="flex:1; height:20px;"></span>
+    </div>
+    <div class="spacer"></div>
+    <div class="checklist mt2">
+      <div class="cl-head"><span class="k">CHECKLIST</span><span class="r display">36 a 40</span><span class="a">Pós-campanha</span></div>
+      <ul>
+        <li><span class="cb" data-name="p18_c36"></span><span class="n">36</span><span>Preparei o processo de entrega ou execução.</span></li>
+        <li><span class="cb" data-name="p18_c37"></span><span class="n">37</span><span>Defini como acompanhar a satisfação dos clientes.</span></li>
+        <li><span class="cb" data-name="p18_c38"></span><span class="n">38</span><span>Organizei o encerramento das oportunidades.</span></li>
+        <li><span class="cb" data-name="p18_c39"></span><span class="n">39</span><span>Programei a análise financeira da campanha.</span></li>
+        <li><span class="cb" data-name="p18_c40"></span><span class="n">40</span><span>Marquei uma reunião para avaliar os resultados com a equipe.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">18</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 19 | CHECKLIST CONSOLIDADO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Checklist consolidado</span><span class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><span>40 pontos</span></span></div>
+    <h1 class="title" style="margin-bottom:1.5mm;">Seus 40 pontos de preparação</h1>
+    <p class="small muted" style="margin-bottom:3mm;">Marque o quadrado quando o item estiver feito. Na coluna <b style="color:var(--ink)">pts</b>, anote a nota do Raio-X (0, 1 ou 2) da próxima página.</p>
+    <style>
+      .cons{ display:grid; grid-template-columns:1fr 1fr; gap:2.6mm 4mm; flex:1; }
+      .cons .blk{ border:1px solid var(--line); border-radius:9px; padding:2.4mm 3.4mm 1.2mm; display:flex; flex-direction:column; }
+      .cons .bh{ display:flex; align-items:center; gap:6px; padding-bottom:1.3mm; border-bottom:1.5px solid var(--navy); margin-bottom:.4mm; }
+      .cons .bh .bn{ background:var(--navy); color:var(--green); font-weight:800; font-size:10.5px; border-radius:4px; padding:1px 5px; }
+      .cons .bh .bt{ font-weight:800; font-size:12.4px; }
+      .cons .bh .br{ margin-left:auto; font-size:9.5px; color:var(--muted); letter-spacing:.4px; }
+      .cons ul{ list-style:none; }
+      .cons li{ display:flex; gap:6px; align-items:flex-start; font-size:11.3px; line-height:1.32; padding:1.05mm 0; border-bottom:1px dashed var(--line2); }
+      .cons li:last-child{ border-bottom:0; }
+      .cons li .n{ font-weight:800; color:var(--blue); width:15px; flex:none; font-size:10.2px; padding-top:1px; }
+      .cons li .tx{ flex:1; }
+      .cons li .cb{ width:13px; height:13px; border-width:1.4px; margin-top:.5px; }
+      .cons li .pt{ width:22px; height:15px; border:1px solid #B5C1CE; border-radius:3px; flex:none; display:inline-block; }
+      .cons .ph2{ font-size:8.5px; color:var(--muted); letter-spacing:.6px; text-transform:uppercase; font-weight:700; width:22px; text-align:center; }
+    </style>
+    <div class="cons">
+      <div class="blk"><div class="bh"><span class="bn">1</span><span class="bt">Diagnóstico e metas</span><span class="br">01 a 05</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c01"></span><span class="n">01</span><span class="tx">Conheço meu faturamento atual.</span><span class="pt field-box" data-name="p19_s01"></span></li>
+        <li><span class="cb" data-name="p19_c02"></span><span class="n">02</span><span class="tx">Sei quantas vendas realizo por mês.</span><span class="pt field-box" data-name="p19_s02"></span></li>
+        <li><span class="cb" data-name="p19_c03"></span><span class="n">03</span><span class="tx">Conheço o ticket médio da empresa.</span><span class="pt field-box" data-name="p19_s03"></span></li>
+        <li><span class="cb" data-name="p19_c04"></span><span class="n">04</span><span class="tx">Sei minha taxa de conversão comercial.</span><span class="pt field-box" data-name="p19_s04"></span></li>
+        <li><span class="cb" data-name="p19_c05"></span><span class="n">05</span><span class="tx">Defini uma meta financeira para a campanha.</span><span class="pt field-box" data-name="p19_s05"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">2</span><span class="bt">Ofertas e lucratividade</span><span class="br">06 a 10</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c06"></span><span class="n">06</span><span class="tx">Escolhi os produtos ou serviços da campanha.</span><span class="pt field-box" data-name="p19_s06"></span></li>
+        <li><span class="cb" data-name="p19_c07"></span><span class="n">07</span><span class="tx">Analisei a procura e o potencial de venda.</span><span class="pt field-box" data-name="p19_s07"></span></li>
+        <li><span class="cb" data-name="p19_c08"></span><span class="n">08</span><span class="tx">Criei ofertas ou combinações complementares.</span><span class="pt field-box" data-name="p19_s08"></span></li>
+        <li><span class="cb" data-name="p19_c09"></span><span class="n">09</span><span class="tx">Calculei os custos e as margens.</span><span class="pt field-box" data-name="p19_s09"></span></li>
+        <li><span class="cb" data-name="p19_c10"></span><span class="n">10</span><span class="tx">Validei estoque, agenda e capacidade de entrega.</span><span class="pt field-box" data-name="p19_s10"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">3</span><span class="bt">Base de clientes</span><span class="br">11 a 15</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c11"></span><span class="n">11</span><span class="tx">Organizei minha base de clientes.</span><span class="pt field-box" data-name="p19_s11"></span></li>
+        <li><span class="cb" data-name="p19_c12"></span><span class="n">12</span><span class="tx">Identifiquei clientes inativos.</span><span class="pt field-box" data-name="p19_s12"></span></li>
+        <li><span class="cb" data-name="p19_c13"></span><span class="n">13</span><span class="tx">Separei propostas e orçamentos pendentes.</span><span class="pt field-box" data-name="p19_s13"></span></li>
+        <li><span class="cb" data-name="p19_c14"></span><span class="n">14</span><span class="tx">Segmentei os contatos por perfil de interesse.</span><span class="pt field-box" data-name="p19_s14"></span></li>
+        <li><span class="cb" data-name="p19_c15"></span><span class="n">15</span><span class="tx">Preparei abordagens personalizadas e adequadas às permissões de contato.</span><span class="pt field-box" data-name="p19_s15"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">4</span><span class="bt">Lista VIP e comunicação</span><span class="br">16 a 20</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c16"></span><span class="n">16</span><span class="tx">Escolhi o formato da lista VIP.</span><span class="pt field-box" data-name="p19_s16"></span></li>
+        <li><span class="cb" data-name="p19_c17"></span><span class="n">17</span><span class="tx">Preparei a página ou formulário de inscrição.</span><span class="pt field-box" data-name="p19_s17"></span></li>
+        <li><span class="cb" data-name="p19_c18"></span><span class="n">18</span><span class="tx">Organizei a comunicação antecipada.</span><span class="pt field-box" data-name="p19_s18"></span></li>
+        <li><span class="cb" data-name="p19_c19"></span><span class="n">19</span><span class="tx">Defini quais ofertas serão divulgadas primeiro.</span><span class="pt field-box" data-name="p19_s19"></span></li>
+        <li><span class="cb" data-name="p19_c20"></span><span class="n">20</span><span class="tx">Estruturei um atendimento para os contatos interessados.</span><span class="pt field-box" data-name="p19_s20"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">5</span><span class="bt">Operação comercial</span><span class="br">21 a 25</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c21"></span><span class="n">21</span><span class="tx">Defini os responsáveis pelo atendimento.</span><span class="pt field-box" data-name="p19_s21"></span></li>
+        <li><span class="cb" data-name="p19_c22"></span><span class="n">22</span><span class="tx">Orientei a equipe sobre as ofertas.</span><span class="pt field-box" data-name="p19_s22"></span></li>
+        <li><span class="cb" data-name="p19_c23"></span><span class="n">23</span><span class="tx">Preparei o CRM ou a planilha de oportunidades.</span><span class="pt field-box" data-name="p19_s23"></span></li>
+        <li><span class="cb" data-name="p19_c24"></span><span class="n">24</span><span class="tx">Estabeleci um tempo de resposta como meta interna.</span><span class="pt field-box" data-name="p19_s24"></span></li>
+        <li><span class="cb" data-name="p19_c25"></span><span class="n">25</span><span class="tx">Organizei o acompanhamento das negociações.</span><span class="pt field-box" data-name="p19_s25"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">6</span><span class="bt">Divulgação</span><span class="br">26 a 30</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c26"></span><span class="n">26</span><span class="tx">Defini os canais de divulgação.</span><span class="pt field-box" data-name="p19_s26"></span></li>
+        <li><span class="cb" data-name="p19_c27"></span><span class="n">27</span><span class="tx">Preparei as peças da campanha.</span><span class="pt field-box" data-name="p19_s27"></span></li>
+        <li><span class="cb" data-name="p19_c28"></span><span class="n">28</span><span class="tx">Estabeleci o orçamento de divulgação.</span><span class="pt field-box" data-name="p19_s28"></span></li>
+        <li><span class="cb" data-name="p19_c29"></span><span class="n">29</span><span class="tx">Montei um calendário de comunicação.</span><span class="pt field-box" data-name="p19_s29"></span></li>
+        <li><span class="cb" data-name="p19_c30"></span><span class="n">30</span><span class="tx">Testei os links, formulários, pagamentos e canais de atendimento.</span><span class="pt field-box" data-name="p19_s30"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">7</span><span class="bt">Indicadores</span><span class="br">31 a 35</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c31"></span><span class="n">31</span><span class="tx">Defini as métricas que vou acompanhar.</span><span class="pt field-box" data-name="p19_s31"></span></li>
+        <li><span class="cb" data-name="p19_c32"></span><span class="n">32</span><span class="tx">Preparei meu painel de resultados.</span><span class="pt field-box" data-name="p19_s32"></span></li>
+        <li><span class="cb" data-name="p19_c33"></span><span class="n">33</span><span class="tx">Estabeleci uma rotina de análise durante a campanha.</span><span class="pt field-box" data-name="p19_s33"></span></li>
+        <li><span class="cb" data-name="p19_c34"></span><span class="n">34</span><span class="tx">Defini responsáveis pelos indicadores.</span><span class="pt field-box" data-name="p19_s34"></span></li>
+        <li><span class="cb" data-name="p19_c35"></span><span class="n">35</span><span class="tx">Preparei ações de ajuste para situações de baixo desempenho.</span><span class="pt field-box" data-name="p19_s35"></span></li>
+      </ul></div>
+      <div class="blk"><div class="bh"><span class="bn">8</span><span class="bt">Pós-campanha</span><span class="br">36 a 40</span><span class="ph2">pts</span></div><ul>
+        <li><span class="cb" data-name="p19_c36"></span><span class="n">36</span><span class="tx">Preparei o processo de entrega ou execução.</span><span class="pt field-box" data-name="p19_s36"></span></li>
+        <li><span class="cb" data-name="p19_c37"></span><span class="n">37</span><span class="tx">Defini como acompanhar a satisfação dos clientes.</span><span class="pt field-box" data-name="p19_s37"></span></li>
+        <li><span class="cb" data-name="p19_c38"></span><span class="n">38</span><span class="tx">Organizei o encerramento das oportunidades.</span><span class="pt field-box" data-name="p19_s38"></span></li>
+        <li><span class="cb" data-name="p19_c39"></span><span class="n">39</span><span class="tx">Programei a análise financeira da campanha.</span><span class="pt field-box" data-name="p19_s39"></span></li>
+        <li><span class="cb" data-name="p19_c40"></span><span class="n">40</span><span class="tx">Marquei uma reunião para avaliar os resultados com a equipe.</span><span class="pt field-box" data-name="p19_s40"></span></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">19</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 20 | RAIO-X
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Raio-X da Black Friday</span><span class="progress">Autoavaliação</span></div>
+    <h1 class="title" style="margin-bottom:2mm;">Descubra como está a preparação da sua empresa.</h1>
+    <p class="lead" style="margin-bottom:3mm;">Para cada um dos 40 itens, atribua uma pontuação. Cada área pode alcançar até <b class="green">10 pontos</b>. Pontuação máxima: <b class="green">80 pontos</b>.</p>
+
+    <div class="grid g3" style="gap:3mm;">
+      <div class="card" style="padding:3.4mm 4mm; display:flex; gap:3.4mm; align-items:center;"><span class="display" style="font-size:30px; font-weight:900; color:#7F8BA0;">0</span><p class="small" style="margin:0; color:#C3CCDA;"><b style="color:#fff">0 pontos:</b> ainda não foi preparado.</p></div>
+      <div class="card" style="padding:3.4mm 4mm; display:flex; gap:3.4mm; align-items:center;"><span class="display" style="font-size:30px; font-weight:900; color:#5C9BD0;">1</span><p class="small" style="margin:0; color:#C3CCDA;"><b style="color:#fff">1 ponto:</b> foi iniciado, mas precisa de ajustes.</p></div>
+      <div class="card" style="padding:3.4mm 4mm; display:flex; gap:3.4mm; align-items:center;"><span class="display green" style="font-size:30px; font-weight:900;">2</span><p class="small" style="margin:0; color:#C3CCDA;"><b style="color:#fff">2 pontos:</b> está preparado, conferido e documentado.</p></div>
+    </div>
+
+    <h2 class="sub mt2">Resultado do diagnóstico</h2>
+    <div style="display:flex; height:7mm; border-radius:4px; overflow:hidden; font-size:10px; font-weight:800; letter-spacing:.5px;">
+      <div style="flex:25; background:#34405A; display:flex; align-items:center; padding-left:2.4mm;">0 a 24</div>
+      <div style="flex:25; background:#295D86; display:flex; align-items:center; padding-left:2.4mm;">25 a 49</div>
+      <div style="flex:15; background:#265C58; display:flex; align-items:center; padding-left:2.4mm;">50 a 64</div>
+      <div style="flex:16; background:#74FAA5; color:#0A1123; display:flex; align-items:center; padding-left:2.4mm;">65 a 80</div>
+    </div>
+    <div class="grid g4 mt1" style="gap:2.4mm;">
+      <div class="card" style="padding:3mm 3.2mm; border-top:3px solid #34405A;"><div style="font-weight:800; font-size:12.5px; margin-bottom:1mm;">Estrutura inicial</div><p style="font-size:11.2px; line-height:1.38; color:#C3CCDA; margin:0;">Sua empresa ainda precisa preparar várias áreas importantes. Priorize ofertas, margens, atendimento e metas.</p></div>
+      <div class="card" style="padding:3mm 3.2mm; border-top:3px solid #295D86;"><div style="font-weight:800; font-size:12.5px; margin-bottom:1mm;">Preparação em andamento</div><p style="font-size:11.2px; line-height:1.38; color:#C3CCDA; margin:0;">Sua operação já possui algumas definições. Identifique os blocos com menor pontuação e organize os próximos ajustes.</p></div>
+      <div class="card" style="padding:3mm 3.2mm; border-top:3px solid #3C8C84;"><div style="font-weight:800; font-size:12.5px; margin-bottom:1mm;">Estrutura bem encaminhada</div><p style="font-size:11.2px; line-height:1.38; color:#C3CCDA; margin:0;">Boa parte da campanha está planejada. Revise os processos, os testes e as responsabilidades antes de começar.</p></div>
+      <div class="card" style="padding:3mm 3.2mm; border-top:3px solid #74FAA5;"><div style="font-weight:800; font-size:12.5px; margin-bottom:1mm;">Preparação avançada</div><p style="font-size:11.2px; line-height:1.38; color:#C3CCDA; margin:0;">Sua empresa já possui uma estrutura de planejamento mais completa. Confira a capacidade operacional e acompanhe os resultados durante a campanha.</p></div>
+    </div>
+    <p class="small muted mt1" style="margin-bottom:0;">A pontuação é uma ferramenta de autoavaliação, sem garantia de resultados.</p>
+
+    <div class="spacer"></div>
+    <div class="row mt2" style="gap:4mm; align-items:stretch;">
+      <div class="card white" style="flex:1.15; padding:4mm 4.5mm;">
+        <div class="kicker">Quadro de avaliação</div>
+        <table style="font-size:12.3px;" class="tight">
+          <thead><tr><th>Área</th><th class="r" style="width:30mm">Pontuação</th></tr></thead>
+          <tbody>
+            <tr><td>Diagnóstico e metas</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a1" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Ofertas e margens</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a2" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Base de clientes</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a3" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Lista VIP</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a4" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Operação comercial</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a5" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Divulgação</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a6" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Indicadores</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a7" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr><td>Pós-campanha</td><td class="r"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_a8" style="width:13mm; display:inline-block; height:18px;"></span>/10</span></td></tr>
+            <tr class="total"><td style="background:rgba(116,250,165,.35)">Total</td><td class="r" style="background:rgba(116,250,165,.35)"><span style="display:inline-flex; align-items:center; gap:4px;"><span class="field" data-name="p20_total" style="width:13mm; display:inline-block; height:18px; border-bottom-color:#0A1123;"></span>/80</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="flex:1; padding:5mm; display:flex; flex-direction:column; border-color:rgba(116,250,165,.35);">
+        <span class="ic"><svg class="i"><use href="#i-target"/></svg></span>
+        <h2 class="sub" style="margin:3mm 0 2mm;">Pergunta final</h2>
+        <p style="font-size:14px; margin-bottom:2mm;">Qual das oito áreas mais precisa da sua atenção neste momento?</p>
+        <div class="spacer"></div>
+        <span class="field" data-name="p20_q0" style="height:26px;"></span>
+        <span class="field" data-name="p20_q1" style="height:26px;"></span>
+        <span class="field" data-name="p20_q2" style="height:26px;"></span>
+        <span class="field" data-name="p20_q3" style="height:26px;"></span>
+        <div class="flabel" style="margin-top:4mm;">Primeira ação que vou tomar</div>
+        <span class="field" data-name="p20_q4" style="height:26px;"></span>
+        <span class="field" data-name="p20_q5" style="height:26px;"></span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">20</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 21 | MODELOS PRONTOS
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Modelos prontos</span><span class="progress">6 mensagens</span></div>
+    <h1 class="title" style="margin-bottom:1.5mm;">Copie, personalize e use.</h1>
+    <p class="small muted" style="margin-bottom:3mm;">Troque o que está entre colchetes, como <span class="ph">[nome]</span> e <span class="ph">[empresa]</span>, pelas informações reais.</p>
+    <div class="grid g2" style="gap:3mm;">
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-star"/></svg></span><span class="mn">Modelo 1</span></div><h3>Convite para a lista VIP</h3><div class="ctx">Pode ser usado com qualquer contato interessado.</div>
+        <div class="bubble"><p>“Estamos preparando condições especiais para a Black Friday da <span class="ph">[empresa]</span>.</p><p>Vamos liberar algumas ofertas antecipadamente para quem se cadastrar na nossa lista VIP.</p><p>Quer receber as informações? Acesse <span class="ph">[link]</span> e faça sua inscrição.”</p></div></div>
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-refresh"/></svg></span><span class="mn">Modelo 2</span></div><h3>Reativação de cliente</h3><div class="ctx">Para clientes que autorizaram receber esse tipo de comunicação.</div>
+        <div class="bubble"><p>“Oi, <span class="ph">[nome]</span>! Tudo bem?</p><p>Aqui é <span class="ph">[atendente]</span>, da <span class="ph">[empresa]</span>.</p><p>Estamos preparando algumas condições especiais para a Black Friday e lembrei de você.</p><p>Temos novidades que podem fazer sentido para o que você procura.</p><p>Gostaria de receber as informações?”</p></div></div>
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-doc"/></svg></span><span class="mn">Modelo 3</span></div><h3>Retomada de orçamento</h3><div class="ctx">Para contatos com comunicação permitida.</div>
+        <div class="bubble"><p>“Oi, <span class="ph">[nome]</span>! Tudo bem?</p><p>Passando para saber se você ainda tem interesse em <span class="ph">[produto/serviço]</span>.</p><p>Vamos ter uma condição especial durante a Black Friday e achei interessante te avisar.</p><p>Posso te apresentar as informações?”</p></div></div>
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-hand"/></svg></span><span class="mn">Modelo 4</span></div><h3>Primeiro atendimento</h3><div class="ctx">&nbsp;</div>
+        <div class="bubble"><p>“Olá, <span class="ph">[nome]</span>! Tudo bem?</p><p>Seja bem-vindo à <span class="ph">[empresa]</span>.</p><p>Vi que você demonstrou interesse na nossa campanha de Black Friday.</p><p>Me conta uma coisa: qual produto ou serviço você está procurando?”</p></div></div>
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-send"/></svg></span><span class="mn">Modelo 5</span></div><h3>Acompanhamento de proposta</h3><div class="ctx">&nbsp;</div>
+        <div class="bubble"><p>“Oi, <span class="ph">[nome]</span>! Tudo bem?</p><p>Conseguiu analisar as informações que te enviei?</p><p>Caso tenha alguma dúvida sobre o produto, a condição ou a forma de pagamento, posso te ajudar por aqui.”</p></div></div>
+      <div class="msg"><div class="mh"><span class="ic" style="width:24px;height:24px"><svg class="i" style="width:14px;height:14px"><use href="#i-flag"/></svg></span><span class="mn">Modelo 6</span></div><h3>Encerramento da campanha</h3><div class="ctx">Use somente quando o prazo informado for verdadeiro.</div>
+        <div class="bubble"><p>“Oi, <span class="ph">[nome]</span>!</p><p>Passando para avisar que nossa campanha de Black Friday está chegando ao fim, conforme o prazo divulgado.</p><p>Se ainda quiser esclarecer alguma dúvida sobre a oferta que conversamos, estou à disposição.”</p></div></div>
+    </div>
+    <div class="callout mt2" style="display:flex; gap:4mm; align-items:center; padding:3.2mm 4.5mm;">
+      <span class="ic"><svg class="i"><use href="#i-shield"/></svg></span>
+      <p style="margin:0; font-size:12.8px;">Use a mensagem de encerramento somente quando o prazo informado for verdadeiro. Em todos os modelos, respeite as permissões, as preferências e os pedidos de descadastramento.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">21</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 22 | PLANO DE AÇÃO
+========================================================= -->
+<section class="page">
+  <div class="content">
+    <div class="top"><span class="tag">Plano de ação do empresário</span><span class="progress">3 prioridades</span></div>
+    <h1 class="title" style="margin-bottom:1.5mm;">Transforme esse checklist em decisões práticas.</h1>
+    <p class="lead" style="margin-bottom:3.5mm;">Agora que você avaliou sua empresa, escolha as três prioridades que precisam ser resolvidas antes da campanha.</p>
+    <style>
+      .prio{ border:1px solid var(--line); border-radius:10px; padding:3.6mm 4mm; display:flex; flex-direction:column; }
+      .prio .ph1{ display:flex; align-items:baseline; gap:6px; border-bottom:1.5px solid var(--navy); padding-bottom:1.6mm; margin-bottom:2mm; }
+      .prio .ph1 b{ font-family:"Inter Display"; font-size:22px; font-weight:900; color:var(--blue); }
+      .prio .ph1 span{ font-size:10.5px; font-weight:800; letter-spacing:1.6px; }
+      .prio .q{ font-size:11.5px; font-weight:700; color:var(--muted); margin-top:1.6mm; }
+      .prio .field{ height:34px; }
+    </style>
+    <div class="grid g3" style="gap:3mm;">
+      <div class="prio"><div class="ph1"><span>PRIORIDADE</span><b>01</b></div>
+        <div class="q">O que precisa ser feito?</div><span class="field" data-name="p22_p1_o1"></span><span class="field" data-name="p22_p1_o2"></span><span class="field" data-name="p22_p1_o3"></span>
+        <div class="q">Quem será o responsável?</div><span class="field" data-name="p22_p1_r"></span>
+        <div class="q">Qual é o prazo?</div><span class="field" data-name="p22_p1_d"></span>
+        <div class="q">Como vou saber que foi resolvido?</div><span class="field" data-name="p22_p1_ok1"></span><span class="field" data-name="p22_p1_ok2"></span></div>
+      <div class="prio"><div class="ph1"><span>PRIORIDADE</span><b>02</b></div>
+        <div class="q">O que precisa ser feito?</div><span class="field" data-name="p22_p2_o1"></span><span class="field" data-name="p22_p2_o2"></span><span class="field" data-name="p22_p2_o3"></span>
+        <div class="q">Quem será o responsável?</div><span class="field" data-name="p22_p2_r"></span>
+        <div class="q">Qual é o prazo?</div><span class="field" data-name="p22_p2_d"></span>
+        <div class="q">Como vou saber que foi resolvido?</div><span class="field" data-name="p22_p2_ok1"></span><span class="field" data-name="p22_p2_ok2"></span></div>
+      <div class="prio"><div class="ph1"><span>PRIORIDADE</span><b>03</b></div>
+        <div class="q">O que precisa ser feito?</div><span class="field" data-name="p22_p3_o1"></span><span class="field" data-name="p22_p3_o2"></span><span class="field" data-name="p22_p3_o3"></span>
+        <div class="q">Quem será o responsável?</div><span class="field" data-name="p22_p3_r"></span>
+        <div class="q">Qual é o prazo?</div><span class="field" data-name="p22_p3_d"></span>
+        <div class="q">Como vou saber que foi resolvido?</div><span class="field" data-name="p22_p3_ok1"></span><span class="field" data-name="p22_p3_ok2"></span></div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="card navy mt2" style="padding:6mm 7mm; position:relative; overflow:hidden;">
+      <svg viewBox="0 0 200 200" style="position:absolute; right:-70px; top:-70px; width:190px; height:190px;" fill="none"><circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,.07)"/><circle cx="100" cy="100" r="60" stroke="rgba(116,250,165,.2)"/><circle cx="100" cy="100" r="30" stroke="rgba(41,93,134,.6)"/></svg>
+      <div class="kicker green">Meu conselho final</div>
+      <p class="display" style="font-size:20px; font-weight:800; line-height:1.28; max-width:135mm; margin-bottom:3mm;">A Black Friday passa, mas a estrutura comercial da sua empresa continua.</p>
+      <p style="color:#D5DCE7; font-size:13.5px; max-width:150mm;">Aproveite a preparação da campanha para organizar processos que também poderão ajudar seu negócio nos próximos meses.</p>
+      <p style="color:#D5DCE7; font-size:13.5px; max-width:150mm;">Quando você conhece seus números, tem clareza das metas e organiza o atendimento, fica mais fácil identificar oportunidades de crescimento.</p>
+      <div class="row" style="margin-top:5mm; padding-top:4mm; border-top:1px solid rgba(255,255,255,.14); align-items:flex-end; justify-content:space-between; gap:6mm;">
+        <div>
+          <div class="display" style="font-size:19px; font-weight:800;">Marcelo Alves</div>
+          <div class="small" style="color:#AEB9CA; line-height:1.5;">CEO da Orbion Sales<br>Gestão e Estruturação Comercial</div>
+          <div class="green" style="font-weight:700; margin-top:1.4mm;">@alvesmarcelobr</div>
+        </div>
+        <div style="background:var(--green); color:var(--navy); border-radius:10px; padding:4mm 5mm; max-width:78mm;">
+          <div style="font-weight:800; font-size:13.5px; line-height:1.3; margin-bottom:1.4mm;">Quer conversar sobre a estrutura comercial da sua empresa?</div>
+          <div style="font-size:12.5px;">Me chame no Instagram com a palavra <b style="background:var(--navy); color:var(--green); padding:1px 6px; border-radius:4px; letter-spacing:.8px;">RAIO-X</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">22</span></div>
+</section>
+
+<!-- =========================================================
+     PÁGINA 23 | NOTAS E REFERÊNCIAS (contracapa)
+========================================================= -->
+<section class="page dark">
+  <div class="content">
+    <div class="top"><span class="tag">Notas importantes</span><span class="progress">Antes de divulgar</span></div>
+    <h1 class="title">Cuidados para uma campanha correta</h1>
+    <p class="lead">Uma boa Black Friday também protege a reputação da empresa. Antes de publicar qualquer oferta, confira estes pontos.</p>
+
+    <div class="grid g2 mt2" style="gap:3.4mm;">
+      <div class="card" style="padding:4.5mm 5mm;"><div class="row" style="gap:3mm; align-items:center; margin-bottom:2mm;"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><h3 style="font-size:14.5px;">Cumprimento das ofertas</h3></div><p class="small" style="margin:0; color:#C3CCDA;">Anuncie somente preços, condições, prazos e estoques verdadeiros. O que foi divulgado precisa ser cumprido, como prevê o Código de Defesa do Consumidor. Não use descontos fictícios nem escassez artificial.</p></div>
+      <div class="card" style="padding:4.5mm 5mm;"><div class="row" style="gap:3mm; align-items:center; margin-bottom:2mm;"><span class="ic"><svg class="i"><use href="#i-shield"/></svg></span><h3 style="font-size:14.5px;">Proteção dos dados</h3></div><p class="small" style="margin:0; color:#C3CCDA;">Use os dados de clientes com uma base legal adequada, conforme a LGPD. Guarde as informações com segurança e atenda pedidos de acesso, correção ou exclusão.</p></div>
+      <div class="card" style="padding:4.5mm 5mm;"><div class="row" style="gap:3mm; align-items:center; margin-bottom:2mm;"><span class="ic"><svg class="i"><use href="#i-chat"/></svg></span><h3 style="font-size:14.5px;">Autorização para mensagens</h3></div><p class="small" style="margin:0; color:#C3CCDA;">Envie mensagens promocionais apenas para quem autorizou. No WhatsApp, siga a Política de Mensagens do WhatsApp Business e ofereça uma forma simples de deixar de receber.</p></div>
+      <div class="card" style="padding:4.5mm 5mm;"><div class="row" style="gap:3mm; align-items:center; margin-bottom:2mm;"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><h3 style="font-size:14.5px;">Profissões regulamentadas</h3></div><p class="small" style="margin:0; color:#C3CCDA;">Clínicas, consultórios, escritórios e outras atividades com conselho profissional têm regras próprias de publicidade. Consulte o seu conselho antes de divulgar promoções.</p></div>
+    </div>
+
+    <h2 class="sub mt3">Referências para consulta</h2>
+    <div style="display:flex; flex-direction:column; font-size:12px;">
+      <div style="padding:2.2mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><b>Procon-ES</b> <span style="color:#AEB9CA">| Orientações para a Black Friday de 2026</span><br><span class="green" style="font-size:10.8px; word-break:break-all;">procon.es.gov.br/procon-es-orienta-consumidores-a-monitorar-precos-antes-da-black-friday</span></div>
+      <div style="padding:2.2mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><b>Código de Defesa do Consumidor</b><br><span class="green" style="font-size:10.8px;">consumidor.gov.br/pages/conteudo/publico/102</span></div>
+      <div style="padding:2.2mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><b>Ministério da Justiça e Senacon</b> <span style="color:#AEB9CA">| Guia de direitos na Black Friday</span><br><span class="green" style="font-size:10.8px; word-break:break-all;">gov.br/mj/pt-br/assuntos/noticias/ministerio-da-justica-lanca-guia-do-consumidor-para-a-black-friday</span></div>
+      <div style="padding:2.2mm 0; border-bottom:1px solid rgba(255,255,255,.1);"><b>ANPD</b> <span style="color:#AEB9CA">| Guia orientativo sobre legítimo interesse e LGPD</span><br><span class="green" style="font-size:10.8px; word-break:break-all;">gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-sobre-legitimo-interesse</span></div>
+      <div style="padding:2.2mm 0;"><b>Política de Mensagens do WhatsApp Business</b><br><span class="green" style="font-size:10.8px;">business.whatsapp.com/policy</span></div>
+    </div>
+
+    <div class="spacer"></div>
+    <p class="small" style="color:#8390A6; margin:3mm 0 0; line-height:1.5;">Este material tem caráter educativo. Os números usados nos exemplos são ilustrativos e não representam resultados reais de nenhuma empresa. Os resultados de cada campanha dependem do mercado, da oferta e da execução. Verifique a aplicabilidade das regras ao segmento do seu negócio.</p>
+  </div>
+  <div class="foot"><span>Marcelo Alves &nbsp;|&nbsp; @alvesmarcelobr</span><span class="mid">Black Friday de Dono</span><span class="pn">23</span></div>
+</section>
+
+</body>
+</html>
