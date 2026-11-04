@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Projeto separado, com config própria (vai para um repositório novo)
+    "radar-concorrentes/**",
   ]),
 ]);
 
