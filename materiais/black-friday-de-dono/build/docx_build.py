@@ -398,9 +398,26 @@ pagebreak()
 eyebrow('Notas importantes'); title('Cuidados para uma campanha correta')
 for n,d in [('Cumprimento das ofertas','Anuncie somente preços, condições, prazos e estoques verdadeiros. O que foi divulgado precisa ser cumprido, como prevê o Código de Defesa do Consumidor. Não use descontos fictícios nem escassez artificial.'),('Proteção dos dados','Use os dados de clientes com uma base legal adequada, conforme a LGPD. Guarde as informações com segurança e atenda pedidos de acesso, correção ou exclusão.'),('Autorização para mensagens','Envie mensagens promocionais apenas para quem autorizou. No WhatsApp, siga a Política de Mensagens do WhatsApp Business e ofereça uma forma simples de deixar de receber.'),('Profissões regulamentadas','Clínicas, consultórios, escritórios e outras atividades com conselho profissional têm regras próprias de publicidade. Consulte o seu conselho antes de divulgar promoções.')]:
     box([n,d],bold_first=True)
-h2('Referências para consulta')
-for a,u in [('Procon-ES, orientações para a Black Friday de 2026','https://procon.es.gov.br/procon-es-orienta-consumidores-a-monitorar-precos-antes-da-black-friday'),('Código de Defesa do Consumidor','https://consumidor.gov.br/pages/conteudo/publico/102'),('Ministério da Justiça e Senacon, guia de direitos na Black Friday','https://www.gov.br/mj/pt-br/assuntos/noticias/ministerio-da-justica-lanca-guia-do-consumidor-para-a-black-friday'),('ANPD, orientações sobre legítimo interesse e LGPD','https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-sobre-legitimo-interesse'),('Política de Mensagens do WhatsApp Business','https://business.whatsapp.com/policy')]:
-    p=para(after=3); run(p,a+'\n',True); run(p,u,color=BLUE,size=9)
+URL='https://orbionsales.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAafB4rbPML-GBy1SAvCy1EDJzeklPhS4MzPi3r6tgEAe54kO2LVouzNoI8LAoQ_aem_5-UDK4HNQe3RVoHuhJQLMQ'
+def hyperlink(p, url, text, color='0A1123', size=12):
+    rid=p.part.relate_to(url,'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',is_external=True)
+    h=OxmlElement('w:hyperlink'); h.set(qn('r:id'),rid)
+    r=OxmlElement('w:r'); rpr=OxmlElement('w:rPr')
+    for tag,val in (('w:b',None),('w:color',color),('w:sz',str(size*2))):
+        e=OxmlElement(tag)
+        if val: e.set(qn('w:val'),val)
+        rpr.append(e)
+    r.append(rpr); t_=OxmlElement('w:t'); t_.text=text; r.append(t_); h.append(r); p._p.append(h)
+para()
+t=doc.add_table(rows=1,cols=1); t.alignment=WD_TABLE_ALIGNMENT.CENTER; cell_margins(t,5); fix_widths(t,[170])
+c=t.cell(0,0); shade(c,'0A1123'); c.paragraphs[0].text=''
+run(c.paragraphs[0],'ORBION SALES',True,GREEN,9)
+p=c.add_paragraph(); run(p,'Quer ir além da Black Friday e estruturar o comercial da sua empresa?',True,WHITE,15)
+p=c.add_paragraph(); run(p,'Conheça a Orbion Sales, empresa de gestão e estruturação comercial liderada por Marcelo Alves.',False,RGBColor(0xC3,0xCC,0xDA),10.5)
+b2=t.add_row().cells[0]; shade(b2,'74FAA5'); b2.paragraphs[0].text=''
+b2.paragraphs[0].alignment=WD_ALIGN_PARAGRAPH.CENTER
+hyperlink(b2.paragraphs[0], URL, 'CONHECER A ORBION  →')
+para()
 para('Este material tem caráter educativo. Os números usados nos exemplos são ilustrativos e não representam resultados reais de nenhuma empresa. Os resultados de cada campanha dependem do mercado, da oferta e da execução. Verifique a aplicabilidade das regras ao segmento do seu negócio.',color=MUTED,size=9)
 doc.core_properties.title='Black Friday de Dono'; doc.core_properties.author='Marcelo Alves | Orbion Sales'
 doc.save(sys.argv[1]); print('ok')

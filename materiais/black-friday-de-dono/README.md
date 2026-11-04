@@ -21,4 +21,4 @@ Ebook/checklist gratuito de Marcelo Alves (Orbion Sales) para quem comenta **BLA
 20. Raio-X com pontuação
 21. Seis modelos de mensagem
 22. Plano de ação
-23. Notas importantes (ofertas, LGPD, autorização de mensagens, profissões regulamentadas) e referências
+23. Notas importantes (ofertas, LGPD, autorização de mensagens, profissões regulamentadas) e botão para conhecer a Orbion Sales
