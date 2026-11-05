@@ -15,6 +15,10 @@ Aplicativo web com 12 calculadoras para estudantes de Engenharia Elétrica. Cada
 | Corrente alternada | 07 Frequência e Período, 08 Reatância, 09 Impedância RLC |
 | Potência e utilidades | 10 Potência Monofásica, 11 Potência Trifásica, 12 Conversor de Unidades |
 
+## Versão em planilha (Google Drive)
+
+`planilha/MapaEletrica-Calc.xlsx` traz as mesmas 12 calculadoras em fórmulas, para abrir no Planilhas Google ou no Excel. Instruções em `planilha/LEIA-ME.md`.
+
 ## Arquitetura
 
 O código é JavaScript puro, sem bibliotecas. A matemática fica separada da interface:
