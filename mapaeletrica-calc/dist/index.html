@@ -1,0 +1,3397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MapaElétrica Calc: 12 calculadoras de Engenharia Elétrica com fórmula, substituição e explicação. Funciona sem internet.">
+  <meta name="theme-color" content="#10213A">
+  <title>MapaElétrica Calc</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M18 4 8 18h7l-2 10 11-15h-7z' fill='white'/%3E%3C/svg%3E">
+  <style>
+/* MapaElétrica Calc | estilos */
+:root {
+  --navy: #10213A;
+  --navy-2: #1B3358;
+  --blue: #2563EB;
+  --blue-700: #1D4ED8;
+  --blue-50: #EEF3FE;
+  --blue-100: #DCE6FD;
+  --green: #16A34A;
+  --green-700: #15803D;
+  --green-50: #ECFDF3;
+  --bg: #F7F9FC;
+  --surface: #FFFFFF;
+  --surface-2: #F3F6FB;
+  --text: #0F1B2D;
+  --muted: #64748B;
+  --border: #E3E8F0;
+  --border-2: #CBD5E1;
+  --red: #DC2626;
+  --red-700: #B91C1C;
+  --red-50: #FEF2F2;
+  --amber: #B45309;
+  --amber-50: #FFF8EB;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(16, 33, 58, .06), 0 4px 16px rgba(16, 33, 58, .05);
+  --shadow-lg: 0 8px 30px rgba(16, 33, 58, .12);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --topbar-h: 62px;
+  --sidebar-w: 268px;
+  --c-fund: #2563EB; --c-fund-bg: #EEF3FE;
+  --c-res: #0E7490; --c-res-bg: #E7F6F9;
+  --c-ca: #4F46E5; --c-ca-bg: #EFEFFE;
+  --c-pot: #B45309; --c-pot-bg: #FEF5E6;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { color: var(--navy); line-height: 1.25; margin: 0; }
+p { margin: 0; }
+a { color: var(--blue); }
+button, input, select { font: inherit; color: inherit; }
+svg { display: block; }
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 3px solid rgba(37, 99, 235, .45); outline-offset: 2px; border-radius: 6px; }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  background: var(--navy); color: #fff; padding: 10px 14px; border-radius: 8px; text-decoration: none;
+}
+.skip:focus { top: 10px; }
+
+.ico { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ico-sm { width: 16px; height: 16px; }
+.ico-lg { width: 26px; height: 26px; }
+
+/* ---------------- Barra superior ---------------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  height: var(--topbar-h);
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 20px;
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .06);
+}
+.brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; min-width: 0; }
+.brand-mark {
+  width: 36px; height: 36px; border-radius: 10px; flex: none;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, #2F6BF0, #1D4ED8);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
+}
+.brand-mark svg { width: 20px; height: 20px; fill: #fff; stroke: none; }
+.brand-name { font-weight: 700; font-size: 18px; letter-spacing: -.01em; white-space: nowrap; }
+.brand-name span { color: #8FB3FF; font-weight: 700; }
+.brand-sub { display: block; font-size: 11.5px; color: #A9B8D0; font-weight: 500; letter-spacing: .01em; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.prec { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #C8D4E8; }
+.prec select {
+  background: var(--navy-2); color: #fff; border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 8px; padding: 6px 8px; font-size: 14px;
+}
+.icon-btn {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 0; background: transparent; color: inherit; cursor: pointer; text-decoration: none;
+}
+.topbar .icon-btn:hover { background: rgba(255, 255, 255, .08); }
+.menu-btn { display: none; }
+
+/* ---------------- Estrutura ---------------- */
+.layout { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: calc(100vh - var(--topbar-h)); }
+.sidebar {
+  position: sticky; top: var(--topbar-h);
+  height: calc(100vh - var(--topbar-h));
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 12px 24px;
+}
+.nav-group { margin-bottom: 14px; }
+.nav-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); padding: 8px 10px 6px;
+}
+.nav-title .dotc { width: 8px; height: 8px; border-radius: 50%; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: 9px;
+  color: var(--text); text-decoration: none; font-size: 14.5px;
+}
+.nav-link:hover { background: var(--surface-2); }
+.nav-link[aria-current="page"] { background: var(--blue-50); color: var(--blue-700); font-weight: 600; }
+.nav-num { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; width: 20px; flex: none; }
+.nav-link[aria-current="page"] .nav-num { color: var(--blue); }
+.nav-sep { height: 1px; background: var(--border); margin: 10px 8px 12px; }
+.nav-fav .ico { color: #E0A100; }
+.scrim { display: none; }
+
+main { padding: 28px 32px 48px; min-width: 0; outline: none; }
+.wrap { max-width: 1180px; margin: 0 auto; }
+
+/* ---------------- Botões ---------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px;
+  border-radius: 10px; border: 1px solid transparent;
+  font-weight: 600; font-size: 15px; cursor: pointer; text-decoration: none;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue-700); }
+.btn-soft { background: var(--blue-50); color: var(--blue-700); }
+.btn-soft:hover { background: var(--blue-100); }
+.btn-ghost { background: var(--surface); color: var(--navy); border-color: var(--border-2); }
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-small { min-height: 38px; padding: 0 12px; font-size: 14px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* ---------------- Cartões ---------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card-pad { padding: 22px; }
+.section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; margin-bottom: 16px; }
+.section-title .tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--muted); background: var(--surface-2); border-radius: 6px; padding: 2px 7px;
+}
+
+/* ---------------- Início ---------------- */
+.hero {
+  position: relative; overflow: hidden;
+  border-radius: 18px;
+  padding: 34px 36px;
+  background: linear-gradient(135deg, #10213A 0%, #16305A 60%, #1E3F78 100%);
+  color: #fff;
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: center;
+}
+.hero::after {
+  content: ""; position: absolute; right: -60px; top: -60px; width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, .35), transparent 70%);
+  pointer-events: none;
+}
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8FB3FF; margin-bottom: 10px; }
+.hero h1 { color: #fff; font-size: clamp(24px, 3.2vw, 34px); letter-spacing: -.02em; }
+.hero .lead { color: #C9D6EA; margin-top: 12px; font-size: 16.5px; max-width: 620px; }
+.hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; position: relative; z-index: 1; }
+.stat { background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); border-radius: 12px; padding: 14px 12px; text-align: center; }
+.stat strong { display: block; font-size: 24px; color: #fff; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12.5px; color: #B8C7DF; }
+
+.finder { margin: 22px 0 8px; display: grid; gap: 14px; }
+.search { position: relative; }
+.search .ico { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search input {
+  width: 100%; min-height: 50px; padding: 0 16px 0 44px;
+  border: 1px solid var(--border-2); border-radius: 12px; background: var(--surface);
+  font-size: 16px;
+}
+.search input:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, .18); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 38px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--border-2); background: var(--surface); color: var(--navy);
+  font-size: 14px; font-weight: 500; cursor: pointer;
+}
+.chip:hover { background: var(--surface-2); }
+.chip[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.chip .ico { width: 16px; height: 16px; }
+
+.cat-block { margin-top: 26px; }
+.cat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.cat-head h2 { font-size: 18px; }
+.cat-head .count { font-size: 13px; color: var(--muted); }
+.grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.tool-card { padding: 18px; display: flex; flex-direction: column; gap: 6px; transition: box-shadow .15s, border-color .15s; }
+.tool-card:hover { box-shadow: var(--shadow-lg); border-color: var(--blue-100); }
+.tool-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+.tool-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; }
+.tool-icon .ico { width: 24px; height: 24px; }
+.cat-fund { color: var(--c-fund); background: var(--c-fund-bg); }
+.cat-res { color: var(--c-res); background: var(--c-res-bg); }
+.cat-ca { color: var(--c-ca); background: var(--c-ca-bg); }
+.cat-pot { color: var(--c-pot); background: var(--c-pot-bg); }
+.dot-fund { background: var(--c-fund); } .dot-res { background: var(--c-res); } .dot-ca { background: var(--c-ca); } .dot-pot { background: var(--c-pot); }
+.tool-num { font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.tool-card h3 { font-size: 17px; }
+.tool-desc { color: var(--muted); font-size: 14.5px; flex: 1; margin-bottom: 10px; }
+.star {
+  width: 38px; height: 38px; border-radius: 10px; border: 0; background: transparent; cursor: pointer;
+  display: grid; place-items: center; color: #9AA8BD;
+}
+.star:hover { background: var(--surface-2); color: #C98F00; }
+.star[aria-pressed="true"] { color: #E0A100; }
+.star[aria-pressed="true"] .ico { fill: #F5B800; stroke: #E0A100; }
+.empty-search { padding: 40px 20px; text-align: center; color: var(--muted); }
+
+.disclaimer-box {
+  margin-top: 30px; display: flex; gap: 12px; align-items: flex-start;
+  padding: 16px 18px; border-radius: 12px; background: var(--surface); border: 1px dashed var(--border-2);
+  color: var(--muted); font-size: 14px;
+}
+.disclaimer-box .ico { color: var(--blue); margin-top: 2px; }
+
+/* ---------------- Calculadora ---------------- */
+.calc-head { padding: 22px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.calc-head .tool-icon { width: 54px; height: 54px; border-radius: 14px; }
+.calc-head .tool-icon .ico { width: 28px; height: 28px; }
+.kicker { font-size: 12.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.calc-head h1 { font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -.015em; margin: 2px 0 6px; outline: none; }
+.objective { color: var(--text); }
+.guidance { color: var(--muted); font-size: 14.5px; margin-top: 6px; }
+.crumbs { font-size: 14px; margin-bottom: 12px; }
+.crumbs a { text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+
+.calc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 18px; margin-top: 18px; align-items: start; }
+.inputs-card { padding: 22px; }
+.result-card { padding: 22px; position: sticky; top: calc(var(--topbar-h) + 16px); }
+
+.field { margin-bottom: 16px; }
+.field > label, .field-label { display: flex; align-items: baseline; gap: 6px; font-weight: 600; color: var(--navy); font-size: 14.5px; margin-bottom: 6px; }
+.sym { font-family: var(--mono); font-size: 13px; color: var(--blue-700); background: var(--blue-50); padding: 0 6px; border-radius: 5px; font-weight: 600; }
+.input-group {
+  display: flex; align-items: stretch;
+  border: 1px solid var(--border-2); border-radius: 10px; background: var(--surface);
+  transition: border-color .15s, box-shadow .15s;
+}
+.input-group:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, .16); }
+.input-group input {
+  flex: 1; min-width: 0; min-height: 48px; padding: 0 14px;
+  border: 0; background: transparent; font-size: 17px; font-variant-numeric: tabular-nums;
+  border-radius: 10px;
+}
+.input-group input:focus { outline: none; }
+.input-group input[readonly] { color: var(--muted); }
+.input-group select, .unit-fixed {
+  flex: none; min-width: 74px; border: 0; border-left: 1px solid var(--border);
+  background: var(--surface-2); padding: 0 10px; font-size: 15px; font-weight: 600; color: var(--navy);
+  border-radius: 0 10px 10px 0; cursor: pointer;
+}
+.unit-fixed { display: grid; place-items: center; cursor: default; font-weight: 600; color: var(--muted); }
+.select-full {
+  width: 100%; min-height: 48px; padding: 0 12px;
+  border: 1px solid var(--border-2); border-radius: 10px; background: var(--surface); font-size: 16px;
+}
+.select-full:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, .16); }
+.hint { font-size: 13px; color: var(--muted); margin-top: 5px; }
+.err { font-size: 13.5px; color: var(--red-700); margin-top: 6px; display: flex; gap: 6px; }
+.err:empty { display: none; }
+.field.invalid .input-group, .field.invalid .select-full { border-color: var(--red); box-shadow: 0 0 0 3px rgba(220, 38, 38, .1); }
+
+.seg { border: 0; padding: 0; margin: 0 0 16px; min-width: 0; }
+.seg legend { font-weight: 600; color: var(--navy); font-size: 14.5px; margin-bottom: 6px; padding: 0; }
+.seg-opts { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 12px; border: 1px solid var(--border); }
+.seg-opts label { flex: 1 1 auto; position: relative; }
+.seg-opts input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.seg-opts span {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 40px; padding: 4px 12px; border-radius: 9px;
+  font-size: 14.5px; font-weight: 500; color: var(--navy);
+}
+.seg-opts input:checked + span { background: var(--surface); color: var(--blue-700); font-weight: 650; box-shadow: 0 1px 3px rgba(16, 33, 58, .12); }
+.seg-opts input:focus-visible + span { outline: 3px solid rgba(37, 99, 235, .45); outline-offset: 1px; }
+
+.form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border); }
+.form-actions .btn-primary { flex: 1 1 160px; }
+
+.swap-row { display: flex; justify-content: center; margin: -6px 0 10px; }
+
+/* Lista de resistores */
+.rlist { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 10px; }
+.rrow { display: grid; grid-template-columns: 38px minmax(0, 1fr) 40px; gap: 8px; align-items: center; }
+.rrow > label { font-weight: 700; color: var(--navy); font-family: var(--mono); font-size: 14px; }
+.rrow .err { grid-column: 2 / 4; margin-top: -4px; }
+.rrow.invalid .input-group { border-color: var(--red); }
+.rrow .icon-btn { color: var(--muted); border: 1px solid var(--border); }
+.rrow .icon-btn:hover:not([disabled]) { color: var(--red-700); background: var(--red-50); }
+.rrow .icon-btn[disabled] { opacity: .35; cursor: not-allowed; }
+.list-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 14.5px; font-weight: 600; color: var(--navy); }
+.list-meta span { color: var(--muted); font-weight: 500; font-size: 13px; }
+
+/* Resultado */
+.result-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.result-head .section-title { margin: 0; }
+.live {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600;
+  color: var(--green-700); background: var(--green-50); border-radius: 999px; padding: 4px 10px;
+}
+.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.res-empty {
+  display: grid; justify-items: center; gap: 10px; text-align: center;
+  padding: 34px 18px; border-radius: 12px; background: var(--surface-2); color: var(--muted); border: 1px dashed var(--border-2);
+}
+.res-empty .ico { width: 34px; height: 34px; color: var(--blue); }
+.res-error { background: var(--red-50); border: 1px solid #F8C9C9; border-radius: 12px; padding: 16px; color: var(--red-700); }
+.res-error strong { display: flex; align-items: center; gap: 8px; color: var(--red-700); margin-bottom: 6px; }
+.res-error ul { margin: 0; padding-left: 20px; }
+.res-error li { margin: 3px 0; }
+.res-primary { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.res-main {
+  border-radius: 12px; padding: 14px 16px;
+  background: linear-gradient(180deg, #F2FBF5, #E8F7EE); border: 1px solid #BFE8CD;
+}
+.res-label { display: flex; align-items: center; gap: 6px; font-size: 13.5px; color: #276D43; font-weight: 600; }
+.res-value { display: block; font-size: clamp(22px, 2.4vw, 28px); font-weight: 750; color: var(--navy); font-variant-numeric: tabular-nums; letter-spacing: -.01em; line-height: 1.2; margin-top: 4px; overflow-wrap: anywhere; }
+.res-base { display: block; font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.equation { margin-top: 12px; padding: 10px 14px; border-radius: 10px; background: var(--blue-50); color: var(--navy); font-weight: 650; font-variant-numeric: tabular-nums; font-size: 18px; }
+.res-sub { margin-top: 16px; }
+.res-sub h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 6px; }
+.res-list { margin: 0; display: grid; }
+.res-row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.res-row:last-child { border-bottom: 0; }
+.res-row dt { color: var(--text); font-size: 14.5px; }
+.res-row dt .sym { margin-left: 4px; }
+.res-row dd { margin: 0; text-align: right; font-weight: 650; color: var(--navy); font-variant-numeric: tabular-nums; }
+.res-row dd small { display: block; font-weight: 500; color: var(--muted); font-size: 12.5px; }
+.alerts { display: grid; gap: 8px; margin-top: 14px; }
+.alert { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; padding: 11px 13px; border-radius: 10px; background: var(--amber-50); color: #7A4A06; border: 1px solid #F4DDB2; }
+.alert .ico { color: var(--amber); margin-top: 1px; }
+.diagram { margin-top: 16px; border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: #FBFCFE; }
+.diagram h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 6px; }
+.diagram svg { width: 100%; height: auto; max-height: 340px; }
+.dg-legend { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text); font-variant-numeric: tabular-nums; }
+.res-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+/* SVG dos diagramas */
+.dg-w { stroke: var(--navy); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.dg-res { stroke: var(--blue); stroke-width: 2.4; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.dg-c { stroke: var(--navy); stroke-width: 2.4; fill: #fff; }
+.dg-t { fill: var(--navy); font-size: 13px; font-weight: 700; font-family: var(--font); }
+.dg-v { fill: var(--blue-700); font-size: 12.5px; font-weight: 600; font-family: var(--font); }
+.dg-m { fill: var(--muted); font-size: 13px; font-weight: 700; font-family: var(--font); }
+.dg-sym { fill: var(--navy); font-size: 15px; font-weight: 700; font-family: var(--font); }
+.dg-dot { fill: var(--navy); }
+.dg-term { fill: #fff; stroke: var(--navy); stroke-width: 2; }
+.dg-arrow { fill: var(--green); }
+.dg-arrow2 { fill: var(--navy); }
+.dg-axis { stroke: var(--border-2); stroke-width: 1.5; }
+.dg-wave { stroke: var(--blue); stroke-width: 2.6; fill: none; }
+.dg-wave2 { stroke: var(--blue); stroke-width: 2; fill: none; stroke-dasharray: 4 4; opacity: .5; }
+.dg-fill { fill: rgba(37, 99, 235, .07); stroke: none; }
+.dg-leg-a { stroke: var(--blue); stroke-width: 3; stroke-linecap: round; }
+.dg-leg-b { stroke: var(--green); stroke-width: 3; stroke-linecap: round; }
+.dg-leg-c { stroke: var(--navy); stroke-width: 3; stroke-linecap: round; }
+.dg-thin { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.dg-box { fill: #fff; stroke: var(--blue); stroke-width: 2.2; }
+.dg-boxt { fill: var(--blue-700); font-size: 11px; font-weight: 700; }
+
+/* Memória e explicação */
+.lower { display: grid; gap: 18px; margin-top: 18px; }
+.muted-box { color: var(--muted); font-size: 14.5px; padding: 6px 0; }
+.inputs-used { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); font-size: 14px; font-variant-numeric: tabular-nums; }
+.pill b { color: var(--navy); }
+.pill small { color: var(--muted); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: step; }
+.step { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; background: #FCFDFF; }
+.step h3 { font-size: 15px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.step h3::before {
+  counter-increment: step; content: counter(step);
+  width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff;
+  font-size: 12.5px; display: grid; place-items: center; flex: none;
+}
+.f-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 10px; align-items: baseline; padding: 4px 0; }
+.f-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.f { font-family: var(--mono); font-size: 15px; color: var(--navy); overflow-wrap: anywhere; }
+.f-res { color: var(--green-700); font-weight: 700; }
+.f-lines { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.explain p + p { margin-top: 10px; }
+.explain h3 { font-size: 14px; margin: 18px 0 8px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.explain ul { margin: 0; padding-left: 20px; }
+.explain li { margin: 4px 0; }
+.formula-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.formula-chips code { font-family: var(--mono); font-size: 14px; background: var(--blue-50); color: var(--navy); padding: 5px 10px; border-radius: 8px; }
+.note-edu { margin-top: 16px; font-size: 13.5px; color: var(--muted); display: flex; gap: 8px; }
+.note-edu .ico { color: var(--blue); }
+
+/* Histórico e páginas */
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.page-head h1 { font-size: 26px; outline: none; }
+.page-head p { color: var(--muted); margin-top: 4px; }
+.hist-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.hist-item { padding: 16px 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.hist-item h3 { font-size: 16px; }
+.hist-meta { font-size: 13px; color: var(--muted); }
+.hist-data { font-size: 14px; color: var(--text); margin-top: 4px; overflow-wrap: anywhere; }
+.hist-res { font-size: 14.5px; font-weight: 650; color: var(--green-700); margin-top: 2px; overflow-wrap: anywhere; }
+.hist-actions { display: flex; gap: 6px; }
+.notice { padding: 14px 16px; border-radius: 12px; background: var(--amber-50); border: 1px solid #F4DDB2; color: #7A4A06; font-size: 14.5px; margin-bottom: 14px; }
+.prose { max-width: 760px; }
+.prose h2 { font-size: 18px; margin: 24px 0 8px; }
+.prose p, .prose li { color: var(--text); }
+.prose p + p { margin-top: 10px; }
+.prose ul, .prose ol { padding-left: 22px; }
+
+.site-foot { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; }
+
+/* Aviso flutuante */
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px);
+  background: var(--navy); color: #fff; padding: 12px 18px; border-radius: 12px; box-shadow: var(--shadow-lg);
+  font-size: 14.5px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 80; max-width: calc(100% - 32px);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+.modal-back { position: fixed; inset: 0; background: rgba(16, 33, 58, .45); display: grid; place-items: center; z-index: 90; padding: 16px; }
+.modal { background: var(--surface); border-radius: 14px; padding: 20px; width: min(640px, 100%); box-shadow: var(--shadow-lg); }
+.modal h2 { font-size: 18px; margin-bottom: 8px; }
+.modal textarea { width: 100%; height: 260px; margin: 10px 0; font-family: var(--mono); font-size: 13px; border: 1px solid var(--border-2); border-radius: 10px; padding: 10px; }
+
+.print-area { display: none; }
+
+/* ---------------- Responsivo ---------------- */
+@media (max-width: 1100px) {
+  .calc-grid { grid-template-columns: minmax(0, 1fr); }
+  .result-card { position: static; }
+}
+@media (max-width: 960px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .menu-btn { display: inline-grid; }
+  .sidebar {
+    position: fixed; top: var(--topbar-h); left: 0; bottom: 0; z-index: 40;
+    width: min(86vw, 300px); height: auto;
+    transform: translateX(-100%); transition: transform .2s ease; box-shadow: var(--shadow-lg);
+    visibility: hidden;
+  }
+  .sidebar.open { transform: translateX(0); visibility: visible; }
+  .scrim.show { display: block; position: fixed; inset: var(--topbar-h) 0 0 0; background: rgba(16, 33, 58, .4); z-index: 35; }
+  main { padding: 20px 20px 40px; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; }
+}
+@media (max-width: 600px) {
+  .topbar { padding: 0 8px 0 4px; gap: 6px; }
+  .brand-sub { display: none; }
+  .brand-name { font-size: 16.5px; }
+  .prec-label { display: none; }
+  main { padding: 16px 16px 36px; }
+  .hero { padding: 22px 18px; border-radius: 16px; }
+  .hero-stats { gap: 8px; }
+  .stat { padding: 10px 6px; }
+  .stat strong { font-size: 20px; }
+  .card-pad, .inputs-card, .result-card { padding: 16px; }
+  .calc-head { padding: 16px; grid-template-columns: auto minmax(0, 1fr); }
+  .calc-head .star { grid-column: 2; grid-row: 1; justify-self: end; }
+  .calc-head .tool-icon { width: 44px; height: 44px; }
+  .calc-head .head-text { grid-column: 1 / -1; }
+  .f-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .res-actions { grid-template-columns: minmax(0, 1fr); }
+  .hist-item { grid-template-columns: minmax(0, 1fr); }
+  .grid-cards { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------- Impressão / PDF ---------------- */
+@media print {
+  @page { margin: 16mm; }
+  body { background: #fff; }
+  body > *:not(.print-area) { display: none !important; }
+  .print-area { display: block !important; color: #000; font-size: 11.5pt; }
+  .print-area h1 { font-size: 18pt; margin: 6pt 0 2pt; color: #10213A; }
+  .print-area h2 { font-size: 12.5pt; margin: 14pt 0 6pt; color: #10213A; border-bottom: 1px solid #ccd; padding-bottom: 3pt; break-after: avoid; page-break-after: avoid; }
+  .print-area table { width: 100%; border-collapse: collapse; }
+  .print-area td, .print-area th { text-align: left; padding: 4pt 6pt; border-bottom: 1px solid #e3e6ee; vertical-align: top; }
+  .print-area td.v { text-align: right; font-weight: 700; white-space: nowrap; }
+  .print-area .p-head { display: flex; justify-content: space-between; border-bottom: 2px solid #10213A; padding-bottom: 6pt; }
+  .print-area .p-step { margin: 0 0 8pt; break-inside: avoid; }
+  .print-area .p-step code { font-family: var(--mono); }
+  .print-area .p-diagram { max-width: 360pt; margin: 6pt 0; break-inside: avoid; }
+  .print-area .p-diagram svg { width: 100%; height: auto; }
+  .print-area .p-disc { margin-top: 16pt; font-size: 9.5pt; color: #444; border-top: 1px solid #ccd; padding-top: 6pt; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <a class="brand" href="#/" aria-label="MapaElétrica Calc, página inicial">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.5 2 5 13.5h6L9.5 22 19 9.5h-6z"/></svg></span>
+      <span>
+        <span class="brand-name">MapaElétrica <span>Calc</span></span>
+        <span class="brand-sub">Kit de Calculadoras Elétricas Automáticas</span>
+      </span>
+    </a>
+    <div class="topbar-right">
+      <label class="prec" for="precision"><span class="prec-label">Casas decimais</span>
+        <select id="precision" aria-label="Casas decimais dos resultados">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+        </select>
+      </label>
+      <a class="icon-btn" href="#/historico" aria-label="Histórico de cálculos" title="Histórico">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Calculadoras"></nav>
+    <div class="scrim" id="scrim"></div>
+    <main id="main" tabindex="-1">
+      <noscript><p style="padding:24px">O MapaElétrica Calc precisa do JavaScript ativado no navegador para funcionar.</p></noscript>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="print-area" class="print-area"></div>
+
+  <script>
+/*
+ * MapaElétrica Calc | numbers.js
+ * Leitura de números no padrão brasileiro e formatação de resultados.
+ * Módulo puro: não acessa o DOM. Funciona no navegador e no Node.
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+
+  var SUPERSCRIPT = {
+    '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³',
+    '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹'
+  };
+
+  /* Multiplica um número por 10^k sem acumular erro binário.
+     Ex.: shift10(2.2, 3) = 2200 exato (2.2 * 1000 daria 2200,0000000000005). */
+  function shift10(value, k) {
+    if (k === 0 || value === 0 || !isFinite(value)) return value;
+    var s = value.toExponential();
+    var i = s.indexOf('e');
+    return Number(s.slice(0, i) + 'e' + (parseInt(s.slice(i + 1), 10) + k));
+  }
+
+  function decimalExponent(value) {
+    var s = Math.abs(value).toExponential();
+    return parseInt(s.slice(s.indexOf('e') + 1), 10);
+  }
+
+  /*
+   * Lê um número digitado pelo usuário.
+   * Regras:
+   *  - vírgula é o separador decimal brasileiro: "0,5" -> 0.5
+   *  - ponto como milhar só com grupos de 3 dígitos: "1.234,5" -> 1234.5 e "1.234.567" -> 1234567
+   *  - ponto como decimal quando não há dúvida: "0.5", "2.25", "1.5"
+   *  - "1.234" é ambíguo (mil duzentos e trinta e quatro ou 1,234) e é recusado
+   *  - notação científica: "1e-6", "2,2e3"
+   * Retorna { ok: true, value } ou { ok: false, code }.
+   */
+  function parseNumber(raw) {
+    if (raw === null || raw === undefined) return { ok: false, code: 'empty' };
+    var s = String(raw).replace(/[−‒–—]/g, '-').trim();
+    if (s === '') return { ok: false, code: 'empty' };
+    if (/\s/.test(s)) return { ok: false, code: 'spaces' };
+    var m = /^([+-]?)([0-9.,]*)(?:[eE]([+-]?\d+))?$/.exec(s);
+    if (!m || !/\d/.test(m[2])) return { ok: false, code: 'nan' };
+    var sign = m[1];
+    var body = m[2];
+    var exp = m[3];
+    var hasComma = body.indexOf(',') >= 0;
+    var hasDot = body.indexOf('.') >= 0;
+    var normalized;
+
+    if (hasComma && hasDot) {
+      if (/^\d{1,3}(\.\d{3})+,\d+$/.test(body)) {
+        normalized = body.replace(/\./g, '').replace(',', '.');
+      } else {
+        return { ok: false, code: 'mixed' };
+      }
+    } else if (hasComma) {
+      var parts = body.split(',');
+      if (parts.length > 2) return { ok: false, code: 'separators' };
+      if (parts[1] === '') return { ok: false, code: 'incomplete' };
+      normalized = parts[0] + '.' + parts[1];
+    } else if (hasDot) {
+      var p = body.split('.');
+      if (p.length > 2) {
+        if (/^\d{1,3}(\.\d{3})+$/.test(body)) normalized = body.replace(/\./g, '');
+        else return { ok: false, code: 'separators' };
+      } else {
+        if (p[1] === '') return { ok: false, code: 'incomplete' };
+        if (exp === undefined && p[1].length === 3 && /^[1-9]\d{0,2}$/.test(p[0])) {
+          return { ok: false, code: 'ambiguous', intPart: p[0], decPart: p[1] };
+        }
+        normalized = body;
+      }
+    } else {
+      normalized = body;
+    }
+
+    var value = Number(sign + normalized + (exp !== undefined ? 'e' + exp : ''));
+    if (isNaN(value)) return { ok: false, code: 'nan' };
+    if (!isFinite(value)) return { ok: false, code: 'range' };
+    if (value === 0) value = 0; // remove o -0
+    return { ok: true, value: value };
+  }
+
+  function toSuperscript(n) {
+    return String(n).split('').map(function (c) { return SUPERSCRIPT[c] || c; }).join('');
+  }
+
+  function trimZeros(str) {
+    return str.indexOf('.') >= 0 ? str.replace(/\.?0+$/, '') : str;
+  }
+
+  /* Notação científica no padrão brasileiro: 1,6667 × 10⁻⁵ */
+  function formatScientific(value, decimals) {
+    var s = value.toExponential(Math.max(0, Math.min(decimals, 20)));
+    var i = s.indexOf('e');
+    var mant = trimZeros(s.slice(0, i)).replace('.', ',');
+    var e = parseInt(s.slice(i + 1), 10);
+    if (e === 0) return mant;
+    return mant + ' × 10' + toSuperscript(e);
+  }
+
+  var nfCache = {};
+  function numberFormatter(decimals) {
+    if (!nfCache[decimals]) {
+      nfCache[decimals] = new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: decimals
+      });
+    }
+    return nfCache[decimals];
+  }
+
+  /*
+   * Formata um número com até `decimals` casas decimais.
+   * Usa notação científica quando o número arredondado viraria zero
+   * (ex.: 0,00001 com 2 casas) ou quando é muito grande.
+   */
+  function formatNumber(value, decimals) {
+    if (decimals === undefined) decimals = 4;
+    if (typeof value !== 'number' || !isFinite(value)) return 'indefinido';
+    if (value === 0) return '0';
+    var a = Math.abs(value);
+    var threshold = Math.max(1e-3, 0.5 * Math.pow(10, -decimals));
+    if (a >= 1e9 || a < threshold) return formatScientific(value, decimals);
+    return numberFormatter(decimals).format(value);
+  }
+
+  /* Prefixos SI aceitos por unidade, para exibir "4 mA" no lugar de "0,004 A". */
+  var PREFIX_EXP = { p: -12, n: -9, 'µ': -6, m: -3, '': 0, k: 3, M: 6, G: 9 };
+  var UNIT_PREFIXES = {
+    'V': ['µ', 'm', '', 'k', 'M'],
+    'A': ['p', 'n', 'µ', 'm', '', 'k'],
+    'Ω': ['m', '', 'k', 'M', 'G'],
+    'W': ['µ', 'm', '', 'k', 'M', 'G'],
+    'VA': ['m', '', 'k', 'M', 'G'],
+    'var': ['m', '', 'k', 'M', 'G'],
+    'F': ['p', 'n', 'µ', 'm', ''],
+    'H': ['n', 'µ', 'm', ''],
+    'Hz': ['m', '', 'k', 'M', 'G'],
+    's': ['p', 'n', 'µ', 'm', ''],
+    'J': ['m', '', 'k', 'M', 'G'],
+    'S': ['n', 'µ', 'm', '']
+  };
+
+  function roundTo(value, decimals) {
+    return Number(value.toFixed(Math.min(decimals, 20)));
+  }
+
+  /*
+   * Formata uma grandeza escolhendo o prefixo mais adequado.
+   * Retorna { text: "4 mA", base: "0,004 A" ou null quando já está na unidade base }.
+   * opts.sign = true mostra "+" em valores positivos (usado em potência reativa).
+   */
+  function formatQuantity(value, unit, decimals, opts) {
+    opts = opts || {};
+    if (decimals === undefined) decimals = 4;
+    var plus = opts.sign && value > 0 ? '+' : '';
+    var list = UNIT_PREFIXES[unit];
+    var space = unit && unit !== '\u00B0' && unit !== '%' ? ' ' : '';
+    if (!list || value === 0 || typeof value !== 'number' || !isFinite(value) || opts.noPrefix) {
+      return { text: plus + formatNumber(value, decimals) + space + unit, base: null };
+    }
+    var e = decimalExponent(value);
+    var e3 = Math.floor(e / 3) * 3;
+    var idx = 0;
+    for (var i = 0; i < list.length; i++) {
+      if (PREFIX_EXP[list[i]] <= e3) idx = i;
+    }
+    var mant = shift10(value, -PREFIX_EXP[list[idx]]);
+    if (Math.abs(roundTo(mant, decimals)) >= 1000 && idx < list.length - 1 &&
+        PREFIX_EXP[list[idx + 1]] - PREFIX_EXP[list[idx]] === 3) {
+      idx += 1;
+      mant = shift10(value, -PREFIX_EXP[list[idx]]);
+    }
+    var prefix = list[idx];
+    var text = plus + formatNumber(mant, decimals) + space + prefix + unit;
+    var base = prefix === '' ? null : plus + formatNumber(value, decimals) + ' ' + unit;
+    return { text: text, base: base };
+  }
+
+  function formatCurrency(value) {
+    if (typeof value !== 'number' || !isFinite(value)) return 'indefinido';
+    if (value > 0 && value < 0.005) return 'menos de R$ 0,01';
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  }
+
+  function formatAngle(value, decimals) {
+    return formatNumber(value, decimals) + '°';
+  }
+
+  MEC.numbers = {
+    parseNumber: parseNumber,
+    formatNumber: formatNumber,
+    formatScientific: formatScientific,
+    formatQuantity: formatQuantity,
+    formatCurrency: formatCurrency,
+    formatAngle: formatAngle,
+    shift10: shift10,
+    decimalExponent: decimalExponent
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | units.js
+ * Grandezas físicas, unidades, múltiplos e submúltiplos.
+ * Todos os cálculos internos usam a unidade base do SI de cada grandeza.
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+  var shift10 = MEC.numbers.shift10;
+
+  var MU = 'µ';
+  var OHM = 'Ω';
+
+  /*
+   * Cada unidade tem um fator para a unidade base:
+   *   p: potência de 10 (ex.: kΩ tem p = 3)
+   *   m: multiplicador comum (ex.: Wh = 3600 J)
+   */
+  var DIMENSIONS = {
+    voltage: {
+      label: 'Tensão', base: 'V', allowNegative: true,
+      units: [['mV', 'milivolt', { p: -3 }], ['V', 'volt', { p: 0 }], ['kV', 'quilovolt', { p: 3 }]]
+    },
+    current: {
+      label: 'Corrente', base: 'A', allowNegative: true,
+      units: [[MU + 'A', 'microampere', { p: -6 }], ['mA', 'miliampere', { p: -3 }], ['A', 'ampere', { p: 0 }]]
+    },
+    resistance: {
+      label: 'Resistência', base: OHM, allowNegative: false,
+      units: [[OHM, 'ohm', { p: 0 }], ['k' + OHM, 'quilo-ohm', { p: 3 }], ['M' + OHM, 'mega-ohm', { p: 6 }]]
+    },
+    power: {
+      label: 'Potência ativa', base: 'W', allowNegative: true,
+      units: [['mW', 'miliwatt', { p: -3 }], ['W', 'watt', { p: 0 }], ['kW', 'quilowatt', { p: 3 }]]
+    },
+    apparent: {
+      label: 'Potência aparente', base: 'VA', allowNegative: false,
+      units: [['VA', 'volt-ampere', { p: 0 }], ['kVA', 'quilovolt-ampere', { p: 3 }]]
+    },
+    reactive: {
+      label: 'Potência reativa', base: 'var', allowNegative: true,
+      units: [['var', 'volt-ampere reativo', { p: 0 }], ['kvar', 'quilovolt-ampere reativo', { p: 3 }]]
+    },
+    capacitance: {
+      label: 'Capacitância', base: 'F', allowNegative: false,
+      units: [['pF', 'picofarad', { p: -12 }], ['nF', 'nanofarad', { p: -9 }], [MU + 'F', 'microfarad', { p: -6 }], ['F', 'farad', { p: 0 }]]
+    },
+    inductance: {
+      label: 'Indutância', base: 'H', allowNegative: false,
+      units: [[MU + 'H', 'micro-henry', { p: -6 }], ['mH', 'mili-henry', { p: -3 }], ['H', 'henry', { p: 0 }]]
+    },
+    frequency: {
+      label: 'Frequência', base: 'Hz', allowNegative: false,
+      units: [['Hz', 'hertz', { p: 0 }], ['kHz', 'quilo-hertz', { p: 3 }], ['MHz', 'mega-hertz', { p: 6 }]]
+    },
+    energy: {
+      label: 'Energia', base: 'J', allowNegative: true,
+      units: [['J', 'joule', { p: 0 }], ['Wh', 'watt-hora', { m: 3600 }], ['kWh', 'quilowatt-hora', { m: 3.6e6 }]]
+    },
+    time: {
+      label: 'Tempo', base: 's', allowNegative: false,
+      units: [[MU + 's', 'microssegundo', { p: -6 }], ['ms', 'milissegundo', { p: -3 }], ['s', 'segundo', { p: 0 }],
+        ['min', 'minuto', { m: 60 }], ['h', 'hora', { m: 3600 }]]
+    }
+  };
+
+  var CONVERTER_ORDER = ['voltage', 'current', 'resistance', 'power', 'apparent', 'reactive',
+    'capacitance', 'inductance', 'frequency', 'energy', 'time'];
+
+  function findUnit(dim, symbol) {
+    var d = DIMENSIONS[dim];
+    if (!d) return null;
+    for (var i = 0; i < d.units.length; i++) {
+      if (d.units[i][0] === symbol) return { symbol: d.units[i][0], name: d.units[i][1], factor: d.units[i][2] };
+    }
+    return null;
+  }
+
+  function unitSymbols(dim) {
+    return DIMENSIONS[dim].units.map(function (u) { return u[0]; });
+  }
+
+  function factorValue(f) {
+    return f.p !== undefined ? Number('1e' + f.p) : f.m;
+  }
+
+  function toSI(value, dim, symbol) {
+    var u = findUnit(dim, symbol);
+    if (!u) throw new Error('Unidade desconhecida: ' + symbol);
+    return u.factor.p !== undefined ? shift10(value, u.factor.p) : value * u.factor.m;
+  }
+
+  function fromSI(value, dim, symbol) {
+    var u = findUnit(dim, symbol);
+    if (!u) throw new Error('Unidade desconhecida: ' + symbol);
+    return u.factor.p !== undefined ? shift10(value, -u.factor.p) : value / u.factor.m;
+  }
+
+  /* Converte entre duas unidades da mesma grandeza. Recusa grandezas diferentes. */
+  function convert(value, dim, fromSymbol, toSymbol) {
+    var a = findUnit(dim, fromSymbol);
+    var b = findUnit(dim, toSymbol);
+    if (!a || !b) return { ok: false, code: 'incompatible' };
+    var result;
+    if (a.factor.p !== undefined && b.factor.p !== undefined) {
+      result = shift10(value, a.factor.p - b.factor.p);
+    } else {
+      var ratio = factorValue(a.factor) / factorValue(b.factor);
+      result = value * ratio;
+    }
+    return { ok: true, value: result, ratio: conversionRatio(a, b) };
+  }
+
+  function conversionRatio(a, b) {
+    if (a.factor.p !== undefined && b.factor.p !== undefined) return Number('1e' + (a.factor.p - b.factor.p));
+    return factorValue(a.factor) / factorValue(b.factor);
+  }
+
+  function dimensionOfUnit(symbol) {
+    var found = [];
+    Object.keys(DIMENSIONS).forEach(function (k) {
+      if (findUnit(k, symbol)) found.push(k);
+    });
+    return found;
+  }
+
+  MEC.units = {
+    DIMENSIONS: DIMENSIONS,
+    CONVERTER_ORDER: CONVERTER_ORDER,
+    MU: MU,
+    OHM: OHM,
+    findUnit: findUnit,
+    unitSymbols: unitSymbols,
+    toSI: toSI,
+    fromSI: fromSI,
+    convert: convert,
+    dimensionOfUnit: dimensionOfUnit
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | validate.js
+ * Validação centralizada dos campos e mensagens de erro em linguagem simples.
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+  var parseNumber = MEC.numbers.parseNumber;
+  var units = MEC.units;
+
+  var LIMIT_MAX = 1e18;
+  var LIMIT_MIN = 1e-18;
+
+  function quote(label) { return '“' + label + '”'; }
+
+  function parseMessage(res, def, raw) {
+    var L = quote(def.label);
+    switch (res.code) {
+      case 'empty':
+        return 'Preencha o campo ' + L + '.';
+      case 'spaces':
+        return L + ': remova os espaços do número (ex.: 1500 ou 1.500).';
+      case 'mixed':
+        return L + ': use vírgula para decimais e ponto só para milhar (ex.: 1.234,5).';
+      case 'separators':
+        return L + ': o número tem separadores demais. Use uma única vírgula para a parte decimal.';
+      case 'incomplete':
+        return L + ': o número parece incompleto. Ele termina com vírgula ou ponto.';
+      case 'ambiguous':
+        return L + ': o valor "' + String(raw).trim() + '" pode ser lido como ' + res.intPart + res.decPart +
+          ' ou como ' + res.intPart + ',' + res.decPart + '. Escreva ' + res.intPart + res.decPart +
+          ' ou ' + res.intPart + ',' + res.decPart + ' para não haver dúvida.';
+      case 'range':
+        return L + ': o número é grande demais para ser calculado.';
+      default:
+        return L + ': digite apenas números, como 12 ou 0,5.';
+    }
+  }
+
+  function constraintOf(def, state) {
+    return typeof def.constraint === 'function' ? def.constraint(state) : (def.constraint || 'any');
+  }
+
+  function checkConstraint(value, def, state) {
+    var c = constraintOf(def, state);
+    var L = quote(def.label);
+    var noun = def.noun || ('um valor para ' + L);
+    if (c === 'positive' && !(value > 0)) {
+      return 'Informe ' + noun + ' maior que zero para realizar este cálculo.';
+    }
+    if (c === 'nonnegative' && value < 0) {
+      return L + ' não pode ser negativo neste cálculo. Use o valor em módulo, sem o sinal de menos.';
+    }
+    if (c === 'fp' && (value < 0 || value > 1)) {
+      return 'O fator de potência precisa ficar entre 0 e 1 (por exemplo, 0,8).';
+    }
+    if (c === 'hours' && (value < 0 || value > 24)) {
+      return 'Um dia tem 24 horas. Informe um uso diário entre 0 e 24 horas.';
+    }
+    return null;
+  }
+
+  function checkRange(si, def) {
+    var a = Math.abs(si);
+    if (a > LIMIT_MAX || (a > 0 && a < LIMIT_MIN)) {
+      return quote(def.label) + ' está fora da faixa que a calculadora trata com segurança. Confira o valor e a unidade escolhida.';
+    }
+    return null;
+  }
+
+  /*
+   * Lê um campo numérico: texto -> número -> unidade base do SI.
+   * Retorna { ok, value (SI), input (número digitado), unit, empty } ou { ok:false, error }.
+   */
+  function readField(def, raw, unit, state) {
+    var parsed = parseNumber(raw);
+    if (!parsed.ok) {
+      if (parsed.code === 'empty' && def.optional) return { ok: true, empty: true };
+      return { ok: false, error: parseMessage(parsed, def, raw) };
+    }
+    var v = parsed.value;
+    var si = v;
+    if (def.dim) {
+      var symbol = unit || def.unit;
+      if (!units.findUnit(def.dim, symbol)) {
+        return { ok: false, error: 'Escolha uma unidade válida para ' + quote(def.label) + '.' };
+      }
+      si = units.toSI(v, def.dim, symbol);
+    }
+    var err = checkConstraint(si, def, state) || checkRange(si, def);
+    if (err) return { ok: false, error: err };
+    return { ok: true, value: si, input: v, unit: def.dim ? (unit || def.unit) : def.unit };
+  }
+
+  MEC.validate = {
+    readField: readField,
+    parseMessage: parseMessage,
+    checkConstraint: checkConstraint,
+    checkRange: checkRange,
+    quote: quote,
+    LIMIT_MAX: LIMIT_MAX,
+    LIMIT_MIN: LIMIT_MIN
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | calculators.js
+ * Definição das 12 calculadoras: campos, exemplos, fórmulas e resolução.
+ * Módulo puro (sem DOM). A interface apenas desenha o que está definido aqui.
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+  var N = MEC.numbers;
+  var U = MEC.units;
+  var V = MEC.validate;
+  var OHM = U.OHM;
+  var MU = U.MU;
+  var PI = Math.PI;
+  var SQRT3 = Math.sqrt(3);
+
+  /* ---------------------------------------------------------------- */
+  /* Categorias                                                        */
+  /* ---------------------------------------------------------------- */
+  var CATEGORIES = [
+    { id: 'fund', name: 'Fundamentos elétricos', short: 'Fundamentos', icon: 'bolt' },
+    { id: 'res', name: 'Circuitos resistivos', short: 'Resistivos', icon: 'resistor' },
+    { id: 'ca', name: 'Corrente alternada', short: 'Corrente alternada', icon: 'wave' },
+    { id: 'pot', name: 'Potência e utilidades', short: 'Potência e utilidades', icon: 'gauge' }
+  ];
+
+  /* ---------------------------------------------------------------- */
+  /* Fábricas de campos                                                */
+  /* ---------------------------------------------------------------- */
+  function num(id, label, symbol, dim, opts) {
+    opts = opts || {};
+    var unitsList = opts.units || U.unitSymbols(dim);
+    return {
+      id: id, type: 'number', label: label, symbol: symbol, dim: dim,
+      units: unitsList, unit: opts.unit || U.DIMENSIONS[dim].base,
+      constraint: opts.constraint || 'any', noun: opts.noun, optional: !!opts.optional,
+      showIf: opts.showIf, hint: opts.hint, placeholder: opts.placeholder || ''
+    };
+  }
+
+  function fixed(id, label, symbol, unitLabel, opts) {
+    opts = opts || {};
+    return {
+      id: id, type: 'number', label: label, symbol: symbol, dim: null,
+      unit: unitLabel, units: null,
+      constraint: opts.constraint || 'any', noun: opts.noun, optional: !!opts.optional,
+      showIf: opts.showIf, hint: opts.hint, placeholder: opts.placeholder || ''
+    };
+  }
+
+  function choice(id, label, options, def, opts) {
+    opts = opts || {};
+    return {
+      id: id, type: 'choice', label: label, options: options, def: def,
+      isMode: !!opts.isMode, showIf: opts.showIf, hint: opts.hint, style: opts.style || 'segmented'
+    };
+  }
+
+  function modeIs() {
+    var list = Array.prototype.slice.call(arguments);
+    return function (s) { return list.indexOf(s.values.mode) >= 0; };
+  }
+
+  function valueIs(field) {
+    var list = Array.prototype.slice.call(arguments, 1);
+    return function (s) { return list.indexOf(s.values[field]) >= 0; };
+  }
+
+  /* Item de resultado. O texto formatado é gerado depois, conforme a precisão escolhida. */
+  function item(label, symbol, value, unit, opts) {
+    return { label: label, symbol: symbol, value: value, unit: unit, opts: opts || {} };
+  }
+
+  function textItem(label, symbol, text) {
+    return { label: label, symbol: symbol, text: text };
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* 01 Lei de Ohm                                                     */
+  /* ---------------------------------------------------------------- */
+  var ohm = {
+    id: 'ohm', num: 1, category: 'fund', icon: 'ohm',
+    name: 'Lei de Ohm',
+    short: 'Encontre tensão, corrente ou resistência a partir de duas grandezas.',
+    objective: 'Encontrar a tensão, a corrente ou a resistência de um resistor usando as duas grandezas que você já conhece.',
+    guidance: 'Escolha o que deseja calcular e preencha os outros dois campos. Use valores positivos (em módulo).',
+    keywords: ['ohm', 'tensao', 'corrente', 'resistencia', 'v=ri', 'volt', 'ampere', 'resistor'],
+    formulas: ['V = I × R', 'I = V / R', 'R = V / I', 'P = V × I'],
+    fields: [
+      choice('mode', 'O que você quer calcular?', [
+        { id: 'V', label: 'Tensão (V)' }, { id: 'I', label: 'Corrente (I)' }, { id: 'R', label: 'Resistência (R)' }
+      ], 'I', { isMode: true }),
+      num('V', 'Tensão', 'V', 'voltage', { constraint: 'nonnegative', noun: 'uma tensão', showIf: modeIs('I', 'R') }),
+      num('I', 'Corrente', 'I', 'current', {
+        noun: 'uma corrente', showIf: modeIs('V', 'R'),
+        constraint: function (s) { return s.values.mode === 'R' ? 'positive' : 'nonnegative'; }
+      }),
+      num('R', 'Resistência', 'R', 'resistance', { constraint: 'positive', noun: 'uma resistência', showIf: modeIs('V', 'I') })
+    ],
+    example: { values: { mode: 'I', V: '12', R: '6' }, units: { V: 'V', R: OHM } },
+    assumptions: [
+      'Resistor ideal e linear: a resistência não muda com a temperatura nem com a corrente.',
+      'Valores em módulo, em corrente contínua ou em valores eficazes (RMS) num circuito puramente resistivo.'
+    ],
+    solve: function (x, H, s) {
+      var m = s.values.mode;
+      var v = x.V, i = x.I, r = x.R;
+      var steps = [];
+      var warnings = [];
+      var primary;
+      var expl;
+      if (m === 'V') {
+        v = i * r;
+        steps.push({ title: 'Tensão', formula: 'V = I × R', subst: 'V = ' + H.u(i, 'A') + ' × ' + H.u(r, OHM), result: 'V = ' + H.q(v, 'V') });
+        primary = item('Tensão', 'V', v, 'V');
+        expl = 'Uma corrente de ' + H.q(i, 'A') + ' passando por ' + H.q(r, OHM) + ' produz uma queda de tensão de ' + H.q(v, 'V') +
+          '. Se a corrente dobrar, a tensão também dobra.';
+      } else if (m === 'I') {
+        i = v / r;
+        steps.push({ title: 'Corrente', formula: 'I = V / R', subst: 'I = ' + H.u(v, 'V') + ' / ' + H.u(r, OHM), result: 'I = ' + H.q(i, 'A') });
+        primary = item('Corrente', 'I', i, 'A');
+        expl = 'Com ' + H.q(v, 'V') + ' aplicados sobre ' + H.q(r, OHM) + ', circula uma corrente de ' + H.q(i, 'A') +
+          '. Para a mesma tensão, quanto maior a resistência, menor a corrente.';
+      } else {
+        r = v / i;
+        steps.push({ title: 'Resistência', formula: 'R = V / I', subst: 'R = ' + H.u(v, 'V') + ' / ' + H.u(i, 'A'), result: 'R = ' + H.q(r, OHM) });
+        primary = item('Resistência', 'R', r, OHM);
+        expl = 'Para que ' + H.q(v, 'V') + ' produzam uma corrente de ' + H.q(i, 'A') + ', a resistência precisa ser de ' + H.q(r, OHM) + '.';
+        if (r === 0) warnings.push('Resistência igual a zero indica um curto-circuito ideal.');
+      }
+      var p = v * i;
+      steps.push({ title: 'Potência associada', formula: 'P = V × I', subst: 'P = ' + H.u(v, 'V') + ' × ' + H.u(i, 'A'), result: 'P = ' + H.q(p, 'W') });
+      var results = [item('Potência dissipada', 'P', p, 'W')];
+      return {
+        primary: [primary], results: results, steps: steps, warnings: warnings,
+        explanation: [expl, 'A potência P = V × I mostra quanta energia o resistor transforma em calor a cada segundo: ' + H.q(p, 'W') + '.'],
+        diagram: { kind: 'ohm', V: H.q(v, 'V'), I: H.q(i, 'A'), R: H.q(r, OHM) }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 02 Potência em corrente contínua                                  */
+  /* ---------------------------------------------------------------- */
+  var powerdc = {
+    id: 'powerdc', num: 2, category: 'fund', icon: 'gauge',
+    name: 'Potência CC',
+    short: 'Potência em circuitos de corrente contínua por três caminhos.',
+    objective: 'Calcular a potência elétrica de um circuito resistivo em corrente contínua.',
+    guidance: 'Escolha quais grandezas você conhece. Os campos mudam conforme o modo escolhido.',
+    keywords: ['potencia', 'watt', 'cc', 'dc', 'continua', 'p=vi', 'joule', 'dissipada'],
+    formulas: ['P = V × I', 'P = I² × R', 'P = V² / R'],
+    fields: [
+      choice('mode', 'Quais dados você tem?', [
+        { id: 'VI', label: 'Tensão e corrente' }, { id: 'IR', label: 'Corrente e resistência' }, { id: 'VR', label: 'Tensão e resistência' }
+      ], 'VI', { isMode: true }),
+      num('V', 'Tensão', 'V', 'voltage', { constraint: 'nonnegative', noun: 'uma tensão', showIf: modeIs('VI', 'VR') }),
+      num('I', 'Corrente', 'I', 'current', { constraint: 'nonnegative', noun: 'uma corrente', showIf: modeIs('VI', 'IR') }),
+      num('R', 'Resistência', 'R', 'resistance', { constraint: 'positive', noun: 'uma resistência', showIf: modeIs('IR', 'VR') })
+    ],
+    example: { values: { mode: 'VI', V: '24', I: '3' }, units: { V: 'V', I: 'A' } },
+    assumptions: [
+      'Circuito em corrente contínua (ou resistivo puro com valores RMS).',
+      'Resistência ideal e constante.'
+    ],
+    solve: function (x, H, s) {
+      var m = s.values.mode;
+      var v = x.V, i = x.I, r = x.R, p;
+      var steps = [];
+      var results = [];
+      var notes = [];
+      if (m === 'VI') {
+        p = v * i;
+        steps.push({ title: 'Potência', formula: 'P = V × I', subst: 'P = ' + H.u(v, 'V') + ' × ' + H.u(i, 'A'), result: 'P = ' + H.q(p, 'W') });
+        if (i > 0) {
+          r = v / i;
+          steps.push({ title: 'Valor intermediário: resistência', formula: 'R = V / I', subst: 'R = ' + H.u(v, 'V') + ' / ' + H.u(i, 'A'), result: 'R = ' + H.q(r, OHM) });
+          results.push(item('Resistência equivalente', 'R', r, OHM));
+        } else {
+          notes.push('Com corrente zero não dá para obter a resistência: o circuito está aberto.');
+        }
+      } else if (m === 'IR') {
+        p = i * i * r;
+        v = i * r;
+        steps.push({ title: 'Potência', formula: 'P = I² × R', subst: 'P = (' + H.u(i, 'A') + ')² × ' + H.u(r, OHM), result: 'P = ' + H.q(p, 'W') });
+        steps.push({ title: 'Valor intermediário: tensão', formula: 'V = I × R', subst: 'V = ' + H.u(i, 'A') + ' × ' + H.u(r, OHM), result: 'V = ' + H.q(v, 'V') });
+        results.push(item('Tensão no resistor', 'V', v, 'V'));
+      } else {
+        p = v * v / r;
+        i = v / r;
+        steps.push({ title: 'Potência', formula: 'P = V² / R', subst: 'P = (' + H.u(v, 'V') + ')² / ' + H.u(r, OHM), result: 'P = ' + H.q(p, 'W') });
+        steps.push({ title: 'Valor intermediário: corrente', formula: 'I = V / R', subst: 'I = ' + H.u(v, 'V') + ' / ' + H.u(r, OHM), result: 'I = ' + H.q(i, 'A') });
+        results.push(item('Corrente', 'I', i, 'A'));
+      }
+      results.unshift(item('Potência em kW', 'P', N.shift10(p, -3), 'kW'));
+      return {
+        primary: [item('Potência', 'P', p, 'W')], results: results, steps: steps, warnings: notes,
+        explanation: [
+          'A potência mostra a rapidez com que a energia elétrica é transformada. Aqui são ' + H.q(p, 'W') + ', ou seja, ' +
+            H.n(p) + ' joules a cada segundo (1 W = 1 J/s).',
+          'As três fórmulas chegam ao mesmo valor porque todas saem de P = V × I combinada com a Lei de Ohm (V = I × R).'
+        ]
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 03 Energia e consumo                                              */
+  /* ---------------------------------------------------------------- */
+  var energy = {
+    id: 'energy', num: 3, category: 'fund', icon: 'bulb',
+    name: 'Energia e Consumo',
+    short: 'Consumo em kWh de um aparelho e estimativa de custo.',
+    objective: 'Calcular a energia consumida por um equipamento e estimar quanto ela custa.',
+    guidance: 'Informe a potência do aparelho, quantas horas ele fica ligado por dia e por quantos dias. A tarifa é opcional.',
+    keywords: ['energia', 'consumo', 'kwh', 'conta de luz', 'tarifa', 'custo', 'reais', 'gasto'],
+    formulas: ['E_dia (kWh) = P (W) × t (h) / 1000', 'E_total = E_dia × dias', 'Custo = E_total × tarifa'],
+    fields: [
+      num('P', 'Potência do aparelho', 'P', 'power', { units: ['W', 'kW'], constraint: 'nonnegative', noun: 'uma potência' }),
+      fixed('h', 'Uso por dia', 't', 'h/dia', { constraint: 'hours', noun: 'um tempo de uso' }),
+      fixed('days', 'Número de dias', 'd', 'dias', { constraint: 'nonnegative', noun: 'um número de dias' }),
+      fixed('tariff', 'Tarifa (opcional)', 'tarifa', 'R$/kWh', { constraint: 'nonnegative', optional: true, hint: 'Deixe em branco se quiser só o consumo.' })
+    ],
+    example: { values: { P: '500', h: '4', days: '30', tariff: '0,80' }, units: { P: 'W' } },
+    assumptions: [
+      'Estimativa simplificada: não inclui impostos, bandeiras tarifárias, iluminação pública, custo de disponibilidade nem outras parcelas da conta de luz.',
+      'Considera o aparelho funcionando na potência informada durante todo o tempo de uso. Aparelhos com termostato ou ciclos (geladeira, ar-condicionado) costumam consumir menos que potência × tempo.'
+    ],
+    solve: function (x, H) {
+      var pw = x.P, h = x.h, d = x.days, t = x.tariff;
+      var ed = pw * h / 1000;
+      var et = ed * d;
+      var steps = [
+        { title: 'Consumo diário', formula: 'E_dia = P × t / 1000', subst: 'E_dia = ' + H.u(pw, 'W') + ' × ' + H.n(h) + ' h / 1000', result: 'E_dia = ' + H.n(ed) + ' kWh' },
+        { title: 'Consumo no período', formula: 'E_total = E_dia × dias', subst: 'E_total = ' + H.n(ed) + ' kWh × ' + H.n(d), result: 'E_total = ' + H.n(et) + ' kWh' }
+      ];
+      var primary = [item('Consumo no período', 'E', et, 'kWh')];
+      var results = [item('Consumo diário', 'E_dia', ed, 'kWh'), item('Horas de uso no período', 't', h * d, 'h'), item('Potência em kW', 'P', N.shift10(pw, -3), 'kW')];
+      var expl = ['Um aparelho de ' + H.q(pw, 'W') + ' ligado ' + H.n(h) + ' h por dia gasta ' + H.n(ed) + ' kWh por dia. Em ' + H.n(d) +
+        ' dias, isso soma ' + H.n(et) + ' kWh. A divisão por 1000 transforma Wh em kWh, que é a unidade usada na conta de luz.'];
+      var warnings = [];
+      if (t !== null && t !== undefined) {
+        var cost = et * t;
+        steps.push({ title: 'Custo estimado', formula: 'Custo = E_total × tarifa', subst: 'Custo = ' + H.n(et) + ' kWh × R$ ' + H.n(t) + '/kWh', result: 'Custo = ' + H.money(cost) });
+        primary.push(textItem('Custo estimado', 'R$', H.money(cost)));
+        primary[1].value = cost;
+        primary[1].kind = 'money';
+        expl.push('Com tarifa de R$ ' + H.n(t) + ' por kWh, o custo estimado fica em ' + H.money(cost) + '.');
+      } else {
+        warnings.push('Informe a tarifa (R$/kWh) para estimar o custo. Ela aparece na sua conta de luz.');
+      }
+      return { primary: primary, results: results, steps: steps, warnings: warnings, explanation: expl };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 04 Associação de resistores                                       */
+  /* ---------------------------------------------------------------- */
+  var resistors = {
+    id: 'resistors', num: 4, category: 'res', icon: 'resistor',
+    name: 'Associação de Resistores',
+    short: 'Resistência equivalente em série ou em paralelo, de 2 a 10 resistores.',
+    objective: 'Calcular a resistência equivalente de resistores ligados em série ou em paralelo.',
+    guidance: 'Escolha o tipo de ligação e informe cada resistor. Você pode adicionar até 10 e escolher a unidade de cada um.',
+    keywords: ['resistor', 'serie', 'paralelo', 'equivalente', 'req', 'associacao'],
+    formulas: ['Série: Req = R1 + R2 + ... + Rn', 'Paralelo: 1/Req = 1/R1 + 1/R2 + ... + 1/Rn'],
+    minItems: 2, maxItems: 10,
+    fields: [
+      choice('type', 'Tipo de ligação', [{ id: 'serie', label: 'Série' }, { id: 'paralelo', label: 'Paralelo' }], 'serie', { isMode: true })
+    ],
+    hasList: true,
+    defaultList: function () { return [{ value: '', unit: OHM }, { value: '', unit: OHM }]; },
+    example: { values: { type: 'serie' }, list: [{ value: '10', unit: OHM }, { value: '20', unit: OHM }] },
+    assumptions: [
+      'Resistores ideais, lineares e com resistência maior que zero.',
+      'Fios de ligação com resistência desprezível.'
+    ],
+    collect: function (state, H, errors, x, echo, conv) {
+      var list = state.list || [];
+      if (list.length < 2) errors.list = 'Cadastre pelo menos 2 resistores.';
+      if (list.length > 10) errors.list = 'O limite é de 10 resistores.';
+      var vals = [];
+      list.forEach(function (r, i) {
+        var def = { label: 'R' + (i + 1), noun: 'uma resistência para R' + (i + 1), dim: 'resistance', constraint: 'positive', unit: OHM };
+        var res = V.readField(def, r.value, r.unit, state);
+        if (!res.ok) { errors['list.' + i] = res.error; return; }
+        vals.push(res.value);
+        echo.push({ label: 'Resistor R' + (i + 1), symbol: 'R' + (i + 1), text: H.n(res.input) + ' ' + res.unit, si: res.unit !== OHM ? H.u(res.value, OHM) : null });
+        if (res.unit !== OHM) conv.push('R' + (i + 1) + ' = ' + H.n(res.input) + ' ' + res.unit + ' = ' + H.u(res.value, OHM));
+      });
+      x.list = vals;
+    },
+    solve: function (x, H, s) {
+      var rs = x.list;
+      var n = rs.length;
+      var names = rs.map(function (_, i) { return 'R' + (i + 1); });
+      var steps = [];
+      var results = [];
+      var req;
+      var expl;
+      var maxR = Math.max.apply(null, rs);
+      var minR = Math.min.apply(null, rs);
+      if (s.values.type === 'serie') {
+        req = rs.reduce(function (a, b) { return a + b; }, 0);
+        steps.push({ title: 'Soma das resistências', formula: 'Req = ' + names.join(' + '),
+          subst: 'Req = ' + rs.map(function (r) { return H.u(r, OHM); }).join(' + '), result: 'Req = ' + H.q(req, OHM) });
+        expl = 'Em série, a mesma corrente passa por todos os resistores e as resistências se somam. Por isso Req (' + H.q(req, OHM) +
+          ') fica maior que o maior resistor (' + H.q(maxR, OHM) + ').';
+      } else {
+        var g = rs.reduce(function (a, r) { return a + 1 / r; }, 0);
+        req = 1 / g;
+        steps.push({ title: 'Soma dos inversos', formula: '1/Req = ' + names.map(function (nm) { return '1/' + nm; }).join(' + '),
+          subst: '1/Req = ' + rs.map(function (r) { return '1/' + H.n(r); }).join(' + '), result: '1/Req = ' + H.n(g) + ' S' });
+        steps.push({ title: 'Resistência equivalente', formula: 'Req = 1 / (1/Req)', subst: 'Req = 1 / ' + H.n(g), result: 'Req = ' + H.q(req, OHM) });
+        if (n === 2) {
+          steps.push({ title: 'Conferência (produto pela soma)', formula: 'Req = (R1 × R2) / (R1 + R2)',
+            subst: 'Req = (' + H.n(rs[0]) + ' × ' + H.n(rs[1]) + ') / (' + H.n(rs[0]) + ' + ' + H.n(rs[1]) + ') = ' + H.n(rs[0] * rs[1]) + ' / ' + H.n(rs[0] + rs[1]),
+            result: 'Req = ' + H.q(rs[0] * rs[1] / (rs[0] + rs[1]), OHM) });
+        }
+        results.push(item('Condutância equivalente', 'Geq', g, 'S'));
+        expl = 'Em paralelo, todos os resistores ficam sob a mesma tensão e a corrente se divide entre eles. Cada ramo a mais abre um novo caminho para a corrente, então Req (' +
+          H.q(req, OHM) + ') fica menor que o menor resistor (' + H.q(minR, OHM) + ').';
+      }
+      results.unshift(textItem('Resistores utilizados', 'n', String(n)));
+      results.push(item('Maior resistor', 'Rmáx', maxR, OHM), item('Menor resistor', 'Rmín', minR, OHM));
+      return {
+        primary: [item('Resistência equivalente', 'Req', req, OHM)], results: results, steps: steps, warnings: [],
+        explanation: [expl],
+        diagram: { kind: s.values.type === 'serie' ? 'series' : 'parallel', names: names, values: rs.map(function (r) { return H.q(r, OHM); }), req: H.q(req, OHM) }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 05 Divisor de tensão                                              */
+  /* ---------------------------------------------------------------- */
+  var vdiv = {
+    id: 'vdiv', num: 5, category: 'res', icon: 'vdiv',
+    name: 'Divisor de Tensão',
+    short: 'Como a tensão se reparte entre dois resistores em série.',
+    objective: 'Calcular quanto da tensão de entrada fica sobre cada um de dois resistores ligados em série.',
+    guidance: 'Informe a tensão de entrada e os dois resistores. R2 é o resistor de baixo, onde costuma ficar a saída.',
+    keywords: ['divisor', 'tensao', 'vout', 'serie', 'saida', 'resistor'],
+    formulas: ['VR1 = Vin × R1 / (R1 + R2)', 'VR2 = Vin × R2 / (R1 + R2)', 'I = Vin / (R1 + R2)'],
+    fields: [
+      num('Vin', 'Tensão de entrada', 'Vin', 'voltage', { noun: 'uma tensão de entrada' }),
+      num('R1', 'Resistência R1', 'R1', 'resistance', { constraint: 'positive', noun: 'uma resistência R1' }),
+      num('R2', 'Resistência R2', 'R2', 'resistance', { constraint: 'positive', noun: 'uma resistência R2' })
+    ],
+    example: { values: { Vin: '12', R1: '1', R2: '2' }, units: { Vin: 'V', R1: 'k' + OHM, R2: 'k' + OHM } },
+    assumptions: [
+      'Resistores ideais e saída sem carga.',
+      'Se você ligar uma carga em paralelo com R2, a tensão de saída cai, porque a carga muda a resistência do ramo de baixo.'
+    ],
+    solve: function (x, H) {
+      var vin = x.Vin, r1 = x.R1, r2 = x.R2;
+      var rt = r1 + r2;
+      var i = vin / rt;
+      var v1 = vin * r1 / rt;
+      var v2 = vin * r2 / rt;
+      var frac = r2 / rt;
+      var steps = [
+        { title: 'Resistência total', formula: 'Rt = R1 + R2', subst: 'Rt = ' + H.u(r1, OHM) + ' + ' + H.u(r2, OHM), result: 'Rt = ' + H.q(rt, OHM) },
+        { title: 'Corrente do circuito', formula: 'I = Vin / (R1 + R2)', subst: 'I = ' + H.u(vin, 'V') + ' / ' + H.u(rt, OHM), result: 'I = ' + H.q(i, 'A') },
+        { title: 'Tensão sobre R1', formula: 'VR1 = Vin × R1 / (R1 + R2)', subst: 'VR1 = ' + H.u(vin, 'V') + ' × ' + H.n(r1) + ' / ' + H.n(rt), result: 'VR1 = ' + H.q(v1, 'V') },
+        { title: 'Tensão sobre R2 (saída)', formula: 'VR2 = Vin × R2 / (R1 + R2)', subst: 'VR2 = ' + H.u(vin, 'V') + ' × ' + H.n(r2) + ' / ' + H.n(rt), result: 'VR2 = ' + H.q(v2, 'V') },
+        { title: 'Conferência', formula: 'VR1 + VR2 = Vin', subst: H.q(v1, 'V') + ' + ' + H.q(v2, 'V'), result: '= ' + H.q(v1 + v2, 'V') }
+      ];
+      return {
+        primary: [item('Tensão sobre R1', 'VR1', v1, 'V'), item('Tensão sobre R2 (saída)', 'VR2', v2, 'V')],
+        results: [item('Corrente do circuito', 'I', i, 'A'), item('Resistência total', 'Rt', rt, OHM), item('Fração da entrada na saída', 'VR2/Vin', frac * 100, '%')],
+        steps: steps, warnings: [],
+        explanation: [
+          'A tensão se reparte na mesma proporção das resistências. R2 representa ' + H.n(frac * 100) + '% da resistência total, então fica com ' +
+            H.n(frac * 100) + '% da tensão de entrada: ' + H.q(v2, 'V') + '.',
+          'A mesma corrente (' + H.q(i, 'A') + ') passa pelos dois resistores, porque eles estão em série.'
+        ],
+        diagram: { kind: 'vdiv', Vin: H.q(vin, 'V'), R1: H.q(r1, OHM), R2: H.q(r2, OHM), V1: H.q(v1, 'V'), V2: H.q(v2, 'V'), I: H.q(i, 'A') }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 06 Divisor de corrente                                            */
+  /* ---------------------------------------------------------------- */
+  var idiv = {
+    id: 'idiv', num: 6, category: 'res', icon: 'idiv',
+    name: 'Divisor de Corrente',
+    short: 'Como a corrente total se divide entre dois resistores em paralelo.',
+    objective: 'Determinar quanto da corrente total passa por cada um de dois resistores em paralelo.',
+    guidance: 'Informe a corrente que entra no par de resistores e o valor de cada um.',
+    keywords: ['divisor', 'corrente', 'paralelo', 'ramo', 'resistor'],
+    formulas: ['I1 = Itotal × R2 / (R1 + R2)', 'I2 = Itotal × R1 / (R1 + R2)'],
+    fields: [
+      num('It', 'Corrente total', 'Itotal', 'current', { noun: 'uma corrente total' }),
+      num('R1', 'Resistência R1', 'R1', 'resistance', { constraint: 'positive', noun: 'uma resistência R1' }),
+      num('R2', 'Resistência R2', 'R2', 'resistance', { constraint: 'positive', noun: 'uma resistência R2' })
+    ],
+    example: { values: { It: '3', R1: '2', R2: '4' }, units: { It: 'A', R1: OHM, R2: OHM } },
+    assumptions: ['Circuito resistivo ideal com dois ramos em paralelo, como no esquema.', 'Fios de ligação com resistência desprezível.'],
+    solve: function (x, H) {
+      var it = x.It, r1 = x.R1, r2 = x.R2;
+      var sum = r1 + r2;
+      var i1 = it * r2 / sum;
+      var i2 = it * r1 / sum;
+      var req = r1 * r2 / sum;
+      var v = it * req;
+      var steps = [
+        { title: 'Corrente no ramo R1', formula: 'I1 = Itotal × R2 / (R1 + R2)', subst: 'I1 = ' + H.u(it, 'A') + ' × ' + H.n(r2) + ' / (' + H.n(r1) + ' + ' + H.n(r2) + ')', result: 'I1 = ' + H.q(i1, 'A') },
+        { title: 'Corrente no ramo R2', formula: 'I2 = Itotal × R1 / (R1 + R2)', subst: 'I2 = ' + H.u(it, 'A') + ' × ' + H.n(r1) + ' / (' + H.n(r1) + ' + ' + H.n(r2) + ')', result: 'I2 = ' + H.q(i2, 'A') },
+        { title: 'Resistência equivalente', formula: 'Req = (R1 × R2) / (R1 + R2)', subst: 'Req = (' + H.n(r1) + ' × ' + H.n(r2) + ') / ' + H.n(sum), result: 'Req = ' + H.q(req, OHM) },
+        { title: 'Tensão comum aos dois ramos', formula: 'V = Itotal × Req', subst: 'V = ' + H.u(it, 'A') + ' × ' + H.u(req, OHM), result: 'V = ' + H.q(v, 'V') },
+        { title: 'Conferência', formula: 'I1 + I2 = Itotal', subst: H.q(i1, 'A') + ' + ' + H.q(i2, 'A'), result: '= ' + H.q(i1 + i2, 'A') }
+      ];
+      var smaller = r1 <= r2 ? 'R1' : 'R2';
+      return {
+        primary: [item('Corrente no ramo R1', 'I1', i1, 'A'), item('Corrente no ramo R2', 'I2', i2, 'A')],
+        results: [item('Resistência equivalente', 'Req', req, OHM), item('Tensão comum', 'V', v, 'V'), item('Soma I1 + I2', 'Itotal', i1 + i2, 'A')],
+        steps: steps, warnings: [],
+        explanation: [
+          r1 === r2 ? 'Os dois resistores são iguais, então a corrente se divide meio a meio.'
+            : 'A maior parte da corrente passa pelo ramo de menor resistência (' + smaller + '). Repare que a corrente de um ramo depende da resistência do outro ramo.',
+          'Os dois resistores ficam sob a mesma tensão (' + H.q(v, 'V') + '). Pela Lei de Ohm, I1 = V/R1 e I2 = V/R2.'
+        ],
+        diagram: { kind: 'idiv', It: H.q(it, 'A'), R1: H.q(r1, OHM), R2: H.q(r2, OHM), I1: H.q(i1, 'A'), I2: H.q(i2, 'A') }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 07 Frequência, período e velocidade angular                       */
+  /* ---------------------------------------------------------------- */
+  var freq = {
+    id: 'freq', num: 7, category: 'ca', icon: 'wave',
+    name: 'Frequência e Período',
+    short: 'Converte frequência em período e calcula a frequência angular.',
+    objective: 'Converter frequência em período (e o contrário) e obter a frequência angular de um sinal periódico.',
+    guidance: 'Escolha o que você quer calcular e informe a outra grandeza.',
+    keywords: ['frequencia', 'periodo', 'hertz', 'hz', 'omega', 'angular', 'rad/s', 'senoide'],
+    formulas: ['T = 1 / f', 'f = 1 / T', 'ω = 2πf'],
+    fields: [
+      choice('mode', 'O que você quer calcular?', [{ id: 'T', label: 'Calcular período' }, { id: 'f', label: 'Calcular frequência' }], 'T', { isMode: true }),
+      num('f', 'Frequência', 'f', 'frequency', { constraint: 'positive', noun: 'uma frequência', showIf: modeIs('T') }),
+      num('T', 'Período', 'T', 'time', { units: [MU + 's', 'ms', 's'], constraint: 'positive', noun: 'um período', showIf: modeIs('f') })
+    ],
+    example: { values: { mode: 'T', f: '60' }, units: { f: 'Hz' } },
+    assumptions: ['Sinal periódico. A frequência angular ω = 2πf vale para sinais senoidais.'],
+    solve: function (x, H, s) {
+      var f, t;
+      var steps = [];
+      var primary;
+      var results = [];
+      if (s.values.mode === 'T') {
+        f = x.f;
+        t = 1 / f;
+        steps.push({ title: 'Período', formula: 'T = 1 / f', subst: 'T = 1 / ' + H.u(f, 'Hz'), result: 'T = ' + H.q(t, 's') });
+        primary = item('Período', 'T', t, 's');
+        results.push(item('Frequência', 'f', f, 'Hz'));
+      } else {
+        t = x.T;
+        f = 1 / t;
+        steps.push({ title: 'Frequência', formula: 'f = 1 / T', subst: 'f = 1 / ' + H.u(t, 's'), result: 'f = ' + H.q(f, 'Hz') });
+        primary = item('Frequência', 'f', f, 'Hz');
+        results.push(item('Período', 'T', t, 's'));
+      }
+      var w = 2 * PI * f;
+      steps.push({ title: 'Frequência angular', formula: 'ω = 2 × π × f', subst: 'ω = 2 × π × ' + H.u(f, 'Hz'), result: 'ω = ' + H.n(w) + ' rad/s' });
+      results.push(item('Frequência angular', 'ω', w, 'rad/s'));
+      return {
+        primary: [primary], results: results, steps: steps, warnings: [],
+        explanation: [
+          'Frequência e período são inversos. Um sinal de ' + H.q(f, 'Hz') + ' completa ' + H.n(f) + ' ciclos por segundo, então cada ciclo dura ' + H.q(t, 's') + '.',
+          'A frequência angular ω mede a mesma rapidez em radianos por segundo. Um ciclo completo corresponde a 2π rad, por isso ω = 2πf.'
+        ],
+        diagram: { kind: 'sine', f: H.q(f, 'Hz'), T: H.q(t, 's') }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 08 Reatância indutiva e capacitiva                                */
+  /* ---------------------------------------------------------------- */
+  var reactance = {
+    id: 'reactance', num: 8, category: 'ca', icon: 'coil',
+    name: 'Reatância',
+    short: 'Reatância indutiva (XL) e capacitiva (XC) em corrente alternada.',
+    objective: 'Calcular a oposição que indutores e capacitores ideais oferecem a uma corrente alternada senoidal.',
+    guidance: 'Escolha indutor, capacitor ou ambos. Informe a frequência e o valor dos componentes.',
+    keywords: ['reatancia', 'xl', 'xc', 'indutor', 'capacitor', 'indutancia', 'capacitancia', 'ressonancia'],
+    formulas: ['XL = 2πfL', 'XC = 1 / (2πfC)', 'f0 = 1 / (2π√(LC))'],
+    fields: [
+      choice('mode', 'O que você quer calcular?', [{ id: 'L', label: 'Indutiva (XL)' }, { id: 'C', label: 'Capacitiva (XC)' }, { id: 'LC', label: 'Ambas' }], 'LC', { isMode: true }),
+      num('f', 'Frequência', 'f', 'frequency', { constraint: 'positive', noun: 'uma frequência' }),
+      num('L', 'Indutância', 'L', 'inductance', { unit: 'H', constraint: 'positive', noun: 'uma indutância', showIf: modeIs('L', 'LC') }),
+      num('C', 'Capacitância', 'C', 'capacitance', { unit: MU + 'F', constraint: 'positive', noun: 'uma capacitância', showIf: modeIs('C', 'LC') })
+    ],
+    example: { values: { mode: 'LC', f: '60', L: '0,1', C: '100' }, units: { f: 'Hz', L: 'H', C: MU + 'F' } },
+    assumptions: [
+      'Indutor e capacitor ideais: sem resistência interna e sem perdas.',
+      'Regime senoidal permanente na frequência informada.',
+      'XC aparece aqui como módulo (sempre positivo). Na impedância complexa do capacitor ele entra com sinal negativo: ZC = −j·XC.'
+    ],
+    solve: function (x, H, s) {
+      var m = s.values.mode;
+      var f = x.f;
+      var w = 2 * PI * f;
+      var steps = [];
+      var primary = [];
+      var results = [item('Frequência angular', 'ω', w, 'rad/s')];
+      var expl = [];
+      var xl, xc;
+      if (m === 'L' || m === 'LC') {
+        xl = w * x.L;
+        steps.push({ title: 'Reatância indutiva', formula: 'XL = 2 × π × f × L', subst: 'XL = 2 × π × ' + H.u(f, 'Hz') + ' × ' + H.u(x.L, 'H'), result: 'XL = ' + H.q(xl, OHM) });
+        primary.push(item('Reatância indutiva', 'XL', xl, OHM));
+        results.push(textItem('Impedância do indutor', 'ZL', '+j' + H.q(xl, OHM)));
+        expl.push('XL cresce junto com a frequência: se f dobrar, XL dobra. Em corrente contínua (f = 0) o indutor ideal se comporta como um fio.');
+      }
+      if (m === 'C' || m === 'LC') {
+        xc = 1 / (w * x.C);
+        steps.push({ title: 'Reatância capacitiva (módulo)', formula: 'XC = 1 / (2 × π × f × C)', subst: 'XC = 1 / (2 × π × ' + H.u(f, 'Hz') + ' × ' + H.u(x.C, 'F') + ')', result: 'XC = ' + H.q(xc, OHM) });
+        primary.push(item('Reatância capacitiva', 'XC', xc, OHM));
+        results.push(textItem('Impedância do capacitor', 'ZC', '−j' + H.q(xc, OHM)));
+        expl.push('XC faz o caminho contrário: se f dobrar, XC cai pela metade. Em frequências muito baixas o capacitor ideal bloqueia a corrente.');
+      }
+      if (m === 'LC') {
+        var f0 = 1 / (2 * PI * Math.sqrt(x.L * x.C));
+        steps.push({ title: 'Frequência de ressonância', formula: 'f0 = 1 / (2 × π × √(L × C))', subst: 'f0 = 1 / (2 × π × √(' + H.u(x.L, 'H') + ' × ' + H.u(x.C, 'F') + '))', result: 'f0 = ' + H.q(f0, 'Hz') });
+        results.push(item('Frequência de ressonância', 'f0', f0, 'Hz'));
+        var rel = Math.abs(xl - xc) <= 1e-9 * Math.max(xl, xc) ? 'XL e XC são praticamente iguais: o circuito está em ressonância.'
+          : (xl > xc ? 'Nesta frequência XL é maior que XC, então o indutor domina.' : 'Nesta frequência XC é maior que XL, então o capacitor domina.');
+        expl.push(rel + ' Na frequência de ressonância (' + H.q(f0, 'Hz') + ') as duas reatâncias ficam iguais.');
+      }
+      return { primary: primary, results: results, steps: steps, warnings: [], explanation: expl };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 09 Impedância RLC série                                           */
+  /* ---------------------------------------------------------------- */
+  var impedance = {
+    id: 'impedance', num: 9, category: 'ca', icon: 'triangle',
+    name: 'Impedância RLC',
+    short: 'Impedância, ângulo de fase e fator de potência de circuitos RL, RC e RLC em série.',
+    objective: 'Calcular a impedância total de circuitos RL, RC e RLC em série e o comportamento da corrente.',
+    guidance: 'Escolha o tipo de circuito, informe os componentes e a frequência. A tensão é opcional e serve para calcular a corrente.',
+    keywords: ['impedancia', 'rlc', 'rl', 'rc', 'fase', 'fator de potencia', 'serie', 'ressonancia', 'z'],
+    formulas: ['X = XL − XC', 'Z = R + jX', '|Z| = √(R² + X²)', 'φ = atan2(X, R)', 'FP = R / |Z|', 'I = V / |Z|'],
+    fields: [
+      choice('type', 'Tipo de circuito', [{ id: 'RL', label: 'RL' }, { id: 'RC', label: 'RC' }, { id: 'RLC', label: 'RLC' }], 'RLC', { isMode: true }),
+      num('R', 'Resistência', 'R', 'resistance', { constraint: 'nonnegative', noun: 'uma resistência' }),
+      num('L', 'Indutância', 'L', 'inductance', { unit: 'H', constraint: 'positive', noun: 'uma indutância', showIf: valueIs('type', 'RL', 'RLC') }),
+      num('C', 'Capacitância', 'C', 'capacitance', { unit: MU + 'F', constraint: 'positive', noun: 'uma capacitância', showIf: valueIs('type', 'RC', 'RLC') }),
+      num('f', 'Frequência', 'f', 'frequency', { constraint: 'positive', noun: 'uma frequência' }),
+      num('V', 'Tensão RMS (opcional)', 'V', 'voltage', { constraint: 'nonnegative', optional: true, hint: 'Preencha para calcular a corrente e as tensões em cada componente.' })
+    ],
+    example: { values: { type: 'RLC', R: '10', L: '0,1', C: '100', f: '60', V: '120' }, units: { R: OHM, L: 'H', C: MU + 'F', f: 'Hz', V: 'V' } },
+    assumptions: [
+      'Componentes ideais ligados em série, em regime senoidal permanente.',
+      'Tensão e corrente em valores eficazes (RMS).',
+      'Ângulo φ da impedância: positivo quando a corrente fica atrasada em relação à tensão (indutivo) e negativo quando fica adiantada (capacitivo).'
+    ],
+    solve: function (x, H, s) {
+      var type = s.values.type;
+      var hasL = type === 'RL' || type === 'RLC';
+      var hasC = type === 'RC' || type === 'RLC';
+      var r = x.R, f = x.f;
+      var w = 2 * PI * f;
+      var xl = hasL ? w * x.L : 0;
+      var xc = hasC ? 1 / (w * x.C) : 0;
+      var X = xl - xc;
+      if (Math.abs(X) <= 1e-12 * Math.max(xl, xc)) X = 0;
+      var z = Math.hypot(r, X);
+      var steps = [];
+      var warnings = [];
+      var results = [];
+      var primary = [];
+      var expl = [];
+
+      if (hasL) steps.push({ title: 'Reatância indutiva', formula: 'XL = 2 × π × f × L', subst: 'XL = 2 × π × ' + H.u(f, 'Hz') + ' × ' + H.u(x.L, 'H'), result: 'XL = ' + H.q(xl, OHM) });
+      else steps.push({ title: 'Reatância indutiva', lines: ['XL = 0 (o circuito RC não tem indutor)'] });
+      if (hasC) steps.push({ title: 'Reatância capacitiva', formula: 'XC = 1 / (2 × π × f × C)', subst: 'XC = 1 / (2 × π × ' + H.u(f, 'Hz') + ' × ' + H.u(x.C, 'F') + ')', result: 'XC = ' + H.q(xc, OHM) });
+      else steps.push({ title: 'Reatância capacitiva', lines: ['XC = 0 (o circuito RL não tem capacitor)'] });
+      steps.push({ title: 'Reatância líquida', formula: 'X = XL − XC', subst: 'X = ' + H.u(xl, OHM) + ' − ' + H.u(xc, OHM), result: 'X = ' + H.u(X, OHM) });
+      var zc = H.n(r) + (X < 0 ? ' − j' : ' + j') + H.n(Math.abs(X)) + ' ' + OHM;
+      steps.push({ title: 'Impedância complexa', formula: 'Z = R + jX', subst: 'Z = ' + H.n(r) + ' + j(' + H.n(X) + ')', result: 'Z = ' + zc });
+      steps.push({ title: 'Módulo da impedância', formula: '|Z| = √(R² + X²)', subst: '|Z| = √(' + H.n(r) + '² + ' + H.n(Math.abs(X)) + '²)', result: '|Z| = ' + H.q(z, OHM) });
+
+      results.push(textItem('Impedância complexa', 'Z', zc));
+      results.push(item('Reatância indutiva', 'XL', xl, OHM), item('Reatância capacitiva', 'XC', xc, OHM), item('Reatância líquida', 'X', X, OHM));
+      if (type === 'RLC') {
+        var f0 = 1 / (2 * PI * Math.sqrt(x.L * x.C));
+        results.push(item('Frequência de ressonância', 'f0', f0, 'Hz'));
+      }
+
+      if (z === 0) {
+        primary.push(item('Módulo da impedância', '|Z|', 0, OHM));
+        results.push(textItem('Ângulo de fase', 'φ', 'indeterminado'), textItem('Fator de potência', 'FP', 'indeterminado'));
+        warnings.push('Com R = 0 e XL = XC, a impedância do modelo ideal vale zero: é um curto-circuito. O ângulo de fase e o fator de potência ficam indeterminados e a corrente não pode ser calculada (seria infinita no modelo ideal).');
+        expl.push('O circuito está em ressonância e não tem resistência. Na prática, a resistência dos fios e do indutor limita a corrente, mas o modelo ideal não consegue dar um valor.');
+        return { primary: primary, results: results, steps: steps, warnings: warnings, explanation: expl, diagram: null };
+      }
+
+      var phi = Math.atan2(X, r) * 180 / PI;
+      var fp = r / z;
+      var behavior;
+      if (X > 0) behavior = 'Predominantemente indutivo';
+      else if (X < 0) behavior = 'Predominantemente capacitivo';
+      else behavior = 'Resistivo';
+      steps.push({ title: 'Ângulo de fase', formula: 'φ = atan2(X, R)', subst: 'φ = atan2(' + H.n(X) + ', ' + H.n(r) + ')', result: 'φ = ' + H.deg(phi) });
+      steps.push({ title: 'Fator de potência', formula: 'FP = R / |Z| = cos φ', subst: 'FP = ' + H.n(r) + ' / ' + H.n(z), result: 'FP = ' + H.n(fp) });
+      primary.push(item('Módulo da impedância', '|Z|', z, OHM), item('Ângulo de fase', 'φ', phi, '°'));
+      results.splice(1, 0, textItem('Comportamento', '', behavior), item('Fator de potência', 'FP', fp, ''));
+
+      if (X > 0) expl.push('XL é maior que XC, então o circuito é predominantemente indutivo: a corrente fica atrasada ' + H.deg(Math.abs(phi)) + ' em relação à tensão.');
+      else if (X < 0) expl.push('XC é maior que XL, então o circuito é predominantemente capacitivo: a corrente fica adiantada ' + H.deg(Math.abs(phi)) + ' em relação à tensão.');
+      else expl.push(type === 'RLC' ? 'XL e XC se cancelam: o circuito está em ressonância e se comporta como uma resistência pura (φ = 0°).' : 'Sem reatância líquida, o circuito se comporta como uma resistência pura.');
+      if (r === 0) {
+        warnings.push('Sem resistência, o circuito é puramente reativo: o fator de potência é 0 e não há consumo de potência ativa.');
+      }
+      expl.push('O fator de potência ' + H.n(fp) + ' indica a fração da potência aparente que vira potência ativa.');
+
+      if (x.V !== null && x.V !== undefined) {
+        var vrms = x.V;
+        var i = vrms / z;
+        var vr = i * r, vl = i * xl, vc = i * xc;
+        steps.push({ title: 'Corrente RMS', formula: 'I = V / |Z|', subst: 'I = ' + H.u(vrms, 'V') + ' / ' + H.u(z, OHM), result: 'I = ' + H.q(i, 'A') });
+        var lines = ['VR = I × R = ' + H.q(vr, 'V')];
+        if (hasL) lines.push('VL = I × XL = ' + H.q(vl, 'V'));
+        if (hasC) lines.push('VC = I × XC = ' + H.q(vc, 'V'));
+        steps.push({ title: 'Tensões nos componentes (módulos)', lines: lines });
+        var p = i * i * r, q = i * i * X, sa = vrms * i;
+        steps.push({ title: 'Potências', lines: ['P = I² × R = ' + H.q(p, 'W'), 'Q = I² × X = ' + H.q(q, 'var', { sign: true }), 'S = V × I = ' + H.q(sa, 'VA')] });
+        primary.push(item('Corrente RMS', 'I', i, 'A'));
+        results.push(item('Tensão no resistor', 'VR', vr, 'V'));
+        if (hasL) results.push(item('Tensão no indutor', 'VL', vl, 'V'));
+        if (hasC) results.push(item('Tensão no capacitor', 'VC', vc, 'V'));
+        results.push(item('Potência ativa', 'P', p, 'W'), item('Potência reativa', 'Q', q, 'var', { sign: true }), item('Potência aparente', 'S', sa, 'VA'));
+        if (vl > vrms || vc > vrms) {
+          expl.push('Repare que a tensão no indutor ou no capacitor pode passar da tensão da fonte. As duas estão defasadas 180° entre si e se cancelam em parte, então a soma vetorial continua igual a V.');
+        }
+      }
+      return {
+        primary: primary, results: results, steps: steps, warnings: warnings, explanation: expl,
+        diagram: { kind: 'triangle', title: 'Triângulo de impedâncias', a: r, b: X, sym: { a: 'R', b: 'X', c: '|Z|' }, legend: ['R = ' + H.q(r, OHM) + ' (cateto horizontal)', 'X = ' + H.q(X, OHM) + (X >= 0 ? ' (para cima: indutivo)' : ' (para baixo: capacitivo)'), '|Z| = ' + H.q(z, OHM) + ' (hipotenusa)', 'φ = ' + H.deg(phi)] }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Natureza da carga (usado em 10 e 11)                              */
+  /* ---------------------------------------------------------------- */
+  var NATURE = [{ id: 'indutiva', label: 'Indutiva' }, { id: 'capacitiva', label: 'Capacitiva' }, { id: 'resistiva', label: 'Resistiva' }];
+
+  function checkResistiveFP(x, s) {
+    if (s.values.nature === 'resistiva' && Math.abs(x.FP - 1) > 1e-12) {
+      var msg = 'Uma carga resistiva ideal tem fator de potência igual a 1. Use FP = 1 ou escolha carga indutiva ou capacitiva.';
+      return { error: msg, fieldErrors: { FP: msg } };
+    }
+    return null;
+  }
+
+  function powerParts(sAp, fp, nature) {
+    var sign = nature === 'capacitiva' ? -1 : 1;
+    var qmag = sAp * Math.sqrt(Math.max(0, 1 - fp * fp));
+    var q = nature === 'resistiva' ? 0 : sign * qmag;
+    var phi = nature === 'resistiva' ? 0 : sign * Math.acos(fp) * 180 / PI;
+    return { p: sAp * fp, q: q, phi: phi, qmag: qmag };
+  }
+
+  function powerNotes(fp, nature, H, pp) {
+    var warnings = [];
+    if (fp === 1 && nature !== 'resistiva') warnings.push('Com FP = 1 não há potência reativa: a carga se comporta como resistiva.');
+    if (fp === 0) warnings.push('Com FP = 0 toda a potência é reativa: a carga não consome potência ativa.');
+    return warnings;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* 10 Potência monofásica                                            */
+  /* ---------------------------------------------------------------- */
+  var mono = {
+    id: 'mono', num: 10, category: 'pot', icon: 'plug',
+    name: 'Potência Monofásica',
+    short: 'Potências ativa, aparente e reativa em circuito monofásico CA.',
+    objective: 'Calcular as potências ativa, aparente e reativa de uma carga monofásica senoidal.',
+    guidance: 'Informe tensão e corrente RMS, o fator de potência e a natureza da carga.',
+    keywords: ['potencia', 'monofasica', 'ativa', 'reativa', 'aparente', 'fator de potencia', 'va', 'var', 'ca'],
+    formulas: ['S = V × I', 'P = V × I × FP', '|Q| = S × √(1 − FP²)', '|φ| = arccos(FP)'],
+    fields: [
+      num('V', 'Tensão RMS', 'V', 'voltage', { constraint: 'nonnegative', noun: 'uma tensão' }),
+      num('I', 'Corrente RMS', 'I', 'current', { constraint: 'nonnegative', noun: 'uma corrente' }),
+      fixed('FP', 'Fator de potência', 'FP', '', { constraint: 'fp', hint: 'Número entre 0 e 1. Ex.: 0,8' }),
+      choice('nature', 'Natureza da carga', NATURE, 'indutiva')
+    ],
+    example: { values: { V: '120', I: '5', FP: '0,8', nature: 'indutiva' }, units: { V: 'V', I: 'A' } },
+    assumptions: [
+      'Regime senoidal permanente, tensão e corrente em valores eficazes (RMS).',
+      'FP = cos φ, válido para tensão e corrente senoidais (sem harmônicas).',
+      'Convenção de sinal: Q positivo para carga indutiva (corrente atrasada) e Q negativo para carga capacitiva (corrente adiantada).'
+    ],
+    solve: function (x, H, s) {
+      var bad = checkResistiveFP(x, s);
+      if (bad) return bad;
+      var nature = s.values.nature;
+      var sAp = x.V * x.I;
+      var pp = powerParts(sAp, x.FP, nature);
+      var steps = [
+        { title: 'Potência aparente', formula: 'S = V × I', subst: 'S = ' + H.u(x.V, 'V') + ' × ' + H.u(x.I, 'A'), result: 'S = ' + H.q(sAp, 'VA') },
+        { title: 'Potência ativa', formula: 'P = V × I × FP', subst: 'P = ' + H.u(x.V, 'V') + ' × ' + H.u(x.I, 'A') + ' × ' + H.n(x.FP), result: 'P = ' + H.q(pp.p, 'W') },
+        { title: 'Potência reativa', formula: '|Q| = S × √(1 − FP²)', subst: '|Q| = ' + H.n(sAp) + ' × √(1 − ' + H.n(x.FP) + '²)',
+          result: 'Q = ' + H.q(pp.q, 'var', { sign: true }) + ' (sinal ' + (pp.q < 0 ? 'negativo: carga capacitiva' : (pp.q > 0 ? 'positivo: carga indutiva' : 'nulo')) + ')' },
+        { title: 'Ângulo de fase', formula: '|φ| = arccos(FP)', subst: '|φ| = arccos(' + H.n(x.FP) + ')', result: 'φ = ' + H.deg(pp.phi) },
+        { title: 'Conferência', formula: 'S = √(P² + Q²)', subst: 'S = √(' + H.n(pp.p) + '² + ' + H.n(Math.abs(pp.q)) + '²)', result: 'S = ' + H.q(Math.hypot(pp.p, pp.q), 'VA') }
+      ];
+      return {
+        primary: [item('Potência ativa', 'P', pp.p, 'W'), item('Potência aparente', 'S', sAp, 'VA'), item('Potência reativa', 'Q', pp.q, 'var', { sign: true })],
+        results: [item('Ângulo de fase', 'φ', pp.phi, '°'), item('Fator de potência', 'FP', x.FP, ''), textItem('Natureza da carga', '', NATURE.filter(function (n) { return n.id === nature; })[0].label)],
+        steps: steps, warnings: powerNotes(x.FP, nature, H, pp),
+        explanation: [
+          'A fonte entrega ' + H.q(sAp, 'VA') + ' de potência aparente. Desse total, ' + H.q(pp.p, 'W') + ' viram trabalho útil ou calor (potência ativa).',
+          'Os ' + H.q(Math.abs(pp.q), 'var') + ' de potência reativa ficam indo e voltando entre a fonte e os campos elétricos ou magnéticos da carga. Eles não realizam trabalho, mas ocupam a capacidade dos cabos e transformadores.'
+        ],
+        diagram: { kind: 'triangle', title: 'Triângulo de potências', a: pp.p, b: pp.q, sym: { a: 'P', b: 'Q', c: 'S' }, legend: ['P = ' + H.q(pp.p, 'W') + ' (ativa)', 'Q = ' + H.q(pp.q, 'var', { sign: true }) + ' (reativa)', 'S = ' + H.q(sAp, 'VA') + ' (aparente)', 'φ = ' + H.deg(pp.phi)] }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 11 Potência trifásica equilibrada                                 */
+  /* ---------------------------------------------------------------- */
+  var tri = {
+    id: 'tri', num: 11, category: 'pot', icon: 'three',
+    name: 'Potência Trifásica',
+    short: 'Potências e grandezas de fase de um sistema trifásico equilibrado.',
+    objective: 'Calcular as potências de um sistema trifásico equilibrado e as grandezas de fase para ligação estrela ou triângulo.',
+    guidance: 'Informe a tensão entre fases (de linha) e a corrente de linha, ambas RMS, além do FP, da ligação e da natureza da carga.',
+    keywords: ['trifasico', 'trifasica', 'estrela', 'triangulo', 'delta', 'linha', 'fase', 'raiz de 3', 'potencia'],
+    formulas: ['S = √3 × VL × IL', 'P = √3 × VL × IL × FP', '|Q| = S × √(1 − FP²)', 'Estrela: Vfase = VL/√3, Ifase = IL', 'Triângulo: Vfase = VL, Ifase = IL/√3'],
+    fields: [
+      num('VL', 'Tensão de linha (fase-fase) RMS', 'VL', 'voltage', { constraint: 'nonnegative', noun: 'uma tensão de linha' }),
+      num('IL', 'Corrente de linha RMS', 'IL', 'current', { constraint: 'nonnegative', noun: 'uma corrente de linha' }),
+      fixed('FP', 'Fator de potência', 'FP', '', { constraint: 'fp', hint: 'Número entre 0 e 1. Ex.: 0,8' }),
+      choice('conn', 'Tipo de ligação', [{ id: 'estrela', label: 'Estrela (Y)' }, { id: 'triangulo', label: 'Triângulo (Δ)' }], 'estrela'),
+      choice('nature', 'Natureza da carga', NATURE, 'indutiva')
+    ],
+    example: { values: { VL: '380', IL: '10', FP: '0,8', conn: 'estrela', nature: 'indutiva' }, units: { VL: 'V', IL: 'A' } },
+    assumptions: [
+      'Sistema trifásico equilibrado: as três fases têm a mesma carga, tensões e correntes de mesmo módulo defasadas 120°.',
+      'Tensões e correntes em valores eficazes (RMS) e condições senoidais.',
+      'Não aplique diretamente estas expressões a cargas desequilibradas. Nesse caso cada fase precisa ser calculada separadamente.'
+    ],
+    solve: function (x, H, s) {
+      var bad = checkResistiveFP(x, s);
+      if (bad) return bad;
+      var nature = s.values.nature;
+      var star = s.values.conn === 'estrela';
+      var sAp = SQRT3 * x.VL * x.IL;
+      var pp = powerParts(sAp, x.FP, nature);
+      var vf = star ? x.VL / SQRT3 : x.VL;
+      var ifs = star ? x.IL : x.IL / SQRT3;
+      var steps = [
+        { title: 'Potência aparente', formula: 'S = √3 × VL × IL', subst: 'S = √3 × ' + H.u(x.VL, 'V') + ' × ' + H.u(x.IL, 'A'), result: 'S = ' + H.q(sAp, 'VA') },
+        { title: 'Potência ativa', formula: 'P = √3 × VL × IL × FP', subst: 'P = √3 × ' + H.u(x.VL, 'V') + ' × ' + H.u(x.IL, 'A') + ' × ' + H.n(x.FP), result: 'P = ' + H.q(pp.p, 'W') + ' (' + H.n(pp.p) + ' W)' },
+        { title: 'Potência reativa', formula: '|Q| = S × √(1 − FP²)', subst: '|Q| = ' + H.n(sAp) + ' × √(1 − ' + H.n(x.FP) + '²)', result: 'Q = ' + H.q(pp.q, 'var', { sign: true }) },
+        star ? { title: 'Tensão de fase (estrela)', formula: 'Vfase = VL / √3', subst: 'Vfase = ' + H.u(x.VL, 'V') + ' / √3', result: 'Vfase = ' + H.q(vf, 'V') }
+          : { title: 'Tensão de fase (triângulo)', formula: 'Vfase = VL', subst: 'Vfase = ' + H.u(x.VL, 'V'), result: 'Vfase = ' + H.q(vf, 'V') },
+        star ? { title: 'Corrente de fase (estrela)', formula: 'Ifase = IL', subst: 'Ifase = ' + H.u(x.IL, 'A'), result: 'Ifase = ' + H.q(ifs, 'A') }
+          : { title: 'Corrente de fase (triângulo)', formula: 'Ifase = IL / √3', subst: 'Ifase = ' + H.u(x.IL, 'A') + ' / √3', result: 'Ifase = ' + H.q(ifs, 'A') },
+        { title: 'Potência ativa por fase', formula: 'Pfase = P / 3', subst: 'Pfase = ' + H.n(pp.p) + ' / 3', result: 'Pfase = ' + H.q(pp.p / 3, 'W') }
+      ];
+      var results = [
+        item('Tensão de fase', 'Vfase', vf, 'V'), item('Corrente de fase', 'Ifase', ifs, 'A'),
+        item('Ângulo de fase', 'φ', pp.phi, '°'), item('Potência ativa por fase', 'Pfase', pp.p / 3, 'W')
+      ];
+      if (ifs > 0) {
+        var zf = vf / ifs;
+        steps.push({ title: 'Impedância por fase (módulo)', formula: '|Zfase| = Vfase / Ifase', subst: '|Zfase| = ' + H.u(vf, 'V') + ' / ' + H.u(ifs, 'A'), result: '|Zfase| = ' + H.q(zf, OHM) });
+        results.push(item('Impedância por fase', '|Zfase|', zf, OHM));
+      }
+      return {
+        primary: [item('Potência ativa', 'P', pp.p, 'W'), item('Potência aparente', 'S', sAp, 'VA'), item('Potência reativa', 'Q', pp.q, 'var', { sign: true })],
+        results: results, steps: steps, warnings: powerNotes(x.FP, nature, H, pp),
+        explanation: [
+          'O fator √3 (cerca de 1,7321) aparece porque as tensões das três fases estão defasadas 120°. Com ele, a potência total pode ser calculada direto com valores de linha.',
+          star ? 'Na ligação estrela, cada carga fica entre uma fase e o neutro: recebe VL/√3 = ' + H.q(vf, 'V') + ' e é percorrida pela própria corrente de linha.'
+            : 'Na ligação triângulo, cada carga fica entre duas fases: recebe a tensão de linha inteira e é percorrida por IL/√3 = ' + H.q(ifs, 'A') + '.'
+        ],
+        diagram: { kind: star ? 'wye' : 'delta', VL: H.q(x.VL, 'V'), IL: H.q(x.IL, 'A'), Vf: H.q(vf, 'V'), If: H.q(ifs, 'A') }
+      };
+    }
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* 12 Conversor de unidades                                          */
+  /* ---------------------------------------------------------------- */
+  var converter = {
+    id: 'converter', num: 12, category: 'pot', icon: 'convert',
+    name: 'Conversor de Unidades',
+    short: 'Múltiplos e submúltiplos de tensão, corrente, potência, energia e mais.',
+    objective: 'Converter valores entre unidades da mesma grandeza elétrica.',
+    guidance: 'Escolha a grandeza, digite o valor e selecione as unidades de origem e de destino. A conversão aparece na hora.',
+    keywords: ['conversor', 'unidade', 'converter', 'prefixo', 'kilo', 'mili', 'micro', 'nano', 'pico', 'kwh', 'joule'],
+    formulas: ['valor no destino = valor × (fator da origem / fator do destino)'],
+    live: true,
+    fields: [
+      choice('qty', 'Grandeza', U.CONVERTER_ORDER.map(function (k) { return { id: k, label: U.DIMENSIONS[k].label }; }), 'resistance', { style: 'select' }),
+      { id: 'value', type: 'number', label: 'Valor', symbol: '', dim: null, unit: '', units: null, constraint: 'any', unitFrom: 'from' },
+      { id: 'from', type: 'unitpick', label: 'Unidade de origem', dimFrom: 'qty', defIndex: 'base' },
+      { id: 'to', type: 'unitpick', label: 'Unidade de destino', dimFrom: 'qty', defIndex: 'other' }
+    ],
+    example: { values: { qty: 'resistance', value: '2,2', from: 'k' + OHM, to: OHM } },
+    assumptions: [
+      'A conversão só acontece entre unidades da mesma grandeza. Para passar de tensão para potência, por exemplo, faltam dados (como a corrente): use a calculadora de potência.'
+    ],
+    collect: function (state, H, errors, x, echo) {
+      var dim = state.values.qty;
+      var D = U.DIMENSIONS[dim];
+      if (!D) { errors.qty = 'Escolha uma grandeza para converter.'; return; }
+      var from = state.values.from, to = state.values.to;
+      if (!U.findUnit(dim, from)) errors.from = 'Escolha a unidade de origem.';
+      if (!U.findUnit(dim, to)) errors.to = 'Escolha uma unidade de destino da mesma grandeza.';
+      var def = { label: 'Valor', noun: 'um valor', dim: dim, constraint: D.allowNegative ? 'any' : 'nonnegative' };
+      var res = V.readField(def, state.values.value, U.findUnit(dim, from) ? from : D.base, state);
+      if (!res.ok) { errors.value = res.error; return; }
+      if (errors.from || errors.to) return;
+      x.dim = dim; x.from = from; x.to = to; x.input = res.input;
+      echo.push({ label: 'Valor', symbol: '', text: H.n(res.input) + ' ' + from });
+      echo.push({ label: 'Converter para', symbol: '', text: to });
+    },
+    solve: function (x, H) {
+      var D = U.DIMENSIONS[x.dim];
+      var c = U.convert(x.input, x.dim, x.from, x.to);
+      if (!c.ok) return { error: 'Essas unidades não são da mesma grandeza e não podem ser convertidas entre si.' };
+      var steps = [
+        { title: 'Fator de conversão', lines: ['1 ' + x.from + ' = ' + H.n(c.ratio) + ' ' + x.to] },
+        { title: 'Conta', formula: 'valor no destino = valor × fator', subst: H.n(x.input) + ' × ' + H.n(c.ratio), result: '= ' + H.n(c.value) + ' ' + x.to }
+      ];
+      var table = D.units.map(function (u) {
+        var cv = U.convert(x.input, x.dim, x.from, u[0]);
+        return item(u[1].charAt(0).toUpperCase() + u[1].slice(1), u[0], cv.value, u[0], { noPrefix: true });
+      });
+      return {
+        primary: [item(D.label + ' em ' + x.to, '', c.value, x.to, { noPrefix: true })],
+        equation: H.n(x.input) + ' ' + x.from + ' = ' + H.n(c.value) + ' ' + x.to,
+        results: table, resultsTitle: 'O mesmo valor em todas as unidades',
+        steps: steps, warnings: [],
+        explanation: [
+          'Prefixos indicam potências de 10: k = 10³ (mil), M = 10⁶ (milhão), m = 10⁻³ (milésimo), µ = 10⁻⁶, n = 10⁻⁹ e p = 10⁻¹².',
+          x.dim === 'energy' ? 'Para energia, 1 Wh = 1 W durante 3.600 s = 3.600 J, e 1 kWh = 3.600.000 J.'
+            : (x.dim === 'time' ? '1 min = 60 s e 1 h = 3.600 s.' : 'Mudar de unidade não muda a grandeza: só muda a escala usada para escrevê-la.')
+        ]
+      };
+    }
+  };
+
+  var LIST = [ohm, powerdc, energy, resistors, vdiv, idiv, freq, reactance, impedance, mono, tri, converter];
+  var BY_ID = {};
+  LIST.forEach(function (c) { BY_ID[c.id] = c; });
+
+  /* ---------------------------------------------------------------- */
+  /* Estado e execução                                                 */
+  /* ---------------------------------------------------------------- */
+  function unitpickDefault(field, dim) {
+    var D = U.DIMENSIONS[dim];
+    if (!D) return '';
+    var syms = U.unitSymbols(dim);
+    if (field.defIndex === 'base') {
+      var other = syms.filter(function (s) { return s !== D.base; })[0];
+      return other || D.base;
+    }
+    return D.base;
+  }
+
+  function defaultState(calc) {
+    var st = { values: {}, units: {} };
+    calc.fields.forEach(function (f) {
+      if (f.type === 'choice') st.values[f.id] = f.def;
+      else if (f.type === 'number') { st.values[f.id] = ''; if (f.units) st.units[f.id] = f.unit; }
+    });
+    calc.fields.forEach(function (f) {
+      if (f.type === 'unitpick') st.values[f.id] = unitpickDefault(f, st.values[f.dimFrom]);
+    });
+    if (calc.hasList) st.list = calc.defaultList();
+    return st;
+  }
+
+  function exampleState(calc) {
+    var st = defaultState(calc);
+    var ex = calc.example;
+    Object.keys(ex.values || {}).forEach(function (k) { st.values[k] = ex.values[k]; });
+    Object.keys(ex.units || {}).forEach(function (k) { st.units[k] = ex.units[k]; });
+    if (ex.list) st.list = ex.list.map(function (r) { return { value: r.value, unit: r.unit }; });
+    return st;
+  }
+
+  function isVisible(field, state) {
+    return !field.showIf || field.showIf(state);
+  }
+
+  function helpers(d) {
+    return {
+      d: d,
+      n: function (v) { return N.formatNumber(v, d); },
+      u: function (v, unit) { return N.formatNumber(v, d) + ' ' + unit; },
+      q: function (v, unit, opts) { return N.formatQuantity(v, unit, d, opts).text; },
+      deg: function (v) { return N.formatAngle(v, d); },
+      money: N.formatCurrency
+    };
+  }
+
+  function finalizeItem(it, d) {
+    if (it.text !== undefined) return it;
+    var fq = N.formatQuantity(it.value, it.unit, d, it.opts);
+    it.text = fq.text;
+    it.base = fq.base;
+    return it;
+  }
+
+  function allFinite(list) {
+    return list.every(function (it) { return it.text !== undefined && it.value === undefined ? true : (typeof it.value === 'number' && isFinite(it.value)); });
+  }
+
+  var GENERIC_RANGE_ERROR = 'Os valores informados levam a um resultado fora da faixa que a calculadora consegue representar. Confira os dados e as unidades.';
+
+  /*
+   * Executa uma calculadora.
+   * state: { values: {campo: texto}, units: {campo: unidade}, list?: [{value, unit}] }
+   * Retorna { ok:true, ... } ou { ok:false, errors:[...], fieldErrors:{...} }.
+   */
+  function run(calcId, state, opts) {
+    var calc = BY_ID[calcId];
+    if (!calc) return { ok: false, errors: ['Calculadora não encontrada.'], fieldErrors: {} };
+    var d = (opts && opts.precision) || 4;
+    var H = helpers(d);
+    state = state || defaultState(calc);
+    state.values = state.values || {};
+    state.units = state.units || {};
+    var errors = {};
+    var x = {};
+    var echo = [];
+    var conv = [];
+
+    calc.fields.forEach(function (f) {
+      if (!isVisible(f, state)) return;
+      if (f.type === 'choice') {
+        var opt = f.options.filter(function (o) { return o.id === state.values[f.id]; })[0];
+        if (!opt) errors[f.id] = 'Escolha uma opção em ' + V.quote(f.label) + '.';
+        else {
+          x[f.id] = opt.id;
+          echo.push({ label: f.label, symbol: '', text: opt.label });
+        }
+        return;
+      }
+      if (f.type !== 'number' || calc.collect && !calc.hasList) return;
+      var r = V.readField(f, state.values[f.id], f.units ? state.units[f.id] : f.unit, state);
+      if (!r.ok) { errors[f.id] = r.error; return; }
+      if (r.empty) { x[f.id] = null; return; }
+      x[f.id] = r.value;
+      var unitTxt = r.unit ? ' ' + r.unit : '';
+      var base = f.dim ? U.DIMENSIONS[f.dim].base : null;
+      echo.push({ label: f.label, symbol: f.symbol, text: H.n(r.input) + unitTxt, si: base && r.unit !== base ? H.u(r.value, base) : null });
+      if (base && r.unit !== base) conv.push(f.symbol + ' = ' + H.n(r.input) + ' ' + r.unit + ' = ' + H.u(r.value, base));
+    });
+
+    if (calc.collect) calc.collect(state, H, errors, x, echo, conv);
+
+    var keys = Object.keys(errors);
+    if (keys.length) {
+      return { ok: false, calcId: calcId, fieldErrors: errors, errors: keys.map(function (k) { return errors[k]; }) };
+    }
+
+    var out;
+    try {
+      out = calc.solve(x, H, state);
+    } catch (e) {
+      return { ok: false, calcId: calcId, fieldErrors: {}, errors: ['Não foi possível concluir o cálculo com esses dados. Confira os valores e as unidades.'] };
+    }
+    if (out.error) return { ok: false, calcId: calcId, fieldErrors: out.fieldErrors || {}, errors: [out.error] };
+
+    var primary = out.primary.map(function (it) { return finalizeItem(it, d); });
+    var results = (out.results || []).map(function (it) { return finalizeItem(it, d); });
+    if (!allFinite(primary) || !allFinite(results)) {
+      return { ok: false, calcId: calcId, fieldErrors: {}, errors: [GENERIC_RANGE_ERROR] };
+    }
+    var steps = out.steps || [];
+    if (conv.length) steps.unshift({ title: 'Conversão das unidades para o SI', lines: conv });
+
+    return {
+      ok: true,
+      calcId: calcId,
+      calcName: calc.name,
+      precision: d,
+      inputs: echo,
+      primary: primary,
+      results: results,
+      resultsTitle: out.resultsTitle || 'Outros resultados',
+      equation: out.equation || null,
+      steps: steps,
+      warnings: out.warnings || [],
+      explanation: out.explanation || [],
+      assumptions: calc.assumptions || [],
+      diagram: out.diagram || null
+    };
+  }
+
+  MEC.calculators = {
+    CATEGORIES: CATEGORIES,
+    LIST: LIST,
+    BY_ID: BY_ID,
+    defaultState: defaultState,
+    exampleState: exampleState,
+    unitpickDefault: unitpickDefault,
+    isVisible: isVisible,
+    run: run
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | report.js
+ * Monta os textos de cópia (resultado e resolução completa) e os resumos do histórico.
+ * Módulo puro (sem DOM).
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+
+  var PRODUCT = 'MapaElétrica Calc';
+  var DISCLAIMER = 'Ferramenta educacional. Os resultados não substituem normas técnicas, projetos, medições nem profissionais habilitados.';
+
+  function itemLine(it) {
+    var name = it.label + (it.symbol ? ' (' + it.symbol + ')' : '');
+    return name + ': ' + it.text + (it.base ? ' [' + it.base + ']' : '');
+  }
+
+  function formatDate(date) {
+    var d = date || new Date();
+    try {
+      return d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (e) {
+      return d.toISOString();
+    }
+  }
+
+  /* Texto curto: grandeza, valor e unidade dos resultados principais. */
+  function resultText(res) {
+    var lines = [res.calcName];
+    if (res.equation) lines.push(res.equation);
+    else res.primary.forEach(function (it) { lines.push(itemLine(it)); });
+    return lines.join('\n');
+  }
+
+  function stepLines(step, idx) {
+    var out = [(idx + 1) + '. ' + step.title];
+    if (step.lines) step.lines.forEach(function (l) { out.push('   ' + l); });
+    if (step.formula) out.push('   Fórmula: ' + step.formula);
+    if (step.subst) out.push('   Substituição: ' + step.subst);
+    if (step.result) out.push('   Resultado: ' + step.result);
+    return out;
+  }
+
+  /* Resolução completa: dados, resultados, memória de cálculo e hipóteses. */
+  function reportText(res, date) {
+    var L = [];
+    L.push(PRODUCT + ' | ' + res.calcName);
+    L.push('Gerado em ' + formatDate(date));
+    L.push('');
+    L.push('DADOS DE ENTRADA');
+    res.inputs.forEach(function (i) {
+      L.push('- ' + i.label + (i.symbol ? ' (' + i.symbol + ')' : '') + ': ' + i.text + (i.si ? ' = ' + i.si : ''));
+    });
+    L.push('');
+    L.push('RESULTADOS');
+    if (res.equation) L.push('- ' + res.equation);
+    res.primary.forEach(function (it) { L.push('- ' + itemLine(it)); });
+    res.results.forEach(function (it) { L.push('- ' + itemLine(it)); });
+    L.push('');
+    L.push('MEMÓRIA DE CÁLCULO');
+    res.steps.forEach(function (s, i) { L = L.concat(stepLines(s, i)); });
+    if (res.warnings.length) {
+      L.push('');
+      L.push('AVISOS');
+      res.warnings.forEach(function (w) { L.push('- ' + w); });
+    }
+    L.push('');
+    L.push('HIPÓTESES E LIMITAÇÕES');
+    res.assumptions.forEach(function (a) { L.push('- ' + a); });
+    L.push('');
+    L.push(DISCLAIMER);
+    return L.join('\n');
+  }
+
+  function inputsSummary(res) {
+    return res.inputs.map(function (i) { return (i.symbol || i.label) + ' = ' + i.text; }).join('; ');
+  }
+
+  function resultSummary(res) {
+    if (res.equation) return res.equation;
+    return res.primary.map(function (it) { return (it.symbol || it.label) + ' = ' + it.text; }).join('; ');
+  }
+
+  MEC.report = {
+    PRODUCT: PRODUCT,
+    DISCLAIMER: DISCLAIMER,
+    resultText: resultText,
+    reportText: reportText,
+    inputsSummary: inputsSummary,
+    resultSummary: resultSummary,
+    formatDate: formatDate
+  };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | diagrams.js
+ * Desenha os esquemas simplificados (SVG) a partir dos dados do resultado.
+ * Retorna texto SVG; não acessa o DOM.
+ */
+(function (root) {
+  'use strict';
+  var MEC = root.MEC || (root.MEC = {});
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function r1(n) { return Math.round(n * 10) / 10; }
+
+  function svg(w, h, body, title) {
+    return '<svg class="dg" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + esc(title) +
+      '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><title>' + esc(title) + '</title>' + body + '</svg>';
+  }
+
+  function line(x1, y1, x2, y2, cls) {
+    return '<line x1="' + r1(x1) + '" y1="' + r1(y1) + '" x2="' + r1(x2) + '" y2="' + r1(y2) + '" class="' + (cls || 'dg-w') + '"/>';
+  }
+
+  function path(d, cls) { return '<path d="' + d + '" class="' + (cls || 'dg-w') + '"/>'; }
+
+  function text(x, y, str, cls, anchor) {
+    return '<text x="' + r1(x) + '" y="' + r1(y) + '" class="' + (cls || 'dg-t') + '" text-anchor="' + (anchor || 'middle') + '">' + esc(str) + '</text>';
+  }
+
+  function dot(x, y) { return '<circle cx="' + r1(x) + '" cy="' + r1(y) + '" r="3.5" class="dg-dot"/>'; }
+
+  function terminal(x, y) { return '<circle cx="' + r1(x) + '" cy="' + r1(y) + '" r="5" class="dg-term"/>'; }
+
+  function arrow(x, y, dir, cls) {
+    var s = 7;
+    var pts;
+    if (dir === 'right') pts = [[x + s, y], [x - s, y - s * 0.7], [x - s, y + s * 0.7]];
+    else if (dir === 'left') pts = [[x - s, y], [x + s, y - s * 0.7], [x + s, y + s * 0.7]];
+    else if (dir === 'down') pts = [[x, y + s], [x - s * 0.7, y - s], [x + s * 0.7, y - s]];
+    else pts = [[x, y - s], [x - s * 0.7, y + s], [x + s * 0.7, y + s]];
+    return '<polygon points="' + pts.map(function (p) { return r1(p[0]) + ',' + r1(p[1]); }).join(' ') + '" class="' + (cls || 'dg-arrow') + '"/>';
+  }
+
+  /* Resistor em zigue-zague entre dois pontos (horizontal ou vertical). */
+  function zigH(x1, x2, y) {
+    var len = x2 - x1;
+    var body = Math.min(54, len * 0.7);
+    var a = x1 + (len - body) / 2;
+    var b = a + body;
+    var n = 6;
+    var w = body / n;
+    var d = 'M' + r1(x1) + ' ' + r1(y) + ' H' + r1(a);
+    for (var i = 0; i < n; i++) d += ' L' + r1(a + w * (i + 0.5)) + ' ' + r1(y + (i % 2 === 0 ? -7 : 7));
+    d += ' L' + r1(b) + ' ' + r1(y) + ' H' + r1(x2);
+    return path(d, 'dg-res');
+  }
+
+  function zigV(x, y1, y2) {
+    var len = y2 - y1;
+    var body = Math.min(54, len * 0.7);
+    var a = y1 + (len - body) / 2;
+    var b = a + body;
+    var n = 6;
+    var h = body / n;
+    var d = 'M' + r1(x) + ' ' + r1(y1) + ' V' + r1(a);
+    for (var i = 0; i < n; i++) d += ' L' + r1(x + (i % 2 === 0 ? 7 : -7)) + ' ' + r1(a + h * (i + 0.5));
+    d += ' L' + r1(x) + ' ' + r1(b) + ' V' + r1(y2);
+    return path(d, 'dg-res');
+  }
+
+  function box(cx, cy, angleDeg, label) {
+    return '<g transform="rotate(' + r1(angleDeg) + ' ' + r1(cx) + ' ' + r1(cy) + ')"><rect x="' + r1(cx - 17) + '" y="' + r1(cy - 8) +
+      '" width="34" height="16" rx="3" class="dg-box"/></g>' + (label ? text(cx, cy + 4, label, 'dg-boxt') : '');
+  }
+
+  /* -------------------------------------------------------------- */
+
+  function ohm(d) {
+    var b = '';
+    b += line(60, 40, 300, 40) + line(60, 160, 300, 160);
+    b += line(60, 40, 60, 90) + line(60, 110, 60, 160);
+    b += line(44, 90, 76, 90, 'dg-c') + line(51, 110, 69, 110, 'dg-c');
+    b += text(84, 86, '+', 'dg-m', 'start') + text(84, 120, '−', 'dg-m', 'start');
+    b += text(96, 104, 'V = ' + d.V, 'dg-v', 'start');
+    b += zigV(300, 40, 160);
+    b += text(290, 104, 'R = ' + d.R, 'dg-v', 'end');
+    b += arrow(180, 40, 'right');
+    b += text(180, 28, 'I = ' + d.I, 'dg-v');
+    return { svg: svg(360, 190, b, 'Circuito com fonte de tensão e resistor'), legend: [] };
+  }
+
+  function series(d) {
+    var n = d.names.length;
+    var per = Math.min(n, 4);
+    var cellW = 110;
+    var rowH = 92;
+    var x0 = 30;
+    var rows = Math.ceil(n / per);
+    var W = x0 * 2 + per * cellW;
+    var H = 34 + rows * rowH;
+    var b = '';
+    var endX = x0, endY = 50;
+    for (var k = 0; k < n; k++) {
+      var r = Math.floor(k / per);
+      var c = k % per;
+      var col = r % 2 === 0 ? c : per - 1 - c;
+      var x1 = x0 + col * cellW;
+      var x2 = x1 + cellW;
+      var y = 50 + r * rowH;
+      b += zigH(x1, x2, y);
+      b += text((x1 + x2) / 2, y - 16, d.names[k], 'dg-t');
+      b += text((x1 + x2) / 2, y + 28, d.values[k], 'dg-v');
+      var lastInRow = c === per - 1 && k < n - 1;
+      if (lastInRow) {
+        var xc = r % 2 === 0 ? x0 + per * cellW : x0;
+        b += line(xc, y, xc, y + rowH);
+      }
+      endX = r % 2 === 0 ? x2 : x1;
+      endY = y;
+    }
+    b += terminal(x0, 50) + text(x0, 34, 'A', 'dg-m');
+    b += terminal(endX, endY) + text(endX, endY - 16, 'B', 'dg-m');
+    return { svg: svg(W, H, b, 'Resistores associados em série'), legend: ['Req entre A e B = ' + d.req] };
+  }
+
+  function parallel(d) {
+    var n = d.names.length;
+    var xL = 60, xR = 300;
+    var gap = 62;
+    var y0 = 46;
+    var yN = y0 + (n - 1) * gap;
+    var H = yN + 36;
+    var b = '';
+    b += line(xL, y0, xL, yN) + line(xR, y0, xR, yN);
+    for (var i = 0; i < n; i++) {
+      var y = y0 + i * gap;
+      b += zigH(xL, xR, y);
+      b += text((xL + xR) / 2, y - 15, d.names[i] + ' = ' + d.values[i], 'dg-v');
+      b += dot(xL, y) + dot(xR, y);
+    }
+    b += line(20, y0, xL, y0) + line(xR, y0, 340, y0);
+    b += terminal(20, y0) + text(20, y0 - 12, 'A', 'dg-m');
+    b += terminal(340, y0) + text(340, y0 - 12, 'B', 'dg-m');
+    return { svg: svg(360, H, b, 'Resistores associados em paralelo'), legend: ['Req entre A e B = ' + d.req] };
+  }
+
+  function vdiv(d) {
+    var b = '';
+    b += '<circle cx="60" cy="140" r="20" class="dg-c"/>' + text(60, 133, '+', 'dg-m') + text(60, 157, '−', 'dg-m');
+    b += path('M60 120 V40 H200') + path('M200 240 H60 V160');
+    b += zigV(200, 40, 140) + zigV(200, 140, 240);
+    b += line(200, 140, 290, 140) + dot(200, 140) + terminal(290, 140);
+    b += text(90, 144, 'Vin = ' + d.Vin, 'dg-v', 'start');
+    b += text(216, 84, 'R1 = ' + d.R1, 'dg-t', 'start') + text(216, 102, 'VR1 = ' + d.V1, 'dg-v', 'start');
+    b += text(216, 186, 'R2 = ' + d.R2, 'dg-t', 'start') + text(216, 204, 'VR2 = ' + d.V2, 'dg-v', 'start');
+    b += text(300, 132, 'Vout', 'dg-m', 'start');
+    b += arrow(130, 40, 'right') + text(130, 28, 'I = ' + d.I, 'dg-v');
+    return { svg: svg(380, 262, b, 'Divisor de tensão com dois resistores em série'), legend: ['Vout = VR2 = ' + d.V2] };
+  }
+
+  function idiv(d) {
+    var b = '';
+    b += '<circle cx="60" cy="130" r="20" class="dg-c"/>' + line(60, 142, 60, 122, 'dg-c') + arrow(60, 118, 'up', 'dg-arrow2');
+    b += path('M60 110 V40 H320') + path('M60 150 V220 H320');
+    b += zigV(190, 40, 220) + zigV(320, 40, 220);
+    b += dot(190, 40) + dot(190, 220);
+    b += text(88, 134, 'It = ' + d.It, 'dg-v', 'start');
+    b += arrow(190, 64, 'down') + text(204, 68, 'I1 = ' + d.I1, 'dg-v', 'start');
+    b += arrow(320, 64, 'down') + text(334, 68, 'I2 = ' + d.I2, 'dg-v', 'start');
+    b += text(204, 136, 'R1 = ' + d.R1, 'dg-t', 'start');
+    b += text(334, 136, 'R2 = ' + d.R2, 'dg-t', 'start');
+    return { svg: svg(430, 244, b, 'Divisor de corrente com dois ramos em paralelo'), legend: ['I1 + I2 = It'] };
+  }
+
+  function sine(d) {
+    var b = '';
+    var x0 = 40, x1 = 300, yc = 80, amp = 44;
+    b += line(24, yc, 360, yc, 'dg-axis') + line(x0, 22, x0, 138, 'dg-axis');
+    var pts = [];
+    for (var i = 0; i <= 64; i++) {
+      var t = i / 64;
+      pts.push((i === 0 ? 'M' : 'L') + r1(x0 + t * (x1 - x0)) + ' ' + r1(yc - amp * Math.sin(2 * Math.PI * t)));
+    }
+    b += path(pts.join(' '), 'dg-wave');
+    var ext = [];
+    for (var j = 0; j <= 16; j++) {
+      var t2 = j / 64;
+      ext.push((j === 0 ? 'M' : 'L') + r1(x1 + t2 * (x1 - x0)) + ' ' + r1(yc - amp * Math.sin(2 * Math.PI * t2)));
+    }
+    b += path(ext.join(' '), 'dg-wave2');
+    b += line(x0, 150, x1, 150, 'dg-c') + line(x0, 143, x0, 157, 'dg-c') + line(x1, 143, x1, 157, 'dg-c');
+    b += text((x0 + x1) / 2, 144, 'T = ' + d.T, 'dg-v');
+    b += text(356, 30, 'f = ' + d.f, 'dg-v', 'end');
+    return { svg: svg(380, 168, b, 'Um ciclo de uma onda senoidal e seu período'), legend: [] };
+  }
+
+  /* Triângulo retângulo genérico: impedâncias (R, X, |Z|) ou potências (P, Q, S). */
+  function triangle(d) {
+    var a = Math.abs(d.a), bb = d.b;
+    if (!(a > 0) && !(Math.abs(bb) > 0)) return null;
+    var maxW = 230, maxH = 130;
+    var sa = a > 0 ? maxW / a : Infinity;
+    var sb = bb !== 0 ? maxH / Math.abs(bb) : Infinity;
+    var sc = Math.min(sa, sb);
+    var wa = a * sc, hb = Math.abs(bb) * sc;
+    var up = bb >= 0;
+    var ox = 60;
+    var oy = up ? 160 : 36;
+    var ty = up ? oy - hb : oy + hb;
+    var body = '';
+    body += '<path d="M' + r1(ox) + ' ' + r1(oy) + ' L' + r1(ox + wa) + ' ' + r1(oy) + ' L' + r1(ox + wa) + ' ' + r1(ty) + ' Z" class="dg-fill"/>';
+    body += line(ox, oy, ox + wa, oy, 'dg-leg-a');
+    if (hb > 0) body += line(ox + wa, oy, ox + wa, ty, 'dg-leg-b');
+    body += line(ox, oy, ox + wa, ty, 'dg-leg-c');
+    if (wa > 12 && hb > 12) {
+      var m = up ? -1 : 1;
+      body += path('M' + r1(ox + wa - 10) + ' ' + r1(oy) + ' V' + r1(oy + m * 10) + ' H' + r1(ox + wa), 'dg-thin');
+    }
+    var ang = Math.atan2(hb, wa);
+    if (wa > 30 && hb > 4) {
+      var rr = 30;
+      var ex = ox + rr * Math.cos(ang);
+      var ey = up ? oy - rr * Math.sin(ang) : oy + rr * Math.sin(ang);
+      body += path('M' + r1(ox + rr) + ' ' + r1(oy) + ' A' + rr + ' ' + rr + ' 0 0 ' + (up ? 0 : 1) + ' ' + r1(ex) + ' ' + r1(ey), 'dg-thin');
+      body += text(ox + rr + 10, up ? oy - 8 : oy + 18, 'φ', 'dg-sym', 'start');
+    }
+    if (wa > 0) body += text(ox + wa / 2, up ? oy + 22 : oy - 10, d.sym.a, 'dg-sym');
+    if (hb > 0) body += text(ox + wa + 10, (oy + ty) / 2 + 5, d.sym.b, 'dg-sym', 'start');
+    var mx = ox + wa / 2, my = (oy + ty) / 2;
+    body += text(mx - 8, up ? my - 8 : my + 18, d.sym.c, 'dg-sym', 'end');
+    return { svg: svg(360, 196, body, d.title || 'Triângulo'), legend: d.legend || [] };
+  }
+
+  function threePhaseLabels(d, star) {
+    return star
+      ? ['Tensão de linha VL = ' + d.VL, 'Corrente de linha IL = ' + d.IL, 'Cada carga recebe Vfase = VL/√3 = ' + d.Vf, 'Ifase = IL = ' + d.If]
+      : ['Tensão de linha VL = ' + d.VL, 'Corrente de linha IL = ' + d.IL, 'Cada carga recebe Vfase = VL = ' + d.Vf, 'Ifase = IL/√3 = ' + d.If];
+  }
+
+  function wye(d) {
+    var cx = 180, cy = 142;
+    var ends = [[180, 34, 'L1'], [76, 202, 'L2'], [284, 202, 'L3']];
+    var b = '';
+    ends.forEach(function (e) {
+      b += line(cx, cy, e[0], e[1]);
+      var mx = (cx + e[0]) / 2, my = (cy + e[1]) / 2;
+      var angle = Math.atan2(e[1] - cy, e[0] - cx) * 180 / Math.PI;
+      b += box(mx, my, angle, '');
+      b += terminal(e[0], e[1]);
+      var lx = e[0] + (e[0] === cx ? 14 : (e[0] < cx ? -10 : 10));
+      var ly = e[1] + (e[0] === cx ? 5 : 20);
+      b += text(lx, ly, e[2], 'dg-t', e[0] === cx ? 'start' : (e[0] < cx ? 'end' : 'start'));
+    });
+    b += dot(cx, cy) + text(cx, cy + 24, 'N', 'dg-m');
+    b += text(cx + 22, 92, 'Z', 'dg-sym', 'start');
+    return { svg: svg(360, 236, b, 'Carga trifásica ligada em estrela'), legend: threePhaseLabels(d, true) };
+  }
+
+  function delta(d) {
+    var v = [[180, 50, 'L1'], [84, 208, 'L2'], [276, 208, 'L3']];
+    var b = '';
+    for (var i = 0; i < 3; i++) {
+      var p = v[i], q = v[(i + 1) % 3];
+      b += line(p[0], p[1], q[0], q[1]);
+      var angle = Math.atan2(q[1] - p[1], q[0] - p[0]) * 180 / Math.PI;
+      b += box((p[0] + q[0]) / 2, (p[1] + q[1]) / 2, angle, '');
+    }
+    b += line(180, 50, 180, 20) + terminal(180, 20) + text(194, 24, 'L1', 'dg-t', 'start');
+    b += line(84, 208, 54, 226) + terminal(54, 226) + text(44, 230, 'L2', 'dg-t', 'end');
+    b += line(276, 208, 306, 226) + terminal(306, 226) + text(316, 230, 'L3', 'dg-t', 'start');
+    v.forEach(function (p) { b += dot(p[0], p[1]); });
+    b += text(180, 168, 'Z', 'dg-sym');
+    return { svg: svg(360, 246, b, 'Carga trifásica ligada em triângulo'), legend: threePhaseLabels(d, false) };
+  }
+
+  var RENDERERS = { ohm: ohm, series: series, parallel: parallel, vdiv: vdiv, idiv: idiv, sine: sine, triangle: triangle, wye: wye, delta: delta };
+
+  function render(diagram) {
+    if (!diagram || !RENDERERS[diagram.kind]) return null;
+    return RENDERERS[diagram.kind](diagram);
+  }
+
+  MEC.diagrams = { render: render, esc: esc };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+  <script>
+/*
+ * MapaElétrica Calc | app.js
+ * Interface: navegação, formulários, resultados, histórico, favoritos, cópia e impressão.
+ * Toda a matemática vem de calculators.js. Este arquivo apenas desenha e reage ao usuário.
+ */
+(function () {
+  'use strict';
+  var MEC = window.MEC;
+  var C = MEC.calculators;
+  var R = MEC.report;
+  var DG = MEC.diagrams;
+  var U = MEC.units;
+  var esc = DG.esc;
+  var VERSION = '1.0.0';
+
+  /* ------------------------------------------------------------ */
+  /* Ícones (SVG em linha, sem dependências externas)             */
+  /* ------------------------------------------------------------ */
+  var ICONS = {
+    bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+    ohm: '<path d="M4 20h5v-2.6A7 7 0 1 1 15 17.4V20h5"/>',
+    gauge: '<path d="M4.9 19a9 9 0 1 1 14.2 0"/><path d="m12 14 4-5"/><circle cx="12" cy="14" r="1.6"/>',
+    bulb: '<path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.2V17h6v-.7c0-.8.3-1.6 1-2.2A6.5 6.5 0 0 0 12 2.5z"/>',
+    resistor: '<path d="M2 12h4l1.5-4 3 8 3-8 3 8 1.5-4h4"/>',
+    vdiv: '<rect x="8.5" y="2.5" width="7" height="7" rx="1.5"/><rect x="8.5" y="14.5" width="7" height="7" rx="1.5"/><path d="M12 9.5v5M12 12h8"/>',
+    idiv: '<path d="M2 12h5"/><path d="M7 12c3 0 3-6 7-6h8"/><path d="M7 12c3 0 3 6 7 6h8"/>',
+    wave: '<path d="M2 12c1.7-5.3 3.3-5.3 5 0s3.3 5.3 5 0 3.3-5.3 5 0 3.3 5.3 5 0"/>',
+    coil: '<path d="M2 14h2.5"/><path d="M4.5 14a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0"/><path d="M19.5 14H22"/>',
+    triangle: '<path d="M4 19h16V6z"/><path d="M8.5 19A4.5 4.5 0 0 0 7.5 16.2"/>',
+    plug: '<path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/>',
+    three: '<path d="M3 6h12M3 12h12M3 18h12"/><circle cx="18.5" cy="6" r="2"/><circle cx="18.5" cy="12" r="2"/><circle cx="18.5" cy="18" r="2"/>',
+    convert: '<path d="M7 4 3 8l4 4"/><path d="M3 8h13"/><path d="m17 12 4 4-4 4"/><path d="M21 16H8"/>',
+    star: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    history: '<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+    copy: '<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',
+    file: '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h7"/>',
+    printer: '<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/>',
+    refresh: '<path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/>',
+    home: '<path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>',
+    trash: '<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    x: '<path d="M6 6l12 12M18 6 6 18"/>',
+    alert: '<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    calc: '<rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8.5 6.5h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h3.5"/>',
+    book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20v-3"/>',
+    eraser: '<path d="m7 21-4.3-4.3a1 1 0 0 1 0-1.4L13.3 4.7a1 1 0 0 1 1.4 0l5.6 5.6a1 1 0 0 1 0 1.4L11 21z"/><path d="M22 21H7M5.5 12.5l6 6"/>',
+    back: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+    swap: '<path d="M7 3v18M3 7l4-4 4 4M17 21V3M21 17l-4 4-4-4"/>',
+    grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+  };
+
+  function icon(name, cls) {
+    return '<svg class="ico' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[name] || '') + '</svg>';
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Armazenamento local (opcional)                               */
+  /* ------------------------------------------------------------ */
+  var store = (function () {
+    var ok = false;
+    try {
+      var k = '__mec_test__';
+      window.localStorage.setItem(k, '1');
+      window.localStorage.removeItem(k);
+      ok = true;
+    } catch (e) { ok = false; }
+    return {
+      available: ok,
+      get: function (key, def) {
+        if (!ok) return def;
+        try {
+          var v = window.localStorage.getItem(key);
+          return v === null ? def : JSON.parse(v);
+        } catch (e) { return def; }
+      },
+      set: function (key, val) {
+        if (!ok) return false;
+        try { window.localStorage.setItem(key, JSON.stringify(val)); return true; } catch (e) { return false; }
+      }
+    };
+  })();
+
+  var KEYS = { history: 'mec.history.v1', fav: 'mec.favorites.v1', prec: 'mec.precision.v1' };
+  var HISTORY_MAX = 20;
+
+  var app = {
+    precision: 4,
+    favorites: [],
+    history: [],
+    states: {},
+    auto: {},
+    last: {},
+    filter: 'all',
+    query: '',
+    route: null,
+    pendingCompute: null,
+    timers: {}
+  };
+
+  (function loadSaved() {
+    var p = store.get(KEYS.prec, 4);
+    app.precision = [2, 4, 6].indexOf(p) >= 0 ? p : 4;
+    var f = store.get(KEYS.fav, []);
+    app.favorites = Array.isArray(f) ? f.filter(function (id) { return C.BY_ID[id]; }) : [];
+    var h = store.get(KEYS.history, []);
+    app.history = Array.isArray(h) ? h.filter(function (r) { return r && C.BY_ID[r.calcId] && r.state; }).slice(0, HISTORY_MAX) : [];
+  })();
+
+  var $main = document.getElementById('main');
+  var $sidebar = document.getElementById('sidebar');
+  var $scrim = document.getElementById('scrim');
+  var $menuBtn = document.getElementById('menuBtn');
+  var $prec = document.getElementById('precision');
+  var $toast = document.getElementById('toast');
+  var $print = document.getElementById('print-area');
+
+  function catOf(calc) { return C.CATEGORIES.filter(function (c) { return c.id === calc.category; })[0]; }
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function isFav(id) { return app.favorites.indexOf(id) >= 0; }
+  function normalize(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+
+  function getState(id) {
+    if (!app.states[id]) app.states[id] = C.defaultState(C.BY_ID[id]);
+    return app.states[id];
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Aviso flutuante e janela de cópia manual                     */
+  /* ------------------------------------------------------------ */
+  var toastTimer = null;
+  function toast(msg) {
+    $toast.textContent = msg;
+    $toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { $toast.classList.remove('show'); }, 2600);
+  }
+
+  function manualCopy(text) {
+    var back = document.createElement('div');
+    back.className = 'modal-back';
+    back.innerHTML = '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mc-title"><h2 id="mc-title">Copie o texto abaixo</h2>' +
+      '<p class="hint">O navegador bloqueou a cópia automática. Selecione o texto e use Ctrl+C (ou toque e segure no celular).</p>' +
+      '<textarea readonly></textarea><div style="display:flex;justify-content:flex-end"><button type="button" class="btn btn-primary">Fechar</button></div></div>';
+    back.querySelector('textarea').value = text;
+    document.body.appendChild(back);
+    var ta = back.querySelector('textarea');
+    ta.focus();
+    ta.select();
+    function close() { back.remove(); }
+    back.querySelector('button').addEventListener('click', close);
+    back.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    back.addEventListener('click', function (e) { if (e.target === back) close(); });
+  }
+
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function copyText(text, okMsg) {
+    function done(ok) {
+      if (ok) toast(okMsg);
+      else manualCopy(text);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(legacyCopy(text)); });
+    } else {
+      done(legacyCopy(text));
+    }
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Menu lateral                                                 */
+  /* ------------------------------------------------------------ */
+  function renderSidebar() {
+    var r = app.route || {};
+    var cur = function (cond) { return cond ? ' aria-current="page"' : ''; };
+    var h = '<div class="nav-group">' +
+      '<a class="nav-link" href="#/"' + cur(r.view === 'home') + '>' + icon('home') + 'Início</a>' +
+      '<a class="nav-link" href="#/historico"' + cur(r.view === 'history') + '>' + icon('history') + 'Histórico</a>' +
+      '<a class="nav-link" href="#/sobre"' + cur(r.view === 'about') + '>' + icon('info') + 'Como usar e avisos</a></div>';
+    if (app.favorites.length) {
+      h += '<div class="nav-group nav-fav"><div class="nav-title">' + icon('star', 'ico-sm') + 'Favoritas</div>';
+      app.favorites.forEach(function (id) {
+        var c = C.BY_ID[id];
+        h += '<a class="nav-link" href="#/calc/' + c.id + '"><span class="nav-num">' + pad2(c.num) + '</span>' + esc(c.name) + '</a>';
+      });
+      h += '</div>';
+    }
+    h += '<div class="nav-sep"></div>';
+    C.CATEGORIES.forEach(function (cat) {
+      h += '<div class="nav-group"><div class="nav-title"><span class="dotc dot-' + cat.id + '"></span>' + esc(cat.name) + '</div>';
+      C.LIST.filter(function (c) { return c.category === cat.id; }).forEach(function (c) {
+        h += '<a class="nav-link" href="#/calc/' + c.id + '"' + cur(r.view === 'calc' && r.id === c.id) + '><span class="nav-num">' + pad2(c.num) + '</span>' + esc(c.name) + '</a>';
+      });
+      h += '</div>';
+    });
+    $sidebar.innerHTML = h;
+  }
+
+  function openMenu() {
+    $sidebar.classList.add('open');
+    $scrim.classList.add('show');
+    $menuBtn.setAttribute('aria-expanded', 'true');
+    $menuBtn.setAttribute('aria-label', 'Fechar menu');
+    var first = $sidebar.querySelector('a');
+    if (first) first.focus();
+  }
+  function closeMenu() {
+    if (!$sidebar.classList.contains('open')) return;
+    $sidebar.classList.remove('open');
+    $scrim.classList.remove('show');
+    $menuBtn.setAttribute('aria-expanded', 'false');
+    $menuBtn.setAttribute('aria-label', 'Abrir menu');
+  }
+  $menuBtn.addEventListener('click', function () {
+    if ($sidebar.classList.contains('open')) closeMenu(); else openMenu();
+  });
+  $scrim.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $sidebar.classList.contains('open')) { closeMenu(); $menuBtn.focus(); }
+  });
+
+  /* ------------------------------------------------------------ */
+  /* Página inicial                                               */
+  /* ------------------------------------------------------------ */
+  function starButton(c, extra) {
+    var on = isFav(c.id);
+    return '<button type="button" class="star' + (extra ? ' ' + extra : '') + '" data-fav="' + c.id + '" aria-pressed="' + on + '" aria-label="' +
+      (on ? 'Remover ' : 'Adicionar ') + esc(c.name) + (on ? ' das favoritas' : ' às favoritas') + '" title="Favoritar">' + icon('star') + '</button>';
+  }
+
+  function toolCard(c) {
+    var cat = catOf(c);
+    return '<article class="card tool-card">' +
+      '<div class="tool-top"><span class="tool-icon cat-' + c.category + '">' + icon(c.icon) + '</span>' + starButton(c) + '</div>' +
+      '<p class="tool-num">' + pad2(c.num) + ' | ' + esc(cat.short) + '</p>' +
+      '<h3>' + esc(c.name) + '</h3>' +
+      '<p class="tool-desc">' + esc(c.short) + '</p>' +
+      '<a class="btn btn-soft" href="#/calc/' + c.id + '">Abrir calculadora</a></article>';
+  }
+
+  function matches(c, q) {
+    if (!q) return true;
+    var hay = normalize([c.name, c.short, c.objective, catOf(c).name, c.keywords.join(' '), (c.formulas || []).join(' ')].join(' '));
+    return normalize(q).split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) >= 0; });
+  }
+
+  function renderCards() {
+    var box = document.getElementById('cards');
+    if (!box) return;
+    var list = C.LIST.filter(function (c) {
+      if (app.filter === 'fav' && !isFav(c.id)) return false;
+      if (app.filter !== 'all' && app.filter !== 'fav' && c.category !== app.filter) return false;
+      return matches(c, app.query);
+    });
+    if (!list.length) {
+      box.innerHTML = '<div class="empty-search card">' + (app.filter === 'fav' && !app.favorites.length
+        ? 'Você ainda não marcou favoritas. Toque na estrela de uma calculadora para guardá-la aqui.'
+        : 'Nenhuma calculadora encontrada para essa busca. Tente outra palavra, como "ohm", "kWh" ou "trifásico".') + '</div>';
+      return;
+    }
+    var h = '';
+    C.CATEGORIES.forEach(function (cat) {
+      var items = list.filter(function (c) { return c.category === cat.id; });
+      if (!items.length) return;
+      h += '<section class="cat-block" aria-labelledby="cat-' + cat.id + '"><div class="cat-head"><span class="tool-icon cat-' + cat.id + '" style="width:34px;height:34px;border-radius:10px">' +
+        icon(cat.icon, 'ico-sm') + '</span><h2 id="cat-' + cat.id + '">' + esc(cat.name) + '</h2><span class="count">' + items.length + (items.length > 1 ? ' calculadoras' : ' calculadora') + '</span></div>' +
+        '<div class="grid-cards">' + items.map(toolCard).join('') + '</div></section>';
+    });
+    box.innerHTML = h;
+  }
+
+  function renderChips() {
+    var box = document.getElementById('chips');
+    if (!box) return;
+    var chips = [{ id: 'all', name: 'Todas', icon: 'grid' }].concat(C.CATEGORIES.map(function (c) { return { id: c.id, name: c.short, icon: c.icon }; }))
+      .concat([{ id: 'fav', name: 'Favoritas', icon: 'star' }]);
+    box.innerHTML = chips.map(function (c) {
+      return '<button type="button" class="chip" data-filter="' + c.id + '" aria-pressed="' + (app.filter === c.id) + '">' + icon(c.icon) + esc(c.name) + '</button>';
+    }).join('');
+  }
+
+  function footer() {
+    return '<footer class="site-foot"><span>MapaElétrica Calc v' + VERSION + ' | Ferramenta educacional</span>' +
+      '<span>Os cálculos rodam no seu aparelho. Nenhum dado é enviado para a internet.</span></footer>';
+  }
+
+  function renderHome() {
+    $main.innerHTML = '<div class="wrap">' +
+      '<section class="hero" aria-labelledby="home-title"><div class="hero-text">' +
+      '<p class="eyebrow">Kit de Calculadoras Elétricas Automáticas</p>' +
+      '<h1 id="home-title" tabindex="-1">Seus cálculos de Engenharia Elétrica, resolvidos e explicados em segundos.</h1>' +
+      '<p class="lead">Preencha os dados, calcule e veja a fórmula, a substituição dos valores e a explicação do resultado.</p></div>' +
+      '<div class="hero-stats"><div class="stat"><strong>12</strong><span>calculadoras</span></div>' +
+      '<div class="stat"><strong>4</strong><span>categorias</span></div>' +
+      '<div class="stat"><strong>0</strong><span>cadastros</span></div></div></section>' +
+      '<div class="finder"><div class="search">' + icon('search') +
+      '<input type="search" id="search" autocomplete="off" placeholder="Buscar por nome ou assunto (ex.: ohm, kWh, trifásico)" aria-label="Buscar calculadora por nome ou assunto" value="' + esc(app.query) + '"></div>' +
+      '<div class="chips" id="chips" role="group" aria-label="Filtrar por categoria"></div></div>' +
+      '<div id="cards"></div>' +
+      '<div class="disclaimer-box">' + icon('info') + '<p>Ferramenta educacional para estudar e conferir exercícios. Ela não substitui normas técnicas, projetos, medições nem profissionais habilitados.</p></div>' +
+      footer() + '</div>';
+    renderChips();
+    renderCards();
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Calculadora: formulário                                       */
+  /* ------------------------------------------------------------ */
+  function unitOptions(list, selected) {
+    return list.map(function (u) { return '<option value="' + esc(u) + '"' + (u === selected ? ' selected' : '') + '>' + esc(u) + '</option>'; }).join('');
+  }
+
+  function fieldHtml(calc, f, st) {
+    var vis = C.isVisible(f, st);
+    var hid = vis ? '' : ' hidden';
+    var fid = 'f-' + f.id;
+    if (f.type === 'choice') {
+      if (f.style === 'select') {
+        return '<div class="field" data-field="' + f.id + '"' + hid + '><label for="' + fid + '">' + esc(f.label) + '</label>' +
+          '<select class="select-full" id="' + fid + '" data-choice="' + f.id + '">' +
+          f.options.map(function (o) { return '<option value="' + o.id + '"' + (st.values[f.id] === o.id ? ' selected' : '') + '>' + esc(o.label) + '</option>'; }).join('') +
+          '</select><p class="err" id="e-' + f.id + '"></p></div>';
+      }
+      return '<fieldset class="seg field" data-field="' + f.id + '"' + hid + '><legend>' + esc(f.label) + '</legend><div class="seg-opts">' +
+        f.options.map(function (o) {
+          return '<label><input type="radio" name="' + fid + '" value="' + o.id + '" data-choice="' + f.id + '"' + (st.values[f.id] === o.id ? ' checked' : '') + '><span>' + esc(o.label) + '</span></label>';
+        }).join('') + '</div><p class="err" id="e-' + f.id + '"></p></fieldset>';
+    }
+    if (f.type === 'unitpick') {
+      var dim = st.values[f.dimFrom];
+      var syms = U.DIMENSIONS[dim] ? U.unitSymbols(dim) : [];
+      var html = '<div class="field" data-field="' + f.id + '"' + hid + '><label for="' + fid + '">' + esc(f.label) + '</label>' +
+        '<select class="select-full" id="' + fid + '" data-unitpick="' + f.id + '">' +
+        syms.map(function (s) {
+          var u = U.findUnit(dim, s);
+          return '<option value="' + esc(s) + '"' + (st.values[f.id] === s ? ' selected' : '') + '>' + esc(s) + ' (' + esc(u.name) + ')</option>';
+        }).join('') + '</select><p class="err" id="e-' + f.id + '"></p></div>';
+      if (calc.id === 'converter' && f.id === 'from') {
+        html += '<div class="swap-row"><button type="button" class="btn btn-ghost btn-small" data-act="swap">' + icon('swap', 'ico-sm') + 'Inverter unidades</button></div>';
+      }
+      return html;
+    }
+    var unitPart = '';
+    if (f.units) {
+      unitPart = '<select data-unit="' + f.id + '" aria-label="Unidade de ' + esc(f.label) + '">' + unitOptions(f.units, st.units[f.id]) + '</select>';
+    } else if (f.unit) {
+      unitPart = '<span class="unit-fixed" aria-hidden="true">' + esc(f.unit) + '</span>';
+    } else if (f.unitFrom) {
+      unitPart = '<span class="unit-fixed" aria-hidden="true" data-unit-echo>' + esc(st.values[f.unitFrom] || '') + '</span>';
+    }
+    var desc = 'e-' + f.id + (f.hint ? ' h-' + f.id : '');
+    return '<div class="field" data-field="' + f.id + '"' + hid + '>' +
+      '<label for="' + fid + '">' + esc(f.label) + (f.symbol ? ' <span class="sym">' + esc(f.symbol) + '</span>' : '') + '</label>' +
+      '<div class="input-group"><input id="' + fid + '" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" enterkeyhint="done" data-num="' + f.id +
+      '" value="' + esc(st.values[f.id] || '') + '" placeholder="' + esc(f.placeholder || (f.optional ? 'opcional' : 'Digite o valor')) + '" aria-describedby="' + desc + '">' + unitPart + '</div>' +
+      (f.hint ? '<p class="hint" id="h-' + f.id + '">' + esc(f.hint) + '</p>' : '') +
+      '<p class="err" id="e-' + f.id + '"></p></div>';
+  }
+
+  function listHtml(calc, st) {
+    var n = st.list.length;
+    var rows = st.list.map(function (r, i) {
+      var name = 'R' + (i + 1);
+      return '<li class="rrow" data-row="' + i + '"><label for="r-' + i + '">' + name + '</label>' +
+        '<div class="input-group"><input id="r-' + i + '" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-li="' + i + '" value="' + esc(r.value) +
+        '" placeholder="Valor de ' + name + '" aria-describedby="e-list-' + i + '">' +
+        '<select data-lu="' + i + '" aria-label="Unidade de ' + name + '">' + unitOptions(U.unitSymbols('resistance'), r.unit) + '</select></div>' +
+        '<button type="button" class="icon-btn" data-remove="' + i + '" aria-label="Remover ' + name + '"' + (n <= calc.minItems ? ' disabled' : '') + '>' + icon('x') + '</button>' +
+        '<p class="err" id="e-list-' + i + '"></p></li>';
+    }).join('');
+    return '<div class="field" data-field="list"><div class="list-meta">Resistores cadastrados <span>' + n + ' de ' + calc.maxItems + '</span></div>' +
+      '<ol class="rlist">' + rows + '</ol>' +
+      '<button type="button" class="btn btn-ghost btn-small" data-act="add"' + (n >= calc.maxItems ? ' disabled' : '') + '>' + icon('plus', 'ico-sm') + 'Adicionar resistor</button>' +
+      '<p class="err" id="e-list"></p></div>';
+  }
+
+  function renderFields(calc, st) {
+    var box = document.getElementById('fields');
+    var h = calc.fields.map(function (f) { return fieldHtml(calc, f, st); }).join('');
+    if (calc.hasList) h += listHtml(calc, st);
+    box.innerHTML = h;
+    applyLocks(calc, st);
+  }
+
+  function updateVisibility(calc, st) {
+    calc.fields.forEach(function (f) {
+      var el = document.querySelector('[data-field="' + f.id + '"]');
+      if (el) el.hidden = !C.isVisible(f, st);
+    });
+  }
+
+  /* Carga resistiva ideal: FP fica travado em 1. */
+  function applyLocks(calc, st) {
+    if (!st.values.hasOwnProperty('nature')) return;
+    var input = document.getElementById('f-FP');
+    var hint = document.getElementById('h-FP');
+    if (!input) return;
+    var lock = st.values.nature === 'resistiva';
+    if (lock) {
+      st.values.FP = '1';
+      input.value = '1';
+    }
+    input.readOnly = lock;
+    if (hint) hint.textContent = lock ? 'Carga resistiva ideal: o fator de potência é sempre 1.' : 'Número entre 0 e 1. Ex.: 0,8';
+  }
+
+  function allEmpty(calc, st) {
+    var numbers = calc.fields.filter(function (f) { return f.type === 'number' && C.isVisible(f, st); });
+    var e = numbers.every(function (f) { return !String(st.values[f.id] || '').trim(); });
+    if (calc.hasList) e = e && st.list.every(function (r) { return !String(r.value || '').trim(); });
+    return e;
+  }
+
+  function clearFieldErrors() {
+    Array.prototype.forEach.call($main.querySelectorAll('.err'), function (el) { el.textContent = ''; });
+    Array.prototype.forEach.call($main.querySelectorAll('.invalid'), function (el) { el.classList.remove('invalid'); });
+    Array.prototype.forEach.call($main.querySelectorAll('[aria-invalid]'), function (el) { el.removeAttribute('aria-invalid'); });
+  }
+
+  function showFieldErrors(fieldErrors) {
+    clearFieldErrors();
+    Object.keys(fieldErrors || {}).forEach(function (k) {
+      var msg = fieldErrors[k];
+      var m = /^list\.(\d+)$/.exec(k);
+      var errEl, wrap, input;
+      if (m) {
+        errEl = document.getElementById('e-list-' + m[1]);
+        wrap = document.querySelector('.rrow[data-row="' + m[1] + '"]');
+        input = document.getElementById('r-' + m[1]);
+      } else {
+        errEl = document.getElementById('e-' + k);
+        wrap = document.querySelector('[data-field="' + k + '"]');
+        input = document.getElementById('f-' + k);
+      }
+      if (errEl) errEl.textContent = msg;
+      if (wrap) wrap.classList.add('invalid');
+      if (input) input.setAttribute('aria-invalid', 'true');
+    });
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Calculadora: resultado, memória e explicação                  */
+  /* ------------------------------------------------------------ */
+  function emptyResult() {
+    return '<div class="res-empty">' + icon('calc') + '<p><strong style="color:var(--navy)">Pronto para calcular</strong></p>' +
+      '<p>Preencha os dados e toque em <b>Calcular</b>. Se preferir, use <b>Carregar exemplo</b> para ver um caso resolvido.</p></div>';
+  }
+
+  function staticExplain(calc, res) {
+    var h = '';
+    if (res && res.ok) {
+      h += res.explanation.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+    } else {
+      h += '<p class="muted-box">' + esc(calc.objective) + ' A explicação do seu resultado aparece aqui depois do cálculo.</p>';
+    }
+    h += '<h3>Fórmulas desta calculadora</h3><div class="formula-chips">' + calc.formulas.map(function (f) { return '<code>' + esc(f) + '</code>'; }).join('') + '</div>';
+    h += '<h3>Hipóteses e limitações</h3><ul>' + calc.assumptions.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>';
+    h += '<p class="note-edu">' + icon('info', 'ico-sm') + '<span>' + esc(R.DISCLAIMER) + '</span></p>';
+    return h;
+  }
+
+  function stepHtml(s) {
+    var h = '<li class="step"><h3>' + esc(s.title) + '</h3>';
+    if (s.lines) h += '<ul class="f-lines">' + s.lines.map(function (l) { return '<li class="f">' + esc(l) + '</li>'; }).join('') + '</ul>';
+    if (s.formula) h += '<div class="f-row"><span class="f-tag">Fórmula</span><span class="f">' + esc(s.formula) + '</span></div>';
+    if (s.subst) h += '<div class="f-row"><span class="f-tag">Substituição</span><span class="f">' + esc(s.subst) + '</span></div>';
+    if (s.result) h += '<div class="f-row"><span class="f-tag">Resultado</span><span class="f f-res">' + esc(s.result) + '</span></div>';
+    return h + '</li>';
+  }
+
+  function itemRow(it) {
+    return '<div class="res-row"><dt>' + esc(it.label) + (it.symbol ? '<span class="sym">' + esc(it.symbol) + '</span>' : '') + '</dt><dd>' + esc(it.text) +
+      (it.base ? '<small>' + esc(it.base) + '</small>' : '') + '</dd></div>';
+  }
+
+  function diagramHtml(res) {
+    var dg = DG.render(res.diagram);
+    if (!dg) return '';
+    var title = res.diagram.title || 'Esquema simplificado';
+    return '<figure class="diagram" style="margin-left:0;margin-right:0"><h3>' + esc(title) + '</h3>' + dg.svg +
+      (dg.legend.length ? '<ul class="dg-legend">' + dg.legend.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' : '') + '</figure>';
+  }
+
+  function renderOutput(calc, res, isLive) {
+    var body = document.getElementById('resultBody');
+    var memo = document.getElementById('memoBody');
+    var exp = document.getElementById('explainBody');
+    var live = document.getElementById('liveTag');
+    if (!body) return;
+    if (live) live.hidden = !isLive;
+    if (!res) {
+      body.innerHTML = emptyResult();
+      memo.innerHTML = '<p class="muted-box">Depois do cálculo, você verá aqui a fórmula geral, a substituição dos números, a operação e o resultado final de cada etapa.</p>';
+      exp.innerHTML = staticExplain(calc, null);
+      return;
+    }
+    if (!res.ok) {
+      body.innerHTML = '<div class="res-error" role="alert"><strong>' + icon('alert') + 'Confira os dados</strong><ul>' +
+        res.errors.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul></div>';
+      memo.innerHTML = '<p class="muted-box">Corrija os dados indicados para ver a memória de cálculo.</p>';
+      exp.innerHTML = staticExplain(calc, null);
+      return;
+    }
+    var h = '<div class="res-primary">' + res.primary.map(function (it) {
+      return '<div class="res-main"><span class="res-label">' + icon('check', 'ico-sm') + esc(it.label) + (it.symbol ? ' <span class="sym">' + esc(it.symbol) + '</span>' : '') + '</span>' +
+        '<strong class="res-value" data-result="' + esc(it.symbol || it.label) + '">' + esc(it.text) + '</strong>' + (it.base ? '<span class="res-base">= ' + esc(it.base) + '</span>' : '') + '</div>';
+    }).join('') + '</div>';
+    if (res.equation) h += '<p class="equation" data-equation>' + esc(res.equation) + '</p>';
+    if (res.results.length) h += '<div class="res-sub"><h3>' + esc(res.resultsTitle) + '</h3><dl class="res-list">' + res.results.map(itemRow).join('') + '</dl></div>';
+    if (res.warnings.length) h += '<div class="alerts">' + res.warnings.map(function (w) { return '<p class="alert">' + icon('alert', 'ico-sm') + '<span>' + esc(w) + '</span></p>'; }).join('') + '</div>';
+    h += diagramHtml(res);
+    h += '<div class="res-actions">' +
+      '<button type="button" class="btn btn-ghost btn-small" data-act="copy-result">' + icon('copy', 'ico-sm') + 'Copiar resultado</button>' +
+      '<button type="button" class="btn btn-ghost btn-small" data-act="copy-full">' + icon('file', 'ico-sm') + 'Copiar resolução</button>' +
+      '<button type="button" class="btn btn-ghost btn-small" data-act="print">' + icon('printer', 'ico-sm') + 'Imprimir ou salvar PDF</button>' +
+      '<button type="button" class="btn btn-ghost btn-small" data-act="new">' + icon('refresh', 'ico-sm') + 'Fazer novo cálculo</button></div>';
+    body.innerHTML = h;
+
+    var m = '<h3 class="kicker" style="margin-bottom:8px">Dados utilizados</h3><div class="inputs-used">' + res.inputs.map(function (i) {
+      return '<span class="pill"><b>' + esc(i.symbol || i.label) + '</b> ' + esc(i.text) + (i.si ? ' <small>(' + esc(i.si) + ')</small>' : '') + '</span>';
+    }).join('') + '</div><ol class="steps">' + res.steps.map(stepHtml).join('') + '</ol>';
+    memo.innerHTML = m;
+    exp.innerHTML = staticExplain(calc, res);
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Calculadora: execução                                         */
+  /* ------------------------------------------------------------ */
+  function compute(id, mode) {
+    var calc = C.BY_ID[id];
+    var st = getState(id);
+    if ((calc.live || mode !== 'explicit') && allEmpty(calc, st)) {
+      app.last[id] = null;
+      clearFieldErrors();
+      renderOutput(calc, null, !!calc.live);
+      return null;
+    }
+    var res = C.run(id, st, { precision: app.precision });
+    app.last[id] = res;
+    showFieldErrors(res.ok ? {} : res.fieldErrors);
+    renderOutput(calc, res, app.auto[id] || !!calc.live);
+    if (res.ok) {
+      if (mode === 'explicit') saveHistory(id, st, res);
+      else if (mode === 'auto') scheduleHistory(id);
+    }
+    return res;
+  }
+
+  function scheduleCompute(id) {
+    clearTimeout(app.timers.compute);
+    app.timers.compute = setTimeout(function () { if (app.route && app.route.id === id) compute(id, 'auto'); }, 140);
+  }
+
+  function onEdit(id) {
+    var calc = C.BY_ID[id];
+    if (app.auto[id] || calc.live) scheduleCompute(id);
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Histórico                                                     */
+  /* ------------------------------------------------------------ */
+  function persistHistory() { store.set(KEYS.history, app.history); }
+
+  function saveHistory(id, st, res) {
+    var sig = JSON.stringify(st);
+    var top = app.history[0];
+    if (top && top.calcId === id && top.sig === sig) {
+      top.ts = Date.now();
+      top.result = R.resultSummary(res);
+    } else {
+      app.history.unshift({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        calcId: id, ts: Date.now(), state: clone(st), sig: sig,
+        inputs: R.inputsSummary(res), result: R.resultSummary(res)
+      });
+    }
+    app.history = app.history.slice(0, HISTORY_MAX);
+    persistHistory();
+  }
+
+  function scheduleHistory(id) {
+    clearTimeout(app.timers.hist);
+    app.timers.hist = setTimeout(function () {
+      var res = app.last[id];
+      if (res && res.ok && app.route && app.route.id === id) saveHistory(id, getState(id), res);
+    }, 2500);
+  }
+
+  function renderHistory() {
+    var h = '<div class="wrap"><div class="page-head"><div><h1 id="page-title" tabindex="-1">Histórico de cálculos</h1>' +
+      '<p>Os últimos ' + HISTORY_MAX + ' cálculos ficam guardados neste navegador.</p></div>' +
+      (app.history.length ? '<button type="button" class="btn btn-ghost" data-act="hist-clear">' + icon('trash', 'ico-sm') + '<span>Limpar histórico</span></button>' : '') + '</div>';
+    if (!store.available) {
+      h += '<div class="notice">O armazenamento deste navegador está indisponível (por exemplo, em janela anônima ou com dados bloqueados). O histórico funciona apenas enquanto esta página estiver aberta.</div>';
+    }
+    if (!app.history.length) {
+      h += '<div class="card empty-search">Nenhum cálculo no histórico ainda. Ao calcular, o resultado aparece aqui.</div>';
+    } else {
+      h += '<ul class="hist-list">' + app.history.map(function (r) {
+        var c = C.BY_ID[r.calcId];
+        return '<li class="card hist-item"><div><p class="hist-meta">' + esc(R.formatDate(new Date(r.ts))) + '</p><h3>' + esc(c.name) + '</h3>' +
+          '<p class="hist-data">' + esc(r.inputs) + '</p><p class="hist-res">' + esc(r.result) + '</p></div>' +
+          '<div class="hist-actions"><button type="button" class="btn btn-soft btn-small" data-reopen="' + r.id + '">Reabrir</button>' +
+          '<button type="button" class="btn btn-ghost btn-small" data-del="' + r.id + '" aria-label="Excluir registro de ' + esc(c.name) + '">' + icon('trash', 'ico-sm') + '</button></div></li>';
+      }).join('') + '</ul>';
+    }
+    h += footer() + '</div>';
+    $main.innerHTML = h;
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Página "Como usar e avisos"                                   */
+  /* ------------------------------------------------------------ */
+  function renderAbout() {
+    $main.innerHTML = '<div class="wrap"><div class="page-head"><div><h1 id="page-title" tabindex="-1">Como usar e avisos</h1><p>Tudo o que você precisa para usar o MapaElétrica Calc.</p></div></div>' +
+      '<div class="card card-pad prose">' +
+      '<h2 style="margin-top:0">Passo a passo</h2><ol>' +
+      '<li>Escolha a calculadora pela busca, pelas categorias ou pelo menu.</li>' +
+      '<li>Preencha os campos e escolha as unidades. Se quiser ver um caso pronto, toque em <b>Carregar exemplo</b>.</li>' +
+      '<li>Toque em <b>Calcular</b>. Depois do primeiro cálculo, o resultado se atualiza sozinho quando você muda um valor.</li>' +
+      '<li>Confira a memória de cálculo: fórmula, substituição e resultado de cada etapa.</li>' +
+      '<li>Copie o resultado, copie a resolução completa ou imprima/salve em PDF.</li></ol>' +
+      '<h2>Como digitar números</h2><ul>' +
+      '<li>Use vírgula para decimais: <b>0,5</b> ou <b>2,25</b>. O ponto também funciona quando não há dúvida, como <b>0.5</b>.</li>' +
+      '<li>Milhar com ponto só é aceito junto com a vírgula decimal ou em grupos de três: <b>1.234,5</b> ou <b>1.000.000</b>.</li>' +
+      '<li>Um valor como <b>1.500</b> é ambíguo (mil e quinhentos ou um e meio). A calculadora pede para você escrever <b>1500</b> ou <b>1,5</b>.</li>' +
+      '<li>Notação científica é aceita: <b>4,7e-6</b> significa 4,7 × 10⁻⁶.</li></ul>' +
+      '<h2>Precisão</h2><p>Escolha 2, 4 ou 6 casas decimais no topo da tela. O arredondamento acontece só na exibição: os cálculos internos usam o valor completo. Números muito pequenos aparecem com prefixo (mA, µF) ou em notação científica para não virarem zero.</p>' +
+      '<h2>Privacidade</h2><p>Não há cadastro, login nem envio de dados. Todos os cálculos acontecem no seu aparelho. O histórico e as favoritas ficam guardados só neste navegador.' +
+      (store.available ? '' : ' Neste momento o armazenamento do navegador está indisponível, então histórico e favoritas valem apenas até fechar a página.') + '</p>' +
+      '<h2>Aviso importante</h2><p>O MapaElétrica Calc é uma ferramenta educacional, feita para estudar e conferir exercícios. As fórmulas usam modelos ideais (componentes ideais, regime senoidal, sistemas equilibrados quando indicado). Os resultados não substituem normas técnicas, projetos, medições nem profissionais habilitados, e não devem ser usados para dimensionar condutores, disjuntores ou proteções.</p>' +
+      '<p class="hint" style="margin-top:18px">Versão ' + VERSION + '</p></div>' + footer() + '</div>';
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Página da calculadora                                         */
+  /* ------------------------------------------------------------ */
+  function renderCalc(id) {
+    var calc = C.BY_ID[id];
+    var cat = catOf(calc);
+    var st = getState(id);
+    if (calc.live) app.auto[id] = true;
+    $main.innerHTML = '<div class="wrap">' +
+      '<nav class="crumbs" aria-label="Navegação"><a href="#/">' + icon('back', 'ico-sm') + 'Todas as calculadoras</a></nav>' +
+      '<section class="card calc-head" aria-labelledby="calc-title"><span class="tool-icon cat-' + calc.category + '">' + icon(calc.icon) + '</span>' +
+      '<div class="head-text"><p class="kicker">Calculadora ' + pad2(calc.num) + ' | ' + esc(cat.name) + '</p>' +
+      '<h1 id="calc-title" tabindex="-1">' + esc(calc.name) + '</h1><p class="objective">' + esc(calc.objective) + '</p><p class="guidance">' + esc(calc.guidance) + '</p></div>' +
+      starButton(calc) + '</section>' +
+      '<div class="calc-grid">' +
+      '<form class="card inputs-card" id="calcForm" novalidate aria-labelledby="in-title"><h2 class="section-title" id="in-title">' + icon('calc') + 'Dados de entrada</h2>' +
+      '<div id="fields"></div>' +
+      '<div class="form-actions"><button class="btn btn-primary" type="submit">' + icon('check') + 'Calcular</button>' +
+      '<button type="button" class="btn btn-ghost" data-act="example">' + icon('book', 'ico-sm') + 'Carregar exemplo</button>' +
+      '<button type="button" class="btn btn-ghost" data-act="clear">' + icon('eraser', 'ico-sm') + 'Limpar</button></div></form>' +
+      '<section class="card result-card" id="resultCard" aria-labelledby="res-title"><div class="result-head"><h2 class="section-title" id="res-title">' + icon('check') + 'Resultado</h2>' +
+      '<span class="live" id="liveTag" hidden>Atualização automática</span></div><div id="resultBody" aria-live="polite"></div></section></div>' +
+      '<div class="lower"><section class="card card-pad" aria-labelledby="memo-title"><h2 class="section-title" id="memo-title">' + icon('file') + 'Memória de cálculo</h2><div id="memoBody"></div></section>' +
+      '<section class="card card-pad explain" aria-labelledby="exp-title"><h2 class="section-title" id="exp-title">' + icon('book') + 'Explicação</h2><div id="explainBody"></div></section></div>' +
+      footer() + '</div>';
+    renderFields(calc, st);
+    if (app.pendingCompute === id) {
+      app.pendingCompute = null;
+      compute(id, 'refresh');
+    } else if (app.last[id] && (app.auto[id] || calc.live)) {
+      compute(id, 'refresh');
+    } else {
+      renderOutput(calc, null, !!calc.live);
+    }
+  }
+
+  function loadExample(id) {
+    var calc = C.BY_ID[id];
+    app.states[id] = C.exampleState(calc);
+    app.auto[id] = true;
+    renderFields(calc, app.states[id]);
+    compute(id, 'example');
+    toast('Exemplo carregado e calculado.');
+  }
+
+  function clearCalc(id, focus) {
+    var calc = C.BY_ID[id];
+    app.states[id] = C.defaultState(calc);
+    app.auto[id] = !!calc.live;
+    app.last[id] = null;
+    clearTimeout(app.timers.hist);
+    renderFields(calc, app.states[id]);
+    clearFieldErrors();
+    renderOutput(calc, null, !!calc.live);
+    if (focus) {
+      var first = document.querySelector('#fields input[type="text"]:not([readonly])');
+      var top = document.getElementById('calcForm');
+      if (top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ block: 'start' });
+      if (first) first.focus({ preventScroll: true });
+    }
+  }
+
+  function focusFirstInvalid() {
+    var el = $main.querySelector('[aria-invalid="true"]');
+    if (el) el.focus();
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Impressão / PDF                                               */
+  /* ------------------------------------------------------------ */
+  function buildPrint(calc, res) {
+    var dg = DG.render(res.diagram);
+    var h = '<div class="p-head"><div><strong>' + esc(R.PRODUCT) + '</strong><br><span>Kit de Calculadoras Elétricas Automáticas</span></div><div>' + esc(R.formatDate(new Date())) + '</div></div>';
+    h += '<h1>' + esc(calc.name) + '</h1><p>' + esc(calc.objective) + '</p>';
+    h += '<h2>Dados de entrada</h2><table>' + res.inputs.map(function (i) {
+      return '<tr><td>' + esc(i.label) + (i.symbol ? ' (' + esc(i.symbol) + ')' : '') + '</td><td class="v">' + esc(i.text) + (i.si ? ' = ' + esc(i.si) : '') + '</td></tr>';
+    }).join('') + '</table>';
+    h += '<h2>Resultados</h2><table>' + (res.equation ? '<tr><td colspan="2"><b>' + esc(res.equation) + '</b></td></tr>' : '') +
+      res.primary.concat(res.results).map(function (it) {
+        return '<tr><td>' + esc(it.label) + (it.symbol ? ' (' + esc(it.symbol) + ')' : '') + '</td><td class="v">' + esc(it.text) + (it.base ? ' = ' + esc(it.base) : '') + '</td></tr>';
+      }).join('') + '</table>';
+    if (res.warnings.length) h += '<h2>Avisos</h2><ul>' + res.warnings.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
+    if (dg) h += '<div class="p-diagram">' + dg.svg + '</div>' + (dg.legend.length ? '<p>' + dg.legend.map(esc).join(' | ') + '</p>' : '');
+    h += '<h2>Memória de cálculo</h2>' + res.steps.map(function (s, i) {
+      var t = '<div class="p-step"><b>' + (i + 1) + '. ' + esc(s.title) + '</b><br>';
+      if (s.lines) t += s.lines.map(function (l) { return '<code>' + esc(l) + '</code>'; }).join('<br>') + '<br>';
+      if (s.formula) t += 'Fórmula: <code>' + esc(s.formula) + '</code><br>';
+      if (s.subst) t += 'Substituição: <code>' + esc(s.subst) + '</code><br>';
+      if (s.result) t += 'Resultado: <code><b>' + esc(s.result) + '</b></code>';
+      return t + '</div>';
+    }).join('');
+    h += '<h2>Explicação</h2>' + res.explanation.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+    h += '<h2>Hipóteses e limitações</h2><ul>' + res.assumptions.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ul>';
+    h += '<p class="p-disc">' + esc(R.DISCLAIMER) + '</p>';
+    return h;
+  }
+
+  function printResult(id) {
+    var res = app.last[id];
+    if (!res || !res.ok) { toast('Calcule primeiro para imprimir o resultado.'); return; }
+    $print.innerHTML = buildPrint(C.BY_ID[id], res);
+    window.print();
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Favoritos                                                     */
+  /* ------------------------------------------------------------ */
+  function toggleFav(id) {
+    var i = app.favorites.indexOf(id);
+    if (i >= 0) app.favorites.splice(i, 1); else app.favorites.push(id);
+    var saved = store.set(KEYS.fav, app.favorites);
+    var on = isFav(id);
+    var name = C.BY_ID[id].name;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-fav="' + id + '"]'), function (b) {
+      b.setAttribute('aria-pressed', String(on));
+      b.setAttribute('aria-label', (on ? 'Remover ' : 'Adicionar ') + name + (on ? ' das favoritas' : ' às favoritas'));
+    });
+    renderSidebar();
+    if (app.route.view === 'home' && app.filter === 'fav') renderCards();
+    toast(on ? (saved ? 'Adicionada às favoritas.' : 'Adicionada às favoritas (válido só nesta sessão).') : 'Removida das favoritas.');
+  }
+
+  /* ------------------------------------------------------------ */
+  /* Eventos                                                       */
+  /* ------------------------------------------------------------ */
+  function currentCalcId() { return app.route && app.route.view === 'calc' ? app.route.id : null; }
+
+  $main.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.id === 'search') {
+      app.query = t.value;
+      renderCards();
+      return;
+    }
+    var id = currentCalcId();
+    if (!id) return;
+    var st = getState(id);
+    if (t.hasAttribute('data-num')) { st.values[t.getAttribute('data-num')] = t.value; onEdit(id); }
+    else if (t.hasAttribute('data-li')) { st.list[+t.getAttribute('data-li')].value = t.value; onEdit(id); }
+  });
+
+  $main.addEventListener('change', function (e) {
+    var t = e.target;
+    var id = currentCalcId();
+    if (!id) return;
+    var calc = C.BY_ID[id];
+    var st = getState(id);
+    if (t.hasAttribute('data-unit')) { st.units[t.getAttribute('data-unit')] = t.value; onEdit(id); }
+    else if (t.hasAttribute('data-lu')) { st.list[+t.getAttribute('data-lu')].unit = t.value; onEdit(id); }
+    else if (t.hasAttribute('data-unitpick')) {
+      st.values[t.getAttribute('data-unitpick')] = t.value;
+      var echo = $main.querySelector('[data-unit-echo]');
+      if (echo) echo.textContent = st.values.from || '';
+      onEdit(id);
+    } else if (t.hasAttribute('data-choice')) {
+      var fid = t.getAttribute('data-choice');
+      st.values[fid] = t.value;
+      if (calc.fields.some(function (f) { return f.type === 'unitpick' && f.dimFrom === fid; })) {
+        calc.fields.forEach(function (f) { if (f.type === 'unitpick') st.values[f.id] = C.unitpickDefault(f, st.values[fid]); });
+        renderFields(calc, st);
+        var sel = document.getElementById('f-' + fid);
+        if (sel) sel.focus();
+      } else {
+        updateVisibility(calc, st);
+        applyLocks(calc, st);
+      }
+      onEdit(id);
+    }
+  });
+
+  $main.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var id = currentCalcId();
+    if (!id) return;
+    app.auto[id] = true;
+    clearTimeout(app.timers.compute);
+    var res = compute(id, 'explicit');
+    if (res && !res.ok) { focusFirstInvalid(); return; }
+    var card = document.getElementById('resultCard');
+    if (card && window.innerWidth < 1100) {
+      var top = card.getBoundingClientRect().top;
+      if (top > window.innerHeight * 0.6 || top < 0) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  $main.addEventListener('click', function (e) {
+    var t = e.target.closest('button, a');
+    if (!t) return;
+    if (t.hasAttribute('data-fav')) { toggleFav(t.getAttribute('data-fav')); return; }
+    if (t.hasAttribute('data-filter')) {
+      app.filter = t.getAttribute('data-filter');
+      renderChips();
+      renderCards();
+      return;
+    }
+    if (t.hasAttribute('data-reopen')) {
+      var rec = app.history.filter(function (r) { return r.id === t.getAttribute('data-reopen'); })[0];
+      if (rec) {
+        app.states[rec.calcId] = clone(rec.state);
+        app.auto[rec.calcId] = true;
+        app.pendingCompute = rec.calcId;
+        location.hash = '#/calc/' + rec.calcId;
+      }
+      return;
+    }
+    if (t.hasAttribute('data-del')) {
+      var delId = t.getAttribute('data-del');
+      app.history = app.history.filter(function (r) { return r.id !== delId; });
+      persistHistory();
+      renderHistory();
+      toast('Registro excluído.');
+      return;
+    }
+    var act = t.getAttribute('data-act');
+    if (!act) return;
+    if (act === 'hist-clear') {
+      if (t.getAttribute('data-confirm') === '1') {
+        app.history = [];
+        persistHistory();
+        renderHistory();
+        toast('Histórico apagado.');
+      } else {
+        t.setAttribute('data-confirm', '1');
+        t.querySelector('span').textContent = 'Toque de novo para confirmar';
+        setTimeout(function () {
+          if (document.body.contains(t)) { t.removeAttribute('data-confirm'); t.querySelector('span').textContent = 'Limpar histórico'; }
+        }, 4000);
+      }
+      return;
+    }
+    var id = currentCalcId();
+    if (!id) return;
+    var calc = C.BY_ID[id];
+    var st = getState(id);
+    if (act === 'example') loadExample(id);
+    else if (act === 'clear') clearCalc(id, true);
+    else if (act === 'new') clearCalc(id, true);
+    else if (act === 'add') {
+      if (st.list.length < calc.maxItems) {
+        st.list.push({ value: '', unit: U.OHM });
+        renderFields(calc, st);
+        var inp = document.getElementById('r-' + (st.list.length - 1));
+        if (inp) inp.focus();
+        onEdit(id);
+      }
+    } else if (act === 'swap') {
+      var tmp = st.values.from;
+      st.values.from = st.values.to;
+      st.values.to = tmp;
+      renderFields(calc, st);
+      onEdit(id);
+    } else if (act === 'copy-result' || act === 'copy-full') {
+      var res = app.last[id];
+      if (!res || !res.ok) return;
+      if (act === 'copy-result') copyText(R.resultText(res), 'Resultado copiado.');
+      else copyText(R.reportText(res, new Date()), 'Resolução completa copiada.');
+    } else if (act === 'print') printResult(id);
+  });
+
+  $main.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-remove]');
+    if (!t) return;
+    var id = currentCalcId();
+    var calc = C.BY_ID[id];
+    var st = getState(id);
+    if (st.list.length <= calc.minItems) return;
+    st.list.splice(+t.getAttribute('data-remove'), 1);
+    renderFields(calc, st);
+    onEdit(id);
+  });
+
+  $prec.value = String(app.precision);
+  $prec.addEventListener('change', function () {
+    app.precision = +$prec.value;
+    store.set(KEYS.prec, app.precision);
+    var id = currentCalcId();
+    if (id && app.last[id]) compute(id, 'refresh');
+    toast('Resultados com ' + app.precision + ' casas decimais.');
+  });
+
+  /* ------------------------------------------------------------ */
+  /* Rotas                                                         */
+  /* ------------------------------------------------------------ */
+  function parseRoute() {
+    var h = location.hash.replace(/^#\/?/, '');
+    var parts = h.split('/');
+    if (parts[0] === 'calc' && C.BY_ID[parts[1]]) return { view: 'calc', id: parts[1] };
+    if (parts[0] === 'historico') return { view: 'history' };
+    if (parts[0] === 'sobre') return { view: 'about' };
+    return { view: 'home' };
+  }
+
+  var firstRender = true;
+  function route() {
+    var r = parseRoute();
+    app.route = r;
+    closeMenu();
+    clearTimeout(app.timers.compute);
+    if (r.view === 'calc') renderCalc(r.id);
+    else if (r.view === 'history') renderHistory();
+    else if (r.view === 'about') renderAbout();
+    else renderHome();
+    renderSidebar();
+    var titles = { home: 'MapaElétrica Calc', history: 'Histórico | MapaElétrica Calc', about: 'Como usar | MapaElétrica Calc' };
+    document.title = r.view === 'calc' ? C.BY_ID[r.id].name + ' | MapaElétrica Calc' : titles[r.view];
+    if (!firstRender) {
+      window.scrollTo(0, 0);
+      var h1 = $main.querySelector('h1');
+      if (h1) h1.focus({ preventScroll: true });
+    }
+    firstRender = false;
+  }
+
+  window.addEventListener('hashchange', route);
+  route();
+
+  /* Exposto para testes automatizados. Não é usado pela interface. */
+  window.MEC.app = { state: app, store: store, version: VERSION };
+})();
+
+</script>
+</body>
+</html>

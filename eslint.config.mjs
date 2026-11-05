@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Projeto independente em JavaScript puro (tem seus próprios testes).
+    "mapaeletrica-calc/**",
   ]),
 ]);
 

@@ -1,0 +1,13 @@
+{
+  "name": "mapaeletrica-calc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MapaElétrica Calc: kit de 12 calculadoras de Engenharia Elétrica em um único arquivo HTML.",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test tests/engine.test.js",
+    "test:ui": "node scripts/build.js && node tests/ui.test.js",
+    "report": "node scripts/precision-report.js"
+  },
+  "license": "UNLICENSED"
+}

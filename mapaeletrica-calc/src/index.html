@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MapaElétrica Calc: 12 calculadoras de Engenharia Elétrica com fórmula, substituição e explicação. Funciona sem internet.">
+  <meta name="theme-color" content="#10213A">
+  <title>MapaElétrica Calc</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Cpath d='M18 4 8 18h7l-2 10 11-15h-7z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css" data-inline>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <a class="brand" href="#/" aria-label="MapaElétrica Calc, página inicial">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.5 2 5 13.5h6L9.5 22 19 9.5h-6z"/></svg></span>
+      <span>
+        <span class="brand-name">MapaElétrica <span>Calc</span></span>
+        <span class="brand-sub">Kit de Calculadoras Elétricas Automáticas</span>
+      </span>
+    </a>
+    <div class="topbar-right">
+      <label class="prec" for="precision"><span class="prec-label">Casas decimais</span>
+        <select id="precision" aria-label="Casas decimais dos resultados">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+        </select>
+      </label>
+      <a class="icon-btn" href="#/historico" aria-label="Histórico de cálculos" title="Histórico">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Calculadoras"></nav>
+    <div class="scrim" id="scrim"></div>
+    <main id="main" tabindex="-1">
+      <noscript><p style="padding:24px">O MapaElétrica Calc precisa do JavaScript ativado no navegador para funcionar.</p></noscript>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="print-area" class="print-area"></div>
+
+  <script src="js/numbers.js" data-inline></script>
+  <script src="js/units.js" data-inline></script>
+  <script src="js/validate.js" data-inline></script>
+  <script src="js/calculators.js" data-inline></script>
+  <script src="js/report.js" data-inline></script>
+  <script src="js/diagrams.js" data-inline></script>
+  <script src="js/app.js" data-inline></script>
+</body>
+</html>
