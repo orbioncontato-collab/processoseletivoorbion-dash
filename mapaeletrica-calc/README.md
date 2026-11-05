@@ -19,6 +19,17 @@ Aplicativo web com 12 calculadoras para estudantes de Engenharia Elétrica. Cada
 
 `planilha/MapaEletrica-Calc.xlsx` traz as mesmas 12 calculadoras em fórmulas, para abrir no Planilhas Google ou no Excel. Instruções em `planilha/LEIA-ME.md`.
 
+## Demonstração e guias visuais
+
+| Arquivo | O que é |
+|---|---|
+| `demo/MapaEletrica-Calc-demo.mp4` | Vídeo de 78 s gravado do app sendo usado, com legenda em cada passo |
+| `demo/Guia-Visual-MapaEletrica-Calc-App.pdf` | Guia de 11 páginas do app HTML, com capturas reais e marcações numeradas |
+| `demo/Guia-Visual-MapaEletrica-Calc-Planilha.pdf` | Guia de 8 páginas da planilha: subir no Google Drive, preencher, ler o resultado |
+
+Para gerar de novo (depois de `npm run build`): `node demo/gravar_video.js`, `node demo/gerar_guia_app.js` e
+`python3 demo/gerar_guia_planilha.py <recalc.py> <soffice.py>`.
+
 ## Arquitetura
 
 O código é JavaScript puro, sem bibliotecas. A matemática fica separada da interface:

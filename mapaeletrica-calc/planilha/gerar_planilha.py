@@ -52,8 +52,8 @@ def q(s):
 
 
 def t(ref):
-    """Número como texto, arredondado só para exibição (valores pequenos ficam como estão)."""
-    return 'IF(ABS({0})<0.001,{0},ROUND({0},CASAS))&""'.format(ref)
+    """Número como texto, arredondado só para exibição. Valores abaixo de 0,001 mantêm CASAS algarismos significativos."""
+    return 'IF({0}=0,0,IF(ABS({0})<0.001,ROUND({0},CASAS-1-INT(LOG10(ABS({0})))),ROUND({0},CASAS)))&""'.format(ref)
 
 
 def nested_if(checks):
@@ -220,7 +220,7 @@ class Tab:
         self.r += 2
 
     def result_heads(self):
-        self.section('RESULTADOS', ['Resultado', 'Símbolo', 'Valor', 'Unidade', 'Valor interno (sem arredondar)', 'Observação', ''])
+        self.section('RESULTADOS', ['Resultado', 'Símbolo', 'Valor', 'Unidade', 'Valor interno', 'Observação', ''])
 
     def res(self, key, label, sym, expr, unit, main=False, note=None, money=False, text=False):
         """expr: expressão sem '=' que calcula o valor no SI. Só aparece se os dados forem válidos."""
@@ -239,7 +239,7 @@ class Tab:
                 ws.cell(r, 3, '=IF(ISNUMBER(E{0}),E{0},"")'.format(r))
                 ws.cell(r, 3).number_format = '"R$" #,##0.00'
             else:
-                ws.cell(r, 3, '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),"")'.format(r))
+                ws.cell(r, 3, '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),"")'.format(r))
                 ws.cell(r, 3).number_format = 'General'
         vc = ws.cell(r, 3)
         vc.font = font(size=12 if main else 11, bold=True, color=NAVY)
@@ -641,10 +641,10 @@ def tab_reactance(wb):
                note='Impedância do capacitor: ZC = −j·XC (sinal negativo na parte imaginária)')
     for ref in (xl, xc):
         row = ref.split('$')[-1]
-        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     f0 = T.res('f0', 'Frequência de ressonância', 'f0', 'IF({}="Ambas",1/(2*PI()*SQRT({}*{})),"só com os dois componentes")'.format(m, L['si'], C['si']), 'Hz')
     row = f0.split('$')[-1]
-    T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+    T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     T.res('w', 'Frequência angular', 'ω', '2*PI()*{}'.format(f['si']), 'rad/s')
     T.memo_heads()
     T.step('Reatância indutiva', 'XL = 2 × π × f × L', T.ok_text('IF({},"XL = 2 × π × "&{}&" Hz × "&{}&" H","não calculada")'.format(needL, t(f['si']), t(L['si']))),
@@ -695,11 +695,11 @@ def tab_impedance(wb):
     fp = T.res('fp', 'Fator de potência', 'FP', 'IF({0}=0,"indeterminado",{1}/{0})'.format(z, R['si']), '')
     for ref in (phi, fp):
         row = ref.split('$')[-1]
-        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     T.res('beh', 'Comportamento', '', 'IF({0}=0,"Curto-circuito ideal (Z = 0)",IF({1}>0,"Predominantemente indutivo",IF({1}<0,"Predominantemente capacitivo","Resistivo")))'.format(z, x), '', text=True)
     f0 = T.res('f0', 'Frequência de ressonância (RLC)', 'f0', 'IF({}="RLC",1/(2*PI()*SQRT({}*{})),"só no RLC")'.format(tp, L['si'], C['si']), 'Hz')
     row = f0.split('$')[-1]
-    T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+    T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     hasV = 'AND(NOT(ISBLANK({})),{}>0)'.format(V['v'], z)
     i = T.res('i', 'Corrente RMS', 'I', 'IF({},{}/{},"informe a tensão")'.format(hasV, V['si'], z), 'A', main=True)
     extra = []
@@ -710,7 +710,7 @@ def tab_impedance(wb):
         extra.append(ref)
     for ref in [i] + extra:
         row = ref.split('$')[-1]
-        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     zrow = z.split('$')[-1]
     T.ws['F' + zrow] = '=IF(AND({},{}=0),"Com R = 0 e XL = XC a impedância ideal é zero: curto-circuito. Ângulo, FP e corrente ficam indeterminados.","")'.format(T.ok, z)
     T.ws['F' + zrow].font = font(color='B45309', italic=True)
@@ -775,7 +775,7 @@ def power_tab(wb, three):
         pf = T.res('pf', 'Potência ativa por fase', 'Pfase', '{}/3'.format(p), 'W')
         zf = T.res('zf', 'Impedância por fase (módulo)', '|Zfase|', 'IF({1}>0,{0}/{1},"sem corrente")'.format(vf, ifs), OHM)
         row = zf.split('$')[-1]
-        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(ABS(E{0})<0.001,E{0},ROUND(E{0},CASAS)),E{0})'.format(row)
+        T.ws['C' + row] = '=IF(ISNUMBER(E{0}),IF(E{0}=0,0,IF(ABS(E{0})<0.001,ROUND(E{0},CASAS-1-INT(LOG10(ABS(E{0})))),ROUND(E{0},CASAS))),E{0})'.format(row)
     T.memo_heads()
     sv = 'VL' if three else 'V'
     si_ = 'IL' if three else 'I'

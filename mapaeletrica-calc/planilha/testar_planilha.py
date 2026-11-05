@@ -71,6 +71,8 @@ CASES = [
      lambda w: 'maior que zero' in status(w, '04 Resistores')),
     ('Resistores: 3 em série com kΩ (10 Ω + 20 Ω + 1 kΩ)', [('04 Resistores', 'R3', 3, 1), ('04 Resistores', 'R3', 4, 'k' + OHM)],
      lambda w: abs(result(w, '04 Resistores', 'Resistência equivalente') - 1030) < 1e-9),
+    ('Valor pequeno mantém 4 algarismos significativos (0,0003401 A)', [('05 Divisor de Tensão', 'Tensão de entrada', 3, 5), ('05 Divisor de Tensão', 'Resistência R1', 3, 10), ('05 Divisor de Tensão', 'Resistência R2', 3, 4.7)],
+     lambda w: result(w, '05 Divisor de Tensão', 'Corrente do circuito', 3) == 0.0003401 and abs(result(w, '05 Divisor de Tensão', 'Corrente do circuito') - 5 / 14700) < 1e-15),
     ('Frequência: 50 Hz dá T = 0,02 s', [('07 Frequência', 'Frequência', 3, 50)],
      lambda w: abs(result(w, '07 Frequência', 'Período') - 0.02) < 1e-15),
     ('Frequência: modo inverso, T = 20 ms dá 50 Hz', [('07 Frequência', 'O que você quer calcular?', 3, 'Calcular frequência'), ('07 Frequência', 'Frequência', 3, None), ('07 Frequência', 'Período', 3, 20), ('07 Frequência', 'Período', 4, 'ms')],
