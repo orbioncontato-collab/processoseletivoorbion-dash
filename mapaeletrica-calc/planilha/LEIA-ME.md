@@ -29,8 +29,14 @@ Tudo é fórmula: os resultados mudam na hora quando um valor muda. Se algum dad
 python3 gerar_planilha.py
 ```
 
+Depois de recalcular as fórmulas (por exemplo com o LibreOffice), rode a correção de links. Ela garante que os links da aba Início levem para as abas da própria planilha, e não para o navegador:
+
+```bash
+python3 corrigir_links.py MapaEletrica-Calc.xlsx
+```
+
 ```bash
 python3 testar_planilha.py MapaEletrica-Calc.xlsx caminho/para/recalc.py
 ```
 
-O teste muda entradas, recalcula no LibreOffice e confere 28 casos (bateria obrigatória, modos e mensagens de erro). Última execução: 28 de 28 passaram, 313 fórmulas e nenhum erro de fórmula.
+O teste muda entradas, recalcula no LibreOffice e confere 29 casos (bateria obrigatória, modos, mensagens de erro e links internos). Última execução: 29 de 29 passaram, 313 fórmulas e nenhum erro de fórmula.

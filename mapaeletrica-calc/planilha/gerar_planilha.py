@@ -12,6 +12,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.workbook.defined_name import DefinedName
+from openpyxl.worksheet.hyperlink import Hyperlink
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'MapaEletrica-Calc.xlsx'
 
@@ -297,7 +298,8 @@ class Tab:
         self.ws.merge_cells(start_row=self.r, start_column=1, end_row=self.r, end_column=7)
         c = self.ws.cell(self.r, 1, 'Ferramenta educacional. Os resultados não substituem normas técnicas, projetos, medições nem profissionais habilitados.')
         c.font = font(color=MUTED, italic=True, size=9)
-        self.ws.cell(self.r + 1, 1, '← Voltar ao Início').hyperlink = "#'Início'!A1"
+        back = self.ws.cell(self.r + 1, 1, '← Voltar ao Início')
+        back.hyperlink = Hyperlink(ref=back.coordinate, location="'Início'!A1", display='Voltar ao Início')
         self.ws.cell(self.r + 1, 1).font = font(color=BLUE, underline='single')
         self.ws.freeze_panes = 'A4'
         self.ws.print_options.horizontalCentered = True
@@ -940,7 +942,7 @@ def tab_home(wb):
     for i, (tab, cat, desc) in enumerate(calcs, 1):
         ws.cell(r, 1, '{:02d}'.format(i)).font = font(bold=True, color=MUTED)
         c = ws.cell(r, 2, tab)
-        c.hyperlink = "#'{}'!A1".format(tab)
+        c.hyperlink = Hyperlink(ref=c.coordinate, location="'{}'!A1".format(tab), display=tab)
         c.font = font(bold=True, color=BLUE, underline='single')
         ws.cell(r, 3, cat).font = font(color=MUTED)
         ws.cell(r, 4, desc).font = font()

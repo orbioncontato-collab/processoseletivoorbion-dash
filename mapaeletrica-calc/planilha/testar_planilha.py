@@ -104,6 +104,23 @@ CASES = [
 ]
 
 fails = 0
+
+# Links da aba Início e "Voltar ao Início": precisam ser internos (location), sem endereço externo.
+import re, zipfile
+sheet_names = load_workbook(SRC, read_only=True).sheetnames
+bad, count = [], 0
+with zipfile.ZipFile(SRC) as z:
+    for n in z.namelist():
+        if re.match(r'xl/worksheets/sheet\d+\.xml$', n):
+            for tag in re.findall(r'<hyperlink\b[^>]*>', z.read(n).decode('utf-8')):
+                count += 1
+                loc = re.search(r'location="([^"]*)"', tag)
+                target = loc.group(1).replace('&apos;', "'").rsplit('!', 1)[0].strip("'") if loc else None
+                if 'r:id=' in tag or target not in sheet_names:
+                    bad.append(tag)
+ok = count >= 24 and not bad
+fails += not ok
+print(('ok    ' if ok else 'FALHA ') + 'Links internos levam para abas existentes ({} links)'.format(count) + ('' if ok else ': ' + str(bad[:3])))
 for name, changes, check in CASES:
     info, wb = run_case(changes)
     ok = info.get('status') == 'success' and info.get('total_errors') == 0
@@ -114,5 +131,5 @@ for name, changes, check in CASES:
         name += ' (' + repr(e) + ')'
     fails += not ok
     print(('ok    ' if ok else 'FALHA ') + name)
-print('\n{} de {} casos passaram.'.format(len(CASES) - fails, len(CASES)))
+print('\n{} de {} casos passaram.'.format(len(CASES) + 1 - fails, len(CASES) + 1))
 sys.exit(1 if fails else 0)
