@@ -19,6 +19,10 @@ Aplicativo web com 12 calculadoras para estudantes de Engenharia Elétrica. Cada
 
 `planilha/MapaEletrica-Calc.xlsx` traz as mesmas 12 calculadoras em fórmulas, para abrir no Planilhas Google ou no Excel. Instruções em `planilha/LEIA-ME.md`.
 
+## Publicar no GitHub e na Vercel
+
+O projeto já vem com `vercel.json` (build `node scripts/build.js`, saída `dist`). Passo a passo em `docs/PUBLICAR-GITHUB-VERCEL.md`. Instruções para o Codex em `AGENTS.md`.
+
 ## Demonstração e guias visuais
 
 | Arquivo | O que é |

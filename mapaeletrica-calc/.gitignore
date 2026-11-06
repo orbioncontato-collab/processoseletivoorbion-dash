@@ -1,2 +1,5 @@
+node_modules/
+.vercel/
 demo/.video-tmp/
 demo/.guia-app.html
+.DS_Store
