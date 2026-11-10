@@ -14,7 +14,8 @@ sem estrutura "não é X, é Y".
 - Passo 01 voice.md: feito
 - Passo 02 perfil: feito (destaques sendo gravados pelo Marcelo)
 - Passo 03 análise: feito (faltam retenção e seguidores por post, opcional)
-- **Passo 04 pesquisa viral (/ig-viral): FAZER AGORA, navegando no Chrome do Marcelo com a extensão Claude in Chrome**
+- Passo 04 pesquisa viral: feito 10/nov (`captured.tsv`, `swipe.md`). 40 reels, 17 contas, 14 carrosséis.
+- **Próximo: produzir o carrossel RAIOX novo com /ig-carousel usando o formato 1 do `swipe.md`**
 
 ## Passo 04: como fazer
 Ler `.claude/skills/ig-viral/SKILL.md`. Navegar em velocidade humana, sem
