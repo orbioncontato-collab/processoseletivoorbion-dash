@@ -18,7 +18,16 @@
 | stories | 5/6 | story ativo hoje |
 
 ## Pendências
-- trocar bio (opção A ou B)
-- fixar: RAIOX / 5 cadeiras / Reel de apresentação (gravar)
+- trocar bio para a versão escolhida (abaixo) e medir 14 dias: visitas ao perfil, % que segue, nº de RAIOX no direct
+- ativar gatilho RAIOX no direct (além de comentário) no ManyChat
+- fixados: sai foto G4, entra carrossel RAIOX; script de follow-up fica até a análise; Reel de apresentação a gravar
 - criar 5 destaques: Diagnóstico, Resultados, Método, Bastidores, Quem sou
 - link direto para o diagnóstico
+
+## Bio escolhida (10/nov)
+```
+Pro dono que ainda carrega as vendas.
+Fiz meu comercial bater meta sem mim.
+Depois, o de +320 empresas.
+↓ Me manda RAIOX no direct
+```
