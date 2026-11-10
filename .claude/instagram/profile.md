@@ -31,3 +31,19 @@ Fiz meu comercial bater meta sem mim.
 Depois, o de +320 empresas.
 ↓ Me manda RAIOX no direct
 ```
+
+## Atualização 10/nov (fim do passo 02)
+- Bio nova: FEITO
+- Link: orbionsales.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio (página da solução + botão falar com especialista). OK.
+- Foto G4: FICA fixada (autoridade, persona tem Tallis Gomes e Alfredo Soares como referência).
+- Fixado "follow-up para cliente que sumiu" = carrossel "34" de 3/nov (77 mil views, 2,9 mil curtidas, 1,3 mil coment., 5 mil compart.). Fica até a análise.
+- Carrossel RAIOX: refazer com layout novo e fixar depois (no lugar da foto solo ou do 34, decidir na análise).
+- Destaques: pendente (precisa de stories).
+
+## Linha de base (30 dias, 10/out a 9/nov/2026)
+- Visualizações: 121.769 (-43,8%) | Visualizadores: 53.916
+- Posts 81 mil, Reels 21 mil, Stories 13 mil
+- Seguidores: 18.221 | novos +664 | líquido +238 (cerca de 426 deixaram de seguir)
+- Curtidas 3,7 mil | coment. 1,4 mil | compart. 5,2 mil | salvam. 2,8 mil
+- Público: 60,4% mulheres | 25-34: 35,6% | 35-44: 32,6% | 18-24: 5,2%
+- Visitas ao perfil: a confirmar
