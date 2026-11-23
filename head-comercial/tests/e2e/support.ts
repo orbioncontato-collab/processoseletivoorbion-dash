@@ -55,3 +55,49 @@ export async function waitForConfirmLink(to: string, timeoutMs = 20_000): Promis
   }
   throw new Error(`Nenhum e-mail com link de confirmação chegou para ${to}.`);
 }
+
+export interface SeededUser {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+}
+
+/**
+ * Cria uma empresa com líder e vendedores já com senha, direto pela API
+ * (sem passar pelo convite, que já é testado em onboarding.spec.ts).
+ */
+export async function seedCompanyWithTeam(tag: string, sellers = 2) {
+  const url = required("NEXT_PUBLIC_SUPABASE_URL");
+  const key = required("SUPABASE_SECRET_KEY");
+  const admin = createClient(url, key, { auth: { persistSession: false } });
+
+  const { data: company, error } = await admin
+    .from("companies")
+    .insert({ name: `Comercial ${tag}`, slug: `comercial-${tag}` })
+    .select("id, name")
+    .single();
+  if (error || !company) throw new Error(`Falha ao criar empresa: ${error?.message}`);
+
+  async function user(role: "leader" | "seller", name: string): Promise<SeededUser> {
+    const email = `${role}-${name.split(" ")[0].toLowerCase()}-${tag}@empresa.test`;
+    const password = "Teste12345";
+    const { data, error: e } = await admin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: { full_name: name },
+    });
+    if (e || !data.user) throw new Error(`Falha ao criar ${email}: ${e?.message}`);
+    const { error: m } = await admin
+      .from("memberships")
+      .insert({ company_id: company!.id, user_id: data.user.id, role });
+    if (m) throw new Error(`Falha ao vincular ${email}: ${m.message}`);
+    return { id: data.user.id, email, password, name };
+  }
+
+  const leader = await user("leader", "Laura Líder");
+  const team: SeededUser[] = [];
+  for (let i = 0; i < sellers; i++) team.push(await user("seller", ["Sara Vendas", "Tiago Vendas"][i] ?? `Vendedor ${i}`));
+  return { companyId: company.id, companyName: company.name, leader, sellers: team };
+}
