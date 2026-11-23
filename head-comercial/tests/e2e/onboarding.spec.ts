@@ -1,4 +1,11 @@
 import { expect, test, type Browser, type Page } from "@playwright/test";
+
+/**
+ * O Next.js 16 guarda telas visitadas escondidas na memória (para voltar rápido).
+ * Por isso procuramos sempre só os campos visíveis.
+ */
+const field = (page: Page, label: string) =>
+  page.getByLabel(label, { exact: true }).filter({ visible: true });
 import { createPlatformAdmin, waitForConfirmLink } from "./support";
 
 /**
@@ -21,8 +28,8 @@ let sellerPage: Page;
 
 async function login(page: Page, email: string, password: string) {
   await page.goto("/entrar");
-  await page.getByLabel("E-mail").fill(email);
-  await page.getByLabel("Senha").fill(password);
+  await field(page, "E-mail").fill(email);
+  await field(page, "Senha").fill(password);
   await page.getByRole("button", { name: "Entrar" }).click();
 }
 
@@ -31,8 +38,8 @@ async function acceptInvite(browser: Browser, email: string, password: string) {
   const page = await (await browser.newContext()).newPage();
   await page.goto(link);
   await expect(page).toHaveURL(/\/definir-senha/);
-  await page.getByLabel("Nova senha").fill(password);
-  await page.getByLabel("Repita a senha").fill(password);
+  await field(page, "Nova senha").fill(password);
+  await field(page, "Repita a senha").fill(password);
   await page.getByRole("button", { name: "Salvar senha e entrar" }).click();
   await expect(page).toHaveURL(/\/inicio/);
   return page;
@@ -44,7 +51,7 @@ test.beforeAll(async () => {
 
 test("senha errada mostra mensagem genérica", async ({ page }) => {
   await login(page, ADMIN.email, "senhaErrada1");
-  await expect(page.getByText("E-mail ou senha incorretos.")).toBeVisible();
+  await expect(page.getByText("E-mail ou senha incorretos.").filter({ visible: true })).toBeVisible();
 });
 
 test("admin cria empresa e convida o líder", async ({ browser }) => {
@@ -53,41 +60,41 @@ test("admin cria empresa e convida o líder", async ({ browser }) => {
   // Admin sem empresa vai direto para a administração.
   await expect(adminPage).toHaveURL(/\/admin\/empresas/);
 
-  await adminPage.getByLabel("Nome da empresa").fill(COMPANY);
+  await field(adminPage, "Nome da empresa").fill(COMPANY);
   await adminPage.getByRole("button", { name: "Criar empresa" }).click();
   await expect(adminPage.getByRole("heading", { name: COMPANY })).toBeVisible();
 
-  await adminPage.getByLabel("Nome", { exact: true }).fill(LEADER.name);
-  await adminPage.getByLabel("E-mail").fill(LEADER.email);
-  await adminPage.getByLabel("Papel").selectOption("leader");
+  await field(adminPage, "Nome").fill(LEADER.name);
+  await field(adminPage, "E-mail").fill(LEADER.email);
+  await field(adminPage, "Papel").selectOption("leader");
   await adminPage.getByRole("button", { name: "Enviar convite" }).click();
-  await expect(adminPage.getByText(`Convite enviado para ${LEADER.email}.`)).toBeVisible();
-  await expect(adminPage.getByText("Convites aguardando")).toBeVisible();
+  await expect(adminPage.getByText(`Convite enviado para ${LEADER.email}.`).filter({ visible: true })).toBeVisible();
+  await expect(adminPage.getByText("Convites aguardando").filter({ visible: true })).toBeVisible();
 });
 
 test("líder aceita o convite e entra na empresa", async ({ browser }) => {
   leaderPage = await acceptInvite(browser, LEADER.email, LEADER.password);
   await expect(leaderPage.getByRole("heading", { name: "Olá, Lia" })).toBeVisible();
-  await expect(leaderPage.getByText(`${COMPANY} · Líder`)).toBeVisible();
+  await expect(leaderPage.getByText(`${COMPANY} · Líder`).filter({ visible: true })).toBeVisible();
 });
 
 test("líder convida vendedor, que aceita e entra como vendedor", async ({ browser }) => {
   await leaderPage.goto("/equipe");
-  await leaderPage.getByLabel("Nome", { exact: true }).fill(SELLER.name);
-  await leaderPage.getByLabel("E-mail").fill(SELLER.email);
+  await field(leaderPage, "Nome").fill(SELLER.name);
+  await field(leaderPage, "E-mail").fill(SELLER.email);
   await leaderPage.getByRole("button", { name: "Enviar convite" }).click();
-  await expect(leaderPage.getByText(`Convite enviado para ${SELLER.email}.`)).toBeVisible();
+  await expect(leaderPage.getByText(`Convite enviado para ${SELLER.email}.`).filter({ visible: true })).toBeVisible();
 
   sellerPage = await acceptInvite(browser, SELLER.email, SELLER.password);
-  await expect(sellerPage.getByText(`${COMPANY} · Vendedor`)).toBeVisible();
+  await expect(sellerPage.getByText(`${COMPANY} · Vendedor`).filter({ visible: true })).toBeVisible();
 });
 
 test("convite repetido para quem já está na equipe é recusado", async () => {
   await leaderPage.goto("/equipe");
-  await leaderPage.getByLabel("Nome", { exact: true }).fill(SELLER.name);
-  await leaderPage.getByLabel("E-mail").fill(SELLER.email);
+  await field(leaderPage, "Nome").fill(SELLER.name);
+  await field(leaderPage, "E-mail").fill(SELLER.email);
   await leaderPage.getByRole("button", { name: "Enviar convite" }).click();
-  await expect(leaderPage.getByText("Essa pessoa já faz parte da equipe.")).toBeVisible();
+  await expect(leaderPage.getByText("Essa pessoa já faz parte da equipe.").filter({ visible: true })).toBeVisible();
 });
 
 test("vendedor não acessa páginas de líder nem de admin", async () => {
@@ -102,17 +109,17 @@ test("vendedor não acessa páginas de líder nem de admin", async () => {
 
 test("histórico mostra quem fez cada ação", async () => {
   await leaderPage.goto("/historico");
-  await expect(leaderPage.getByText(`${SELLER.name} entrou na equipe como vendedor`)).toBeVisible();
-  await expect(leaderPage.getByText(`Convite enviado para ${SELLER.email} como vendedor`)).toBeVisible();
-  await expect(leaderPage.getByText(`por ${LEADER.name}`).first()).toBeVisible();
-  await expect(leaderPage.getByText(`Empresa ${COMPANY} criada`)).toBeVisible();
+  await expect(leaderPage.getByText(`${SELLER.name} entrou na equipe como vendedor`).filter({ visible: true })).toBeVisible();
+  await expect(leaderPage.getByText(`Convite enviado para ${SELLER.email} como vendedor`).filter({ visible: true })).toBeVisible();
+  await expect(leaderPage.getByText(`por ${LEADER.name}`).filter({ visible: true }).first()).toBeVisible();
+  await expect(leaderPage.getByText(`Empresa ${COMPANY} criada`).filter({ visible: true })).toBeVisible();
 });
 
 test("líder desativa o vendedor e o acesso é cortado", async () => {
   await leaderPage.goto("/equipe");
   const row = leaderPage.getByRole("row", { name: new RegExp(SELLER.name) });
   await row.getByRole("button", { name: "Desativar" }).click();
-  await expect(row.getByText("Desativado")).toBeVisible();
+  await expect(row.getByText("Desativado").filter({ visible: true })).toBeVisible();
 
   await sellerPage.goto("/inicio");
   await expect(sellerPage).toHaveURL(/\/sem-acesso/);
@@ -120,7 +127,7 @@ test("líder desativa o vendedor e o acesso é cortado", async () => {
 
 test("troca de nome no perfil", async () => {
   await leaderPage.goto("/perfil");
-  await leaderPage.getByLabel("Nome").fill("Lia Souza");
+  await field(leaderPage, "Nome").fill("Lia Souza");
   await leaderPage.getByRole("button", { name: "Salvar nome" }).click();
-  await expect(leaderPage.getByText("Nome atualizado.")).toBeVisible();
+  await expect(leaderPage.getByText("Nome atualizado.").filter({ visible: true })).toBeVisible();
 });

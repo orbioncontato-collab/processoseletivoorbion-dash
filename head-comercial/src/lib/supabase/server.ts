@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { publicEnv } from "@/lib/env";
 import type { Database } from "./database.types";
@@ -13,6 +14,9 @@ export async function createClient() {
   // Ler os cookies primeiro marca a página como dependente do usuário,
   // então ela não é pré-gerada no build.
   const cookieStore = await cookies();
+  // A sessão verifica a validade do token com o relógio (Date.now). connection()
+  // avisa o Next.js que isso só pode acontecer na hora da visita, nunca em pré-carregamento.
+  await connection();
   const env = publicEnv();
 
   return createServerClient<Database>(
