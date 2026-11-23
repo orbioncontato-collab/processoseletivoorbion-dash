@@ -1,0 +1,75 @@
+name: Head Comercial · CI
+
+on:
+  push:
+    paths:
+      - "head-comercial/**"
+      - ".github/workflows/head-comercial-ci.yml"
+  pull_request:
+    paths:
+      - "head-comercial/**"
+      - ".github/workflows/head-comercial-ci.yml"
+
+concurrency:
+  group: head-comercial-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: head-comercial
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: head-comercial/package-lock.json
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint e tipos
+        run: |
+          npm run lint
+          npx next typegen
+          npm run typecheck
+
+      - name: Testes de unidade
+        run: npm test
+
+      - name: Subir Supabase local
+        run: npx supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor,realtime,storage-api,postgres-meta
+
+      - name: Variáveis do Supabase local
+        run: node scripts/ci-supabase-env.mjs >> "$GITHUB_ENV"
+
+      - name: Testes de isolamento (RLS) no Supabase real
+        run: npm run test:db
+
+      - name: Build
+        run: npm run build
+
+      - name: Testes de ponta a ponta
+        run: |
+          npx playwright install --with-deps chromium
+          (npm start -- -p 3000 > next.log 2>&1 &)
+          for i in $(seq 1 60); do curl -sf -o /dev/null http://127.0.0.1:3000/entrar && break; sleep 1; done
+          npm run test:e2e
+
+      - name: Logs do app em caso de falha
+        if: failure()
+        run: tail -n 200 next.log || true
+
+      - name: Relatório do Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: head-comercial/playwright-report
+          retention-days: 7
