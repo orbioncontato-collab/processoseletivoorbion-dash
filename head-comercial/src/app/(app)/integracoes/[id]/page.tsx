@@ -15,6 +15,7 @@ import { getStages } from "@/modules/commercial/queries";
 import { setSourceStatus } from "@/modules/integrations/actions";
 import { PROVIDER_LABELS, ReprocessForm, RotateKeyForm, StageMapForm } from "@/modules/integrations/components/forms";
 import { EVENT_LABELS, EVENT_STATUS, KIND_LABELS, SOURCE_STATUS } from "@/modules/integrations/labels";
+import { WhatsappPanel } from "@/modules/integrations/components/whatsapp";
 
 export const metadata: Metadata = { title: "Conexão" };
 
@@ -28,7 +29,7 @@ export default async function SourcePage({ params }: PageProps<"/integracoes/[id
   const supabase = await createClient();
   const { data: source } = await supabase
     .from("integration_sources")
-    .select("id, name, kind, provider, status, config, secret_hint, last_event_at, last_error, created_at")
+    .select("id, name, kind, provider, status, config, secret_hint, last_event_at, last_error, created_at, owner_user_id")
     .eq("id", id)
     .eq("company_id", company.companyId)
     .maybeSingle();
@@ -57,6 +58,7 @@ export default async function SourcePage({ params }: PageProps<"/integracoes/[id
   ];
   const failedCount = failedRes.data?.length ?? 0;
   const hasKey = source.kind === "webhook" || source.kind === "crm";
+  const isWhatsapp = source.kind === "whatsapp_device";
   const endpoint = `${publicEnv().NEXT_PUBLIC_SITE_URL}/api/webhooks/ingest/${source.id}`;
   const st = SOURCE_STATUS[source.status] ?? SOURCE_STATUS.active;
 
@@ -97,7 +99,21 @@ export default async function SourcePage({ params }: PageProps<"/integracoes/[id
         </Card>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      {isWhatsapp ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Conexão do WhatsApp</CardTitle>
+            <CardDescription>
+              {source.last_error ? `Último aviso: ${source.last_error}` : "Somente leitura: o Head não envia mensagens."}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <WhatsappPanel sourceId={source.id} status={source.status} />
+          </CardContent>
+        </Card>
+      ) : null}
+
+      <div className={isWhatsapp ? "hidden" : "grid gap-6 lg:grid-cols-2"}>
         {hasKey ? (
           <Card>
             <CardHeader>

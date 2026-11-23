@@ -10,6 +10,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { CreateSourceForm, ImportCsvForm, PROVIDER_LABELS } from "@/modules/integrations/components/forms";
 import { KIND_LABELS, SOURCE_STATUS } from "@/modules/integrations/labels";
+import { CreateWhatsappForm } from "@/modules/integrations/components/whatsapp";
+import { evolutionConfig } from "@/modules/integrations/evolution-client";
+import { getTeam } from "@/modules/commercial/queries";
 
 export const metadata: Metadata = { title: "Integrações" };
 
@@ -19,13 +22,18 @@ export default async function IntegrationsPage() {
   const [sources, failedRes] = await Promise.all([
     supabase
       .from("integration_sources")
-      .select("id, name, kind, provider, status, last_event_at, last_error")
+      .select("id, name, kind, provider, status, last_event_at, last_error, owner_user_id")
       .eq("company_id", company.companyId)
       .is("archived_at", null)
       .order("created_at"),
     supabase.from("raw_events").select("source_id").eq("company_id", company.companyId).eq("status", "failed").limit(5000),
   ]);
   if (sources.error) throw new Error("Não foi possível carregar as integrações.");
+  const team = await getTeam(company.companyId);
+  const whatsappOwners = new Set(
+    (sources.data ?? []).filter((s) => s.kind === "whatsapp_device").map((s) => s.owner_user_id),
+  );
+  const sellersWithout = team.filter((t) => !whatsappOwners.has(t.userId)).map((t) => ({ id: t.userId, name: t.name }));
   const failedBySource = new Map<string, number>();
   for (const e of failedRes.data ?? []) failedBySource.set(e.source_id, (failedBySource.get(e.source_id) ?? 0) + 1);
 
@@ -80,6 +88,28 @@ export default async function IntegrationsPage() {
             </Table>
           ) : (
             <p className="p-6 text-sm text-muted-foreground">Nenhuma conexão ainda. Crie a primeira abaixo.</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>WhatsApp por QR Code</CardTitle>
+          <CardDescription>
+            Conecta o WhatsApp do vendedor (celular e WhatsApp Web continuam funcionando normalmente) para capturar as
+            conversas comerciais.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {!evolutionConfig() ? (
+            <p className="text-sm text-muted-foreground">
+              O servidor que faz a ponte com o WhatsApp ainda não foi configurado. Assim que ele estiver no ar, esta
+              opção fica disponível.
+            </p>
+          ) : sellersWithout.length ? (
+            <CreateWhatsappForm sellers={sellersWithout} />
+          ) : (
+            <p className="text-sm text-muted-foreground">Todas as pessoas da equipe já têm conexão de WhatsApp.</p>
           )}
         </CardContent>
       </Card>

@@ -16,6 +16,7 @@ export async function Sidebar() {
     items.push({ href: "/oportunidades", label: "Oportunidades", icon: "deals" });
     items.push({ href: "/contatos", label: "Contatos", icon: "contacts" });
     items.push({ href: "/conversas", label: "Conversas", icon: "chat" });
+    items.push({ href: "/meu-whatsapp", label: "Meu WhatsApp", icon: "phone" });
     if (company.role === "leader") {
       items.push({ href: "/equipe", label: "Equipe", icon: "users" });
       items.push({ href: "/funil", label: "Funil", icon: "pipeline" });
