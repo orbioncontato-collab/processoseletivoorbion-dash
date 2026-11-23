@@ -32,10 +32,20 @@ O Head Comercial será um aplicativo novo. O dashboard de processo seletivo atua
 **Motivo:** produtos diferentes, com usuários e dados diferentes.
 **Decidido pelo proprietário em 2026-11-23:** repositório novo no GitHub, criado pelo proprietário.
 
-## D008 · 2026-11-23 · WhatsApp pela API oficial em coexistência
-Os vendedores usam o app WhatsApp Business no próprio celular, cada um com o próprio número. A captura será pela API oficial da Meta (Cloud API) no modo coexistência: o vendedor continua usando o app e o sistema recebe as mensagens recebidas e as enviadas.
-**Motivo:** caminho oficial, sem risco de bloqueio do número, sem mudar a rotina do vendedor.
-**Consequências:** precisa de app na Meta, verificação da empresa e cadastro de cada número pelo fluxo de Embedded Signup. O conector fica isolado na camada de integrações (D004).
+## D008 · 2026-11-23 · WhatsApp com dois modos de conexão (revisada)
+A equipe da Orbion usa WhatsApp no celular e no WhatsApp Web, junto com o GHL, sem API. Outras empresas podem já usar a API oficial. Por isso cada número pode ser conectado de um destes jeitos:
+
+1. **Modo API oficial:** para quem já usa ou quer usar a Cloud API da Meta. O sistema recebe as mensagens pelo webhook oficial.
+2. **Modo aparelho (QR Code):** para quem usa o WhatsApp normal no celular e no Web. O vendedor lê um QR Code e o sistema vira mais um "aparelho conectado", igual ao WhatsApp Web. O vendedor continua usando celular e Web do mesmo jeito. Usaremos a Evolution API (código aberto) hospedada por nós.
+
+**Regras do modo aparelho no MVP:**
+- O sistema só lê. Nenhuma mensagem sai do sistema por esse modo. Isso reduz bastante o risco de bloqueio.
+- É uma conexão não oficial. Vai contra os termos do WhatsApp e existe risco de o número ser bloqueado. A tela de conexão mostra esse aviso e registra quem aceitou e quando.
+- Grupos ficam fora da captura no MVP. Só conversas individuais.
+
+**Motivo:** atender a operação da Orbion como ela funciona hoje e deixar o caminho oficial pronto para quem já usa API.
+**Consequências:** o modo aparelho precisa de um servidor pequeno ligado o tempo todo (a Vercel não roda esse tipo de serviço). Custo estimado entre 5 e 20 dólares por mês. Vai precisar da autorização do proprietário na Fase 2.
+**Substitui:** a versão anterior desta decisão, que previa apenas a API oficial em coexistência. A coexistência continua possível dentro do modo API oficial, para quem usa o app WhatsApp Business.
 
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.

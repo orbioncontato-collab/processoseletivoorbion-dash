@@ -35,7 +35,7 @@ Projeto novo, padrão visual, Supabase local, login, convite, empresas, papéis,
 Funil configurável, contatos, oportunidades, próximos passos, objeções, encerramento com motivo, histórico de alterações. Primeira versão dos painéis com dados reais.
 
 ### Fase 2: Captura
-Camada de integrações (entrada bruta, processador, webhook genérico). Conector de WhatsApp. Conversas, mensagens, ligação com contato, vendedor e oportunidade. Métricas diárias (interações, tempo de resposta, clientes aguardando retorno).
+Camada de integrações (entrada bruta, processador, webhook genérico). WhatsApp em dois modos: aparelho por QR Code (primeiro, porque é o que a Orbion usa) e API oficial. Tela de conexões com status de cada número. Conversas, mensagens, ligação com contato, vendedor e oportunidade. Métricas diárias (interações, tempo de resposta, clientes aguardando retorno).
 
 ### Fase 3: Relatórios e cruzamento
 Editor de modelos de relatório no admin, agendamento por horário, preenchimento, lembretes, regras de cruzamento e divergências com justificativa.
@@ -68,4 +68,4 @@ Maturidade comercial, primeira versão do Analista de Receita, termos e aviso de
 
 ## Observação sobre a ordem
 
-Se a liberação do WhatsApp pela Meta demorar (verificação da empresa pode levar dias), a Fase 3 começa antes da Fase 2. O cruzamento já fica pronto e passa a funcionar assim que a captura entrar.
+O modo aparelho não depende de aprovação da Meta, então a captura da Orbion pode começar logo na Fase 2. O modo API oficial pode ser terminado depois, quando o primeiro cliente que usa API entrar.

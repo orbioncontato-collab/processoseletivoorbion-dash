@@ -132,6 +132,21 @@ Toda fonte externa segue o mesmo caminho:
 
 Para adicionar uma ferramenta nova basta escrever um novo tradutor de eventos. O resto do sistema não muda. O WhatsApp é a primeira fonte. Um webhook genérico com chave por empresa fica pronto junto, para receber dados de qualquer ferramenta.
 
+### WhatsApp: dois modos por número
+
+| | Modo API oficial | Modo aparelho (QR Code) |
+|---|---|---|
+| Para quem | Empresas que já usam ou querem a Cloud API da Meta | Quem usa WhatsApp no celular e no WhatsApp Web |
+| Como conecta | Cadastro do número na Meta | Vendedor lê um QR Code no sistema |
+| Como os dados chegam | Webhook oficial da Meta | Evolution API (hospedada por nós) envia webhook para o sistema |
+| Rotina do vendedor | Depende de como a empresa usa a API | Nada muda: continua no celular e no Web |
+| Risco | Nenhum bloqueio por uso do sistema | Conexão não oficial, risco de bloqueio do número |
+| O sistema envia mensagens? | Não no MVP | Nunca no MVP |
+
+Os dois modos geram o mesmo formato interno: contato, conversa, mensagem (recebida ou enviada), horário e vendedor. Por isso divergências, alertas, métricas e agentes funcionam igual, seja qual for o modo.
+
+Cada número fica ligado a um vendedor em `integration_sources`. A tela de conexões mostra se cada número está conectado, desconectado ou com erro, e o Head gera alerta quando um número cai, porque sem conexão a captura para.
+
 ## Segurança
 
 - Senhas e sessões ficam com o Supabase Auth. Cookies seguros, sem token no armazenamento do navegador.

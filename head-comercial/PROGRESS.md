@@ -11,7 +11,8 @@
 - Nada. Aguardando o repositório novo para iniciar a Fase 0.
 
 ## A verificar antes da Fase 2 (WhatsApp)
-- Confirmar na documentação da Meta: Brasil liberado para coexistência, exigência de ser Tech Provider, nomes dos campos de webhook (mensagens enviadas pelo app e histórico), limites do app depois da conexão. A tentativa de 2026-11-23 falhou porque a rede desta sessão bloqueia developers.facebook.com. Nada foi confirmado ainda.
+- Modo aparelho (QR Code, Evolution API): escolher onde hospedar e pedir autorização do gasto ao proprietário.
+- Modo API oficial: confirmar na documentação da Meta: Brasil liberado para coexistência, exigência de ser Tech Provider, nomes dos campos de webhook (mensagens enviadas pelo app e histórico), limites do app depois da conexão. A tentativa de 2026-11-23 falhou porque a rede desta sessão bloqueia developers.facebook.com. Nada foi confirmado ainda.
 
 ## Pendente
 - Fases 0 a 9 (ver ROADMAP.md).
