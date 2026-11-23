@@ -35,7 +35,7 @@ Projeto novo, padrão visual, Supabase local, login, convite, empresas, papéis,
 Funil configurável, contatos, oportunidades, próximos passos, objeções, encerramento com motivo, histórico de alterações. Primeira versão dos painéis com dados reais.
 
 ### Fase 2: Captura
-Camada de integrações (entrada bruta, processador, webhook genérico). WhatsApp em dois modos: aparelho por QR Code (primeiro, porque é o que a Orbion usa) e API oficial. Tela de conexões com status de cada número. Conector opcional do GHL (contatos, oportunidades e mudanças de etapa), usado pela operação da Orbion. Conversas, mensagens, ligação com contato, vendedor e oportunidade. Métricas diárias (interações, tempo de resposta, clientes aguardando retorno).
+Camada de integrações (entrada bruta, processador, webhook genérico). WhatsApp em dois modos: aparelho por QR Code (primeiro, porque é o que a Orbion usa) e API oficial. Tela de conexões com status de cada número. Conexão com CRM: formato padrão, tela de mapeamento de etapas e campos, webhook e API de entrada, importação por planilha e o primeiro conector nativo (o CRM da operação piloto). Conversas, mensagens, ligação com contato, vendedor e oportunidade. Métricas diárias (interações, tempo de resposta, clientes aguardando retorno).
 
 ### Fase 3: Relatórios e cruzamento
 Editor de modelos de relatório no admin, agendamento por horário, preenchimento, lembretes, regras de cruzamento e divergências com justificativa.
@@ -64,7 +64,7 @@ Maturidade comercial, primeira versão do Analista de Receita, termos e aviso de
 
 **MVP para clientes convidados (Fases 8 e 9):** acrescenta documentos versionados, planos de ação, demais agentes, maturidade e a preparação de segurança e privacidade para receber dados de outras empresas.
 
-**Depois do MVP:** cobrança e assinaturas, conectores para outros CRMs (RD Station, Pipedrive, HubSpot e outros), alertas por padrão estatístico, notificações por WhatsApp e e-mail, Analista de Receita completo, aplicativo para celular.
+**Depois do MVP:** cobrança e assinaturas, novos conectores nativos de CRM conforme a demanda dos clientes, alertas por padrão estatístico, notificações por WhatsApp e e-mail, Analista de Receita completo, aplicativo para celular.
 
 ## Observação sobre a ordem
 

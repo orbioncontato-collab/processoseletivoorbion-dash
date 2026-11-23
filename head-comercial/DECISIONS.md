@@ -47,15 +47,22 @@ A equipe da Orbion usa WhatsApp no celular e no WhatsApp Web, junto com o GHL, s
 **Consequências:** o modo aparelho precisa de um servidor pequeno ligado o tempo todo (a Vercel não roda esse tipo de serviço). Custo estimado entre 5 e 20 dólares por mês. Vai precisar da autorização do proprietário na Fase 2.
 **Substitui:** a versão anterior desta decisão, que previa apenas a API oficial em coexistência. A coexistência continua possível dentro do modo API oficial, para quem usa o app WhatsApp Business.
 
-## D009 · 2026-11-23 · Oportunidades próprias, CRM externo como opcional
-O Head Comercial tem o próprio cadastro de contatos e oportunidades e funciona completo sem nenhum CRM externo. Quem comprar a licença pode não usar GHL nem outro CRM.
+## D009 · 2026-11-23 · Oportunidades próprias e conexão com qualquer CRM (revisada)
+O Head Comercial tem o próprio cadastro de contatos e oportunidades e funciona completo sem CRM nenhum. Quem usa um CRM (GHL, RD Station, Pipedrive, HubSpot, Kommo, Agendor, Salesforce ou qualquer outro) pode conectá-lo. Nenhum CRM é tratado como especial.
 
-O GHL (e futuramente outros CRMs) entra como conector opcional, ligado por empresa na tela de conexões:
-- Empresa sem CRM: vendedor e líder usam as oportunidades do Head Comercial.
-- Empresa com GHL conectado: o Head puxa contatos, oportunidades e mudanças de etapa do GHL. Esses campos ficam marcados como vindos do GHL e são atualizados por lá, para ninguém preencher duas vezes. Campos que só o Head tem (objeções, análise, próximos passos sugeridos) continuam editáveis no Head.
+**Como a conexão funciona, para qualquer CRM:**
+1. **Formato padrão do Head.** Existe um formato único para contato, oportunidade, etapa e mudança de etapa. Todo CRM é traduzido para esse formato. O resto do sistema só conhece o formato padrão.
+2. **Mapeamento por empresa.** Numa tela de configuração, a empresa diz qual etapa do CRM dela corresponde a qual etapa do Head e qual campo corresponde a qual campo (ex.: "Proposta enviada" no CRM dela vira a etapa "Proposta" no Head).
+3. **Três jeitos de os dados chegarem, do mais simples ao mais completo:**
+   - **Webhook e API do Head:** qualquer CRM que dispara webhook, ou ferramentas como Make, Zapier e n8n, envia os dados no formato padrão. Funciona com praticamente qualquer CRM desde o primeiro dia, sem programação nossa para cada um.
+   - **Importação por planilha (CSV):** para começar com o histórico ou para CRMs sem webhook.
+   - **Conectores nativos:** para os CRMs mais usados pelos clientes, um conector pronto que só pede a chave de acesso. Construídos aos poucos, conforme a demanda.
 
-**Motivo:** o produto precisa servir qualquer empresa, e a operação da Orbion, que usa GHL, não pode ter retrabalho.
-**Consequência:** o conector GHL entra na Fase 2, junto com o WhatsApp, porque é a fonte de oportunidades da operação interna.
+**Quem manda em cada dado:** quando um CRM está conectado, os campos que vêm dele ficam marcados com a origem e são atualizados por lá, para ninguém preencher duas vezes. Campos que só o Head tem (objeções, análises, próximos passos sugeridos) são editados no Head.
+
+**Primeiro conector nativo:** o da operação piloto. Hoje é o GHL, porque é o que a Orbion usa. Ele serve como primeiro exemplo do padrão e não recebe nenhum tratamento especial no código.
+
+**Motivo:** o produto precisa servir qualquer empresa, use ela um CRM ou não.
 
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.

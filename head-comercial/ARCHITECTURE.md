@@ -145,6 +145,25 @@ Para adicionar uma ferramenta nova basta escrever um novo tradutor de eventos. O
 
 Os dois modos geram o mesmo formato interno: contato, conversa, mensagem (recebida ou enviada), horário e vendedor. Por isso divergências, alertas, métricas e agentes funcionam igual, seja qual for o modo.
 
+### CRM: qualquer um, pelo mesmo caminho
+
+O Head não depende de CRM nenhum. Quando a empresa usa um, ele entra assim:
+
+```
+ CRM da empresa ──> (conector nativo | webhook/API do Head | planilha CSV)
+                         │
+                         v
+              Mapeamento da empresa (etapas e campos)
+                         │
+                         v
+              Formato padrão do Head (contato, oportunidade, etapa, mudança)
+```
+
+- `crm_mappings`: por empresa, liga cada etapa e campo do CRM dela a uma etapa e campo do Head.
+- `external_refs`: guarda o código do registro no CRM de origem, para atualizar o mesmo registro sem duplicar.
+- Cada campo sabe de onde veio. Campo vindo do CRM é atualizado pelo CRM. Campo exclusivo do Head é editado no Head.
+- Um conector nativo é só um tradutor do CRM para o formato padrão. Adicionar um CRM novo não muda nenhuma tela, regra ou agente.
+
 Cada número fica ligado a um vendedor em `integration_sources`. A tela de conexões mostra se cada número está conectado, desconectado ou com erro, e o Head gera alerta quando um número cai, porque sem conexão a captura para.
 
 ## Segurança
