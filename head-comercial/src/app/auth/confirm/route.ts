@@ -10,7 +10,7 @@ const OTP_TYPES: EmailOtpType[] = ["invite", "recovery", "email", "signup", "mag
  * Aceita os dois formatos do Supabase: token_hash (recomendado) e code (PKCE).
  */
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
+  const url = request.nextUrl;
   const tokenHash = url.searchParams.get("token_hash");
   const type = url.searchParams.get("type") as EmailOtpType | null;
   const code = url.searchParams.get("code");
@@ -29,6 +29,11 @@ export async function GET(request: NextRequest) {
     if (error) console.error("[auth/confirm] exchangeCode", error.message);
   }
 
-  const target = new URL(ok ? next : "/entrar?erro=link", url.origin);
-  return NextResponse.redirect(target);
+  // Redirecionamento relativo: o navegador completa com o endereço que já está
+  // usando. Montar o endereço completo no servidor pode trazer o nome interno
+  // (ex.: localhost) e aí o cookie de login gravado agora não acompanharia a pessoa.
+  return new NextResponse(null, {
+    status: 303,
+    headers: { Location: ok ? next : "/entrar?erro=link" },
+  });
 }
