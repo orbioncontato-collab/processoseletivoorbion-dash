@@ -85,6 +85,60 @@ export type Database = {
         };
         Relationships: [];
       };
+      contacts: {
+        Row: {
+          archived_at: string | null;
+          company_id: string;
+          created_at: string;
+          email: string | null;
+          id: string;
+          name: string;
+          notes: string | null;
+          organization: string | null;
+          owner_id: string;
+          phone_e164: string | null;
+          source: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id: string;
+          created_at?: string;
+          email?: string | null;
+          id?: string;
+          name: string;
+          notes?: string | null;
+          organization?: string | null;
+          owner_id: string;
+          phone_e164?: string | null;
+          source?: string;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string;
+          created_at?: string;
+          email?: string | null;
+          id?: string;
+          name?: string;
+          notes?: string | null;
+          organization?: string | null;
+          owner_id?: string;
+          phone_e164?: string | null;
+          source?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "contacts_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       invitations: {
         Row: {
           accepted_at: string | null;
@@ -172,6 +226,245 @@ export type Database = {
           },
         ];
       };
+      opportunities: {
+        Row: {
+          closed_at: string | null;
+          company_id: string;
+          contact_id: string;
+          created_at: string;
+          expected_close_date: string | null;
+          id: string;
+          last_activity_at: string;
+          lost_reason: string | null;
+          lost_reason_detail: string | null;
+          next_step: string | null;
+          next_step_at: string | null;
+          owner_id: string;
+          pipeline_id: string;
+          product: string | null;
+          source: string;
+          stage_id: string;
+          status: Database["public"]["Enums"]["opportunity_status"];
+          title: string;
+          updated_at: string;
+          value_cents: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          closed_at?: string | null;
+          company_id: string;
+          contact_id: string;
+          created_at?: string;
+          expected_close_date?: string | null;
+          id?: string;
+          last_activity_at?: string;
+          lost_reason?: string | null;
+          lost_reason_detail?: string | null;
+          next_step?: string | null;
+          next_step_at?: string | null;
+          owner_id: string;
+          pipeline_id: string;
+          product?: string | null;
+          source?: string;
+          stage_id: string;
+          status?: Database["public"]["Enums"]["opportunity_status"];
+          title: string;
+          updated_at?: string;
+          value_cents?: number;
+        };
+        Update: {
+          closed_at?: string | null;
+          company_id?: string;
+          contact_id?: string;
+          created_at?: string;
+          expected_close_date?: string | null;
+          id?: string;
+          last_activity_at?: string;
+          lost_reason?: string | null;
+          lost_reason_detail?: string | null;
+          next_step?: string | null;
+          next_step_at?: string | null;
+          owner_id?: string;
+          pipeline_id?: string;
+          product?: string | null;
+          source?: string;
+          stage_id?: string;
+          status?: Database["public"]["Enums"]["opportunity_status"];
+          title?: string;
+          updated_at?: string;
+          value_cents?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "opportunities_company_id_contact_id_fkey";
+            columns: ["company_id", "contact_id"];
+            isOneToOne: false;
+            referencedRelation: "contacts";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "opportunities_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "opportunities_company_id_pipeline_id_fkey";
+            columns: ["company_id", "pipeline_id"];
+            isOneToOne: false;
+            referencedRelation: "pipelines";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "opportunities_stage_id_fkey";
+            columns: ["stage_id"];
+            isOneToOne: false;
+            referencedRelation: "pipeline_stages";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      opportunity_objections: {
+        Row: {
+          category: string;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          description: string;
+          id: string;
+          opportunity_id: string;
+          status: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          category?: string;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          description: string;
+          id?: string;
+          opportunity_id: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          category?: string;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          description?: string;
+          id?: string;
+          opportunity_id?: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "opportunity_objections_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "opportunity_objections_opportunity_id_fkey";
+            columns: ["opportunity_id"];
+            isOneToOne: false;
+            referencedRelation: "opportunities";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      pipeline_stages: {
+        Row: {
+          archived_at: string | null;
+          company_id: string;
+          created_at: string;
+          id: string;
+          kind: Database["public"]["Enums"]["stage_kind"];
+          name: string;
+          pipeline_id: string;
+          position: number;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id: string;
+          created_at?: string;
+          id?: string;
+          kind?: Database["public"]["Enums"]["stage_kind"];
+          name: string;
+          pipeline_id: string;
+          position: number;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string;
+          created_at?: string;
+          id?: string;
+          kind?: Database["public"]["Enums"]["stage_kind"];
+          name?: string;
+          pipeline_id?: string;
+          position?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "pipeline_stages_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "pipeline_stages_company_id_pipeline_id_fkey";
+            columns: ["company_id", "pipeline_id"];
+            isOneToOne: false;
+            referencedRelation: "pipelines";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      pipelines: {
+        Row: {
+          company_id: string;
+          created_at: string;
+          id: string;
+          is_default: boolean;
+          name: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          created_at?: string;
+          id?: string;
+          is_default?: boolean;
+          name: string;
+          updated_at?: string;
+        };
+        Update: {
+          company_id?: string;
+          created_at?: string;
+          id?: string;
+          is_default?: boolean;
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "pipelines_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       platform_admins: {
         Row: {
           created_at: string;
@@ -223,6 +516,8 @@ export type Database = {
     Enums: {
       actor_type: "user" | "integration" | "automation" | "agent" | "system";
       member_role: "leader" | "seller";
+      opportunity_status: "open" | "won" | "lost";
+      stage_kind: "open" | "won" | "lost";
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -340,6 +635,8 @@ export const Constants = {
     Enums: {
       actor_type: ["user", "integration", "automation", "agent", "system"],
       member_role: ["leader", "seller"],
+      opportunity_status: ["open", "won", "lost"],
+      stage_kind: ["open", "won", "lost"],
     },
   },
 } as const;

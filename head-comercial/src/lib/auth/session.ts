@@ -11,6 +11,7 @@ export interface CompanyMembership {
   companyId: string;
   companyName: string;
   companySlug: string;
+  timezone: string;
   role: MemberRole;
 }
 
@@ -45,7 +46,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     supabase.from("platform_admins").select("user_id").eq("user_id", userId).maybeSingle(),
     supabase
       .from("memberships")
-      .select("role, company_id, companies(name, slug)")
+      .select("role, company_id, companies(name, slug, timezone)")
       .eq("user_id", userId)
       .eq("status", "active"),
   ]);
@@ -66,6 +67,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
       companyId: m.company_id,
       companyName: m.companies!.name,
       companySlug: m.companies!.slug,
+      timezone: m.companies!.timezone,
       role: m.role,
     }))
     .sort((a, b) => a.companyName.localeCompare(b.companyName, "pt-BR"));

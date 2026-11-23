@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Building2, History, Home, UserCircle, Users, type LucideIcon } from "lucide-react";
+import { Building2, Contact, Handshake, History, Home, Kanban, UserCircle, Users, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
   href: string;
   label: string;
-  icon: "home" | "users" | "history" | "building" | "user";
+  icon: "home" | "users" | "history" | "building" | "user" | "deals" | "contacts" | "pipeline";
 }
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
@@ -17,6 +17,9 @@ const ICONS: Record<NavItem["icon"], LucideIcon> = {
   history: History,
   building: Building2,
   user: UserCircle,
+  deals: Handshake,
+  contacts: Contact,
+  pipeline: Kanban,
 };
 
 export function NavLinks({ items }: { items: NavItem[] }) {
