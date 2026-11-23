@@ -171,3 +171,16 @@ export function dueState(
   const day = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone }).format(d);
   return day(due) === day(now) ? "today" : "future";
 }
+
+/** Duração curta e legível: 45 -> "menos de 1 min"; 1050 -> "18 min"; 5400 -> "1 h 30 min". */
+export function formatDuration(seconds: number | null | undefined): string {
+  if (seconds == null) return "-";
+  if (seconds < 60) return "menos de 1 min";
+  const totalMin = Math.round(seconds / 60);
+  if (totalMin < 60) return `${totalMin} min`;
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  if (h < 24) return m ? `${h} h ${m} min` : `${h} h`;
+  const d = Math.floor(h / 24);
+  return `${d} dia${d > 1 ? "s" : ""}`;
+}

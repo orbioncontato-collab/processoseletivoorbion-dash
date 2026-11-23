@@ -101,3 +101,26 @@ export async function seedCompanyWithTeam(tag: string, sellers = 2) {
   for (let i = 0; i < sellers; i++) team.push(await user("seller", ["Sara Vendas", "Tiago Vendas"][i] ?? `Vendedor ${i}`));
   return { companyId: company.id, companyName: company.name, leader, sellers: team };
 }
+
+/** Cria uma fonte já com chave (ex.: WhatsApp de um vendedor) e devolve id e chave. */
+export async function seedSource(companyId: string, kind: string, name: string, ownerUserId: string | null) {
+  const { createHash, randomBytes } = await import("node:crypto");
+  const key = `hc_${randomBytes(24).toString("base64url")}`;
+  const admin = createClient(required("NEXT_PUBLIC_SUPABASE_URL"), required("SUPABASE_SECRET_KEY"), {
+    auth: { persistSession: false },
+  });
+  const { data, error } = await admin
+    .from("integration_sources")
+    .insert({
+      company_id: companyId,
+      kind,
+      name,
+      owner_user_id: ownerUserId,
+      secret_hash: createHash("sha256").update(key).digest("hex"),
+      secret_hint: key.slice(-4),
+    })
+    .select("id")
+    .single();
+  if (error || !data) throw new Error(`Falha ao criar fonte: ${error?.message}`);
+  return { id: data.id as string, key };
+}

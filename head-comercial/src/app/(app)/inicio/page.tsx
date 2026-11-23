@@ -3,13 +3,15 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { requireCompany } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
-import { formatMoney } from "@/lib/format";
+import { formatDuration, formatMoney } from "@/lib/format";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROLE_LABELS } from "@/modules/team/schemas";
 import { STALE_DAYS } from "@/modules/commercial/schemas";
-import { getHomeCounters, listOpportunities } from "@/modules/commercial/queries";
+import { getHomeCounters, getTeam, listOpportunities } from "@/modules/commercial/queries";
+import { getTodayMetrics } from "@/modules/conversations/queries";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { NextStepInfo } from "@/modules/commercial/components/badges";
 
 export const metadata: Metadata = { title: "Início" };
@@ -39,11 +41,15 @@ export default async function HomePage() {
   const firstName = (user.fullName || user.email).split(" ")[0];
   const isLeader = company.role === "leader";
 
-  const [counters, overdue, today] = await Promise.all([
+  const [counters, overdue, today, metrics, team] = await Promise.all([
     getHomeCounters(company.companyId, company.timezone),
     listOpportunities(company.companyId, { status: "open", due: "overdue" }, company.timezone, 8),
     listOpportunities(company.companyId, { status: "open", due: "today" }, company.timezone, 8),
+    getTodayMetrics(company.companyId, company.timezone),
+    isLeader ? getTeam(company.companyId) : Promise.resolve([]),
   ]);
+  const ownerName = new Map(team.map((t) => [t.userId, t.name]));
+  const mine = metrics.find((m) => m.ownerId === user.id);
   const priorities = [...overdue, ...today].slice(0, 8);
 
   let pendingInvites = 0;
@@ -153,14 +159,66 @@ export default async function HomePage() {
               </CardContent>
             </Card>
           ) : null}
-          <Card>
+          <Card data-testid="whatsapp-hoje">
             <CardHeader>
-              <CardTitle>Em breve</CardTitle>
-              <CardDescription>
-                Conversas do WhatsApp, relatórios do dia, alertas e as recomendações do Head Comercial vão aparecer
-                aqui nas próximas fases.
-              </CardDescription>
+              <CardTitle>WhatsApp hoje</CardTitle>
+              <CardDescription>Movimentação capturada desde a meia-noite.</CardDescription>
             </CardHeader>
+            <CardContent>
+              {!metrics.length ? (
+                <p className="text-sm text-muted-foreground">
+                  Nenhuma conversa capturada hoje. Os números aparecem quando o WhatsApp estiver conectado.
+                </p>
+              ) : isLeader ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Pessoa</TableHead>
+                      <TableHead className="text-right">Conversas</TableHead>
+                      <TableHead className="text-right">Enviadas</TableHead>
+                      <TableHead className="text-right">Resposta</TableHead>
+                      <TableHead className="text-right">Esperando</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {metrics.map((m) => (
+                      <TableRow key={m.ownerId}>
+                        <TableCell>{ownerName.get(m.ownerId) ?? "Ex-membro"}</TableCell>
+                        <TableCell className="text-right">{m.conversationsActive}</TableCell>
+                        <TableCell className="text-right">{m.outbound}</TableCell>
+                        <TableCell className="whitespace-nowrap text-right">{formatDuration(m.avgFirstResponseSeconds)}</TableCell>
+                        <TableCell className={`text-right ${m.awaitingReply ? "font-medium text-warning" : ""}`}>
+                          {m.awaitingReply}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <dl className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <dt className="text-muted-foreground">Conversas</dt>
+                    <dd className="text-lg font-semibold">{mine?.conversationsActive ?? 0}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Mensagens enviadas</dt>
+                    <dd className="text-lg font-semibold">{mine?.outbound ?? 0}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Tempo médio de resposta</dt>
+                    <dd className="text-lg font-semibold">{formatDuration(mine?.avgFirstResponseSeconds)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Esperando resposta</dt>
+                    <dd className={`text-lg font-semibold ${mine?.awaitingReply ? "text-warning" : ""}`}>
+                      <Link href="/conversas?aguardando=1" className="hover:underline">
+                        {mine?.awaitingReply ?? 0}
+                      </Link>
+                    </dd>
+                  </div>
+                </dl>
+              )}
+            </CardContent>
           </Card>
         </div>
       </div>

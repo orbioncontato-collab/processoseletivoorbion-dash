@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   centsToInput,
+  formatDuration,
   dueState,
   formatMoney,
   formatPhone,
@@ -89,5 +90,19 @@ describe("datas no fuso da empresa", () => {
     // 23h de hoje em São Paulo já é amanhã em UTC, mas continua sendo "hoje".
     expect(dueState("2026-11-25T02:00:00Z", tz, now)).toBe("today");
     expect(dueState("2026-11-25T12:00:00Z", tz, now)).toBe("future");
+  });
+});
+
+
+describe("formatDuration", () => {
+  it.each([
+    [null, "-"],
+    [45, "menos de 1 min"],
+    [1050, "18 min"],
+    [3600, "1 h"],
+    [5400, "1 h 30 min"],
+    [200000, "2 dias"],
+  ])("%s -> %s", (s, out) => {
+    expect(formatDuration(s)).toBe(out);
   });
 });

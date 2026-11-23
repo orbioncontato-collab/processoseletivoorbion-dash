@@ -68,6 +68,25 @@ export const opportunityDataSchema = z
   });
 export type OpportunityData = z.infer<typeof opportunityDataSchema>;
 
+export const MESSAGE_TYPES = ["text", "audio", "image", "video", "document", "sticker", "location", "other"] as const;
+
+export const messageDataSchema = z.object({
+  external_id: externalId,
+  conversation_external_id: externalId.optional(),
+  direction: z.enum(["inbound", "outbound"], { message: "direction deve ser inbound ou outbound." }),
+  sent_at: z
+    .string()
+    .refine((v) => !Number.isNaN(Date.parse(v)), "sent_at inválido (use o padrão ISO 8601)."),
+  contact: z.object({
+    phone: z.union([z.string(), z.number()]).transform((v) => String(v)),
+    name: text(120),
+  }),
+  body: z.string().max(10000).optional(),
+  type: z.enum(MESSAGE_TYPES).optional().catch("other"),
+  seller_email: text(200),
+});
+export type MessageData = z.infer<typeof messageDataSchema>;
+
 /** Telefone recebido: devolve o padrão E.164 ou null, com aviso quando veio inválido. */
 export function readPhone(raw: string | undefined): { phone: string | null; warning?: string } {
   if (!raw || !raw.trim()) return { phone: null };

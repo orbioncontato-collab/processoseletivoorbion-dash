@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   contactDataSchema,
+  messageDataSchema,
   opportunityDataSchema,
   readLostReason,
   readPhone,
@@ -93,5 +94,16 @@ describe("resolveStage", () => {
   });
   it("mapeamento apontando para etapa que não existe mais cai na regra seguinte", () => {
     expect(resolveStage({ stage: "Proposta" }, { Proposta: "apagada" }, stages, true)).toEqual({ stageId: "s-prop" });
+  });
+});
+
+describe("messageDataSchema", () => {
+  const base = { external_id: "ABC", direction: "inbound", sent_at: "2026-11-24T10:00:00Z", contact: { phone: 5511955554444 } };
+  it("aceita mensagem mínima e trata tipo desconhecido como outro", () => {
+    expect(messageDataSchema.parse({ ...base, type: "reaction" })).toMatchObject({ contact: { phone: "5511955554444" }, type: "other" });
+  });
+  it("recusa direção e data inválidas", () => {
+    expect(messageDataSchema.safeParse({ ...base, direction: "in" }).success).toBe(false);
+    expect(messageDataSchema.safeParse({ ...base, sent_at: "ontem" }).success).toBe(false);
   });
 });

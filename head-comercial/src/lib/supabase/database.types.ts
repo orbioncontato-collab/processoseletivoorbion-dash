@@ -139,6 +139,96 @@ export type Database = {
           },
         ];
       };
+      conversations: {
+        Row: {
+          awaiting_reply: boolean;
+          channel: string;
+          company_id: string;
+          contact_id: string;
+          created_at: string;
+          external_id: string;
+          id: string;
+          inbound_count: number;
+          last_inbound_at: string | null;
+          last_message_at: string;
+          last_outbound_at: string | null;
+          opportunity_id: string | null;
+          outbound_count: number;
+          owner_id: string;
+          source_id: string;
+          started_at: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          awaiting_reply?: boolean;
+          channel?: string;
+          company_id: string;
+          contact_id: string;
+          created_at?: string;
+          external_id: string;
+          id?: string;
+          inbound_count?: number;
+          last_inbound_at?: string | null;
+          last_message_at: string;
+          last_outbound_at?: string | null;
+          opportunity_id?: string | null;
+          outbound_count?: number;
+          owner_id: string;
+          source_id: string;
+          started_at: string;
+          updated_at?: string;
+        };
+        Update: {
+          awaiting_reply?: boolean;
+          channel?: string;
+          company_id?: string;
+          contact_id?: string;
+          created_at?: string;
+          external_id?: string;
+          id?: string;
+          inbound_count?: number;
+          last_inbound_at?: string | null;
+          last_message_at?: string;
+          last_outbound_at?: string | null;
+          opportunity_id?: string | null;
+          outbound_count?: number;
+          owner_id?: string;
+          source_id?: string;
+          started_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "conversations_company_id_contact_id_fkey";
+            columns: ["company_id", "contact_id"];
+            isOneToOne: false;
+            referencedRelation: "contacts";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "conversations_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "conversations_company_id_source_id_fkey";
+            columns: ["company_id", "source_id"];
+            isOneToOne: false;
+            referencedRelation: "integration_sources";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "conversations_opportunity_id_fkey";
+            columns: ["opportunity_id"];
+            isOneToOne: false;
+            referencedRelation: "opportunities";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       external_refs: {
         Row: {
           company_id: string;
@@ -328,6 +418,54 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "companies";
             referencedColumns: ["id"];
+          },
+        ];
+      };
+      messages: {
+        Row: {
+          body: string | null;
+          company_id: string;
+          conversation_id: string;
+          created_at: string;
+          direction: string;
+          external_id: string;
+          id: string;
+          message_type: string;
+          sent_at: string;
+          source_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          body?: string | null;
+          company_id: string;
+          conversation_id: string;
+          created_at?: string;
+          direction: string;
+          external_id: string;
+          id?: string;
+          message_type?: string;
+          sent_at: string;
+          source_id: string;
+        };
+        Update: {
+          body?: string | null;
+          company_id?: string;
+          conversation_id?: string;
+          created_at?: string;
+          direction?: string;
+          external_id?: string;
+          id?: string;
+          message_type?: string;
+          sent_at?: string;
+          source_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "messages_company_id_conversation_id_fkey";
+            columns: ["company_id", "conversation_id"];
+            isOneToOne: false;
+            referencedRelation: "conversations";
+            referencedColumns: ["company_id", "id"];
           },
         ];
       };
@@ -670,7 +808,18 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      seller_daily_metrics: {
+        Args: { period_end: string; period_start: string; target_company: string };
+        Returns: {
+          avg_first_response_seconds: number;
+          awaiting_reply: number;
+          conversations_active: number;
+          conversations_started: number;
+          messages_inbound: number;
+          messages_outbound: number;
+          owner_id: string;
+        }[];
+      };
     };
     Enums: {
       actor_type: "user" | "integration" | "automation" | "agent" | "system";

@@ -2,9 +2,11 @@ import "server-only";
 import { createServiceClient } from "@/lib/supabase/service";
 import type { Database } from "@/lib/supabase/database.types";
 import { exactIlike } from "@/modules/team/service";
+import { formatPhone } from "@/lib/format";
 import {
   contactDataSchema,
   describeIssues,
+  messageDataSchema,
   opportunityDataSchema,
   readLostReason,
   readPhone,
@@ -257,6 +259,109 @@ async function handleOpportunity(ctx: Ctx, payload: Record<string, unknown>) {
   return { opportunity_id: created.id, created: true };
 }
 
+class IgnoredEvent extends Error {}
+
+/** Mensagem: acha ou cria o contato pelo telefone, acha ou abre a conversa e grava a mensagem. */
+async function handleMessage(ctx: Ctx, payload: Record<string, unknown>) {
+  const parsed = messageDataSchema.safeParse(payload);
+  if (!parsed.success) throw new DataError(describeIssues(parsed.error));
+  const d = parsed.data;
+  const company = ctx.source.company_id;
+
+  const { phone } = readPhone(d.contact.phone);
+  if (!phone) throw new IgnoredEvent("Mensagem sem telefone válido (grupos e listas não são capturados).");
+
+  // Dono da conversa: o vendedor dono do número conectado; em fontes genéricas, o e-mail enviado.
+  let ownerId: string;
+  if (ctx.source.owner_user_id && !d.seller_email) {
+    const { data: m } = await ctx.db
+      .from("memberships")
+      .select("user_id")
+      .eq("company_id", company)
+      .eq("user_id", ctx.source.owner_user_id)
+      .eq("status", "active")
+      .maybeSingle();
+    ownerId = m?.user_id ?? (await resolveOwner(ctx, undefined));
+  } else {
+    ownerId = await resolveOwner(ctx, d.seller_email);
+  }
+
+  let { data: contact } = await ctx.db
+    .from("contacts")
+    .select("id")
+    .eq("company_id", company)
+    .eq("phone_e164", phone)
+    .is("archived_at", null)
+    .maybeSingle();
+  if (!contact) {
+    const created = await ctx.db
+      .from("contacts")
+      .insert({
+        company_id: company,
+        owner_id: ownerId,
+        name: d.contact.name || formatPhone(phone),
+        phone_e164: phone,
+        source: "whatsapp",
+      })
+      .select("id")
+      .single();
+    if (created.error?.code === "23505") {
+      const again = await ctx.db.from("contacts").select("id").eq("company_id", company).eq("phone_e164", phone).is("archived_at", null).single();
+      contact = again.data;
+    } else if (created.error) throw created.error;
+    else contact = created.data;
+  }
+  if (!contact) throw new DataError("Não foi possível identificar o contato.");
+
+  const conversationKey = d.conversation_external_id ?? phone;
+  const sentAt = new Date(d.sent_at).toISOString();
+  let { data: conversation } = await ctx.db
+    .from("conversations")
+    .select("id")
+    .eq("source_id", ctx.source.id)
+    .eq("external_id", conversationKey)
+    .maybeSingle();
+  if (!conversation) {
+    const created = await ctx.db
+      .from("conversations")
+      .insert({
+        company_id: company,
+        source_id: ctx.source.id,
+        contact_id: contact.id,
+        owner_id: ownerId,
+        external_id: conversationKey,
+        started_at: sentAt,
+        last_message_at: sentAt,
+      })
+      .select("id")
+      .single();
+    if (created.error?.code === "23505") {
+      const again = await ctx.db.from("conversations").select("id").eq("source_id", ctx.source.id).eq("external_id", conversationKey).single();
+      conversation = again.data;
+    } else if (created.error) throw created.error;
+    else conversation = created.data;
+  }
+  if (!conversation) throw new DataError("Não foi possível abrir a conversa.");
+
+  const { data: message, error } = await ctx.db
+    .from("messages")
+    .insert({
+      company_id: company,
+      conversation_id: conversation.id,
+      source_id: ctx.source.id,
+      direction: d.direction,
+      sent_at: sentAt,
+      message_type: d.type ?? "text",
+      body: d.body ?? null,
+      external_id: d.external_id,
+    })
+    .select("id")
+    .single();
+  if (error?.code === "23505") throw new IgnoredEvent("Mensagem já registrada.");
+  if (error) throw error;
+  return { conversation_id: conversation.id, message_id: message.id, contact_id: contact.id };
+}
+
 /** Processa um evento já gravado em raw_events. Nunca lança erro: devolve o resultado. */
 export async function processRawEvent(eventId: number): Promise<ProcessOutcome> {
   const system = createServiceClient({ type: "system" });
@@ -293,15 +398,17 @@ export async function processRawEvent(eventId: number): Promise<ProcessOutcome> 
       case "opportunity.upsert":
         result = await handleOpportunity(ctx, data);
         break;
+      case "message":
+        result = await handleMessage(ctx, data);
+        break;
       default:
-        // Mensagens entram na etapa de conversas (F2C); por enquanto ficam guardadas.
-        outcome = { status: "ignored", error: "Tipo de evento ainda não processado." };
-        await finish(system, event.id, event.attempts, outcome);
-        return outcome;
+        throw new IgnoredEvent("Tipo de evento não reconhecido.");
     }
     outcome = { status: "processed", result: ctx.warnings.length ? { ...result, avisos: ctx.warnings } : result };
   } catch (err) {
-    if (err instanceof DataError) {
+    if (err instanceof IgnoredEvent) {
+      outcome = { status: "ignored", error: err.message };
+    } else if (err instanceof DataError) {
       outcome = { status: "failed", error: err.message };
     } else {
       console.error("[integrations] falha ao processar evento", event.id, err);
