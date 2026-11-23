@@ -30,9 +30,12 @@ Captura de todas as mensagens, análise com IA só de conversas selecionadas ou 
 ## D007 · 2026-11-23 · Projeto separado do dashboard de recrutamento
 O Head Comercial será um aplicativo novo. O dashboard de processo seletivo atual continua intacto.
 **Motivo:** produtos diferentes, com usuários e dados diferentes.
-**Pendente:** definir o repositório (ver PROGRESS.md).
+**Decidido pelo proprietário em 2026-11-23:** repositório novo no GitHub, criado pelo proprietário.
+
+## D008 · 2026-11-23 · WhatsApp pela API oficial em coexistência
+Os vendedores usam o app WhatsApp Business no próprio celular, cada um com o próprio número. A captura será pela API oficial da Meta (Cloud API) no modo coexistência: o vendedor continua usando o app e o sistema recebe as mensagens recebidas e as enviadas.
+**Motivo:** caminho oficial, sem risco de bloqueio do número, sem mudar a rotina do vendedor.
+**Consequências:** precisa de app na Meta, verificação da empresa e cadastro de cada número pelo fluxo de Embedded Signup. O conector fica isolado na camada de integrações (D004).
 
 ## Decisões pendentes com o proprietário
-- P1: Repositório do novo produto.
-- P2: Forma de conexão com o WhatsApp.
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.
