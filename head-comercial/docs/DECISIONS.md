@@ -95,5 +95,12 @@ Empresas, vínculos e convites só são alterados por ações do servidor, que c
 - Telefones no padrão E.164, com o 9 incluído em celulares antigos, para casar com o WhatsApp.
 - Datas dos próximos passos são gravadas em UTC e mostradas no fuso da empresa.
 
+## D016 · 2026-11-23 · Formato padrão de entrada
+Três eventos: `contact.upsert`, `opportunity.upsert` e `message`. Toda fonte (CRM, automação, planilha, WhatsApp) é traduzida para eles e passa pelo mesmo processador. O evento bruto fica guardado antes do processamento, o que permite reprocessar depois de corrigir um mapeamento. O autor no histórico é a própria fonte (`actor_type = integration`).
+**Motivo:** um único caminho para qualquer fonte, sem código especial por ferramenta (D004, D009).
+
+## D017 · 2026-11-23 · Conversas e métricas
+Uma conversa por cliente e por número conectado. Mensagens são imutáveis e não entram no histórico central (volume alto; elas já são o registro). Os números do dia são calculados na hora por uma função no banco que respeita o RLS. Se o volume crescer, passam a ser guardados por dia.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.

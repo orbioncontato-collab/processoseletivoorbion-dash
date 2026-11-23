@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-23 (Fase 1)
+Última atualização: 2026-11-23 (Fase 2, partes 1 a 3)
 
 ## Concluído e validado
 
@@ -54,11 +54,32 @@
 - 21 cenários de ponta a ponta: todos passaram (9 da Fase 0 + 12 da Fase 1).
 - Prova de que os testes pegam falhas: com duas travas desligadas de propósito, 7 testes falharam.
 
+### Fase 2: Captura (partes 1 a 3)
+| Item | Situação |
+|---|---|
+| Fontes de integração por empresa, chave guardada só como impressão digital, mostrada uma vez | Pronto |
+| Entrada única `POST /api/webhooks/ingest/{fonte}` no formato padrão (contato, oportunidade, mensagem), lote de até 100, idempotência | Pronto |
+| Eventos brutos guardados com situação e motivo da falha; reprocessamento | Pronto |
+| Tradução: etapa (mapeamento > mesmo nome > situação), valor em reais, motivo de perda livre para a lista | Pronto |
+| Atualização vinda de fora não apaga campos que a fonte não enviou | Pronto |
+| Tela de integrações: conexões, mapeamento de etapas, dados recebidos | Pronto |
+| Importação por planilha CSV (";" ou ",", sinônimos de coluna, até 500 linhas), reimportação sem duplicar | Pronto |
+| Conversas e mensagens ligadas ao contato e ao vendedor; contato criado pelo telefone; grupos ignorados | Pronto |
+| Cliente esperando resposta; resposta do vendedor movimenta a negociação | Pronto |
+| Números do dia por vendedor: conversas, mensagens, tempo médio de 1ª resposta, esperando retorno | Pronto |
+| Telas de conversas e "WhatsApp hoje" no início | Pronto |
+
+**Validação real (CI, execução 10, 2026-11-23):**
+- 108 testes de unidade: todos passaram.
+- 69 testes de banco no Supabase real: todos passaram (8 de integrações, 8 de conversas).
+- 33 cenários de ponta a ponta: todos passaram (8 de integrações, 4 de conversas).
+
 ## Em desenvolvimento
-- Nada. Fase 1 concluída.
+- Fase 2, parte 4: conexão do WhatsApp por QR Code. Aguardando autorização do gasto com servidor.
 
 ## Pendente
-- Fases 2 a 9 (ver ROADMAP.md).
+- Fase 2, parte 4 (WhatsApp por QR Code) e primeiro conector nativo de CRM.
+- Fases 3 a 9 (ver ROADMAP.md).
 
 ## Bloqueios e pendências com o proprietário
 1. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
@@ -74,11 +95,11 @@
 ## Problemas conhecidos e limitações
 - Quando o líder transfere uma oportunidade, o contato continua com o responsável anterior. O novo responsável vê a negociação, mas não abre a ficha do contato. Avaliar transferência conjunta na Fase 2.
 - A lista de oportunidades mostra até 200 registros por filtro. Paginação entra quando alguma empresa chegar perto disso.
-- Contatos e oportunidades ainda não têm importação por planilha (entra com a conexão de CRM, na Fase 2).
+- A importação por planilha roda dentro da requisição e por isso tem limite de 500 linhas. Volumes maiores pedem uma fila de processamento.
+- O webhook processa os eventos na hora. Se o volume crescer (muitos números de WhatsApp), mover o processamento para uma fila.
+- Não há limite de requisições por fonte no webhook ainda (entra com a preparação para clientes convidados).
 - Quem já usa o sistema em outra empresa entra direto na nova equipe ao ser convidado, sem precisar aceitar. Aceitável para o piloto; revisar antes dos clientes convidados.
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 2: Captura.** Camada de integrações (entrada bruta, processador, webhook genérico), WhatsApp no modo aparelho por QR Code (o que a Orbion usa), conexão com CRM (formato padrão, mapeamento, importação por planilha e primeiro conector) e métricas diárias por vendedor.
-
-Antes de começar a parte do WhatsApp, o proprietário precisa autorizar o gasto com um servidor pequeno para o modo aparelho (estimativa entre 5 e 20 dólares por mês).
+**Fase 2, parte 4: WhatsApp por QR Code** (depende da autorização do servidor). Em paralelo, se a autorização demorar, seguir para a **Fase 3: relatórios configuráveis e cruzamento** entre o que o vendedor informa e o que foi capturado, que já pode usar os dados de conversas e oportunidades.
