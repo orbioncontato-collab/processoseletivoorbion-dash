@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+ * Padrão visual do Head Comercial.
+ * Cores da marca Orbion:
+ *   azul noturno    #0A1123
+ *   azul estratégico #295D86
+ *   verde orbital   #74FAA5
+ *   verde profundo  #265C58
+ * Os nomes de token seguem o padrão do shadcn/ui para facilitar reuso de componentes.
+ */
+
+:root {
+  --background: #f6f8fb;
+  --foreground: #0a1123;
+  --card: #ffffff;
+  --card-foreground: #0a1123;
+  --popover: #ffffff;
+  --popover-foreground: #0a1123;
+  --primary: #295d86;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f7;
+  --secondary-foreground: #0a1123;
+  --muted: #eef2f7;
+  --muted-foreground: #5b6678;
+  --accent: #e6fbef;
+  --accent-foreground: #265c58;
+  --destructive: #c62828;
+  --destructive-foreground: #ffffff;
+  --success: #1f7a4d;
+  --warning: #b26a00;
+  --border: #dde3ec;
+  --input: #cfd7e3;
+  --ring: #295d86;
+  --radius: 0.625rem;
+
+  --sidebar: #0a1123;
+  --sidebar-foreground: #c9d3e1;
+  --sidebar-active: #16213b;
+  --sidebar-active-foreground: #74faa5;
+  --brand-green: #74faa5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-active-foreground: var(--sidebar-active-foreground);
+  --color-brand-green: var(--brand-green);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+}
