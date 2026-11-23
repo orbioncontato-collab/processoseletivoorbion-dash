@@ -87,5 +87,13 @@ Empresas, vínculos e convites só são alterados por ações do servidor, que c
 - O limite de usuários conta vínculos ativos mais convites pendentes.
 - Os links de e-mail usam `token_hash`, que funciona mesmo se a pessoa abrir o e-mail em outro aparelho.
 
+## D015 · 2026-11-23 · Regras comerciais no banco
+- A situação da oportunidade (em aberto, ganha, perdida) é calculada pelo banco a partir da etapa. A tela não consegue gravar uma situação diferente.
+- Escrita liberada coluna por coluna: campos do sistema (situação, encerramento, origem, datas) não podem ser alterados pelo usuário.
+- Nada é apagado: contatos são arquivados, oportunidades são encerradas, etapas são arquivadas. Isso preserva o histórico para a análise da IA.
+- Valores em centavos (inteiro) para evitar erro de arredondamento.
+- Telefones no padrão E.164, com o 9 incluído em celulares antigos, para casar com o WhatsApp.
+- Datas dos próximos passos são gravadas em UTC e mostradas no fuso da empresa.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.

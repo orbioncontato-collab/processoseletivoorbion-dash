@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-23
+Última atualização: 2026-11-23 (Fase 1)
 
 ## Concluído e validado
 
@@ -33,11 +33,32 @@
 1. Páginas logadas usavam o relógio durante o pré-carregamento do Next.js 16. Corrigido com `connection()`.
 2. O link do e-mail redirecionava para o endereço interno do servidor e o login se perdia. Corrigido com redirecionamento relativo.
 
+### Fase 1: Núcleo comercial
+| Item | Situação |
+|---|---|
+| Funil padrão criado automaticamente para cada empresa (7 etapas), configurável pelo líder: renomear, reordenar, adicionar, arquivar | Pronto |
+| Travas do funil: não arquiva etapa com negociações abertas; sempre mantém etapa aberta, de ganho e de perda | Pronto |
+| Contatos com telefone no padrão internacional (sem duplicar na mesma empresa), e-mail, empresa do cliente, observações, arquivamento | Pronto |
+| Oportunidades: contato, responsável, produto, valor, etapa, próximo passo com data, previsão de fechamento | Pronto |
+| Situação segue a etapa (em aberto, ganha, perdida); perda exige motivo; reabrir limpa o motivo | Pronto |
+| Última movimentação registrada (base para o alerta de negociação parada) | Pronto |
+| Objeções por oportunidade, com tipo e status (resolvida ou não) | Pronto |
+| Linha do tempo de cada negociação, com frases legíveis e autor | Pronto |
+| Lista com filtros (situação, etapa, responsável, vencidos, hoje, sem próximo passo, paradas, busca) e resumo do funil | Pronto |
+| Início com números reais e prioridades do dia | Pronto |
+| Vendedor vê só o que é dele; líder vê e transfere tudo do time; nada aponta para dados de outra empresa | Pronto |
+
+**Validação real (CI, execução 7, 2026-11-23):**
+- 76 testes de unidade: todos passaram (telefone, dinheiro, fuso horário, validações, frases do histórico, erros).
+- 53 testes de banco no Supabase real: todos passaram (25 da Fase 0 + 28 da Fase 1).
+- 21 cenários de ponta a ponta: todos passaram (9 da Fase 0 + 12 da Fase 1).
+- Prova de que os testes pegam falhas: com duas travas desligadas de propósito, 7 testes falharam.
+
 ## Em desenvolvimento
-- Nada. Fase 0 concluída.
+- Nada. Fase 1 concluída.
 
 ## Pendente
-- Fases 1 a 9 (ver ROADMAP.md).
+- Fases 2 a 9 (ver ROADMAP.md).
 
 ## Bloqueios e pendências com o proprietário
 1. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
@@ -51,9 +72,13 @@
 - Servidor para o modo aparelho do WhatsApp, com autorização de gasto (Fase 2).
 
 ## Problemas conhecidos e limitações
-- O vendedor ainda não vê o histórico dos próprios registros feitos por outras pessoas (só o que ele mesmo fez). Será ampliado na Fase 1, junto com as oportunidades.
+- Quando o líder transfere uma oportunidade, o contato continua com o responsável anterior. O novo responsável vê a negociação, mas não abre a ficha do contato. Avaliar transferência conjunta na Fase 2.
+- A lista de oportunidades mostra até 200 registros por filtro. Paginação entra quando alguma empresa chegar perto disso.
+- Contatos e oportunidades ainda não têm importação por planilha (entra com a conexão de CRM, na Fase 2).
 - Quem já usa o sistema em outra empresa entra direto na nova equipe ao ser convidado, sem precisar aceitar. Aceitável para o piloto; revisar antes dos clientes convidados.
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 1: Núcleo comercial.** Funil configurável por empresa, contatos, oportunidades, próximos passos, objeções, encerramento com motivo e histórico de cada mudança. É a base que a captura do WhatsApp, o CRM conectado, os alertas e os agentes vão usar.
+**Fase 2: Captura.** Camada de integrações (entrada bruta, processador, webhook genérico), WhatsApp no modo aparelho por QR Code (o que a Orbion usa), conexão com CRM (formato padrão, mapeamento, importação por planilha e primeiro conector) e métricas diárias por vendedor.
+
+Antes de começar a parte do WhatsApp, o proprietário precisa autorizar o gasto com um servidor pequeno para o modo aparelho (estimativa entre 5 e 20 dólares por mês).
