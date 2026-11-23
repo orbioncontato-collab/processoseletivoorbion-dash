@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-23 (Fase 2, partes 1 a 3)
+Última atualização: 2026-11-23 (Fase 2 concluída no código)
 
 ## Concluído e validado
 
@@ -69,16 +69,20 @@
 | Números do dia por vendedor: conversas, mensagens, tempo médio de 1ª resposta, esperando retorno | Pronto |
 | Telas de conversas e "WhatsApp hoje" no início | Pronto |
 
-**Validação real (CI, execução 10, 2026-11-23):**
-- 108 testes de unidade: todos passaram.
-- 69 testes de banco no Supabase real: todos passaram (8 de integrações, 8 de conversas).
-- 33 cenários de ponta a ponta: todos passaram (8 de integrações, 4 de conversas).
+| WhatsApp por QR Code: líder cria a conexão por vendedor com aviso de risco aceito e registrado; vendedor conecta em Meu WhatsApp; QR Code, verificação e desconexão; somente leitura | Pronto no código, falta o servidor real |
+| Tradutor dos avisos da Evolution API (mensagens, conexão), ignora grupos e status, trata contas @lid | Pronto, a conferir com servidor real |
+
+**Validação real (CI, execução 13, 2026-11-23):**
+- 117 testes de unidade: todos passaram.
+- 69 testes de banco no Supabase real: todos passaram.
+- 39 cenários de ponta a ponta: todos passaram (6 do WhatsApp, usando um servidor falso da Evolution que imita o real).
 
 ## Em desenvolvimento
-- Fase 2, parte 4: conexão do WhatsApp por QR Code. Aguardando autorização do gasto com servidor.
+- Nada. Fase 2 concluída no código.
 
 ## Pendente
-- Fase 2, parte 4 (WhatsApp por QR Code) e primeiro conector nativo de CRM.
+- Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
+- Primeiro conector nativo de CRM (hoje qualquer CRM entra pelo webhook ou planilha).
 - Fases 3 a 9 (ver ROADMAP.md).
 
 ## Bloqueios e pendências com o proprietário
@@ -102,4 +106,4 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 2, parte 4: WhatsApp por QR Code** (depende da autorização do servidor). Em paralelo, se a autorização demorar, seguir para a **Fase 3: relatórios configuráveis e cruzamento** entre o que o vendedor informa e o que foi capturado, que já pode usar os dados de conversas e oportunidades.
+**Fase 3: relatórios configuráveis e cruzamento.** O administrador define as perguntas do relatório de cada empresa e o horário; o vendedor responde; o Head compara o que foi informado com o que foi capturado (conversas e oportunidades) e aponta divergências, sem acusar ninguém.

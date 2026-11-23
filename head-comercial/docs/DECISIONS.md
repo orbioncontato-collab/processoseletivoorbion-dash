@@ -102,5 +102,9 @@ Três eventos: `contact.upsert`, `opportunity.upsert` e `message`. Toda fonte (C
 ## D017 · 2026-11-23 · Conversas e métricas
 Uma conversa por cliente e por número conectado. Mensagens são imutáveis e não entram no histórico central (volume alto; elas já são o registro). Os números do dia são calculados na hora por uma função no banco que respeita o RLS. Se o volume crescer, passam a ser guardados por dia.
 
+## D018 · 2026-11-23 · Conexão por QR Code com Evolution API
+A Evolution API (código aberto) mantém a sessão do WhatsApp e avisa o Head a cada mensagem. A chave vai no endereço do aviso, porque a Evolution não manda cabeçalho de autenticação; o banco guarda só a impressão digital. A conexão é criada só leitura e ignora grupos. O aceite do aviso de risco fica registrado na configuração da fonte (quem e quando).
+**Pendente:** servidor real (custo mensal), com autorização do proprietário.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.

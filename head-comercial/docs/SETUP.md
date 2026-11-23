@@ -43,3 +43,18 @@ select id from auth.users where email = 'email-do-admin@orbion.com.br';
 - Abrir `/entrar` e entrar com o administrador.
 - Criar uma empresa de teste, convidar um e-mail seu como líder, aceitar e convidar um vendedor.
 - Conferir o histórico em `/historico`.
+
+## 4. WhatsApp por QR Code (Evolution API)
+Só depois da autorização do gasto (estimativa de 5 a 20 dólares por mês).
+
+1. Subir a Evolution API (código aberto) num servidor que fique ligado o tempo todo. Opções simples: Railway, Render ou uma VPS pequena com Docker. Usar a versão 2 e um banco próprio dela (o modelo oficial de instalação já traz Postgres e Redis).
+2. Definir na Evolution uma chave global forte (`AUTHENTICATION_API_KEY`).
+3. Na Vercel, adicionar:
+
+| Nome | Valor |
+|---|---|
+| `EVOLUTION_API_URL` | Endereço público da Evolution (ex.: `https://whatsapp.orbion.com.br`) |
+| `EVOLUTION_API_KEY` | A chave global definida no passo 2. Nunca expor. |
+
+4. No Head, em Integrações > WhatsApp por QR Code, criar a conexão de um vendedor de teste e ler o QR Code com o celular.
+5. Conferir com uma conversa real: mensagem recebida, resposta enviada pelo celular, mensagem de grupo (deve ser ignorada) e um áudio. O tradutor foi escrito com base no formato da Evolution v2 e precisa dessa conferência com o servidor real.
