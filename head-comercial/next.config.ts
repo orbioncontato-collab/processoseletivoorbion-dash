@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   outputFileTracingRoot: projectRoot,
+  experimental: {
+    // Importação de planilha aceita até 2 MB; a margem cobre o envelope do formulário.
+    serverActions: { bodySizeLimit: "2.5mb" },
+  },
   turbopack: {
     root: projectRoot,
     rules: {

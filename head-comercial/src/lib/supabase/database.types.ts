@@ -139,6 +139,111 @@ export type Database = {
           },
         ];
       };
+      external_refs: {
+        Row: {
+          company_id: string;
+          created_at: string;
+          entity_id: string;
+          entity_type: string;
+          external_id: string;
+          id: string;
+          source_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          created_at?: string;
+          entity_id: string;
+          entity_type: string;
+          external_id: string;
+          id?: string;
+          source_id: string;
+        };
+        Update: {
+          company_id?: string;
+          created_at?: string;
+          entity_id?: string;
+          entity_type?: string;
+          external_id?: string;
+          id?: string;
+          source_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "external_refs_company_id_source_id_fkey";
+            columns: ["company_id", "source_id"];
+            isOneToOne: false;
+            referencedRelation: "integration_sources";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      integration_sources: {
+        Row: {
+          archived_at: string | null;
+          company_id: string;
+          config: NonNullable<Json>;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          kind: Database["public"]["Enums"]["source_kind"];
+          last_error: string | null;
+          last_event_at: string | null;
+          name: string;
+          owner_user_id: string | null;
+          provider: string;
+          secret_hash: string | null;
+          secret_hint: string | null;
+          status: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id: string;
+          config?: NonNullable<Json>;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kind: Database["public"]["Enums"]["source_kind"];
+          last_error?: string | null;
+          last_event_at?: string | null;
+          name: string;
+          owner_user_id?: string | null;
+          provider?: string;
+          secret_hash?: string | null;
+          secret_hint?: string | null;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string;
+          config?: NonNullable<Json>;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kind?: Database["public"]["Enums"]["source_kind"];
+          last_error?: string | null;
+          last_event_at?: string | null;
+          name?: string;
+          owner_user_id?: string | null;
+          provider?: string;
+          secret_hash?: string | null;
+          secret_hint?: string | null;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "integration_sources_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       invitations: {
         Row: {
           accepted_at: string | null;
@@ -506,6 +611,60 @@ export type Database = {
         };
         Relationships: [];
       };
+      raw_events: {
+        Row: {
+          attempts: number;
+          company_id: string;
+          error: string | null;
+          event_type: string;
+          id: number;
+          idempotency_key: string | null;
+          payload: NonNullable<Json>;
+          processed_at: string | null;
+          received_at: string;
+          result: Json | null;
+          source_id: string;
+          status: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          attempts?: number;
+          company_id: string;
+          error?: string | null;
+          event_type: string;
+          id?: never;
+          idempotency_key?: string | null;
+          payload: NonNullable<Json>;
+          processed_at?: string | null;
+          received_at?: string;
+          result?: Json | null;
+          source_id: string;
+          status?: string;
+        };
+        Update: {
+          attempts?: number;
+          company_id?: string;
+          error?: string | null;
+          event_type?: string;
+          id?: never;
+          idempotency_key?: string | null;
+          payload?: NonNullable<Json>;
+          processed_at?: string | null;
+          received_at?: string;
+          result?: Json | null;
+          source_id?: string;
+          status?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "raw_events_company_id_source_id_fkey";
+            columns: ["company_id", "source_id"];
+            isOneToOne: false;
+            referencedRelation: "integration_sources";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -517,6 +676,7 @@ export type Database = {
       actor_type: "user" | "integration" | "automation" | "agent" | "system";
       member_role: "leader" | "seller";
       opportunity_status: "open" | "won" | "lost";
+      source_kind: "webhook" | "crm" | "import" | "whatsapp_device" | "whatsapp_cloud";
       stage_kind: "open" | "won" | "lost";
     };
     CompositeTypes: {
@@ -636,6 +796,7 @@ export const Constants = {
       actor_type: ["user", "integration", "automation", "agent", "system"],
       member_role: ["leader", "seller"],
       opportunity_status: ["open", "won", "lost"],
+      source_kind: ["webhook", "crm", "import", "whatsapp_device", "whatsapp_cloud"],
       stage_kind: ["open", "won", "lost"],
     },
   },

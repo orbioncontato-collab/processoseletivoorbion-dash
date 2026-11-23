@@ -18,6 +18,7 @@ export async function Sidebar() {
     if (company.role === "leader") {
       items.push({ href: "/equipe", label: "Equipe", icon: "users" });
       items.push({ href: "/funil", label: "Funil", icon: "pipeline" });
+      items.push({ href: "/integracoes", label: "Integrações", icon: "plug" });
       items.push({ href: "/historico", label: "Histórico", icon: "history" });
     }
   }
