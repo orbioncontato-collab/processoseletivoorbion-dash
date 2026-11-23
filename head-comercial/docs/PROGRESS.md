@@ -2,34 +2,58 @@
 
 Última atualização: 2026-11-23
 
-## Concluído
-- Diagnóstico da ideia e planejamento (PROJECT_OVERVIEW, ARCHITECTURE, ROADMAP, DECISIONS, TESTING).
+## Concluído e validado
 
-- Decisões do proprietário: repositório novo (D007) e WhatsApp oficial em coexistência (D008).
+### Planejamento
+- Diagnóstico, visão, arquitetura, roadmap, decisões e estratégia de testes.
+- Decisões do proprietário: repositório novo (D007), WhatsApp em dois modos (D008), oportunidades próprias com qualquer CRM conectável (D009).
+
+### Fase 0: Fundação
+| Item | Situação |
+|---|---|
+| Projeto Next.js 16 + TypeScript + Tailwind, padrão visual Orbion, componentes base | Pronto |
+| Banco: empresas, perfis, vínculos com papel, convites, admins da plataforma | Pronto |
+| Isolamento entre empresas e entre papéis no próprio banco (RLS) | Pronto |
+| Histórico central imutável, com autor (pessoa, integração, automação, agente, sistema) e o que mudou | Pronto |
+| Login, saída, recuperação de senha, criação de senha pelo link do e-mail | Pronto |
+| Convite de líder e vendedor, limite de vagas, cancelamento, reenvio, aceite automático | Pronto |
+| Gestão da equipe (desativar e reativar), troca de empresa ativa, perfil (nome e senha) | Pronto |
+| Página de histórico para o líder | Pronto |
+| Administração de empresas para a equipe Orbion | Pronto |
+| CI no GitHub rodando tudo a cada envio | Pronto |
+
+**Validação real (CI, execução 4, 2026-11-23):**
+- Lint e checagem de tipos: sem erros.
+- 20 testes de unidade: todos passaram.
+- 25 testes de isolamento no Supabase real: todos passaram.
+- Build de produção: passou.
+- 9 cenários de ponta a ponta no navegador com Supabase real: todos passaram (admin cria empresa, convida líder, líder cria senha, convida vendedor, vendedor bloqueado nas páginas de líder e admin, histórico com autores, desativação corta o acesso, troca de nome).
+
+**Problemas encontrados pelos testes e corrigidos:**
+1. Páginas logadas usavam o relógio durante o pré-carregamento do Next.js 16. Corrigido com `connection()`.
+2. O link do e-mail redirecionava para o endereço interno do servidor e o login se perdia. Corrigido com redirecionamento relativo.
 
 ## Em desenvolvimento
-- Nada. Aguardando o repositório novo para iniciar a Fase 0.
-
-## A verificar antes da Fase 2 (WhatsApp)
-- Modo aparelho (QR Code, Evolution API): escolher onde hospedar e pedir autorização do gasto ao proprietário.
-- Modo API oficial: confirmar na documentação da Meta: Brasil liberado para coexistência, exigência de ser Tech Provider, nomes dos campos de webhook (mensagens enviadas pelo app e histórico), limites do app depois da conexão. A tentativa de 2026-11-23 falhou porque a rede desta sessão bloqueia developers.facebook.com. Nada foi confirmado ainda.
+- Nada. Fase 0 concluída.
 
 ## Pendente
-- Fases 0 a 9 (ver ROADMAP.md).
+- Fases 1 a 9 (ver ROADMAP.md).
 
-## Bloqueios e perguntas para o proprietário
-1. **Repositório novo:** o proprietário cria o repositório vazio no GitHub e informa o nome. Ao conectar, os documentos desta pasta são movidos para lá.
+## Bloqueios e pendências com o proprietário
+1. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
 
 ## Vai ser necessário mais tarde (sem bloqueio agora)
-- Conta no Supabase (Fase 0, para publicar; o desenvolvimento roda local).
-- Conta na Vercel (Fase 0, para publicar).
+- Projeto no Supabase e na Vercel para publicar (guia em SETUP.md). Envolve custo mensal, por isso só será criado com autorização.
+- Provedor de e-mail (SMTP) para os convites em produção.
 - Chave da API da Anthropic (Fase 6).
-- Acesso ao acervo de mais de mil documentos e saber onde ele está hoje (Fase 5).
-- Algumas conversas reais com a avaliação esperada para calibragem (Fase 6).
+- Acesso ao acervo de documentos (Fase 5) e conversas reais para calibragem (Fase 6).
 - Modelo do relatório da operação da Orbion (Fase 3).
+- Servidor para o modo aparelho do WhatsApp, com autorização de gasto (Fase 2).
 
-## Problemas conhecidos
-- Nenhum.
+## Problemas conhecidos e limitações
+- O vendedor ainda não vê o histórico dos próprios registros feitos por outras pessoas (só o que ele mesmo fez). Será ampliado na Fase 1, junto com as oportunidades.
+- Quem já usa o sistema em outra empresa entra direto na nova equipe ao ser convidado, sem precisar aceitar. Aceitável para o piloto; revisar antes dos clientes convidados.
+- No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-Fase 0: Fundação.
+**Fase 1: Núcleo comercial.** Funil configurável por empresa, contatos, oportunidades, próximos passos, objeções, encerramento com motivo e histórico de cada mudança. É a base que a captura do WhatsApp, o CRM conectado, os alertas e os agentes vão usar.
