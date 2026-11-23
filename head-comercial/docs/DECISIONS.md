@@ -64,5 +64,28 @@ O Head Comercial tem o próprio cadastro de contatos e oportunidades e funciona 
 
 **Motivo:** o produto precisa servir qualquer empresa, use ela um CRM ou não.
 
+## D010 · 2026-11-23 · Next.js 16 com Cache Components ligado
+O Next.js 16.4 já vem com Cache Components e Partial Prefetching. A documentação avisa que eles serão obrigatórios na próxima versão principal. Mantivemos ligados desde o início e seguimos o padrão: tudo que depende do usuário logado fica dentro de um `<Suspense>` no layout, e o cliente do Supabase lê os cookies antes de qualquer outra coisa.
+**Motivo:** evitar uma migração forçada depois.
+
+## D011 · 2026-11-23 · Componentes visuais próprios no padrão shadcn/ui
+O site do shadcn/ui está bloqueado na rede do ambiente de desenvolvimento. Escrevemos os componentes (botão, campo, cartão, tabela, aviso, etiqueta) no mesmo padrão, com Radix, `class-variance-authority` e `tailwind-merge`. Cores da marca Orbion em tokens CSS no `globals.css`.
+**Pode rever?** Sim. Componentes do shadcn podem ser adicionados depois sem conflito, porque os nomes dos tokens são os mesmos.
+
+## D012 · 2026-11-23 · Testes de banco em Postgres comum + imitação do Supabase
+As imagens Docker do Supabase não baixam no ambiente de desenvolvimento (bloqueio de rede). Os testes de isolamento rodam num Postgres local com uma imitação mínima do Supabase. No CI do GitHub os mesmos testes rodam contra o Supabase completo.
+
+## D013 · 2026-11-23 · Escritas das tabelas de base pelo servidor
+Empresas, vínculos e convites só são alterados por ações do servidor, que checam a permissão no código e usam a chave secreta. O papel `authenticated` só lê essas tabelas, filtrado pelo RLS. O autor real da ação vai em cabeçalhos (`x-actor-type`, `x-actor-id`) que o gatilho de auditoria só aceita quando a chamada vem da chave secreta.
+**Motivo:** convites dependem da API administrativa do Supabase Auth, que já exige o servidor. Concentrar as regras num lugar só evita brechas.
+
+## D014 · 2026-11-23 · Fluxo de convite
+- Cadastro aberto desligado. Só entra quem é convidado.
+- Novo usuário: recebe e-mail, cria a senha e só então o vínculo com a empresa é criado.
+- Usuário que já usa o sistema em outra empresa: entra direto na equipe.
+- Usuário que tem conta mas nunca entrou: recebe de novo o link para criar a senha.
+- O limite de usuários conta vínculos ativos mais convites pendentes.
+- Os links de e-mail usam `token_hash`, que funciona mesmo se a pessoa abrir o e-mail em outro aparelho.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.
