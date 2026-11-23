@@ -44,7 +44,7 @@ test("líder cria a conexão do CRM e recebe a chave uma única vez", async () =
   await leaderPage.goto("/integracoes");
   await field(leaderPage, "Nome da conexão").fill("CRM de teste");
   await field(leaderPage, "Sistema").selectOption("pipedrive");
-  await leaderPage.getByRole("button", { name: "Criar conexão" }).click();
+  await leaderPage.getByRole("button", { name: "Criar conexão", exact: true }).click();
   const keyBox = leaderPage.getByTestId("source-key").filter({ visible: true });
   await expect(keyBox).toBeVisible();
   key = (await keyBox.textContent())!.trim();
