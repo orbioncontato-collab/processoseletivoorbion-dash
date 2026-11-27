@@ -106,6 +106,7 @@ export type Database = {
           company_id: string;
           created_at: string;
           id: string;
+          kind: string;
           title: string;
           updated_at: string;
           user_id: string;
@@ -117,6 +118,7 @@ export type Database = {
           company_id: string;
           created_at?: string;
           id?: string;
+          kind?: string;
           title?: string;
           updated_at?: string;
           user_id: string;
@@ -127,6 +129,7 @@ export type Database = {
           company_id?: string;
           created_at?: string;
           id?: string;
+          kind?: string;
           title?: string;
           updated_at?: string;
           user_id?: string;
@@ -384,6 +387,9 @@ export type Database = {
           alerts_refreshed_at: string | null;
           awaiting_reply_hours: number;
           company_id: string;
+          daily_summary_enabled: boolean;
+          daily_summary_hour: number;
+          daily_summary_last_date: string | null;
           daily_target_conversations: number | null;
           daily_target_messages: number | null;
           report_grace_hours: number;
@@ -395,6 +401,9 @@ export type Database = {
           alerts_refreshed_at?: string | null;
           awaiting_reply_hours?: number;
           company_id: string;
+          daily_summary_enabled?: boolean;
+          daily_summary_hour?: number;
+          daily_summary_last_date?: string | null;
           daily_target_conversations?: number | null;
           daily_target_messages?: number | null;
           report_grace_hours?: number;
@@ -405,6 +414,9 @@ export type Database = {
           alerts_refreshed_at?: string | null;
           awaiting_reply_hours?: number;
           company_id?: string;
+          daily_summary_enabled?: boolean;
+          daily_summary_hour?: number;
+          daily_summary_last_date?: string | null;
           daily_target_conversations?: number | null;
           daily_target_messages?: number | null;
           report_grace_hours?: number;

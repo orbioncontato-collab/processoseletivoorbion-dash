@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SettingsForm } from "@/modules/alerts/components/settings-form";
 import { formatUsd } from "@/modules/ai/pricing";
+import { SummarySettingsForm } from "@/modules/ai/components/summary-settings-form";
 import { monthStart, PURPOSE_LABELS, usageSince } from "@/modules/ai/usage";
 
 export const metadata: Metadata = { title: "Configurações" };
@@ -14,7 +15,7 @@ export default async function SettingsPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("company_settings")
-    .select("stale_days, awaiting_reply_hours, report_grace_hours, daily_target_conversations, daily_target_messages")
+    .select("stale_days, awaiting_reply_hours, report_grace_hours, daily_target_conversations, daily_target_messages, daily_summary_enabled, daily_summary_hour")
     .eq("company_id", company.companyId)
     .maybeSingle();
   const [usage] = await usageSince(monthStart(company.timezone), company.companyId);
@@ -41,6 +42,18 @@ export default async function SettingsPage() {
               }
             }
           />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Resumo do dia</CardTitle>
+          <CardDescription>
+            Todo dia, no horário escolhido, o Head escreve para os líderes como foi ontem, o que pede atenção hoje e até três
+            ações. O resumo chega como uma conversa no chat, para continuar perguntando a partir dele.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <SummarySettingsForm enabled={data?.daily_summary_enabled ?? false} hour={data?.daily_summary_hour ?? 8} />
         </CardContent>
       </Card>
       <Card>

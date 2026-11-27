@@ -88,6 +88,23 @@ function analysisReply(body) {
   return message([{ type: "text", text: JSON.stringify(result) }], "end_turn");
 }
 
+function summaryReply(body) {
+  const content = textOf(body.messages.at(-1).content);
+  const data = JSON.parse(content.match(/<dados>\n([\s\S]*?)\n<\/dados>/)?.[1] ?? "{}");
+  const top = data.agora?.alertas_por_pessoa?.[0];
+  return message(
+    [
+      {
+        type: "text",
+        text: `Bom dia! Resumo de ${data.empresa}: ${data.agora?.alertas_abertos ?? 0} alerta(s) em aberto e ${data.agora?.negociacoes_abertas ?? 0} negociação(ões) em aberto.${top ? ` Quem mais precisa de atenção: ${top.pessoa}.` : ""}`,
+      },
+    ],
+    "end_turn",
+  );
+}
+
+const isSummary = (body) => Array.isArray(body.system) && body.system.some((b) => b.text?.includes("resumo do dia para os líderes"));
+
 http
   .createServer(async (req, res) => {
     let raw = "";
@@ -107,6 +124,8 @@ http
     if (body.thinking?.type === "disabled") {
       return send(res, 400, { type: "error", error: { type: "invalid_request_error", message: "thinking disabled não é aceito" } });
     }
-    return send(res, 200, body.output_config?.format ? analysisReply(body) : chatReply(body));
+    if (body.output_config?.format) return send(res, 200, analysisReply(body));
+    if (isSummary(body)) return send(res, 200, summaryReply(body));
+    return send(res, 200, chatReply(body));
   })
   .listen(PORT, "127.0.0.1", () => console.log(`Anthropic falsa em http://127.0.0.1:${PORT}`));

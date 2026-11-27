@@ -42,3 +42,29 @@ export async function listAnalyses(conversationId: string) {
     .limit(10);
   return data ?? [];
 }
+
+/** Resumo do dia mais recente da pessoa (últimas 36 horas). */
+export async function latestDailySummary(companyId: string) {
+  const supabase = await createClient();
+  const since = new Date(Date.now() - 36 * 3600_000).toISOString();
+  const { data: thread } = await supabase
+    .from("agent_threads")
+    .select("id, title, created_at")
+    .eq("company_id", companyId)
+    .eq("kind", "daily_summary")
+    .is("archived_at", null)
+    .gte("created_at", since)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!thread) return null;
+  const { data: first } = await supabase
+    .from("agent_messages")
+    .select("content")
+    .eq("thread_id", thread.id)
+    .eq("role", "assistant")
+    .order("created_at")
+    .limit(1)
+    .maybeSingle();
+  return first ? { ...thread, content: first.content } : null;
+}

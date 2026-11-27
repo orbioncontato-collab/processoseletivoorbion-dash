@@ -18,8 +18,11 @@ describe("histórico do chat", () => {
     expect(history[4]).toEqual({ role: "user", content: "E amanhã?" });
   });
 
-  it("sem blocos gravados, usa o texto da resposta", () => {
-    expect(buildHistory([{ role: "assistant", content: "Oi", blocks: null }])).toEqual([{ role: "assistant", content: "Oi" }]);
+  it("sem blocos gravados, usa o texto da resposta; conversa que começa pelo Head ganha o pedido antes", () => {
+    expect(buildHistory([{ role: "assistant", content: "Bom dia, equipe.", blocks: null }])).toEqual([
+      { role: "user", content: "Mostre o resumo do dia." },
+      { role: "assistant", content: "Bom dia, equipe." },
+    ]);
   });
 
   it("título curto a partir da primeira pergunta", () => {

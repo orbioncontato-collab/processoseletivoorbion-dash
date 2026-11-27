@@ -176,3 +176,38 @@ test("o que vai para a API: instruções fixas, contexto da pessoa, ferramentas 
   const analysis = sent.filter((r) => (r.body.output_config as { format?: unknown })?.format).at(-1)!;
   expect(JSON.stringify(analysis.body.messages)).toContain("Achei caro.");
 });
+
+test("resumo do dia: líder liga, o agendador entrega e o líder conversa a partir dele", async ({ page, request }) => {
+  const cron = process.env.CRON_SECRET ?? "";
+  test.skip(!cron, "CRON_SECRET não configurado.");
+
+  await login(page, leader);
+  await page.goto("/configuracoes");
+  await page.getByLabel("Receber o resumo do dia no chat do Head").check();
+  await field(page, "Horário").selectOption("7");
+  await page.getByRole("button", { name: "Salvar resumo do dia" }).click();
+  await expect(text(page, "Resumo do dia ligado, todo dia a partir das 7h.")).toBeVisible();
+
+  const url = `/api/cron/daily-summary?force=1&company=${companyId}`;
+  expect((await request.get(url)).status()).toBe(401);
+  const res = await request.get(url, { headers: { Authorization: `Bearer ${cron}` } });
+  const body = await res.json();
+  expect(body.results).toEqual([{ companyId, delivered: 1, status: "ok" }]);
+
+  // Sem forçar, não repete no mesmo dia.
+  const again = await request.get(`/api/cron/daily-summary?company=${companyId}`, { headers: { Authorization: `Bearer ${cron}` } });
+  expect((await again.json()).results).toEqual([]);
+
+  await page.goto("/inicio");
+  const card = page.getByTestId("resumo-do-dia").filter({ visible: true });
+  await expect(card.getByText(`Bom dia! Resumo de Comercial ${tag}`, { exact: false })).toBeVisible();
+  await card.getByRole("link", { name: "Abrir e conversar sobre o resumo" }).click();
+  await expect(page).toHaveURL(/\/assistente\/[0-9a-f-]{36}$/);
+  await ask(page, "E depois disso?");
+  await expect(answers(page).getByText("Nesta conversa já fiz 0 consulta(s) ao sistema.")).toBeVisible();
+});
+
+test("vendedor não recebe o resumo do dia", async ({ page }) => {
+  await login(page, sara);
+  await expect(page.getByTestId("resumo-do-dia")).toHaveCount(0);
+});

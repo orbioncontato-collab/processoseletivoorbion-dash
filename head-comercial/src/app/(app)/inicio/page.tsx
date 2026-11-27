@@ -17,6 +17,7 @@ import { getTodayMetrics } from "@/modules/conversations/queries";
 import { getActiveTemplate } from "@/modules/reports/queries";
 import { dueReferenceDate } from "@/modules/reports/rules";
 import { formatDate } from "@/lib/format";
+import { latestDailySummary } from "@/modules/ai/queries";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const metadata: Metadata = { title: "Início" };
@@ -46,11 +47,12 @@ export default async function HomePage() {
   const firstName = (user.fullName || user.email).split(" ")[0];
   const isLeader = company.role === "leader";
 
-  const [counters, metrics, team, alerts] = await Promise.all([
+  const [counters, metrics, team, alerts, summary] = await Promise.all([
     getHomeCounters(company.companyId, company.timezone),
     getTodayMetrics(company.companyId, company.timezone),
     isLeader ? getTeam(company.companyId) : Promise.resolve([]),
     listOpenAlerts(company.companyId),
+    isLeader ? latestDailySummary(company.companyId) : Promise.resolve(null),
   ]);
   const ownerName = new Map(team.map((t) => [t.userId, t.name]));
   const names = Object.fromEntries(team.map((t) => [t.userId, t.name]));
@@ -131,6 +133,20 @@ export default async function HomePage() {
 
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
         <div className="grid content-start gap-6">
+          {summary ? (
+            <Card data-testid="resumo-do-dia">
+              <CardHeader>
+                <CardTitle>{summary.title}</CardTitle>
+                <CardDescription>Escrito pelo Head Comercial.</CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-3">
+                <p className="line-clamp-[12] whitespace-pre-wrap text-sm">{summary.content}</p>
+                <Link href={`/assistente/${summary.id}`} className="text-sm text-primary hover:underline">
+                  Abrir e conversar sobre o resumo
+                </Link>
+              </CardContent>
+            </Card>
+          ) : null}
           {isLeader ? (
             <Card data-testid="leitura-operacao">
               <CardHeader>

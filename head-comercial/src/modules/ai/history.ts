@@ -23,6 +23,8 @@ export function buildHistory(rows: StoredMessage[]): Anthropic.Beta.BetaMessageP
       out.push({ role: "assistant", content: r.content });
     }
   }
+  // A API exige que a conversa comece pela pessoa. O resumo do dia começa pelo Head.
+  if (out[0]?.role === "assistant") out.unshift({ role: "user", content: "Mostre o resumo do dia." });
   return out;
 }
 
