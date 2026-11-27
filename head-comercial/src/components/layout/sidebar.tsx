@@ -19,6 +19,8 @@ export async function Sidebar() {
     items.push({ href: "/conversas", label: "Conversas", icon: "chat" });
     items.push({ href: "/relatorio", label: "Relatório", icon: "report" });
     items.push({ href: "/meu-whatsapp", label: "Meu WhatsApp", icon: "phone" });
+    items.push({ href: "/conhecimento", label: "Conhecimento", icon: "book" });
+    items.push({ href: "/memoria", label: "Memória", icon: "memory" });
     if (company.role === "leader") {
       items.push({ href: "/relatorios", label: "Relatórios do time", icon: "reports" });
       items.push({ href: "/equipe", label: "Equipe", icon: "users" });
@@ -30,6 +32,7 @@ export async function Sidebar() {
   }
   if (user.isPlatformAdmin) {
     items.push({ href: "/admin/empresas", label: "Empresas", icon: "building" });
+    items.push({ href: "/admin/cerebro", label: "Cérebro central", icon: "brain" });
   }
   items.push({ href: "/perfil", label: "Meu perfil", icon: "user" });
 

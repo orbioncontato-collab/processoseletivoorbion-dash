@@ -23,12 +23,14 @@
     "clsx": "^2.1.1",
     "geist": "^1.9.2",
     "lucide-react": "^1.78.0",
+    "mammoth": "^1.13.0",
     "next": "16.4.6",
     "radix-ui": "^1.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.7.1",
+    "unpdf": "^2.2.3",
     "zod": "^4.6.7"
   },
   "devDependencies": {

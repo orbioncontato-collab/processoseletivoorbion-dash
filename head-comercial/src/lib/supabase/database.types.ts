@@ -123,6 +123,60 @@ export type Database = {
           },
         ];
       };
+      calibration_cases: {
+        Row: {
+          archived_at: string | null;
+          company_id: string | null;
+          conversation: string;
+          created_at: string;
+          created_by: string | null;
+          expected_assessment: string;
+          id: string;
+          outcome: string;
+          scope: string;
+          tags: string[];
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id?: string | null;
+          conversation: string;
+          created_at?: string;
+          created_by?: string | null;
+          expected_assessment: string;
+          id?: string;
+          outcome?: string;
+          scope: string;
+          tags?: string[];
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string | null;
+          conversation?: string;
+          created_at?: string;
+          created_by?: string | null;
+          expected_assessment?: string;
+          id?: string;
+          outcome?: string;
+          scope?: string;
+          tags?: string[];
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "calibration_cases_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       companies: {
         Row: {
           created_at: string;
@@ -566,6 +620,114 @@ export type Database = {
           },
         ];
       };
+      knowledge_chunks: {
+        Row: {
+          content: string;
+          created_at: string;
+          document_id: string;
+          heading: string | null;
+          id: string;
+          position: number;
+          tsv: unknown;
+        };
+        ComputedFields: never;
+        Insert: {
+          content: string;
+          created_at?: string;
+          document_id: string;
+          heading?: string | null;
+          id?: string;
+          position: number;
+          tsv?: never;
+        };
+        Update: {
+          content?: string;
+          created_at?: string;
+          document_id?: string;
+          heading?: string | null;
+          id?: string;
+          position?: number;
+          tsv?: never;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_chunks_document_id_fkey";
+            columns: ["document_id"];
+            isOneToOne: false;
+            referencedRelation: "knowledge_documents";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      knowledge_documents: {
+        Row: {
+          archived_at: string | null;
+          chunk_count: number;
+          company_id: string | null;
+          content_chars: number;
+          created_at: string;
+          created_by: string | null;
+          error: string | null;
+          file_name: string | null;
+          id: string;
+          kind: string;
+          scope: string;
+          source: string;
+          source_ref: string | null;
+          status: string;
+          tags: string[];
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          chunk_count?: number;
+          company_id?: string | null;
+          content_chars?: number;
+          created_at?: string;
+          created_by?: string | null;
+          error?: string | null;
+          file_name?: string | null;
+          id?: string;
+          kind?: string;
+          scope: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          tags?: string[];
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          chunk_count?: number;
+          company_id?: string | null;
+          content_chars?: number;
+          created_at?: string;
+          created_by?: string | null;
+          error?: string | null;
+          file_name?: string | null;
+          id?: string;
+          kind?: string;
+          scope?: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          tags?: string[];
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_documents_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       memberships: {
         Row: {
           company_id: string;
@@ -598,6 +760,60 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "memberships_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      memory_items: {
+        Row: {
+          category: string;
+          company_id: string;
+          content: string;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          scope: string;
+          source: string;
+          source_ref: string | null;
+          status: string;
+          subject_user_id: string | null;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          category: string;
+          company_id: string;
+          content: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          scope: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          subject_user_id?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          category?: string;
+          company_id?: string;
+          content?: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          scope?: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          subject_user_id?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "memory_items_company_id_fkey";
             columns: ["company_id"];
             isOneToOne: false;
             referencedRelation: "companies";
@@ -1209,6 +1425,20 @@ export type Database = {
         }[];
       };
       refresh_alerts: { Args: { now_ts?: string; target_company: string }; Returns: number };
+      search_knowledge: {
+        Args: { include_global?: boolean; max_results?: number; q: string; target_company: string };
+        Returns: {
+          chunk_id: string;
+          chunk_position: number;
+          content: string;
+          document_id: string;
+          heading: string;
+          kind: string;
+          rank: number;
+          scope: string;
+          title: string;
+        }[];
+      };
       seller_daily_metrics: {
         Args: { period_end: string; period_start: string; target_company: string };
         Returns: {
