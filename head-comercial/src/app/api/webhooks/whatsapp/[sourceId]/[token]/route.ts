@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { createServiceClient } from "@/lib/supabase/service";
+import { overRateLimit } from "@/modules/integrations/rate-limit";
 import type { Json } from "@/lib/supabase/database.types";
 import { keyMatches } from "@/modules/integrations/keys";
 import { translateEvolution } from "@/modules/integrations/evolution";
@@ -55,6 +56,9 @@ export async function POST(request: NextRequest, { params }: RouteContext<"/api/
   }
   if (result.kind === "ignored") return ok({ ignored: result.reason });
   if (source.status === "paused") return ok({ ignored: "fonte pausada" });
+  if (await overRateLimit(source.id, result.envelopes.length)) {
+    return NextResponse.json({ error: "Limite de eventos por minuto atingido." }, { status: 429, headers: { "Retry-After": "60" } });
+  }
 
   let processed = 0;
   for (const envelope of result.envelopes) {

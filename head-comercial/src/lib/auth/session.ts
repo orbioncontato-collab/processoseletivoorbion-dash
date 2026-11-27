@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/supabase/database.types";
+import { CURRENT_TERMS_VERSION } from "./terms";
 
 export type MemberRole = Database["public"]["Enums"]["member_role"];
 
@@ -21,7 +22,11 @@ export interface CurrentUser {
   fullName: string;
   isPlatformAdmin: boolean;
   memberships: CompanyMembership[];
+  /** Aceitou a versão atual dos termos de uso e do aviso de privacidade. */
+  termsAccepted: boolean;
 }
+
+export { CURRENT_TERMS_VERSION };
 
 export interface CompanyContext {
   user: CurrentUser;
@@ -42,7 +47,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const userId = data.claims.sub;
 
   const [profileRes, adminRes, membershipsRes] = await Promise.all([
-    supabase.from("profiles").select("email, full_name").eq("id", userId).maybeSingle(),
+    supabase.from("profiles").select("email, full_name, terms_version").eq("id", userId).maybeSingle(),
     supabase.from("platform_admins").select("user_id").eq("user_id", userId).maybeSingle(),
     supabase
       .from("memberships")
@@ -78,13 +83,15 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     fullName: profileRes.data?.full_name ?? "",
     isPlatformAdmin: Boolean(adminRes.data),
     memberships,
+    termsAccepted: profileRes.data?.terms_version === CURRENT_TERMS_VERSION,
   };
 });
 
-/** Exige login. Sem sessão, manda para a tela de entrada. */
+/** Exige login e o aceite dos termos. Sem sessão, manda para a entrada; sem aceite, para os termos. */
 export async function requireUser(): Promise<CurrentUser> {
   const user = await getCurrentUser();
   if (!user) redirect("/entrar");
+  if (!user.termsAccepted) redirect("/aceitar-termos");
   return user;
 }
 

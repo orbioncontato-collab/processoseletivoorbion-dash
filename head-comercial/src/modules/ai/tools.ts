@@ -12,6 +12,8 @@ import { listAssignments, listLibrary } from "@/modules/training/queries";
 import { SKILLS, STATUS_LABELS } from "@/modules/training/skills";
 import { getStages } from "@/modules/commercial/queries";
 import { funnelMetrics, type FunnelOpp } from "@/modules/commercial/funnel-metrics";
+import { forecastMonth, type ForecastOpp } from "@/modules/commercial/forecast";
+import { zonedLocalToUtc } from "@/lib/format";
 import { getDocument, listDocuments } from "@/modules/documents/queries";
 import { DOC_KIND_LABELS } from "@/modules/documents/labels";
 import { listActions } from "@/modules/action-plan/queries";
@@ -376,6 +378,49 @@ const TOOLS = [
         source: "agent",
       });
       return "error" in result ? { erro: result.error } : { criada: true, titulo: i.titulo, onde_ver: "/acoes" };
+    },
+  }),
+
+  tool({
+    name: "previsao_receita",
+    description:
+      "Previsão de receita do mês atual: quanto já foi ganho, o que está previsto para fechar no mês, a projeção ponderada pela taxa de ganho dos últimos 90 dias, o melhor caso e, se informada, a meta. Para o líder é o time (com divisão por vendedor); para o vendedor, só as dele.",
+    schema: z.object({ meta_reais: z.number().positive().max(1e10).optional().describe("Meta do mês em reais, se a pessoa informar.") }),
+    run: async (i, ctx) => {
+      const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: ctx.timezone, year: "numeric", month: "2-digit" }).format(new Date());
+      const [y, m] = ymd.split("-").map(Number);
+      const next = m === 12 ? `${y + 1}-01` : `${y}-${String(m + 1).padStart(2, "0")}`;
+      const monthStart = zonedLocalToUtc(`${ymd}-01T00:00`, ctx.timezone)!.toISOString();
+      const nextMonthStart = zonedLocalToUtc(`${next}-01T00:00`, ctx.timezone)!.toISOString();
+      const since90 = new Date(Date.now() - 90 * 86_400_000).toISOString();
+      const supabase = await createClient();
+      const [{ data }, team] = await Promise.all([
+        supabase.from("opportunities").select("owner_id, status, value_cents, expected_close_date, closed_at").eq("company_id", ctx.companyId).limit(5000),
+        getTeam(ctx.companyId),
+      ]);
+      const opps = (data ?? []) as ForecastOpp[];
+      const range = { monthStart, nextMonthStart, since90 };
+      const target = i.meta_reais ? Math.round(i.meta_reais * 100) : null;
+      const total = forecastMonth(opps, { ...range, target });
+      const money = (c: number | null) => (c === null ? null : formatMoney(c));
+      const fmt = (f: ReturnType<typeof forecastMonth>) => ({
+        ganho_no_mes: money(f.ganho_no_mes_cents),
+        ganhas_no_mes: f.ganhas_no_mes,
+        previstas_para_o_mes: f.previstas_para_o_mes,
+        valor_previsto: money(f.valor_previsto_cents),
+        taxa_usada_pct: f.taxa_usada_pct,
+        taxa_com_historico: f.taxa_com_historico,
+        projecao: money(f.projecao_cents),
+        melhor_caso: money(f.melhor_caso_cents),
+        sem_previsao_de_fechamento: f.sem_previsao_de_fechamento,
+        meta: money(f.meta_cents),
+        atingimento_projetado_pct: f.atingimento_projetado_pct,
+      });
+      const byOwner =
+        ctx.role === "leader"
+          ? team.map((t) => ({ vendedor: t.name, ...fmt(forecastMonth(opps.filter((o) => o.owner_id === t.userId), range)) }))
+          : [];
+      return { mes: ymd, total: fmt(total), por_vendedor: byOwner };
     },
   }),
 

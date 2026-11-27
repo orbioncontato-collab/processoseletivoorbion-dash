@@ -1,5 +1,5 @@
 /** Rotas que não exigem login. */
-export const PUBLIC_PATHS = ["/entrar", "/recuperar-senha", "/auth/confirm"] as const;
+export const PUBLIC_PATHS = ["/entrar", "/recuperar-senha", "/auth/confirm", "/termos", "/privacidade"] as const;
 
 /** Rotas acessíveis logado mas sem empresa definida (ex.: logo após o convite). */
 export const HOME_PATH = "/inicio";

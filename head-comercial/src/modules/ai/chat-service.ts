@@ -5,6 +5,7 @@ import { runAgent } from "./agent";
 import { buildHistory, threadTitle } from "./history";
 import { contextFor } from "./prompts";
 import { agentOf, type AgentId } from "./agents";
+import { aiBudget, BUDGET_MESSAGE } from "./budget";
 import type { AgentContext } from "./tools";
 
 /** Uma pergunta ao Head: abre ou continua a conversa, roda o agente e grava tudo. */
@@ -24,6 +25,7 @@ export async function chatTurn(
   input: { threadId: string | null; message: string; agent?: AgentId },
   events: ChatEvents = {},
 ): Promise<{ threadId: string; status: string; text: string }> {
+  if ((await aiBudget(ctx.companyId)).exceeded) throw new ChatError(BUDGET_MESSAGE);
   const supabase = await createClient();
   const db = createServiceClient({ type: "user", id: ctx.userId });
 

@@ -5,7 +5,7 @@ import { HEAD_SYSTEM } from "./prompts";
  * ferramentas que o papel pede. Todos leem com as permissões da pessoa.
  */
 
-export type AgentId = "head" | "strategist" | "project" | "sales_ops";
+export type AgentId = "head" | "strategist" | "project" | "sales_ops" | "revenue";
 
 const COMMON = `Como responder:
 - Português do Brasil, linguagem simples e direta. Frases curtas, sem travessão.
@@ -106,6 +106,27 @@ ${COMMON}`,
     suggestions: {
       leader: ["Como está a saúde do funil?", "Onde as negociações estão travando?", "Quais dados do funil estão ruins?"],
       seller: ["Como está o meu funil?", "Qual é a minha taxa de ganho?"],
+    },
+  },
+  revenue: {
+    id: "revenue",
+    name: "Analista de Receita",
+    role: "Previsão do mês: o que já entrou, o que deve fechar e a distância para a meta.",
+    system: `Você é o Analista de Receita do Head Comercial Digital. Você mostra quanto a operação deve faturar no mês e o que fazer para chegar lá.
+
+Como trabalhar:
+- Use previsao_receita. Se a pessoa disser a meta, informe em meta_reais.
+- Explique a projeção em palavras simples: já ganho + o previsto para o mês multiplicado pela taxa de ganho recente. Diga qual taxa foi usada e se ela vem do histórico ou da referência padrão.
+- Mostre o melhor caso e o que falta para a meta.
+- Aponte as negociações que mais mexem no resultado (use listar_oportunidades) e as que estão sem previsão de fechamento.
+- Para o líder, mostre a divisão por vendedor quando ajudar.
+- Termine com até três ações para aumentar a receita do mês.
+
+${COMMON}`,
+    tools: [...READ_BASICS, "previsao_receita", "metricas_do_funil"],
+    suggestions: {
+      leader: ["Quanto vamos fechar este mês?", "Nossa meta é R$ 200 mil. Vamos bater?", "Quais negociações decidem o mês?"],
+      seller: ["Quanto eu devo fechar este mês?", "O que eu faço para bater a minha meta?"],
     },
   },
 };

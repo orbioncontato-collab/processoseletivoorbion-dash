@@ -5,6 +5,7 @@ import type { Json } from "@/lib/supabase/database.types";
 import { keyMatches, readKeyFromHeaders } from "@/modules/integrations/keys";
 import { describeIssues, requestSchema } from "@/modules/integrations/standard";
 import { processRawEvent, type ProcessOutcome } from "@/modules/integrations/processor";
+import { EVENTS_PER_MINUTE, overRateLimit } from "@/modules/integrations/rate-limit";
 
 /**
  * Entrada de dados externos no formato padrão do Head Comercial.
@@ -52,6 +53,13 @@ export async function POST(request: NextRequest, { params }: RouteContext<"/api/
 
   const parsed = requestSchema.safeParse(body);
   if (!parsed.success) return json(400, { error: describeIssues(parsed.error) });
+
+  if (await overRateLimit(source.id, parsed.data.length)) {
+    return NextResponse.json(
+      { error: `Limite de ${EVENTS_PER_MINUTE} eventos por minuto atingido. Tente de novo em 1 minuto.` },
+      { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } },
+    );
+  }
 
   const db = createServiceClient({ type: "integration", id: source.id });
   const results: (ProcessOutcome & { index: number; duplicate?: boolean })[] = [];

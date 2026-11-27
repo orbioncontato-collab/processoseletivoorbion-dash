@@ -16,8 +16,15 @@ export function fieldErrorsFrom(error: z.ZodError): ActionState {
   return { ok: false, message: "Confira os campos destacados.", fieldErrors };
 }
 
-/** Mensagem genérica para o usuário; o detalhe vai só para o log do servidor. */
+/** Mensagem genérica para o usuário; o detalhe vai para o log e para a tela de erros da administração. */
 export function unexpected(context: string, detail: unknown): ActionState {
   console.error(`[${context}]`, detail);
+  void import("@/lib/errors").then(({ logServerError }) =>
+    logServerError({
+      source: `action:${context}`,
+      message: detail instanceof Error ? detail.message : typeof detail === "string" ? detail : JSON.stringify(detail) ?? "sem detalhe",
+      stack: detail instanceof Error ? detail.stack : undefined,
+    }),
+  );
   return { ok: false, message: "Algo deu errado. Tente de novo em instantes." };
 }

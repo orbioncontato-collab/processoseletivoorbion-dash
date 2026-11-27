@@ -27,6 +27,7 @@ export async function Sidebar() {
     items.push({ href: "/memoria", label: "Memória", icon: "memory" });
     if (company.role === "leader") {
       items.push({ href: "/relatorios", label: "Relatórios do time", icon: "reports" });
+      items.push({ href: "/maturidade", label: "Maturidade", icon: "gauge" });
       items.push({ href: "/equipe", label: "Equipe", icon: "users" });
       items.push({ href: "/funil", label: "Funil", icon: "pipeline" });
       items.push({ href: "/integracoes", label: "Integrações", icon: "plug" });
@@ -40,6 +41,7 @@ export async function Sidebar() {
     items.push({ href: "/admin/treinamentos", label: "Biblioteca da Orbion", icon: "training" });
     items.push({ href: "/admin/consumo", label: "Consumo da IA", icon: "reports" });
     items.push({ href: "/admin/integracoes", label: "Chaves e integrações", icon: "plug" });
+    items.push({ href: "/admin/erros", label: "Erros do sistema", icon: "errors" });
   }
   items.push({ href: "/perfil", label: "Meu perfil", icon: "user" });
 

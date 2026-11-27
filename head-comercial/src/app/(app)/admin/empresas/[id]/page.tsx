@@ -6,6 +6,10 @@ import { requirePlatformAdmin } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { TeamManager } from "@/modules/team/components/team-manager";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { AiLimitForm } from "@/modules/companies/components/ai-limit-form";
+import { aiBudget } from "@/modules/ai/budget";
+import { formatUsd } from "@/modules/ai/pricing";
 
 export const metadata: Metadata = { title: "Empresa" };
 
@@ -17,10 +21,11 @@ export default async function CompanyAdminPage({ params }: PageProps<"/admin/emp
   const supabase = await createClient();
   const { data: company } = await supabase
     .from("companies")
-    .select("id, name, slug, timezone, status")
+    .select("id, name, slug, timezone, status, ai_monthly_limit_micros")
     .eq("id", id)
     .maybeSingle();
   if (!company) notFound();
+  const budget = await aiBudget(company.id);
 
   return (
     <div className="grid gap-6">
@@ -39,6 +44,19 @@ export default async function CompanyAdminPage({ params }: PageProps<"/admin/emp
         }
       />
       <TeamManager companyId={company.id} currentUserId={admin.id} />
+      <Card>
+        <CardHeader>
+          <CardTitle>Uso da IA</CardTitle>
+          <CardDescription>
+            {budget.limitMicros === null
+              ? "Sem limite mensal."
+              : `Usado neste mês: ${formatUsd(budget.usedMicros)} de ${formatUsd(budget.limitMicros)}${budget.exceeded ? " (limite atingido)" : ""}.`}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <AiLimitForm companyId={company.id} limitUsd={company.ai_monthly_limit_micros == null ? null : Number(company.ai_monthly_limit_micros) / 1_000_000} />
+        </CardContent>
+      </Card>
     </div>
   );
 }

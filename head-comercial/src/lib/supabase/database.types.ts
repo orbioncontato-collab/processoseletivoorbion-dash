@@ -354,6 +354,40 @@ export type Database = {
           },
         ];
       };
+      app_errors: {
+        Row: {
+          digest: string | null;
+          id: string;
+          message: string;
+          method: string | null;
+          occurred_at: string;
+          path: string | null;
+          source: string;
+          stack: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          digest?: string | null;
+          id?: string;
+          message: string;
+          method?: string | null;
+          occurred_at?: string;
+          path?: string | null;
+          source: string;
+          stack?: string | null;
+        };
+        Update: {
+          digest?: string | null;
+          id?: string;
+          message?: string;
+          method?: string | null;
+          occurred_at?: string;
+          path?: string | null;
+          source?: string;
+          stack?: string | null;
+        };
+        Relationships: [];
+      };
       calibration_cases: {
         Row: {
           archived_at: string | null;
@@ -458,6 +492,7 @@ export type Database = {
       };
       companies: {
         Row: {
+          ai_monthly_limit_micros: number | null;
           created_at: string;
           id: string;
           max_users: number;
@@ -469,6 +504,7 @@ export type Database = {
         };
         ComputedFields: never;
         Insert: {
+          ai_monthly_limit_micros?: number | null;
           created_at?: string;
           id?: string;
           max_users?: number;
@@ -479,6 +515,7 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          ai_monthly_limit_micros?: number | null;
           created_at?: string;
           id?: string;
           max_users?: number;
@@ -1143,6 +1180,45 @@ export type Database = {
           },
         ];
       };
+      maturity_assessments: {
+        Row: {
+          company_id: string;
+          computed_at: string;
+          computed_by: string | null;
+          dimensions: NonNullable<Json>;
+          id: string;
+          overall: number;
+          period: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          computed_at?: string;
+          computed_by?: string | null;
+          dimensions: NonNullable<Json>;
+          id?: string;
+          overall: number;
+          period: string;
+        };
+        Update: {
+          company_id?: string;
+          computed_at?: string;
+          computed_by?: string | null;
+          dimensions?: NonNullable<Json>;
+          id?: string;
+          overall?: number;
+          period?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "maturity_assessments_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       memberships: {
         Row: {
           company_id: string;
@@ -1570,6 +1646,8 @@ export type Database = {
           email: string;
           full_name: string;
           id: string;
+          terms_accepted_at: string | null;
+          terms_version: string | null;
           updated_at: string;
         };
         ComputedFields: never;
@@ -1578,6 +1656,8 @@ export type Database = {
           email: string;
           full_name?: string;
           id: string;
+          terms_accepted_at?: string | null;
+          terms_version?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -1585,6 +1665,8 @@ export type Database = {
           email?: string;
           full_name?: string;
           id?: string;
+          terms_accepted_at?: string | null;
+          terms_version?: string | null;
           updated_at?: string;
         };
         Relationships: [];

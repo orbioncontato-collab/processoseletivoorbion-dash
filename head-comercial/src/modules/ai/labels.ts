@@ -16,4 +16,5 @@ export const TOOL_LABELS_PUBLIC: Record<string, string> = {
   propor_versao_documento: "nova versão do documento",
   listar_acoes: "plano de ação",
   criar_acao: "nova ação",
+  previsao_receita: "previsão de receita",
 };

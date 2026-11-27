@@ -69,3 +69,20 @@ Depois de publicar, a administração da Orbion entra em **Chaves e integraçõe
 - o endereço e a chave do servidor do WhatsApp (Evolution API), quando ele estiver no ar.
 
 Os valores ficam cifrados no banco e só o final aparece na tela. Remover uma chave da tela faz o sistema voltar a usar a variável de ambiente, se existir.
+
+## 6. Agendadores (vercel.json)
+
+| Caminho | Quando | O que faz |
+|---|---|---|
+| `/api/cron/alerts` | a cada 15 min | Recalcula os alertas |
+| `/api/cron/daily-summary` | a cada hora | Entrega o resumo do dia no horário de cada empresa |
+| `/api/cron/maturity` | uma vez por dia | Atualiza a maturidade comercial do mês |
+
+No plano gratuito da Vercel os agendadores rodam uma vez por dia. Os alertas e a maturidade também são recalculados na hora pela tela.
+
+## 7. Cópias de segurança
+
+O Supabase guarda cópias diárias do banco nos planos pagos (Pro em diante, com 7 dias de histórico; recuperação para um ponto exato no tempo é um adicional). Antes dos clientes convidados:
+1. Ative o plano Pro no projeto de produção e confira em Database, Backups que as cópias diárias aparecem.
+2. Uma vez por mês, restaure a cópia mais recente num projeto de teste e abra o sistema para conferir que os dados estão lá. Anote a data da conferência.
+3. Os arquivos enviados ao cérebro central ficam no banco como texto; não há arquivos soltos para copiar à parte.

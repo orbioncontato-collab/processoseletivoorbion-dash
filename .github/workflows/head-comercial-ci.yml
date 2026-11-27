@@ -64,6 +64,7 @@ jobs:
           ANTHROPIC_BASE_URL: http://127.0.0.1:54398
           E2E_AI: "1"
           SECRETS_ENCRYPTION_KEY: chave-de-cifra-de-teste-com-mais-de-32-caracteres
+          WEBHOOK_EVENTS_PER_MINUTE: "50"
         run: |
           npx playwright install --with-deps chromium
           (node tests/e2e/mock-evolution.mjs > mock-evolution.log 2>&1 &)

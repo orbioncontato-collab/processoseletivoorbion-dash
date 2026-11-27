@@ -41,6 +41,12 @@ async function acceptInvite(browser: Browser, email: string, password: string) {
   await field(page, "Nova senha").fill(password);
   await field(page, "Repita a senha").fill(password);
   await page.getByRole("button", { name: "Salvar senha e entrar" }).click();
+  // Primeiro acesso: aceite dos termos de uso e do aviso de privacidade.
+  await expect(page).toHaveURL(/\/aceitar-termos/);
+  await page.getByRole("button", { name: "Aceitar e continuar" }).click();
+  await expect(page.getByText("Para continuar, marque que leu e aceita os termos.")).toBeVisible();
+  await page.getByLabel(/Li e aceito os/).check();
+  await page.getByRole("button", { name: "Aceitar e continuar" }).click();
   await expect(page).toHaveURL(/\/inicio/);
   return page;
 }

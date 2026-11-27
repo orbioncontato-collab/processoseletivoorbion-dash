@@ -10,6 +10,7 @@ import { addUsage, emptyUsage } from "./pricing";
 import type { AgentContext } from "./tools";
 import { CRITERIA } from "./criteria";
 import { recommendFromAnalysis } from "@/modules/training/recommend";
+import { aiBudget, BUDGET_MESSAGE } from "./budget";
 
 export { CRITERIA };
 
@@ -117,6 +118,8 @@ export async function analyzeConversation(
 ): Promise<{ id: string; recommended: { title: string; skill: string }[] }> {
   const client = await getAnthropic();
   if (!client) throw new AiNotConfiguredError();
+
+  if ((await aiBudget(ctx.companyId)).exceeded) throw new AnalysisError(BUDGET_MESSAGE);
 
   // Com o login de quem pediu: só analisa o que a pessoa pode ver.
   const found = await getConversation(ctx.companyId, conversationId);

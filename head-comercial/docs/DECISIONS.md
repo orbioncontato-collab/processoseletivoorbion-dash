@@ -143,5 +143,14 @@ A chave da Anthropic e a do servidor do WhatsApp podem ser coladas pela administ
 Cada treinamento trabalha uma das habilidades que o Analista de Conversas avalia (abertura, diagnóstico, valor, objeções, próximo passo, agilidade). Assim a análise aponta a habilidade fraca e o sistema acha o treinamento certo, primeiro o da empresa e depois o da Orbion. A evolução compara a nota da habilidade antes e depois da conclusão. A recomendação é feita por regra (nota até 5), sem custo de IA.
 **Pode rever?** Sim. A IA pode escrever o motivo e escolher entre vários treinamentos quando a biblioteca crescer.
 
+## D024 · 2026-11-27 · Preparação para clientes convidados
+- **Termos e privacidade:** páginas públicas em `/termos` e `/privacidade` e aceite obrigatório no primeiro acesso (e de novo quando a versão mudar, em `src/lib/auth/terms.ts`). O texto é uma **versão preliminar** escrita para o produto e precisa de revisão jurídica antes dos clientes convidados.
+- **Limite de IA por empresa:** a administração define um teto mensal em dólares na página da empresa. Ao atingir, o chat, a análise e o resumo do dia param até o mês seguinte, com mensagem clara. Sem teto, nada é bloqueado.
+- **Limite de envios no webhook:** até 600 eventos por minuto por fonte (ajustável por `WEBHOOK_EVENTS_PER_MINUTE`). Acima disso, resposta 429 com `Retry-After: 60`, para um CRM ou automação em laço não derrubar o sistema.
+- **Erros do servidor:** registrados pelo próprio Next.js (`onRequestError`) e pelas ações do servidor numa tabela que só a administração lê, com a tela "Erros do sistema". Sem custo de serviço externo. Um serviço como Sentry pode entrar depois, se o volume pedir.
+- **Maturidade comercial:** seis dimensões (processo, dados, rotina, conversas, desenvolvimento, gestão) calculadas com os dados reais, de 0 a 100, com foto mensal. Dimensão sem dados não entra na média.
+- **Analista de Receita:** projeção do mês = já ganho + previsto para o mês multiplicado pela taxa de ganho dos últimos 90 dias (30% quando há menos de 3 negociações encerradas).
+
 ## Decisões pendentes com o proprietário
+- P4: Revisão jurídica dos termos de uso e do aviso de privacidade antes dos clientes convidados.
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Decidir quando o acervo real estiver carregado, comparando a busca atual com a busca por significado (D020).

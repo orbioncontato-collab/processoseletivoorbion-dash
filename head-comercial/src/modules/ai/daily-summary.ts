@@ -7,6 +7,7 @@ import { todayRange } from "@/modules/commercial/filters";
 import { ALERT_LABELS, type AlertType } from "@/modules/alerts/rules";
 import { recordRun } from "./agent";
 import { addUsage, emptyUsage } from "./pricing";
+import { aiBudget } from "./budget";
 
 /**
  * Resumo do dia para os líderes. Os números são juntados pelo servidor (o líder
@@ -158,6 +159,7 @@ export async function generateDailySummary(companyId: string, now = new Date()):
   if (!company) return { delivered: 0, status: "company_not_found" };
   const { data: leaders } = await db.from("memberships").select("user_id").eq("company_id", companyId).eq("role", "leader").eq("status", "active");
   if (!leaders?.length) return { delivered: 0, status: "no_leaders" };
+  if ((await aiBudget(companyId)).exceeded) return { delivered: 0, status: "budget_exceeded" };
 
   const snapshot = await gatherSnapshot(db, company, now);
   const started = Date.now();

@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 7 concluída)
+Última atualização: 2026-11-27 (Fase 9 em validação)
 
 ## Concluído e validado
 
@@ -152,8 +152,32 @@
 
 **Validação real (CI, execução 36, 2026-11-27):** 168 testes de unidade, 109 de banco e 77 cenários de ponta a ponta, todos passaram. Os testes encontraram e corrigiram: o servidor falso da Anthropic procurava a chave no cabeçalho errado, e um teste de banco deixava uma chave falsa salva para os testes seguintes.
 
+### Fase 8: Documentos, planos de ação e demais agentes
+| Item | Situação |
+|---|---|
+| Documentos comerciais (playbook, roteiro, política de preço, processo, perfil de cliente ideal) com versões que nunca se perdem | Pronto |
+| Equipe vê só a versão publicada; líder vê rascunhos e o histórico, publica qualquer versão | Pronto |
+| Plano de ação com responsável, prazo, prioridade e situação; atrasadas em destaque; cartão no início | Pronto |
+| Escolha do agente no chat: Head Comercial, Estrategista Comercial, Gestor de Projetos, Sales Ops (e, na Fase 9, Analista de Receita), cada um com as próprias instruções e ferramentas | Pronto |
+| Estrategista grava propostas de versão como rascunho (só para líderes) | Pronto |
+| Gestor de Projetos cria ações (líder para a equipe; vendedor para si) | Pronto |
+| Sales Ops lê a saúde do funil: etapas, taxa de ganho, ciclo, paradas, motivos de perda | Pronto |
+
+**Validação real (CI, execução 38, 2026-11-27):** 171 testes de unidade, 115 de banco e 86 cenários de ponta a ponta, todos passaram na primeira tentativa.
+
+### Fase 9: Preparação para clientes convidados
+| Item | Situação |
+|---|---|
+| Maturidade comercial em seis dimensões, com dados reais, foto mensal e dica do que melhorar | Pronto |
+| Analista de Receita: projeção do mês, melhor caso, meta e divisão por vendedor | Pronto |
+| Limite mensal de gasto com IA por empresa, definido pela administração | Pronto |
+| Limite de envios por minuto nos webhooks | Pronto |
+| Termos de uso e aviso de privacidade públicos, com aceite no primeiro acesso | Pronto (texto preliminar, falta revisão jurídica) |
+| Registro dos erros do servidor e tela "Erros do sistema" | Pronto |
+| Guia de agendadores e de conferência das cópias de segurança | Pronto |
+
 ## Em desenvolvimento
-- Nada. Fase 7 concluída.
+- Validação da Fase 9 no CI.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -182,6 +206,6 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 8: Documentos, planos de ação e demais agentes.** Documentos comerciais com versões (playbook, roteiro, política de preço), planos de ação com responsável e prazo, e os agentes Estrategista Comercial, Gestor de Projetos e Sales Ops.
+**Publicar o piloto interno da Orbion.** O roteiro (Fases 0 a 9) está construído. O próximo passo é colocar no ar para a equipe da Orbion usar de verdade, o que depende do proprietário: projetos no Supabase e na Vercel (custo mensal), provedor de e-mail, chave da Anthropic, servidor do WhatsApp e revisão jurídica dos termos.
 
 Precisa do proprietário: a chave da API da Anthropic (para conferir a qualidade real dos agentes) e, se possível, de 5 a 10 conversas reais com avaliação para a calibragem.

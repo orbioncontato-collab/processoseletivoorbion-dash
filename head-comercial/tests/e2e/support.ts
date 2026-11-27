@@ -1,7 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import pg from "pg";
+import { CURRENT_TERMS_VERSION } from "../../src/lib/auth/terms";
 
 /** Utilidades do teste de ponta a ponta. Rodam contra o Supabase local (supabase start). */
+
+// Usuários criados pelos testes já entram com os termos aceitos (o aceite é testado em onboarding.spec.ts).
+const TERMS_VERSION = CURRENT_TERMS_VERSION;
 
 const required = (name: string) => {
   const v = process.env[name];
@@ -25,6 +29,7 @@ export async function createPlatformAdmin(email: string, password: string) {
   await db.connect();
   try {
     await db.query("insert into public.platform_admins (user_id) values ($1)", [data.user.id]);
+    await db.query("update public.profiles set terms_version = $2, terms_accepted_at = now() where id = $1", [data.user.id, TERMS_VERSION]);
   } finally {
     await db.end();
   }
@@ -89,6 +94,7 @@ export async function seedCompanyWithTeam(tag: string, sellers = 2) {
       user_metadata: { full_name: name },
     });
     if (e || !data.user) throw new Error(`Falha ao criar ${email}: ${e?.message}`);
+    await admin.from("profiles").update({ terms_version: TERMS_VERSION, terms_accepted_at: new Date().toISOString() }).eq("id", data.user.id);
     const { error: m } = await admin
       .from("memberships")
       .insert({ company_id: company!.id, user_id: data.user.id, role });

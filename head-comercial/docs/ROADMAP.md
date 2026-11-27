@@ -53,10 +53,10 @@ Orquestrador de agentes, chat com identificação do agente, ferramentas de cons
 Biblioteca de treinamentos, recomendação pelo Especialista de Desenvolvimento, conclusão, acompanhamento da evolução nas conversas seguintes. **Concluída.** A recomendação usa regras (habilidade com nota até 5); o texto do motivo escrito pela IA pode entrar depois.
 
 ### Fase 8: Documentos, planos de ação e demais agentes
-Documentos comerciais com versões (Estrategista Comercial), planos de ação (Gestor de Projetos), Sales Ops.
+Documentos comerciais com versões (Estrategista Comercial), planos de ação (Gestor de Projetos), Sales Ops. **Concluída.**
 
 ### Fase 9: Preparação para clientes convidados
-Maturidade comercial, primeira versão do Analista de Receita, termos e aviso de privacidade, monitoramento de erros, backups verificados, limites de uso, ajustes do piloto interno.
+Maturidade comercial, primeira versão do Analista de Receita, termos e aviso de privacidade, monitoramento de erros, backups verificados, limites de uso, ajustes do piloto interno. **Construída;** a conferência das cópias de segurança e os ajustes do piloto acontecem depois de publicar.
 
 ## Definição do MVP
 

@@ -44,6 +44,9 @@ function chatReply(body) {
     const nextTool = (name, input) =>
       message([{ type: "tool_use", id: `toolu_mock_${++counter}`, name, input }], "tool_use");
 
+    if (toolName === "previsao_receita") {
+      return message([{ type: "text", text: `Projeção do mês: ${data.total.projecao}, com taxa de ganho de ${data.total.taxa_usada_pct}%. Já ganho: ${data.total.ganho_no_mes}.` }], "end_turn");
+    }
     if (toolName === "metricas_do_funil") {
       return message(
         [{ type: "text", text: `Saúde do funil em ${data.periodo_dias} dias: ${data.em_aberto} em aberto, ${data.ganhas_no_periodo} ganha(s), taxa de ganho ${data.taxa_de_ganho_pct ?? "sem dados"}, ${data.sem_proximo_passo} sem próximo passo.` }],
@@ -84,6 +87,7 @@ function chatReply(body) {
       ],
       "tool_use",
     );
+  if (question.includes("fechar este mês")) return toolUse("previsao_receita", {});
   if (question.includes("funil")) return toolUse("metricas_do_funil", { dias: 90 });
   if (question.includes("melhore")) return toolUse("listar_documentos", {});
   if (question.includes("plano")) return toolUse("criar_acao", { titulo: "Ligar para os clientes parados", prioridade: "high" });
