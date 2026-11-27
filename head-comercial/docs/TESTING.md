@@ -52,5 +52,10 @@ npm run test:e2e
 ## Postgres local x Supabase real
 O `scripts/test-db.sh` usa um Postgres comum com uma imitação mínima do Supabase (`tests/db/supabase-shim.sql`: papéis anon, authenticated e service_role, tabela auth.users e auth.uid()). Isso permite rodar os testes de isolamento em qualquer máquina. No CI os mesmos testes rodam contra o Supabase completo, para garantir que a imitação não esconde diferenças.
 
+## Diferenças conhecidas entre o Postgres local e o Supabase
+- O Supabase bloqueia `DELETE` e `UPDATE` sem `WHERE` nas chamadas da API (extensão `pg_safeupdate`). Em funções, usar filtro ou `truncate` em tabelas temporárias.
+- A gravação pelo PostgREST com "upsert" tenta atualizar todas as colunas enviadas; com permissões por coluna, gravar em dois passos (atualizar valores e inserir os novos).
+Por isso o CI sempre roda os testes de banco e de ponta a ponta contra o Supabase completo.
+
 ## Prova de que os testes pegam falhas
 Em 2026-11-23 duas políticas de isolamento foram trocadas de propósito por "liberar tudo". Cinco testes falharam e apontaram o vazamento. Com as políticas restauradas, todos voltaram a passar.

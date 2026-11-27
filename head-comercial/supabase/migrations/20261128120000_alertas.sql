@@ -158,7 +158,8 @@ begin
     user_id uuid, type text, severity text, entity_type text, entity_id uuid,
     reference_date date, title text, detail jsonb, dedupe_key text
   ) on commit drop;
-  delete from pg_temp.current_alerts;
+  -- truncate em vez de delete sem filtro: o Supabase bloqueia DELETE sem WHERE (pg_safeupdate).
+  truncate pg_temp.current_alerts;
 
   -- 1 e 2. Próximo passo vencido ou para hoje.
   insert into pg_temp.current_alerts
