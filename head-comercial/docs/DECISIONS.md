@@ -134,5 +134,14 @@ Arquivos aceitos: texto colado, .txt, .md, .pdf (com texto, não imagem escanead
 - **Resumo do dia.** O líder liga em Configurações e escolhe o horário (5h a 12h). O agendador passa a cada hora e gera uma vez por dia por empresa: o servidor junta os números de ontem e a situação de agora (conversas, mensagens, ganhos, perdas, relatórios, alertas por pessoa, maiores negociações, divergências), a IA escreve o texto e cada líder recebe como uma conversa no chat, com destaque no Início. Uma chamada por empresa, não uma por líder.
 **Pode rever?** Sim. Trocar para Managed Agents em tarefas longas continua possível (D005).
 
+## D022 · 2026-11-27 · Chaves das integrações pela tela
+A chave da Anthropic e a do servidor do WhatsApp podem ser coladas pela administração na tela "Chaves e integrações". O valor é cifrado pelo servidor (AES-256-GCM, chave em `SECRETS_ENCRYPTION_KEY`) e guardado numa tabela que nenhum usuário lê, nem a administração. A tela mostra só o final. Sem valor na tela, vale a variável de ambiente.
+**Motivo:** o proprietário quer preencher as integrações depois, sem depender de quem administra o servidor.
+**Consequência:** se `SECRETS_ENCRYPTION_KEY` mudar, as chaves salvas precisam ser coladas de novo (o sistema avisa no log).
+
+## D023 · 2026-11-27 · Treinamentos ligados à régua da análise
+Cada treinamento trabalha uma das habilidades que o Analista de Conversas avalia (abertura, diagnóstico, valor, objeções, próximo passo, agilidade). Assim a análise aponta a habilidade fraca e o sistema acha o treinamento certo, primeiro o da empresa e depois o da Orbion. A evolução compara a nota da habilidade antes e depois da conclusão. A recomendação é feita por regra (nota até 5), sem custo de IA.
+**Pode rever?** Sim. A IA pode escrever o motivo e escolher entre vários treinamentos quando a biblioteca crescer.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Decidir quando o acervo real estiver carregado, comparando a busca atual com a busca por significado (D020).

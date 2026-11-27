@@ -50,7 +50,7 @@ Carga de documentos (PDF, Word, texto, Markdown), divisão em trechos, busca por
 Orquestrador de agentes, chat com identificação do agente, ferramentas de consulta com permissão do usuário, Head Comercial e Analista de Conversas, análise estruturada calibrada, registro de custo, Head proativo com resumo diário. **Concluída** (testada com a API simulada; falta conferir a qualidade com a chave real).
 
 ### Fase 7: Desenvolvimento
-Biblioteca de treinamentos, recomendação pelo Especialista de Desenvolvimento, conclusão, acompanhamento da evolução nas conversas seguintes.
+Biblioteca de treinamentos, recomendação pelo Especialista de Desenvolvimento, conclusão, acompanhamento da evolução nas conversas seguintes. **Concluída.** A recomendação usa regras (habilidade com nota até 5); o texto do motivo escrito pela IA pode entrar depois.
 
 ### Fase 8: Documentos, planos de ação e demais agentes
 Documentos comerciais com versões (Estrategista Comercial), planos de ação (Gestor de Projetos), Sales Ops.

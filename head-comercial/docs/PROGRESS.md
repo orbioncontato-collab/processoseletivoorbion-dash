@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 6 concluída)
+Última atualização: 2026-11-27 (Fase 7 concluída)
 
 ## Concluído e validado
 
@@ -132,8 +132,28 @@
 
 **Validação real (CI, execução 33, 2026-11-27):** 161 testes de unidade, 103 de banco e 67 cenários de ponta a ponta, todos passaram. Entraram os cenários da resposta aos poucos (sem duplicar a mensagem, rota exige login e valida a pergunta) e do resumo do dia (liga, agendador entrega uma vez por dia, líder continua a conversa, vendedor não recebe).
 
+### Chaves e integrações pela tela
+| Item | Situação |
+|---|---|
+| A administração cola a chave da Anthropic e o endereço e a chave do servidor do WhatsApp numa tela, sem mexer no servidor | Pronto |
+| Valores cifrados no banco (AES-256-GCM); a tela mostra só o final; nenhum usuário lê a tabela direto | Pronto |
+| Botão "Testar conexão" confere a chave da Anthropic sem gastar tokens | Pronto |
+| Sem chave na tela, vale a variável de ambiente do servidor | Pronto |
+
+### Fase 7: Desenvolvimento do time
+| Item | Situação |
+|---|---|
+| Biblioteca de treinamentos da Orbion (para todas as empresas) e da própria empresa, por habilidade e formato | Pronto |
+| Líder indica um treinamento para alguém, com o motivo; não repete o que já está em aberto | Pronto |
+| A análise de conversa recomenda sozinha o treinamento da habilidade que ficou com nota até 5, com o motivo e a nota de partida | Pronto |
+| Vendedor começa e conclui; o líder pode dispensar | Pronto |
+| Evolução: depois da conclusão, compara a nota da habilidade nas conversas analisadas com a nota de partida | Pronto |
+| O Head consulta os treinamentos e a evolução no chat | Pronto |
+
+**Validação real (CI, execução 36, 2026-11-27):** 168 testes de unidade, 109 de banco e 77 cenários de ponta a ponta, todos passaram. Os testes encontraram e corrigiram: o servidor falso da Anthropic procurava a chave no cabeçalho errado, e um teste de banco deixava uma chave falsa salva para os testes seguintes.
+
 ## Em desenvolvimento
-- Nada. Fase 6 concluída.
+- Nada. Fase 7 concluída.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -162,6 +182,6 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 7: Desenvolvimento.** Biblioteca de treinamentos, recomendação de treinamento a partir das análises de conversa, conclusão e acompanhamento da evolução nas conversas seguintes.
+**Fase 8: Documentos, planos de ação e demais agentes.** Documentos comerciais com versões (playbook, roteiro, política de preço), planos de ação com responsável e prazo, e os agentes Estrategista Comercial, Gestor de Projetos e Sales Ops.
 
 Precisa do proprietário: a chave da API da Anthropic (para conferir a qualidade real dos agentes) e, se possível, de 5 a 10 conversas reais com avaliação para a calibragem.
