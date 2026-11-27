@@ -1386,6 +1386,31 @@ export type Database = {
         };
         Relationships: [];
       };
+      platform_secrets: {
+        Row: {
+          ciphertext: string;
+          hint: string | null;
+          name: string;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          ciphertext: string;
+          hint?: string | null;
+          name: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          ciphertext?: string;
+          hint?: string | null;
+          name?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           created_at: string;

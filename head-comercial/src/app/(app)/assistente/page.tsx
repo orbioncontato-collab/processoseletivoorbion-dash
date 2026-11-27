@@ -23,7 +23,7 @@ const LEADER_SUGGESTIONS = [
 export default async function AssistantPage() {
   const { company } = await requireCompany();
   const threads = await listThreads(company.companyId);
-  const configured = isAiConfigured();
+  const configured = await isAiConfigured();
   return (
     <div className="grid gap-6">
       <PageHeader

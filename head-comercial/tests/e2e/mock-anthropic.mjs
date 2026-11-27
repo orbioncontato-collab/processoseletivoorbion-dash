@@ -137,6 +137,17 @@ http
     if (url.pathname === "/__requests") return send(res, 200, requests.slice(-20));
 
     if (!req.headers["x-api-key"] && !req.headers.authorization) return send(res, 401, { type: "error", error: { type: "authentication_error", message: "sem chave" } });
+    if (req.method === "GET" && url.pathname === "/v1/models") {
+      if (String(req.headers["x-api-key"] ?? "").includes("invalida")) {
+        return send(res, 401, { type: "error", error: { type: "authentication_error", message: "invalid x-api-key" } });
+      }
+      return send(res, 200, {
+        data: [{ type: "model", id: "claude-opus-5-5", display_name: "Claude Opus 5.5", created_at: "2026-10-01T00:00:00Z" }],
+        has_more: false,
+        first_id: "claude-opus-5-5",
+        last_id: "claude-opus-5-5",
+      });
+    }
     if (req.method !== "POST" || url.pathname !== "/v1/messages") return send(res, 404, { type: "error", error: { type: "not_found_error", message: url.pathname } });
 
     const body = JSON.parse(raw || "{}");

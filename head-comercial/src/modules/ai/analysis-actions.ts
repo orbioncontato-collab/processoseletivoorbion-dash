@@ -8,7 +8,7 @@ import { AnalysisError, analyzeConversation } from "./analysis";
 import { currentAgentContext } from "./context";
 
 export async function requestAnalysis(_prev: ActionState, formData: FormData): Promise<ActionState> {
-  if (!isAiConfigured()) return { ok: false, message: "A IA ainda não está configurada nesta instalação." };
+  if (!(await isAiConfigured())) return { ok: false, message: "A IA ainda não está configurada nesta instalação." };
   const id = String(formData.get("conversationId") ?? "");
   if (!z.uuid().safeParse(id).success) return { ok: false, message: "Conversa inválida." };
   const ctx = await currentAgentContext();

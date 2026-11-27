@@ -29,7 +29,7 @@ export default async function ThreadPage({ params }: PageProps<"/assistente/[id]
         <Card>
           <CardContent className="grid gap-6 p-4">
             <MessageList messages={found.messages} tz={company.timezone} />
-            {isAiConfigured() ? <ChatForm threadId={id} /> : <AiNotConfigured />}
+            {(await isAiConfigured()) ? <ChatForm threadId={id} /> : <AiNotConfigured />}
           </CardContent>
         </Card>
       </div>

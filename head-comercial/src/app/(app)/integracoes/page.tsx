@@ -101,7 +101,7 @@ export default async function IntegrationsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {!evolutionConfig() ? (
+          {!(await evolutionConfig()) ? (
             <p className="text-sm text-muted-foreground">
               O servidor que faz a ponte com o WhatsApp ainda não foi configurado. Assim que ele estiver no ar, esta
               opção fica disponível.

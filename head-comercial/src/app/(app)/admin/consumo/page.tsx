@@ -26,7 +26,7 @@ export default async function AiUsagePage() {
   return (
     <div className="grid gap-6">
       <PageHeader title="Consumo da IA" description="Chamadas, tokens e custo estimado por empresa neste mês (preço de tabela da Anthropic, em dólar)." />
-      {!isAiConfigured() ? <AiNotConfigured /> : null}
+      {!(await isAiConfigured()) ? <AiNotConfigured /> : null}
       <Card>
         <CardHeader>
           <CardTitle>Total do mês: {formatUsd(total)}</CardTitle>

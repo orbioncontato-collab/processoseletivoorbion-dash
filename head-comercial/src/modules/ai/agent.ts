@@ -53,7 +53,7 @@ const textOf = (content: Anthropic.Beta.BetaContentBlock[]) =>
     .trim();
 
 export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
-  const client = getAnthropic();
+  const client = await getAnthropic();
   if (!client) throw new AiNotConfiguredError();
 
   const started = Date.now();

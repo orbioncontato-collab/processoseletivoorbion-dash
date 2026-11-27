@@ -13,7 +13,7 @@
     "db:test:up": "scripts/test-db.sh up",
     "db:test:reset": "scripts/test-db.sh reset",
     "db:test:down": "scripts/test-db.sh down",
-    "db:types": "supabase gen types typescript --remote \"${DATABASE_URL_TEST:-postgresql://postgres@127.0.0.1:54329/head_comercial_test}\" --schema public > src/lib/supabase/database.types.ts 2>/dev/null && npx --yes oxfmt src/lib/supabase/database.types.ts",
+    "db:types": "supabase gen types typescript --db-url \"${DATABASE_URL_TEST:-postgresql://postgres@127.0.0.1:54329/head_comercial_test}\" --schema public > .types.tmp 2>/dev/null && mv .types.tmp src/lib/supabase/database.types.ts && npx --yes oxfmt src/lib/supabase/database.types.ts || (rm -f .types.tmp; echo \"Banco local desligado: rode npm run db:test:up\" >&2; exit 1)",
     "test:e2e": "playwright test --trace off"
   },
   "dependencies": {

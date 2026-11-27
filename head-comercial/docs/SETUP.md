@@ -39,7 +39,8 @@ select id from auth.users where email = 'email-do-admin@orbion.com.br';
 | `SUPABASE_SECRET_KEY` | Supabase > Project Settings > API Keys (secret). Nunca expor. |
 | `NEXT_PUBLIC_SITE_URL` | Endereço público do app |
 | `CRON_SECRET` | Valor aleatório longo. A Vercel usa para chamar o recálculo dos alertas e o resumo do dia (vercel.json). |
-| `ANTHROPIC_API_KEY` | Chave da API da Anthropic. Sem ela, o chat, a análise de conversas e o resumo do dia aparecem como "IA não configurada". |
+| `SECRETS_ENCRYPTION_KEY` | Valor aleatório com 32 caracteres ou mais (`openssl rand -base64 48`). Protege as chaves salvas na tela "Chaves e integrações". Se mudar, as chaves salvas precisam ser coladas de novo. |
+| `ANTHROPIC_API_KEY` | Opcional. A chave da Anthropic pode ser colada na tela "Chaves e integrações" da administração; a variável só vale quando não há chave salva na tela. |
 
 ## 3. Conferência depois de publicar
 - Abrir `/entrar` e entrar com o administrador.
@@ -60,3 +61,11 @@ Só depois da autorização do gasto (estimativa de 5 a 20 dólares por mês).
 
 4. No Head, em Integrações > WhatsApp por QR Code, criar a conexão de um vendedor de teste e ler o QR Code com o celular.
 5. Conferir com uma conversa real: mensagem recebida, resposta enviada pelo celular, mensagem de grupo (deve ser ignorada) e um áudio. O tradutor foi escrito com base no formato da Evolution v2 e precisa dessa conferência com o servidor real.
+
+## 5. Chaves e integrações pela tela
+
+Depois de publicar, a administração da Orbion entra em **Chaves e integrações** (menu da administração) e cola:
+- a chave da API da Anthropic, que liga o chat, a análise de conversas e o resumo do dia (o botão "Testar conexão" confere a chave sem gastar tokens);
+- o endereço e a chave do servidor do WhatsApp (Evolution API), quando ele estiver no ar.
+
+Os valores ficam cifrados no banco e só o final aparece na tela. Remover uma chave da tela faz o sistema voltar a usar a variável de ambiente, se existir.

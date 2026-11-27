@@ -116,7 +116,7 @@ export function transcript(messages: Msg[], timeZone: string, maxChars = 60_000)
 export class AnalysisError extends Error {}
 
 export async function analyzeConversation(ctx: AgentContext, conversationId: string): Promise<string> {
-  const client = getAnthropic();
+  const client = await getAnthropic();
   if (!client) throw new AiNotConfiguredError();
 
   // Com o login de quem pediu: só analisa o que a pessoa pode ver.

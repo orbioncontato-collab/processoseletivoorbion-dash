@@ -150,7 +150,7 @@ export function summaryTitle(timeZone: string, now = new Date()): string {
 
 /** Gera e entrega o resumo de uma empresa. Devolve quantos líderes receberam. */
 export async function generateDailySummary(companyId: string, now = new Date()): Promise<{ delivered: number; status: string }> {
-  const client = getAnthropic();
+  const client = await getAnthropic();
   if (!client) return { delivered: 0, status: "ai_not_configured" };
   const db = createServiceClient({ type: "agent" });
 

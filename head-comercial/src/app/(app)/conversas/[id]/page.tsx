@@ -89,7 +89,7 @@ export default async function ConversationPage({ params }: PageProps<"/conversas
                   O Analista de Conversas avalia a condução do vendedor e sugere o próximo passo.
                 </p>
               )}
-              {isAiConfigured() ? <AnalyzeButton conversationId={conversation.id} again={Boolean(latest)} /> : <AiNotConfigured />}
+              {(await isAiConfigured()) ? <AnalyzeButton conversationId={conversation.id} again={Boolean(latest)} /> : <AiNotConfigured />}
             </CardContent>
           </Card>
           <Card>

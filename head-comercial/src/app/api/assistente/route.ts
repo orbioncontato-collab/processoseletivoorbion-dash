@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   if (!user) return json({ error: "Faça login de novo." }, 401);
   const company = await getActiveCompany(user);
   if (!company) return json({ error: "Sem empresa ativa." }, 403);
-  if (!isAiConfigured()) return json({ error: "A IA ainda não está configurada nesta instalação." }, 503);
+  if (!(await isAiConfigured())) return json({ error: "A IA ainda não está configurada nesta instalação." }, 503);
 
   const parsed = schema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Pedido inválido." }, 400);

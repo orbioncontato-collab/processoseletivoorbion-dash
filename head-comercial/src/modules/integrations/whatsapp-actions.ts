@@ -50,7 +50,7 @@ const createSchema = z.object({
 export async function createWhatsappConnection(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const ctx = await requireCompany();
   if (ctx.company.role !== "leader") return { ok: false, message: "Só o líder cria conexões de WhatsApp." };
-  if (!evolutionConfig()) return { ok: false, message: "O servidor do WhatsApp ainda não foi configurado." };
+  if (!(await evolutionConfig())) return { ok: false, message: "O servidor do WhatsApp ainda não foi configurado." };
 
   const parsed = createSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {

@@ -85,3 +85,15 @@ describe("análise de conversas", () => {
     expect(Number(act.n)).toBe(1);
   });
 });
+
+describe("chaves da plataforma", () => {
+  it("nenhum usuário lê nem grava as chaves cifradas, nem a administração", async () => {
+    await run(asService(), "insert into public.platform_secrets (name, ciphertext, hint) values ('evolution_api_key', 'v1.x.y.z', 'abcd') on conflict (name) do nothing", [], { commit: true });
+    await expect(run(asUser(f.admin), "select ciphertext from public.platform_secrets")).rejects.toThrow(/permission denied/);
+    await expect(
+      run(asUser(f.admin), "insert into public.platform_secrets (name, ciphertext) values ('anthropic_api_key', 'x')"),
+    ).rejects.toThrow(/permission denied/);
+    const rows = await run<{ name: string }>(asService(), "select name from public.platform_secrets");
+    expect(rows.map((r) => r.name)).toContain("evolution_api_key");
+  });
+});

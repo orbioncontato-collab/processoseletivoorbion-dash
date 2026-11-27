@@ -1,21 +1,22 @@
 import "server-only";
+import { platformSecret } from "@/lib/platform-config";
 
 /**
  * Cliente da Evolution API (servidor que mantém a conexão do WhatsApp por QR Code).
- * Configuração por variáveis de ambiente do servidor: EVOLUTION_API_URL e EVOLUTION_API_KEY.
+ * Configuração na tela de integrações da administração ou nas variáveis
+ * EVOLUTION_API_URL e EVOLUTION_API_KEY.
  * Sem elas, a conexão por QR Code aparece como "não configurada" na tela.
  */
 
 export class EvolutionError extends Error {}
 
-export function evolutionConfig(): { url: string; key: string } | null {
-  const url = process.env.EVOLUTION_API_URL?.replace(/\/+$/, "");
-  const key = process.env.EVOLUTION_API_KEY;
-  return url && key ? { url, key } : null;
+export async function evolutionConfig(): Promise<{ url: string; key: string } | null> {
+  const [url, key] = await Promise.all([platformSecret("evolution_api_url"), platformSecret("evolution_api_key")]);
+  return url && key ? { url: url.replace(/\/+$/, ""), key } : null;
 }
 
 async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const cfg = evolutionConfig();
+  const cfg = await evolutionConfig();
   if (!cfg) throw new EvolutionError("Servidor do WhatsApp não configurado.");
   let res: Response;
   try {

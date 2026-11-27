@@ -35,6 +35,7 @@ export async function Sidebar() {
     items.push({ href: "/admin/empresas", label: "Empresas", icon: "building" });
     items.push({ href: "/admin/cerebro", label: "Cérebro central", icon: "brain" });
     items.push({ href: "/admin/consumo", label: "Consumo da IA", icon: "reports" });
+    items.push({ href: "/admin/integracoes", label: "Chaves e integrações", icon: "plug" });
   }
   items.push({ href: "/perfil", label: "Meu perfil", icon: "user" });
 
