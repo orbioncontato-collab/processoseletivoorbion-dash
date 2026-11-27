@@ -51,6 +51,174 @@ export type Database = {
           },
         ];
       };
+      agent_messages: {
+        Row: {
+          agent: string | null;
+          blocks: Json | null;
+          company_id: string;
+          content: string;
+          created_at: string;
+          id: string;
+          role: string;
+          run_id: string | null;
+          thread_id: string;
+          tools_used: string[];
+        };
+        ComputedFields: never;
+        Insert: {
+          agent?: string | null;
+          blocks?: Json | null;
+          company_id: string;
+          content: string;
+          created_at?: string;
+          id?: string;
+          role: string;
+          run_id?: string | null;
+          thread_id: string;
+          tools_used?: string[];
+        };
+        Update: {
+          agent?: string | null;
+          blocks?: Json | null;
+          company_id?: string;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          role?: string;
+          run_id?: string | null;
+          thread_id?: string;
+          tools_used?: string[];
+        };
+        Relationships: [
+          {
+            foreignKeyName: "agent_messages_company_id_thread_id_fkey";
+            columns: ["company_id", "thread_id"];
+            isOneToOne: false;
+            referencedRelation: "agent_threads";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      agent_threads: {
+        Row: {
+          agent: string;
+          archived_at: string | null;
+          company_id: string;
+          created_at: string;
+          id: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          agent?: string;
+          archived_at?: string | null;
+          company_id: string;
+          created_at?: string;
+          id?: string;
+          title?: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          agent?: string;
+          archived_at?: string | null;
+          company_id?: string;
+          created_at?: string;
+          id?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "agent_threads_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      ai_runs: {
+        Row: {
+          agent: string;
+          cache_read_tokens: number;
+          cache_write_tokens: number;
+          company_id: string | null;
+          cost_micros: number;
+          created_at: string;
+          duration_ms: number | null;
+          error: string | null;
+          id: string;
+          input_tokens: number;
+          model: string;
+          output_tokens: number;
+          purpose: string;
+          requests: number;
+          served_model: string | null;
+          status: string;
+          stop_reason: string | null;
+          thread_id: string | null;
+          tool_calls: number;
+          user_id: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          agent: string;
+          cache_read_tokens?: number;
+          cache_write_tokens?: number;
+          company_id?: string | null;
+          cost_micros?: number;
+          created_at?: string;
+          duration_ms?: number | null;
+          error?: string | null;
+          id?: string;
+          input_tokens?: number;
+          model: string;
+          output_tokens?: number;
+          purpose: string;
+          requests?: number;
+          served_model?: string | null;
+          status?: string;
+          stop_reason?: string | null;
+          thread_id?: string | null;
+          tool_calls?: number;
+          user_id?: string | null;
+        };
+        Update: {
+          agent?: string;
+          cache_read_tokens?: number;
+          cache_write_tokens?: number;
+          company_id?: string | null;
+          cost_micros?: number;
+          created_at?: string;
+          duration_ms?: number | null;
+          error?: string | null;
+          id?: string;
+          input_tokens?: number;
+          model?: string;
+          output_tokens?: number;
+          purpose?: string;
+          requests?: number;
+          served_model?: string | null;
+          status?: string;
+          stop_reason?: string | null;
+          thread_id?: string | null;
+          tool_calls?: number;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "ai_runs_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       alerts: {
         Row: {
           company_id: string;
@@ -303,6 +471,88 @@ export type Database = {
             columns: ["company_id"];
             isOneToOne: false;
             referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      conversation_analyses: {
+        Row: {
+          company_id: string;
+          conversation_id: string;
+          created_at: string;
+          criteria: NonNullable<Json>;
+          failures: string[];
+          id: string;
+          messages_count: number;
+          model: string | null;
+          next_step: string | null;
+          objections: string[];
+          recommendations: string[];
+          requested_by: string | null;
+          run_id: string | null;
+          score: number | null;
+          seller_id: string;
+          stage_reached: string | null;
+          status: string;
+          strengths: string[];
+          summary: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          conversation_id: string;
+          created_at?: string;
+          criteria?: NonNullable<Json>;
+          failures?: string[];
+          id?: string;
+          messages_count?: number;
+          model?: string | null;
+          next_step?: string | null;
+          objections?: string[];
+          recommendations?: string[];
+          requested_by?: string | null;
+          run_id?: string | null;
+          score?: number | null;
+          seller_id: string;
+          stage_reached?: string | null;
+          status?: string;
+          strengths?: string[];
+          summary?: string;
+        };
+        Update: {
+          company_id?: string;
+          conversation_id?: string;
+          created_at?: string;
+          criteria?: NonNullable<Json>;
+          failures?: string[];
+          id?: string;
+          messages_count?: number;
+          model?: string | null;
+          next_step?: string | null;
+          objections?: string[];
+          recommendations?: string[];
+          requested_by?: string | null;
+          run_id?: string | null;
+          score?: number | null;
+          seller_id?: string;
+          stage_reached?: string | null;
+          status?: string;
+          strengths?: string[];
+          summary?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "conversation_analyses_company_id_conversation_id_fkey";
+            columns: ["company_id", "conversation_id"];
+            isOneToOne: false;
+            referencedRelation: "conversations";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "conversation_analyses_run_id_fkey";
+            columns: ["run_id"];
+            isOneToOne: false;
+            referencedRelation: "ai_runs";
             referencedColumns: ["id"];
           },
         ];
