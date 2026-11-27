@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 9 em validação)
+Última atualização: 2026-11-27 (Fases 0 a 9 construídas e validadas)
 
 ## Concluído e validado
 
@@ -176,8 +176,10 @@
 | Registro dos erros do servidor e tela "Erros do sistema" | Pronto |
 | Guia de agendadores e de conferência das cópias de segurança | Pronto |
 
+**Validação real (CI, execução 39, 2026-11-27):** 176 testes de unidade, 118 de banco e 92 cenários de ponta a ponta, todos passaram na primeira tentativa. O teste de convite agora passa também pelo aceite dos termos.
+
 ## Em desenvolvimento
-- Validação da Fase 9 no CI.
+- Nada. O roteiro das Fases 0 a 9 está construído e validado.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
