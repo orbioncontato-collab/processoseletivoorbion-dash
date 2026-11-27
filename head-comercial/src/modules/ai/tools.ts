@@ -224,7 +224,8 @@ type AnyTool = (typeof TOOLS)[number];
 const BY_NAME = new Map<string, AnyTool>(TOOLS.map((t) => [t.name, t]));
 
 function inputSchema(schema: z.ZodType): Anthropic.Beta.BetaTool.InputSchema {
-  const { $schema: _ignored, ...json } = z.toJSONSchema(schema, { io: "input" }) as Record<string, unknown>;
+  const json = z.toJSONSchema(schema, { io: "input" }) as Record<string, unknown>;
+  delete json.$schema;
   return json as Anthropic.Beta.BetaTool.InputSchema;
 }
 
@@ -235,17 +236,6 @@ export const TOOL_DEFINITIONS: Anthropic.Beta.BetaTool[] = TOOLS.map((t) => ({
   input_schema: inputSchema(t.schema),
 }));
 
-export const TOOL_LABELS: Record<string, string> = {
-  listar_oportunidades: "oportunidades",
-  ver_oportunidade: "detalhes da oportunidade",
-  listar_alertas: "alertas",
-  numeros_de_hoje: "números de hoje",
-  listar_equipe: "equipe",
-  listar_conversas: "conversas",
-  ver_conversa: "mensagens da conversa",
-  buscar_conhecimento: "conhecimento",
-  ver_memoria: "memória",
-};
 
 const MAX_RESULT_CHARS = 30_000;
 

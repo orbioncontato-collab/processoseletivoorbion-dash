@@ -165,3 +165,10 @@ export async function seedOpportunity(
   if (error || !data) throw new Error(`Falha ao criar oportunidade: ${error?.message}`);
   return data.id as string;
 }
+
+/** Grava direto no banco pela chave secreta (preparação de cenários). */
+export function adminClient() {
+  return createClient(required("NEXT_PUBLIC_SUPABASE_URL"), required("SUPABASE_SECRET_KEY"), {
+    auth: { persistSession: false },
+  });
+}

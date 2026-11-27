@@ -13,6 +13,7 @@ export async function Sidebar() {
   const items: NavItem[] = [];
   if (company) {
     items.push({ href: "/inicio", label: "Início", icon: "home" });
+    items.push({ href: "/assistente", label: "Head Comercial", icon: "bot" });
     items.push({ href: "/alertas", label: "Alertas", icon: "bell" });
     items.push({ href: "/oportunidades", label: "Oportunidades", icon: "deals" });
     items.push({ href: "/contatos", label: "Contatos", icon: "contacts" });

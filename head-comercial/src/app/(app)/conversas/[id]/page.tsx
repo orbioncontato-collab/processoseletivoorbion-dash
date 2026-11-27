@@ -10,6 +10,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { getConversation } from "@/modules/conversations/queries";
 import { LinkOpportunityForm } from "@/modules/conversations/components/link-form";
+import { isAiConfigured } from "@/lib/ai/client";
+import { AnalyzeButton } from "@/modules/ai/components/analyze-button";
+import { AiNotConfigured, AnalysisView } from "@/modules/ai/components/views";
+import { listAnalyses } from "@/modules/ai/queries";
 
 export const metadata: Metadata = { title: "Conversa" };
 
@@ -30,6 +34,8 @@ export default async function ConversationPage({ params }: PageProps<"/conversas
   const data = await getConversation(company.companyId, id);
   if (!data) notFound();
   const { conversation, contact, messages, opportunities } = data;
+  const analyses = await listAnalyses(conversation.id);
+  const latest = analyses[0];
 
   return (
     <div className="grid gap-6">
@@ -73,6 +79,19 @@ export default async function ConversationPage({ params }: PageProps<"/conversas
           </CardContent>
         </Card>
         <div className="grid content-start gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Análise da conversa</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              {latest ? <AnalysisView analysis={latest} tz={company.timezone} /> : (
+                <p className="text-sm text-muted-foreground">
+                  O Analista de Conversas avalia a condução do vendedor e sugere o próximo passo.
+                </p>
+              )}
+              {isAiConfigured() ? <AnalyzeButton conversationId={conversation.id} again={Boolean(latest)} /> : <AiNotConfigured />}
+            </CardContent>
+          </Card>
           <Card>
             <CardHeader>
               <CardTitle>Negociação</CardTitle>

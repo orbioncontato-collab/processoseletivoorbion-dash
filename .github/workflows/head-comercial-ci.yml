@@ -60,9 +60,13 @@ jobs:
           EVOLUTION_API_URL: http://127.0.0.1:54399
           EVOLUTION_API_KEY: chave-de-teste
           CRON_SECRET: segredo-de-teste-do-agendador
+          ANTHROPIC_API_KEY: chave-de-teste
+          ANTHROPIC_BASE_URL: http://127.0.0.1:54398
+          E2E_AI: "1"
         run: |
           npx playwright install --with-deps chromium
           (node tests/e2e/mock-evolution.mjs > mock-evolution.log 2>&1 &)
+          (node tests/e2e/mock-anthropic.mjs > mock-anthropic.log 2>&1 &)
           (npm start -- -p 3000 > next.log 2>&1 &)
           for i in $(seq 1 60); do curl -sf -o /dev/null http://127.0.0.1:3000/entrar && break; sleep 1; done
           npm run test:e2e
