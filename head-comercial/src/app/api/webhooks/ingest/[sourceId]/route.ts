@@ -31,12 +31,15 @@ export async function POST(request: NextRequest, { params }: RouteContext<"/api/
   const system = createServiceClient({ type: "system" });
   const { data: source } = await system
     .from("integration_sources")
-    .select("id, company_id, status, secret_hash, archived_at")
+    .select("id, company_id, status, secret_hash, archived_at, companies!inner(status)")
     .eq("id", sourceId)
     .maybeSingle();
   if (!source || !keyMatches(key, source.secret_hash)) return unauthorized();
   if (source.archived_at || source.status === "paused") {
     return json(403, { error: "Esta fonte está pausada ou arquivada." });
+  }
+  if ((source.companies as unknown as { status: string }).status !== "active") {
+    return json(403, { error: "A empresa desta fonte está suspensa." });
   }
 
   const length = Number(request.headers.get("content-length") ?? 0);

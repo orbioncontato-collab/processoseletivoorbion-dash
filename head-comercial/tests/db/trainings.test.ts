@@ -61,6 +61,18 @@ describe("recomendações", () => {
     ).rejects.toThrow(/não faz parte/);
   });
 
+  it("não indica treinamento para quem foi desativado da equipe", async () => {
+    await run(asService(), "update public.memberships set status = 'disabled' where user_id = $1 and company_id = $2", [f.sellerA2, f.companyA], { commit: true });
+    try {
+      await expect(
+        run(asService(), "insert into public.training_assignments (company_id, user_id, training_id, source, reason, skill) values ($1, $2, $3, 'leader', 'x', 'objecoes')",
+          [f.companyA, f.sellerA2, companyA]),
+      ).rejects.toThrow(/não faz parte/);
+    } finally {
+      await run(asService(), "update public.memberships set status = 'active' where user_id = $1 and company_id = $2", [f.sellerA2, f.companyA], { commit: true });
+    }
+  });
+
   it("não repete recomendação ativa; concluir marca as datas e libera nova", async () => {
     await expect(
       run(asService(), "insert into public.training_assignments (company_id, user_id, training_id, source, reason, skill) values ($1, $2, $3, 'analysis', 'de novo', 'diagnostico')",

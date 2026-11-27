@@ -26,11 +26,12 @@ export async function POST(request: NextRequest, { params }: RouteContext<"/api/
   const system = createServiceClient({ type: "system" });
   const { data: source } = await system
     .from("integration_sources")
-    .select("id, company_id, kind, status, secret_hash, archived_at")
+    .select("id, company_id, kind, status, secret_hash, archived_at, companies!inner(status)")
     .eq("id", sourceId)
     .maybeSingle();
   if (!source || source.kind !== "whatsapp_device" || !keyMatches(token, source.secret_hash)) return denied;
   if (source.archived_at) return ok({ ignored: "fonte arquivada" });
+  if ((source.companies as unknown as { status: string }).status !== "active") return ok({ ignored: "empresa suspensa" });
 
   const raw = await request.text();
   if (raw.length > 2_000_000) return NextResponse.json({ error: "Corpo grande demais." }, { status: 413 });

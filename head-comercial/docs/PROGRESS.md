@@ -178,8 +178,16 @@
 
 **Validação real (CI, execução 39, 2026-11-27):** 176 testes de unidade, 118 de banco e 92 cenários de ponta a ponta, todos passaram na primeira tentativa. O teste de convite agora passa também pelo aceite dos termos.
 
+### Preparação para publicar
+| Item | Situação |
+|---|---|
+| Revisão de segurança independente (isolamento entre empresas, permissões, webhooks, arquivos) e correções (D025) | Pronto |
+| Cabeçalhos de segurança do navegador e endereço de verificação de saúde (`/api/health`) | Pronto |
+| Script para criar o primeiro administrador em produção (`npm run admin:create`) | Pronto |
+| Checklist de publicação passo a passo ([LAUNCH.md](./LAUNCH.md)) | Pronto |
+
 ## Em desenvolvimento
-- Nada. O roteiro das Fases 0 a 9 está construído e validado.
+- Nada. O roteiro das Fases 0 a 9 está construído e validado. O próximo passo depende das contas de produção (LAUNCH.md).
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -204,7 +212,8 @@
 - A importação por planilha roda dentro da requisição e por isso tem limite de 500 linhas. Volumes maiores pedem uma fila de processamento.
 - O webhook processa os eventos na hora. Se o volume crescer (muitos números de WhatsApp), mover o processamento para uma fila.
 - Não há limite de requisições por fonte no webhook ainda (entra com a preparação para clientes convidados).
-- Quem já usa o sistema em outra empresa entra direto na nova equipe ao ser convidado, sem precisar aceitar. Aceitável para o piloto; revisar antes dos clientes convidados.
+- Quem já usa o sistema em outra empresa entra direto na nova equipe ao ser convidado, sem precisar aceitar. A empresa padrão dessa pessoa não muda (D025). Aceitável para o piloto; criar o aceite explícito antes dos clientes convidados.
+- A chave do WhatsApp por QR Code não pode ser trocada pela tela (D025). Fazer antes dos clientes convidados.
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade

@@ -15,7 +15,16 @@ export function isPublicPath(pathname: string): boolean {
  */
 export function safeNextPath(next: string | null | undefined, fallback: string = HOME_PATH): string {
   if (!next) return fallback;
-  if (!next.startsWith("/") || next.startsWith("//") || next.startsWith("/\\")) return fallback;
+  // Navegadores ignoram tabulação e quebra de linha no endereço ("/\t/site.com" vira "//site.com")
+  // e tratam "\" como "/". Qualquer um desses caracteres invalida o destino.
+  if (/[\u0000-\u001f\u007f\\]/.test(next)) return fallback;
+  if (!next.startsWith("/") || next.startsWith("//")) return fallback;
   if (next.includes("://")) return fallback;
+  // Conferência final: resolvido contra um endereço local, precisa continuar no mesmo site.
+  try {
+    if (new URL(next, "https://head.invalid").origin !== "https://head.invalid") return fallback;
+  } catch {
+    return fallback;
+  }
   return next;
 }

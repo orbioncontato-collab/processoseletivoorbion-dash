@@ -13,6 +13,13 @@ describe("safeNextPath", () => {
     expect(safeNextPath("/redir?u=https://x.com")).toBe("/inicio");
     expect(safeNextPath("equipe")).toBe("/inicio");
   });
+  it("recusa caracteres que o navegador descarta ou troca por barra", () => {
+    expect(safeNextPath("/\t/malicioso.com")).toBe("/inicio");
+    expect(safeNextPath("/\n/malicioso.com")).toBe("/inicio");
+    expect(safeNextPath("/\r//malicioso.com")).toBe("/inicio");
+    expect(safeNextPath("/x\\y")).toBe("/inicio");
+    expect(safeNextPath("/oportunidades?due=overdue")).toBe("/oportunidades?due=overdue");
+  });
   it("usa o padrão quando vazio", () => {
     expect(safeNextPath(null)).toBe("/inicio");
     expect(safeNextPath(undefined, "/x")).toBe("/x");

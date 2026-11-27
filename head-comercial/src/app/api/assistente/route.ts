@@ -24,6 +24,7 @@ const json = (body: unknown, status: number) =>
 export async function POST(request: Request) {
   const user = await getCurrentUser();
   if (!user) return json({ error: "Faça login de novo." }, 401);
+  if (!user.termsAccepted) return json({ error: "Aceite os termos de uso para continuar." }, 403);
   const company = await getActiveCompany(user);
   if (!company) return json({ error: "Sem empresa ativa." }, 403);
   if (!(await isAiConfigured())) return json({ error: "A IA ainda não está configurada nesta instalação." }, 503);

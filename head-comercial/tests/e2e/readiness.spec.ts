@@ -143,3 +143,11 @@ test("verificação de saúde responde sem login e as páginas têm os cabeçalh
   expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
   expect(h["x-powered-by"]).toBeUndefined();
 });
+
+test("link de login com destino disfarçado não leva para outro site", async ({ page }) => {
+  await page.goto("/entrar?next=/%09/exemplo-malicioso.com");
+  await field(page, "E-mail").fill(leader.email);
+  await field(page, "Senha").fill(leader.password);
+  await page.getByRole("button", { name: "Entrar" }).click();
+  await expect(page).toHaveURL(/127\.0\.0\.1:3000\/inicio|localhost:3000\/inicio/);
+});

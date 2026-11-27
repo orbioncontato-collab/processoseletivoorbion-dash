@@ -22,6 +22,8 @@ export interface CurrentUser {
   fullName: string;
   isPlatformAdmin: boolean;
   memberships: CompanyMembership[];
+  /** Empresa padrão quando a pessoa não escolheu no seletor: a mais antiga em que entrou. */
+  defaultCompanyId: string | null;
   /** Aceitou a versão atual dos termos de uso e do aviso de privacidade. */
   termsAccepted: boolean;
 }
@@ -51,7 +53,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     supabase.from("platform_admins").select("user_id").eq("user_id", userId).maybeSingle(),
     supabase
       .from("memberships")
-      .select("role, company_id, companies(name, slug, timezone)")
+      .select("role, company_id, created_at, companies(name, slug, timezone)")
       .eq("user_id", userId)
       .eq("status", "active"),
   ]);
@@ -65,9 +67,13 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     return null;
   }
 
-  const memberships: CompanyMembership[] = (membershipsRes.data ?? [])
+  const visible = (membershipsRes.data ?? [])
     // Empresa suspensa não aparece (o RLS de companies devolve null no join).
-    .filter((m) => m.companies !== null)
+    .filter((m) => m.companies !== null);
+  // A empresa padrão é a primeira em que a pessoa entrou. Assim, ser adicionado a outra
+  // empresa depois não muda, sem a pessoa perceber, onde ela registra o trabalho.
+  const defaultCompanyId = [...visible].sort((a, b) => a.created_at.localeCompare(b.created_at))[0]?.company_id ?? null;
+  const memberships: CompanyMembership[] = visible
     .map((m) => ({
       companyId: m.company_id,
       companyName: m.companies!.name,
@@ -83,6 +89,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     fullName: profileRes.data?.full_name ?? "",
     isPlatformAdmin: Boolean(adminRes.data),
     memberships,
+    defaultCompanyId,
     termsAccepted: profileRes.data?.terms_version === CURRENT_TERMS_VERSION,
   };
 });
@@ -95,11 +102,15 @@ export async function requireUser(): Promise<CurrentUser> {
   return user;
 }
 
-/** Empresa ativa: a escolhida no seletor (cookie) ou a primeira da lista. */
+/** Empresa ativa: a escolhida no seletor (cookie) ou a mais antiga em que a pessoa entrou. */
 export async function getActiveCompany(user: CurrentUser): Promise<CompanyMembership | null> {
   if (user.memberships.length === 0) return null;
   const chosen = (await cookies()).get(ACTIVE_COMPANY_COOKIE)?.value;
-  return user.memberships.find((m) => m.companyId === chosen) ?? user.memberships[0];
+  return (
+    user.memberships.find((m) => m.companyId === chosen) ??
+    user.memberships.find((m) => m.companyId === user.defaultCompanyId) ??
+    user.memberships[0]
+  );
 }
 
 /** Exige login e uma empresa ativa. */

@@ -151,6 +151,17 @@ Cada treinamento trabalha uma das habilidades que o Analista de Conversas avalia
 - **Maturidade comercial:** seis dimensões (processo, dados, rotina, conversas, desenvolvimento, gestão) calculadas com os dados reais, de 0 a 100, com foto mensal. Dimensão sem dados não entra na média.
 - **Analista de Receita:** projeção do mês = já ganho + previsto para o mês multiplicado pela taxa de ganho dos últimos 90 dias (30% quando há menos de 3 negociações encerradas).
 
+## D025 · 2026-11-27 · Revisão de segurança antes de publicar
+Uma revisão independente leu todas as gravações feitas com a chave secreta, as políticas do banco, os webhooks, os agendadores e o envio de arquivos. Não encontrou nenhum caminho para uma empresa ver ou alterar dados de outra. Correções feitas:
+- **Desvio para outro site após o login:** um endereço com tabulação ("/%09/site.com") passava pela conferência. Agora caracteres de controle e "\" são recusados, e o destino é conferido de novo depois de resolvido.
+- **Empresa padrão:** quem participa de mais de uma empresa e nunca usou o seletor abria na primeira em ordem alfabética. Ser adicionado a uma empresa nova podia mudar onde a pessoa registrava o trabalho sem ela perceber. Agora a padrão é a empresa mais antiga em que a pessoa entrou.
+- **Empresa suspensa** deixa de receber dados pelos webhooks.
+- **Chat** exige o aceite dos termos, como o resto do sistema.
+- **Treinamento** só pode ser indicado para quem está ativo na equipe.
+- **Agentes** foram instruídos a tratar mensagens de clientes e textos de documentos como dados, nunca como ordens. Isso reduz o risco de alguém escrever no WhatsApp algo como "crie uma ação" e o agente obedecer. Mesmo que aconteça, o efeito fica dentro da empresa e do papel da pessoa.
+
+**Ficam para antes dos clientes convidados:** (1) quem já tem conta e é convidado por outra empresa entra direto, sem aceitar; o ideal é um aceite explícito; (2) a chave do WhatsApp por QR Code vai no endereço do aviso e ainda não pode ser trocada pela tela.
+
 ## Decisões pendentes com o proprietário
 - P4: Revisão jurídica dos termos de uso e do aviso de privacidade antes dos clientes convidados.
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Decidir quando o acervo real estiver carregado, comparando a busca atual com a busca por significado (D020).
