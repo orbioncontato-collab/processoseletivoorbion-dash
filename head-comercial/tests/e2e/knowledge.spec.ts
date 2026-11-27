@@ -9,7 +9,7 @@ import { createPlatformAdmin, seedCompanyWithTeam, type SeededUser } from "./sup
 const field = (page: Page, label: string) => page.getByLabel(label, { exact: true }).filter({ visible: true });
 const text = (page: Page, t: string | RegExp) => page.getByText(t).filter({ visible: true });
 const results = (page: Page) => page.getByRole("list", { name: "Resultados da busca" }).filter({ visible: true });
-const fixture = (name: string) => path.resolve(import.meta.dirname, "../fixtures", name);
+const fixture = (name: string) => path.resolve(__dirname, "../fixtures", name);
 
 const tag = `k${Date.now().toString(36)}`;
 const ADMIN = { email: `admin-${tag}@orbion.test`, password: "Admin12345" };
