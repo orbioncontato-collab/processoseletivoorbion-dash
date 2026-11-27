@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 3 concluída; Fase 4 em andamento)
+Última atualização: 2026-11-27 (Fase 4 concluída)
 
 ## Concluído e validado
 
@@ -90,8 +90,21 @@
 
 **Validação real (CI, execução 16, 2026-11-27):** 129 testes de unidade, 82 de banco e 44 cenários de ponta a ponta, todos passaram. O teste de ponta a ponta encontrou um erro real (o Supabase recusava a gravação das respostas porque a gravação tentava regravar colunas protegidas), corrigido antes de fechar a fase.
 
+### Fase 4: Alertas e painéis
+| Item | Situação |
+|---|---|
+| 8 alertas: próximo passo vencido e de hoje, sem próximo passo, negociação parada, cliente esperando resposta, produção abaixo da referência, relatório não preenchido, divergência em aberto | Pronto |
+| Alertas com dono, gravidade e situação; sem duplicar; resolvem sozinhos; dispensa registrada e respeitada | Pronto |
+| Recálculo pelo agendador (a cada 15 min) e na hora em que algo muda | Pronto |
+| Referências do líder: dias para parada, horas de espera, tolerância do relatório, metas diárias | Pronto |
+| Vendedor: "O que fazer agora" por urgência, com link direto | Pronto |
+| Líder: leitura do time em frases e "quem merece atenção" | Pronto |
+| Página de alertas com filtros por tipo e pessoa | Pronto |
+
+**Validação real (CI, execução 20, 2026-11-27):** 137 testes de unidade, 90 de banco e 49 cenários de ponta a ponta, todos passaram. Os testes de ponta a ponta encontraram dois erros reais, corrigidos: (1) o Supabase bloqueia apagar sem filtro e o cálculo dos alertas falhava pela API; (2) um alerta novo podia demorar até 5 minutos para aparecer.
+
 ## Em desenvolvimento
-- Fase 4: alertas e painéis completos. Motor de alertas no banco pronto e testado (7 testes); faltam agendamento, telas e configurações.
+- Nada. Fase 4 concluída. Com ela, o MVP tem a operação capturada, organizada, cruzada e acompanhada por regras.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -119,4 +132,6 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 3: relatórios configuráveis e cruzamento.** O administrador define as perguntas do relatório de cada empresa e o horário; o vendedor responde; o Head compara o que foi informado com o que foi capturado (conversas e oportunidades) e aponta divergências, sem acusar ninguém.
+**Fase 5: Cérebro central e memória.** Base de conhecimento (metodologia, scripts, objeções, treinamentos) com busca, base de calibragem com conversas reais e memória da empresa e de cada vendedor. É a base para os agentes de IA da Fase 6.
+
+Precisa do proprietário: onde está o acervo de mais de mil documentos (Notion, Google Drive, pasta com arquivos?) e em que formatos.

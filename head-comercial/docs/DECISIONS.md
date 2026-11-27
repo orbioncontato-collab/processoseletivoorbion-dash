@@ -106,5 +106,9 @@ Uma conversa por cliente e por número conectado. Mensagens são imutáveis e n�
 A Evolution API (código aberto) mantém a sessão do WhatsApp e avisa o Head a cada mensagem. A chave vai no endereço do aviso, porque a Evolution não manda cabeçalho de autenticação; o banco guarda só a impressão digital. A conexão é criada só leitura e ignora grupos. O aceite do aviso de risco fica registrado na configuração da fonte (quem e quando).
 **Pendente:** servidor real (custo mensal), com autorização do proprietário.
 
+## D019 · 2026-11-27 · Alertas calculados no banco
+Uma função no banco (refresh_alerts) calcula as oito situações de alerta de uma empresa de uma vez, grava sem duplicar e resolve o que deixou de valer. Roda pelo agendador a cada 15 minutos e na hora em que alguém abre o painel, se algo mudou desde o último cálculo ou se ele tem mais de 5 minutos. A leitura em frases para o líder é feita por regras simples; a interpretação com IA entra na Fase 6.
+**Observação:** o agendador da Vercel a cada 15 minutos exige o plano pago (no gratuito, uma vez por dia). O recálculo na hora cobre o uso normal mesmo sem o agendador.
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.
