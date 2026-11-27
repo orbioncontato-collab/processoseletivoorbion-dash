@@ -317,3 +317,6 @@ create trigger company_settings_audit
   after update of stale_days, awaiting_reply_hours, report_grace_hours, daily_target_conversations, daily_target_messages
   on public.company_settings
   for each row execute function app.audit_row();
+
+-- Usado para saber se houve conversa nova desde o último cálculo dos alertas.
+create index conversations_company_updated_idx on public.conversations (company_id, updated_at desc);
