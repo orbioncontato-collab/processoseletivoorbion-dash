@@ -311,6 +311,8 @@ create policy alerts_update on public.alerts for update to authenticated
   using (app.is_leader(company_id) or (user_id = auth.uid() and app.is_member(company_id)))
   with check (app.is_leader(company_id) or (user_id = auth.uid() and app.is_member(company_id)));
 
--- Mudanças nas referências entram no histórico.
-create trigger company_settings_audit after update on public.company_settings
+-- Mudanças nas referências entram no histórico (o recálculo dos alertas não).
+create trigger company_settings_audit
+  after update of stale_days, awaiting_reply_hours, report_grace_hours, daily_target_conversations, daily_target_messages
+  on public.company_settings
   for each row execute function app.audit_row();

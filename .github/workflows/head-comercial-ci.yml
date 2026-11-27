@@ -59,6 +59,7 @@ jobs:
         env:
           EVOLUTION_API_URL: http://127.0.0.1:54399
           EVOLUTION_API_KEY: chave-de-teste
+          CRON_SECRET: segredo-de-teste-do-agendador
         run: |
           npx playwright install --with-deps chromium
           (node tests/e2e/mock-evolution.mjs > mock-evolution.log 2>&1 &)

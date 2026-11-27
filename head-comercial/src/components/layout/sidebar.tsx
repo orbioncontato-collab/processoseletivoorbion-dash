@@ -13,6 +13,7 @@ export async function Sidebar() {
   const items: NavItem[] = [];
   if (company) {
     items.push({ href: "/inicio", label: "Início", icon: "home" });
+    items.push({ href: "/alertas", label: "Alertas", icon: "bell" });
     items.push({ href: "/oportunidades", label: "Oportunidades", icon: "deals" });
     items.push({ href: "/contatos", label: "Contatos", icon: "contacts" });
     items.push({ href: "/conversas", label: "Conversas", icon: "chat" });
@@ -23,6 +24,7 @@ export async function Sidebar() {
       items.push({ href: "/equipe", label: "Equipe", icon: "users" });
       items.push({ href: "/funil", label: "Funil", icon: "pipeline" });
       items.push({ href: "/integracoes", label: "Integrações", icon: "plug" });
+      items.push({ href: "/configuracoes", label: "Configurações", icon: "settings" });
       items.push({ href: "/historico", label: "Histórico", icon: "history" });
     }
   }

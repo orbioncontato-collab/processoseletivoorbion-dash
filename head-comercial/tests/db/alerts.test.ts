@@ -141,6 +141,18 @@ describe("acesso aos alertas", () => {
     expect(other).toHaveLength(0);
   });
 
+  it("recalcular não enche o histórico; mudar a referência entra nele", async () => {
+    const count = async () =>
+      Number((await run<{ n: string }>(asSuperuser,
+        "select count(*) as n from public.activities where entity_type = 'company_settings' and company_id = $1", [f.companyA]))[0].n);
+    const before = await count();
+    await refresh();
+    await refresh();
+    expect(await count()).toBe(before);
+    await run(asUser(f.leaderA), "update public.company_settings set stale_days = 10 where company_id = $1", [f.companyA], { commit: true });
+    expect(await count()).toBe(before + 1);
+  });
+
   it("só o servidor roda o cálculo; só o líder muda as referências", async () => {
     await expect(run(asUser(f.leaderA), "select public.refresh_alerts($1)", [f.companyA])).rejects.toThrow(/permission denied/);
     const sellerUpdate = await run(asUser(f.sellerA1),

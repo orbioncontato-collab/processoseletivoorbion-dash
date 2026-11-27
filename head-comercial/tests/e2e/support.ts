@@ -124,3 +124,44 @@ export async function seedSource(companyId: string, kind: string, name: string, 
   if (error || !data) throw new Error(`Falha ao criar fonte: ${error?.message}`);
   return { id: data.id as string, key };
 }
+
+/** Cria contato e oportunidade direto pela API (para preparar cenários de alerta). */
+export async function seedOpportunity(
+  companyId: string,
+  ownerId: string,
+  o: { title: string; contact: string; nextStep?: string; nextStepAt?: string },
+) {
+  const admin = createClient(required("NEXT_PUBLIC_SUPABASE_URL"), required("SUPABASE_SECRET_KEY"), {
+    auth: { persistSession: false },
+  });
+  const { data: stage } = await admin
+    .from("pipeline_stages")
+    .select("id, pipeline_id")
+    .eq("company_id", companyId)
+    .eq("kind", "open")
+    .order("position")
+    .limit(1)
+    .single();
+  const { data: contact, error: ce } = await admin
+    .from("contacts")
+    .insert({ company_id: companyId, owner_id: ownerId, name: o.contact })
+    .select("id")
+    .single();
+  if (ce || !contact || !stage) throw new Error(`Falha ao criar contato: ${ce?.message}`);
+  const { data, error } = await admin
+    .from("opportunities")
+    .insert({
+      company_id: companyId,
+      contact_id: contact.id,
+      owner_id: ownerId,
+      pipeline_id: stage.pipeline_id,
+      stage_id: stage.id,
+      title: o.title,
+      next_step: o.nextStep ?? null,
+      next_step_at: o.nextStepAt ?? null,
+    })
+    .select("id")
+    .single();
+  if (error || !data) throw new Error(`Falha ao criar oportunidade: ${error?.message}`);
+  return data.id as string;
+}

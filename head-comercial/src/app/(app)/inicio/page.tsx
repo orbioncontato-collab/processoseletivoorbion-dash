@@ -9,13 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROLE_LABELS } from "@/modules/team/schemas";
 import { STALE_DAYS } from "@/modules/commercial/schemas";
-import { getHomeCounters, getTeam, listOpportunities } from "@/modules/commercial/queries";
+import { getHomeCounters, getTeam } from "@/modules/commercial/queries";
+import { listOpenAlerts } from "@/modules/alerts/queries";
+import { rankPeople, teamReading } from "@/modules/alerts/rules";
+import { AlertList } from "@/modules/alerts/components/alert-list";
 import { getTodayMetrics } from "@/modules/conversations/queries";
 import { getActiveTemplate } from "@/modules/reports/queries";
 import { dueReferenceDate } from "@/modules/reports/rules";
 import { formatDate } from "@/lib/format";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { NextStepInfo } from "@/modules/commercial/components/badges";
 
 export const metadata: Metadata = { title: "Início" };
 
@@ -44,14 +46,16 @@ export default async function HomePage() {
   const firstName = (user.fullName || user.email).split(" ")[0];
   const isLeader = company.role === "leader";
 
-  const [counters, overdue, today, metrics, team] = await Promise.all([
+  const [counters, metrics, team, alerts] = await Promise.all([
     getHomeCounters(company.companyId, company.timezone),
-    listOpportunities(company.companyId, { status: "open", due: "overdue" }, company.timezone, 8),
-    listOpportunities(company.companyId, { status: "open", due: "today" }, company.timezone, 8),
     getTodayMetrics(company.companyId, company.timezone),
     isLeader ? getTeam(company.companyId) : Promise.resolve([]),
+    listOpenAlerts(company.companyId),
   ]);
   const ownerName = new Map(team.map((t) => [t.userId, t.name]));
+  const names = Object.fromEntries(team.map((t) => [t.userId, t.name]));
+  const myAlerts = alerts.filter((a) => a.user_id === user.id);
+  const ranking = isLeader ? rankPeople(alerts, names).slice(0, 6) : [];
 
   // Relatório do dia e divergências em aberto.
   const template = await getActiveTemplate(company.companyId);
@@ -75,7 +79,6 @@ export default async function HomePage() {
   ]);
   const openDivergences = openDivs.count ?? 0;
   const mine = metrics.find((m) => m.ownerId === user.id);
-  const priorities = [...overdue, ...today].slice(0, 8);
 
   let pendingInvites = 0;
   if (isLeader) {
@@ -127,46 +130,44 @@ export default async function HomePage() {
       </section>
 
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>Prioridades de hoje</CardTitle>
-            <CardDescription>Próximos passos vencidos e marcados para hoje.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {priorities.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                Nada vencido nem marcado para hoje.
-                {counters.withoutNextStep
-                  ? ` Mas ${counters.withoutNextStep} oportunidade(s) estão sem próximo passo.`
-                  : ""}
-              </p>
-            ) : (
-              <ul className="divide-y">
-                {priorities.map((o) => (
-                  <li key={o.id} className="grid gap-1 py-3 sm:grid-cols-[1fr_1.2fr] sm:gap-4">
-                    <div className="min-w-0">
-                      <Link href={`/oportunidades/${o.id}`} className="font-medium text-primary hover:underline">
-                        {o.title}
-                      </Link>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {o.contactName} · {o.stageName}
-                        {isLeader ? ` · ${o.ownerName}` : ""}
-                      </p>
-                    </div>
-                    <div className="text-sm">
-                      <NextStepInfo
-                        nextStep={o.next_step}
-                        nextStepAt={o.next_step_at}
-                        timeZone={company.timezone}
-                        status={o.status}
-                      />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
+        <div className="grid content-start gap-6">
+          {isLeader ? (
+            <Card data-testid="leitura-operacao">
+              <CardHeader>
+                <CardTitle>Leitura da operação</CardTitle>
+                <CardDescription>{teamReading(alerts, names)}</CardDescription>
+              </CardHeader>
+              {ranking.length ? (
+                <CardContent>
+                  <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Quem merece atenção</p>
+                  <ol className="grid gap-2">
+                    {ranking.map((p) => (
+                      <li key={p.userId} className="flex flex-col gap-0.5 rounded-lg border px-3 py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+                        <Link href={`/alertas?pessoa=${p.userId}`} className="font-medium text-primary hover:underline">
+                          {p.name}
+                        </Link>
+                        <span className="text-sm text-muted-foreground">{p.sentence}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </CardContent>
+              ) : null}
+            </Card>
+          ) : null}
+          <Card>
+            <CardHeader>
+              <CardTitle>O que fazer agora</CardTitle>
+              <CardDescription>
+                {myAlerts.length
+                  ? "Suas pendências, da mais urgente para a menos urgente."
+                  : "Nada urgente agora. Bom momento para prospectar ou revisar as negociações."}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AlertList alerts={myAlerts} timeZone={company.timezone} isLeaderView={false} limit={8} emptyText="Sem pendências." />
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="grid content-start gap-6">
           {isLeader ? (
