@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-23 (Fase 2 concluída no código)
+Última atualização: 2026-11-27 (Fase 3 concluída; Fase 4 em andamento)
 
 ## Concluído e validado
 
@@ -77,8 +77,21 @@
 - 69 testes de banco no Supabase real: todos passaram.
 - 39 cenários de ponta a ponta: todos passaram (6 do WhatsApp, usando um servidor falso da Evolution que imita o real).
 
+### Fase 3: Relatórios e cruzamento
+| Item | Situação |
+|---|---|
+| Modelo de relatório por empresa, configurado pela administração: nome, horário, dias de trabalho, sobre o dia ou o dia anterior | Pronto |
+| Perguntas de número, valor, texto, escolha única, várias escolhas, sim ou não; obrigatórias ou opcionais; ordem | Pronto |
+| Pergunta ligada a número capturado (conversas e mensagens do WhatsApp, oportunidades criadas e ganhas, valor ganho, entradas numa etapa) com margem em % e mínima | Pronto |
+| Vendedor responde o relatório pendente, corrige depois e vê os últimos dias (enviado ou pendente) | Pronto |
+| Cruzamento ao enviar: divergência só quando passa da margem; WhatsApp só para quem tem conexão | Pronto |
+| Vendedor explica; líder verifica ou reabre; texto neutro ("pode haver atividade fora dos canais conectados") | Pronto |
+| Líder vê quem enviou, as respostas do time e as divergências; cartão no início | Pronto |
+
+**Validação real (CI, execução 16, 2026-11-27):** 129 testes de unidade, 82 de banco e 44 cenários de ponta a ponta, todos passaram. O teste de ponta a ponta encontrou um erro real (o Supabase recusava a gravação das respostas porque a gravação tentava regravar colunas protegidas), corrigido antes de fechar a fase.
+
 ## Em desenvolvimento
-- Nada. Fase 2 concluída no código.
+- Fase 4: alertas e painéis completos. Motor de alertas no banco pronto e testado (7 testes); faltam agendamento, telas e configurações.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.

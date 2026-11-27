@@ -51,6 +51,78 @@ export type Database = {
           },
         ];
       };
+      alerts: {
+        Row: {
+          company_id: string;
+          dedupe_key: string;
+          detail: NonNullable<Json>;
+          dismissed_at: string | null;
+          dismissed_by: string | null;
+          entity_id: string | null;
+          entity_type: string | null;
+          first_seen_at: string;
+          id: string;
+          last_seen_at: string;
+          reference_date: string | null;
+          resolved_at: string | null;
+          severity: string;
+          status: string;
+          title: string;
+          type: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          dedupe_key: string;
+          detail?: NonNullable<Json>;
+          dismissed_at?: string | null;
+          dismissed_by?: string | null;
+          entity_id?: string | null;
+          entity_type?: string | null;
+          first_seen_at?: string;
+          id?: string;
+          last_seen_at?: string;
+          reference_date?: string | null;
+          resolved_at?: string | null;
+          severity: string;
+          status?: string;
+          title: string;
+          type: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          company_id?: string;
+          dedupe_key?: string;
+          detail?: NonNullable<Json>;
+          dismissed_at?: string | null;
+          dismissed_by?: string | null;
+          entity_id?: string | null;
+          entity_type?: string | null;
+          first_seen_at?: string;
+          id?: string;
+          last_seen_at?: string;
+          reference_date?: string | null;
+          resolved_at?: string | null;
+          severity?: string;
+          status?: string;
+          title?: string;
+          type?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "alerts_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       companies: {
         Row: {
           created_at: string;
@@ -84,6 +156,48 @@ export type Database = {
           updated_at?: string;
         };
         Relationships: [];
+      };
+      company_settings: {
+        Row: {
+          alerts_refreshed_at: string | null;
+          awaiting_reply_hours: number;
+          company_id: string;
+          daily_target_conversations: number | null;
+          daily_target_messages: number | null;
+          report_grace_hours: number;
+          stale_days: number;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          alerts_refreshed_at?: string | null;
+          awaiting_reply_hours?: number;
+          company_id: string;
+          daily_target_conversations?: number | null;
+          daily_target_messages?: number | null;
+          report_grace_hours?: number;
+          stale_days?: number;
+          updated_at?: string;
+        };
+        Update: {
+          alerts_refreshed_at?: string | null;
+          awaiting_reply_hours?: number;
+          company_id?: string;
+          daily_target_conversations?: number | null;
+          daily_target_messages?: number | null;
+          report_grace_hours?: number;
+          stale_days?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "company_settings_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: true;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       contacts: {
         Row: {
@@ -1094,6 +1208,7 @@ export type Database = {
           value: number;
         }[];
       };
+      refresh_alerts: { Args: { now_ts?: string; target_company: string }; Returns: number };
       seller_daily_metrics: {
         Args: { period_end: string; period_start: string; target_company: string };
         Returns: {
