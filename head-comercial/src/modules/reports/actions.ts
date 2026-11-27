@@ -58,11 +58,30 @@ export async function submitReport(_prev: ActionState, formData: FormData): Prom
     submission = created.data;
   }
 
-  const { error } = await supabase.from("report_answers").upsert(
-    answers.map((a) => ({ ...a, company_id: company.companyId, submission_id: submission!.id })),
-    { onConflict: "submission_id,question_id" },
-  );
-  if (error) return unexpected("submitReport.answers", error.message);
+  // Atualiza só os valores das respostas que já existem e insere as novas.
+  // (Um "upsert" tentaria regravar empresa e pergunta, que o usuário não pode alterar.)
+  const { data: existingAnswers } = await supabase
+    .from("report_answers")
+    .select("id, question_id")
+    .eq("submission_id", submission.id);
+  const existingByQuestion = new Map((existingAnswers ?? []).map((a) => [a.question_id, a.id]));
+  const toInsert = [];
+  for (const a of answers) {
+    const existingId = existingByQuestion.get(a.question_id);
+    if (existingId) {
+      const { error } = await supabase
+        .from("report_answers")
+        .update({ value_number: a.value_number, value_text: a.value_text, value_options: a.value_options })
+        .eq("id", existingId);
+      if (error) return unexpected("submitReport.update", error.message);
+    } else {
+      toInsert.push({ ...a, company_id: company.companyId, submission_id: submission.id });
+    }
+  }
+  if (toInsert.length) {
+    const { error } = await supabase.from("report_answers").insert(toInsert);
+    if (error) return unexpected("submitReport.insert", error.message);
+  }
 
   let open = 0;
   try {
