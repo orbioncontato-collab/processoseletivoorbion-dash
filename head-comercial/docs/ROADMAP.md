@@ -44,7 +44,7 @@ Editor de modelos de relatório no admin, agendamento por horário, preenchiment
 Motor de alertas agendado. Painel do vendedor e painel do líder completos.
 
 ### Fase 5: Cérebro e memória
-Carga de documentos (PDF, Word, texto, Markdown), divisão em trechos, busca híbrida, tags, base de calibragem, memória da empresa e do vendedor.
+Carga de documentos (PDF, Word, texto, Markdown), divisão em trechos, busca por texto (a busca por significado entra com o acervo real, D020), tags, base de calibragem, memória da empresa e do vendedor. **Concluída.** Falta a importação em lote do acervo de mais de mil documentos, que depende de saber onde ele está.
 
 ### Fase 6: Agentes e análise de conversas
 Orquestrador de agentes, chat com identificação do agente, ferramentas de consulta com permissão do usuário, Head Comercial e Analista de Conversas, análise estruturada calibrada, registro de custo, Head proativo com resumo diário.

@@ -110,5 +110,14 @@ A Evolution API (código aberto) mantém a sessão do WhatsApp e avisa o Head a 
 Uma função no banco (refresh_alerts) calcula as oito situações de alerta de uma empresa de uma vez, grava sem duplicar e resolve o que deixou de valer. Roda pelo agendador a cada 15 minutos e na hora em que alguém abre o painel, se algo mudou desde o último cálculo ou se ele tem mais de 5 minutos. A leitura em frases para o líder é feita por regras simples; a interpretação com IA entra na Fase 6.
 **Observação:** o agendador da Vercel a cada 15 minutos exige o plano pago (no gratuito, uma vez por dia). O recálculo na hora cobre o uso normal mesmo sem o agendador.
 
+## D020 · 2026-11-27 · Busca por texto agora, vetores depois
+O cérebro central começa com a busca por texto do próprio Postgres: português, sem diferenciar acentos, pelo começo das palavras longas (assim "objeção" encontra "objeções") e com os trechos que têm mais palavras da pergunta no topo. Cada documento vira trechos de cerca de 1.200 caracteres, cortados em títulos, parágrafos e frases, com um pequeno pedaço repetido entre um trecho e outro para não perder o contexto.
+
+Arquivos aceitos: texto colado, .txt, .md, .pdf (com texto, não imagem escaneada) e .docx, até 4 MB por arquivo, que é o limite de envio da Vercel.
+
+**Motivo:** funciona sem fornecedor nem custo novo e já atende perguntas com palavras do documento. A busca por significado (ex.: "cliente sumiu" encontrar "lead parou de responder") pede vetores, que dependem de um fornecedor (P3). Vamos medir a qualidade com o acervo real e com a base de calibragem antes de escolher.
+**Consequências:** a tabela de trechos já está pronta para receber uma coluna de vetor. Quando entrar, a busca passa a juntar os dois resultados (híbrida).
+**Pode rever?** Sim, sem perda: os trechos ficam guardados e só ganham o vetor.
+
 ## Decisões pendentes com o proprietário
-- P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Pode esperar até a Fase 5.
+- P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Decidir quando o acervo real estiver carregado, comparando a busca atual com a busca por significado (D020).

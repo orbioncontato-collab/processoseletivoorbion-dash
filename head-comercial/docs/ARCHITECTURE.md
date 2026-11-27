@@ -108,7 +108,7 @@ Modelo padrão: Claude Opus 5.5 (`claude-opus-5-5`). Para tarefas simples e de a
 
 **Inteligência**
 - `alerts`: tipo, gravidade, pessoa, registro relacionado, status.
-- `knowledge_documents` e `knowledge_chunks`: cérebro central (global da Orbion) e documentos de cada empresa, com tags e vetores.
+- `knowledge_documents` e `knowledge_chunks`: cérebro central (global da Orbion) e documentos de cada empresa, com tags. Cada documento é dividido em trechos de cerca de 1.200 caracteres com busca por texto em português, sem diferenciar acentos. A busca por significado (vetores) entra quando o acervo real chegar (D020).
 - `calibration_cases`: conversa real, avaliação esperada e resultado.
 - `memory_items`: fatos de memória com escopo (empresa ou pessoa), origem e data.
 - `agents`: papel, instruções, ferramentas e fontes permitidas.
