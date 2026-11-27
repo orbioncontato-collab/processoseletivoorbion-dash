@@ -9,4 +9,5 @@ export const TOOL_LABELS_PUBLIC: Record<string, string> = {
   ver_conversa: "mensagens da conversa",
   buscar_conhecimento: "conhecimento",
   ver_memoria: "memória",
+  ver_treinamentos: "treinamentos",
 };

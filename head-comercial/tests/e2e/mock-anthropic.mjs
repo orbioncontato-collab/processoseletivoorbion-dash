@@ -138,7 +138,8 @@ http
 
     if (!req.headers["x-api-key"] && !req.headers.authorization) return send(res, 401, { type: "error", error: { type: "authentication_error", message: "sem chave" } });
     if (req.method === "GET" && url.pathname === "/v1/models") {
-      if (String(req.headers["x-api-key"] ?? "").includes("invalida")) {
+      const sentKey = String(req.headers["x-api-key"] ?? req.headers.authorization ?? "");
+      if (sentKey.includes("invalida")) {
         return send(res, 401, { type: "error", error: { type: "authentication_error", message: "invalid x-api-key" } });
       }
       return send(res, 200, {

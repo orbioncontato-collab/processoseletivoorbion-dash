@@ -1693,6 +1693,143 @@ export type Database = {
           },
         ];
       };
+      training_assignments: {
+        Row: {
+          analysis_id: string | null;
+          assigned_by: string | null;
+          baseline_score: number | null;
+          company_id: string;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          reason: string;
+          skill: string;
+          source: string;
+          started_at: string | null;
+          status: string;
+          training_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          analysis_id?: string | null;
+          assigned_by?: string | null;
+          baseline_score?: number | null;
+          company_id: string;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          reason: string;
+          skill: string;
+          source: string;
+          started_at?: string | null;
+          status?: string;
+          training_id: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          analysis_id?: string | null;
+          assigned_by?: string | null;
+          baseline_score?: number | null;
+          company_id?: string;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          reason?: string;
+          skill?: string;
+          source?: string;
+          started_at?: string | null;
+          status?: string;
+          training_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "training_assignments_analysis_id_fkey";
+            columns: ["analysis_id"];
+            isOneToOne: false;
+            referencedRelation: "conversation_analyses";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "training_assignments_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "training_assignments_training_id_fkey";
+            columns: ["training_id"];
+            isOneToOne: false;
+            referencedRelation: "trainings";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      trainings: {
+        Row: {
+          archived_at: string | null;
+          company_id: string | null;
+          content: string;
+          created_at: string;
+          created_by: string | null;
+          duration_minutes: number | null;
+          format: string;
+          id: string;
+          scope: string;
+          skill: string;
+          summary: string;
+          title: string;
+          updated_at: string;
+          url: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id?: string | null;
+          content?: string;
+          created_at?: string;
+          created_by?: string | null;
+          duration_minutes?: number | null;
+          format?: string;
+          id?: string;
+          scope: string;
+          skill: string;
+          summary?: string;
+          title: string;
+          updated_at?: string;
+          url?: string | null;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string | null;
+          content?: string;
+          created_at?: string;
+          created_by?: string | null;
+          duration_minutes?: number | null;
+          format?: string;
+          id?: string;
+          scope?: string;
+          skill?: string;
+          summary?: string;
+          title?: string;
+          updated_at?: string;
+          url?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "trainings_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

@@ -20,6 +20,7 @@ export async function Sidebar() {
     items.push({ href: "/conversas", label: "Conversas", icon: "chat" });
     items.push({ href: "/relatorio", label: "Relatório", icon: "report" });
     items.push({ href: "/meu-whatsapp", label: "Meu WhatsApp", icon: "phone" });
+    items.push({ href: "/treinamentos", label: "Treinamentos", icon: "training" });
     items.push({ href: "/conhecimento", label: "Conhecimento", icon: "book" });
     items.push({ href: "/memoria", label: "Memória", icon: "memory" });
     if (company.role === "leader") {
@@ -34,6 +35,7 @@ export async function Sidebar() {
   if (user.isPlatformAdmin) {
     items.push({ href: "/admin/empresas", label: "Empresas", icon: "building" });
     items.push({ href: "/admin/cerebro", label: "Cérebro central", icon: "brain" });
+    items.push({ href: "/admin/treinamentos", label: "Biblioteca da Orbion", icon: "training" });
     items.push({ href: "/admin/consumo", label: "Consumo da IA", icon: "reports" });
     items.push({ href: "/admin/integracoes", label: "Chaves e integrações", icon: "plug" });
   }

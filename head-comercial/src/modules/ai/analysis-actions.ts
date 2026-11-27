@@ -12,13 +12,19 @@ export async function requestAnalysis(_prev: ActionState, formData: FormData): P
   const id = String(formData.get("conversationId") ?? "");
   if (!z.uuid().safeParse(id).success) return { ok: false, message: "Conversa inválida." };
   const ctx = await currentAgentContext();
+  let recommended: { title: string }[] = [];
   try {
-    await analyzeConversation(ctx, id);
+    ({ recommended } = await analyzeConversation(ctx, id));
   } catch (err) {
     if (err instanceof AnalysisError) return { ok: false, message: err.message };
     console.error("[requestAnalysis]", err);
     return { ok: false, message: "A análise falhou. Tente de novo em instantes." };
   }
   refresh();
-  return { ok: true, message: "Análise pronta." };
+  return {
+    ok: true,
+    message: recommended.length
+      ? `Análise pronta. Treinamento recomendado: ${recommended.map((r) => r.title).join(", ")}.`
+      : "Análise pronta.",
+  };
 }

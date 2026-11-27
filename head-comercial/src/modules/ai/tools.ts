@@ -8,6 +8,8 @@ import { getOpportunity, getOpportunityTimeline, getTeam, listOpportunities } fr
 import { getConversation, getTodayMetrics, listConversations } from "@/modules/conversations/queries";
 import { listOpenAlerts } from "@/modules/alerts/queries";
 import { ALERT_LABELS } from "@/modules/alerts/rules";
+import { listAssignments, listLibrary } from "@/modules/training/queries";
+import { SKILLS, STATUS_LABELS } from "@/modules/training/skills";
 
 /**
  * Ferramentas de consulta dos agentes. Todas leem com o login da pessoa que
@@ -218,6 +220,32 @@ const TOOLS = [
       }));
     },
   }),
+  tool({
+    name: "ver_treinamentos",
+    description:
+      "Treinamentos indicados (para a pessoa ou, para o líder, para o time), com motivo, situação e evolução depois da conclusão, e a biblioteca disponível por habilidade. Use quando perguntarem o que estudar ou como alguém está evoluindo.",
+    schema: z.object({ incluir_biblioteca: z.boolean().default(false) }),
+    run: async (i, ctx) => {
+      const [assignments, library, team] = await Promise.all([
+        listAssignments(ctx.companyId, ctx.role === "leader" ? {} : { userId: ctx.userId }),
+        i.incluir_biblioteca ? listLibrary() : Promise.resolve([]),
+        getTeam(ctx.companyId),
+      ]);
+      const name = new Map(team.map((t) => [t.userId, t.name]));
+      return {
+        indicados: assignments.slice(0, 40).map((a) => ({
+          para: a.user_id === ctx.userId ? "você" : (name.get(a.user_id) ?? "Ex-membro"),
+          treinamento: a.trainingTitle,
+          habilidade: SKILLS[a.skill as keyof typeof SKILLS] ?? a.skill,
+          situacao: STATUS_LABELS[a.status] ?? a.status,
+          motivo: a.reason,
+          evolucao: a.evolution,
+        })),
+        biblioteca: library.slice(0, 60).map((t) => ({ titulo: t.title, habilidade: SKILLS[t.skill as keyof typeof SKILLS] ?? t.skill, resumo: t.summary })),
+      };
+    },
+  }),
+
 ];
 
 type AnyTool = (typeof TOOLS)[number];

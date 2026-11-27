@@ -95,5 +95,7 @@ describe("chaves da plataforma", () => {
     ).rejects.toThrow(/permission denied/);
     const rows = await run<{ name: string }>(asService(), "select name from public.platform_secrets");
     expect(rows.map((r) => r.name)).toContain("evolution_api_key");
+    // Não deixa o valor falso para os testes de ponta a ponta, que usam o mesmo banco no CI.
+    await run(asService(), "delete from public.platform_secrets where ciphertext = 'v1.x.y.z'", [], { commit: true });
   });
 });

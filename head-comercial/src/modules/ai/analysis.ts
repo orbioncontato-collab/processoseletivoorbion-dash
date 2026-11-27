@@ -8,6 +8,10 @@ import { getConversation } from "@/modules/conversations/queries";
 import { AiNotConfiguredError, recordRun } from "./agent";
 import { addUsage, emptyUsage } from "./pricing";
 import type { AgentContext } from "./tools";
+import { CRITERIA } from "./criteria";
+import { recommendFromAnalysis } from "@/modules/training/recommend";
+
+export { CRITERIA };
 
 /**
  * Analista de Conversas (D006: só quando alguém pede). Lê a conversa do
@@ -15,14 +19,6 @@ import type { AgentContext } from "./tools";
  * calibragem e devolve uma avaliação estruturada, gravada no banco.
  */
 
-export const CRITERIA = [
-  "Abertura e conexão",
-  "Diagnóstico da necessidade",
-  "Apresentação de valor",
-  "Tratamento de objeções",
-  "Condução para o próximo passo",
-  "Agilidade e cadência",
-] as const;
 
 const SYSTEM = `Você é o Analista de Conversas do Head Comercial Digital. Você avalia conversas de venda pelo WhatsApp entre um vendedor e um cliente e devolve uma análise útil para o vendedor melhorar e para o líder acompanhar.
 
@@ -115,7 +111,10 @@ export function transcript(messages: Msg[], timeZone: string, maxChars = 60_000)
 
 export class AnalysisError extends Error {}
 
-export async function analyzeConversation(ctx: AgentContext, conversationId: string): Promise<string> {
+export async function analyzeConversation(
+  ctx: AgentContext,
+  conversationId: string,
+): Promise<{ id: string; recommended: { title: string; skill: string }[] }> {
   const client = await getAnthropic();
   if (!client) throw new AiNotConfiguredError();
 
@@ -240,5 +239,18 @@ export async function analyzeConversation(ctx: AgentContext, conversationId: str
     .select("id")
     .single();
   if (error || !data) throw new AnalysisError("Não foi possível salvar a análise.");
-  return data.id;
+
+  // Especialista de Desenvolvimento: habilidade fraca vira recomendação de treinamento.
+  const recommended = await recommendFromAnalysis({
+    companyId: ctx.companyId,
+    sellerId: found.conversation.owner_id,
+    analysisId: data.id,
+    contactName: found.contact?.name ?? "o cliente",
+    criteria: output.criterios,
+    actorId: ctx.userId,
+  }).catch((err) => {
+    console.error("[analyzeConversation.recommend]", err);
+    return [];
+  });
+  return { id: data.id, recommended };
 }

@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Bot, BookOpen, Brain, Building2, ClipboardCheck, ClipboardList, Contact, Handshake, History, Lightbulb, Home, Kanban, MessagesSquare, Plug, Settings, Smartphone, UserCircle, Users, type LucideIcon } from "lucide-react";
+import { Bell, Bot, BookOpen, Brain, GraduationCap, Building2, ClipboardCheck, ClipboardList, Contact, Handshake, History, Lightbulb, Home, Kanban, MessagesSquare, Plug, Settings, Smartphone, UserCircle, Users, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
   href: string;
   label: string;
-  icon: "home" | "users" | "history" | "building" | "user" | "deals" | "contacts" | "pipeline" | "plug" | "chat" | "phone" | "report" | "reports" | "bell" | "settings" | "book" | "brain" | "memory" | "bot";
+  icon: "home" | "users" | "history" | "building" | "user" | "deals" | "contacts" | "pipeline" | "plug" | "chat" | "phone" | "report" | "reports" | "bell" | "settings" | "book" | "brain" | "memory" | "bot" | "training";
 }
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
@@ -31,6 +31,7 @@ const ICONS: Record<NavItem["icon"], LucideIcon> = {
   brain: Brain,
   memory: Lightbulb,
   bot: Bot,
+  training: GraduationCap,
 };
 
 export function NavLinks({ items }: { items: NavItem[] }) {
