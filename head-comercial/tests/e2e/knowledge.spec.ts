@@ -52,8 +52,8 @@ test("administração alimenta o cérebro central com PDF e casos de calibragem"
 
   // Busca sem acento encontra o texto com acento.
   await search(page, "objecao preco");
-  await expect(results(page).getByText(`Método Orbion ${tag}`)).toBeVisible();
-  await expect(results(page).getByText("Metodologia Orbion")).toBeVisible();
+  await expect(results(page).getByText(`Método Orbion ${tag}`).first()).toBeVisible();
+  await expect(results(page).getByText("Metodologia Orbion").first()).toBeVisible();
 
   await field(page, "Título do caso").fill(`Caso perdido ${tag}`);
   await field(page, "Resultado da venda").selectOption("lost");
@@ -89,8 +89,8 @@ test("líder cadastra o conhecimento da empresa; o acervo global fica de fora", 
   await expect(page.getByRole("list", { name: "Documentos" }).getByText(`Script Word ${tag}`)).toBeVisible();
 
   await search(page, "validade");
-  await expect(results(page).getByText(`Playbook ${tag}`)).toBeVisible();
-  await expect(results(page).getByText(`Script Word ${tag}`)).toBeVisible();
+  await expect(results(page).getByText(`Playbook ${tag}`).first()).toBeVisible();
+  await expect(results(page).getByText(`Script Word ${tag}`).first()).toBeVisible();
   await expect(results(page).getByText(`Método Orbion ${tag}`)).toHaveCount(0);
 
   // Líder também registra casos da empresa.
@@ -109,7 +109,7 @@ test("vendedor consulta o conhecimento, sem cadastrar nem ver a calibragem", asy
   await expect(page.getByRole("button", { name: /Arquivar/ })).toHaveCount(0);
   await expect(text(page, "Casos de calibragem da empresa")).toHaveCount(0);
   await search(page, "negociacao");
-  await expect(results(page).getByText(`Playbook ${tag}`)).toBeVisible();
+  await expect(results(page).getByText(`Playbook ${tag}`).first()).toBeVisible();
 });
 
 test("líder arquiva um documento e ele sai da busca", async ({ page }) => {
@@ -118,7 +118,7 @@ test("líder arquiva um documento e ele sai da busca", async ({ page }) => {
   await page.getByRole("button", { name: `Arquivar Script Word ${tag}` }).click();
   await expect(page.getByRole("list", { name: "Documentos" }).getByText(`Script Word ${tag}`)).toHaveCount(0);
   await search(page, "validade");
-  await expect(results(page).getByText(`Playbook ${tag}`)).toBeVisible();
+  await expect(results(page).getByText(`Playbook ${tag}`).first()).toBeVisible();
   await expect(results(page).getByText(`Script Word ${tag}`)).toHaveCount(0);
 });
 
