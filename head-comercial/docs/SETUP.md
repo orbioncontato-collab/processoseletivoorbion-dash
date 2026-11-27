@@ -38,7 +38,8 @@ select id from auth.users where email = 'email-do-admin@orbion.com.br';
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase > Project Settings > API Keys (publishable) |
 | `SUPABASE_SECRET_KEY` | Supabase > Project Settings > API Keys (secret). Nunca expor. |
 | `NEXT_PUBLIC_SITE_URL` | Endereço público do app |
-| `CRON_SECRET` | Valor aleatório longo. A Vercel usa para chamar o recálculo dos alertas (vercel.json). |
+| `CRON_SECRET` | Valor aleatório longo. A Vercel usa para chamar o recálculo dos alertas e o resumo do dia (vercel.json). |
+| `ANTHROPIC_API_KEY` | Chave da API da Anthropic. Sem ela, o chat, a análise de conversas e o resumo do dia aparecem como "IA não configurada". |
 
 ## 3. Conferência depois de publicar
 - Abrir `/entrar` e entrar com o administrador.

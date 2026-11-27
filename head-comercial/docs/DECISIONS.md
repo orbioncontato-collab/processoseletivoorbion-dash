@@ -130,7 +130,8 @@ Arquivos aceitos: texto colado, .txt, .md, .pdf (com texto, não imagem escanead
 - **Analista de Conversas.** Só roda quando alguém pede (D006). Recebe a conversa, trechos da metodologia e até três casos de calibragem (os da empresa primeiro) e devolve uma avaliação em formato fixo: resumo, nota, critérios, pontos fortes, o que melhorar, objeções, recomendações e próximo passo.
 - **Testes sem custo.** No CI, um servidor falso imita a API da Anthropic. Os testes conferem o laço com ferramentas, o histórico reenviado, a recusa, o isolamento entre vendedores e o formato do que vai para a API.
 
-**Limitação conhecida:** a resposta aparece inteira quando fica pronta (de alguns segundos a meio minuto), com o aviso "O Head está consultando os dados". Mostrar a resposta sendo escrita aos poucos fica para uma próxima etapa.
+- **Resposta aos poucos.** O chat usa uma rota própria (`/api/assistente`) que devolve uma linha por evento: conversa aberta, consulta em andamento, pedaço do texto, fim ou erro. A tela mostra o texto enquanto ele é escrito e "Consultando: oportunidades..." durante as consultas. No fim, a conversa gravada substitui a prévia.
+- **Resumo do dia.** O líder liga em Configurações e escolhe o horário (5h a 12h). O agendador passa a cada hora e gera uma vez por dia por empresa: o servidor junta os números de ontem e a situação de agora (conversas, mensagens, ganhos, perdas, relatórios, alertas por pessoa, maiores negociações, divergências), a IA escreve o texto e cada líder recebe como uma conversa no chat, com destaque no Início. Uma chamada por empresa, não uma por líder.
 **Pode rever?** Sim. Trocar para Managed Agents em tarefas longas continua possível (D005).
 
 ## Decisões pendentes com o proprietário

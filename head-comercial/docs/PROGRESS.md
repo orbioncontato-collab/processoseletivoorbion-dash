@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 6, partes 1 e 2 concluídas)
+Última atualização: 2026-11-27 (Fase 6 concluída)
 
 ## Concluído e validado
 
@@ -115,7 +115,7 @@
 
 **Validação real (CI, execução 27, 2026-11-27):** 146 testes de unidade, 98 de banco e 55 cenários de ponta a ponta, todos passaram. Dois ajustes nos testes: a ordem alfabética com acento muda entre o Postgres local e o Supabase, e um PDF pode virar mais de um trecho.
 
-### Fase 6: Agentes de IA (partes 1 e 2)
+### Fase 6: Agentes de IA
 | Item | Situação |
 |---|---|
 | Head Comercial no chat, para vendedor e líder, com sugestões de pergunta e histórico de conversas | Pronto, testado com a API simulada |
@@ -125,11 +125,15 @@
 | Reserva automática quando o modelo recusa e mensagem clara se ninguém responder | Pronto |
 | Analista de Conversas: nota, critérios, pontos fortes, o que melhorar, objeções, recomendações e próximo passo, usando metodologia e casos de calibragem | Pronto, testado com a API simulada |
 | Registro de cada chamada (modelo, tokens, cache, tempo, custo); consumo por empresa para a administração e do mês para o líder | Pronto |
+| Resposta do chat aparece aos poucos, mostrando o que o Head está consultando | Pronto |
+| Resumo do dia para os líderes: ligado em Configurações, entregue no horário escolhido como conversa no chat e em destaque no Início | Pronto, testado com a API simulada |
 
 **Validação real (CI, execução 30, 2026-11-27):** 158 testes de unidade, 103 de banco e 64 cenários de ponta a ponta, todos passaram. Os 9 cenários dos agentes rodam contra um servidor que imita a API da Anthropic (o vendedor só vê o que é dele, histórico reenviado com as consultas, recusa, análise com o caso de calibragem, formato do que vai para a API).
 
+**Validação real (CI, execução 33, 2026-11-27):** 161 testes de unidade, 103 de banco e 67 cenários de ponta a ponta, todos passaram. Entraram os cenários da resposta aos poucos (sem duplicar a mensagem, rota exige login e valida a pergunta) e do resumo do dia (liga, agendador entrega uma vez por dia, líder continua a conversa, vendedor não recebe).
+
 ## Em desenvolvimento
-- **Fase 6, parte 3:** resumo do dia feito pelo Head e mostrar a resposta do chat sendo escrita aos poucos.
+- Nada. Fase 6 concluída.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -158,6 +162,6 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 6: Agentes de IA.** Head Comercial no chat, Analista de Conversas, registro de custo e resumo diário.
+**Fase 7: Desenvolvimento.** Biblioteca de treinamentos, recomendação de treinamento a partir das análises de conversa, conclusão e acompanhamento da evolução nas conversas seguintes.
 
-Precisa do proprietário: a chave da API da Anthropic (sem ela, tudo é testado com respostas simuladas) e, se possível, de 5 a 10 conversas reais com avaliação para a calibragem.
+Precisa do proprietário: a chave da API da Anthropic (para conferir a qualidade real dos agentes) e, se possível, de 5 a 10 conversas reais com avaliação para a calibragem.
