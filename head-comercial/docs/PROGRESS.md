@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 5 concluída)
+Última atualização: 2026-11-27 (Fase 6, partes 1 e 2 concluídas)
 
 ## Concluído e validado
 
@@ -115,8 +115,21 @@
 
 **Validação real (CI, execução 27, 2026-11-27):** 146 testes de unidade, 98 de banco e 55 cenários de ponta a ponta, todos passaram. Dois ajustes nos testes: a ordem alfabética com acento muda entre o Postgres local e o Supabase, e um PDF pode virar mais de um trecho.
 
+### Fase 6: Agentes de IA (partes 1 e 2)
+| Item | Situação |
+|---|---|
+| Head Comercial no chat, para vendedor e líder, com sugestões de pergunta e histórico de conversas | Pronto, testado com a API simulada |
+| O agente consulta oportunidades, detalhes e histórico, alertas, números de hoje, equipe, conversas, conhecimento e memória, sempre com as permissões da pessoa | Pronto |
+| Orientação de venda baseada na metodologia e no material da empresa, citando o documento | Pronto |
+| Conversa continua com o histórico completo; chat pessoal (nem o líder lê o dos outros) | Pronto |
+| Reserva automática quando o modelo recusa e mensagem clara se ninguém responder | Pronto |
+| Analista de Conversas: nota, critérios, pontos fortes, o que melhorar, objeções, recomendações e próximo passo, usando metodologia e casos de calibragem | Pronto, testado com a API simulada |
+| Registro de cada chamada (modelo, tokens, cache, tempo, custo); consumo por empresa para a administração e do mês para o líder | Pronto |
+
+**Validação real (CI, execução 30, 2026-11-27):** 158 testes de unidade, 103 de banco e 64 cenários de ponta a ponta, todos passaram. Os 9 cenários dos agentes rodam contra um servidor que imita a API da Anthropic (o vendedor só vê o que é dele, histórico reenviado com as consultas, recusa, análise com o caso de calibragem, formato do que vai para a API).
+
 ## Em desenvolvimento
-- **Fase 6: Agentes de IA.** Banco dos agentes pronto (conversas com o Head, registro de custo, análises de conversa). Em seguida: núcleo da IA, chat e análise.
+- **Fase 6, parte 3:** resumo do dia feito pelo Head e mostrar a resposta do chat sendo escrita aos poucos.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
@@ -125,12 +138,12 @@
 - Fases 6 a 9 (ver ROADMAP.md).
 
 ## Bloqueios e pendências com o proprietário
-1. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
+1. **Chave da API da Anthropic:** sem ela, o chat e a análise aparecem como "IA não configurada". Tudo já foi testado com a API simulada; com a chave, falta só conferir a qualidade das respostas reais.
+2. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
 
 ## Vai ser necessário mais tarde (sem bloqueio agora)
 - Projeto no Supabase e na Vercel para publicar (guia em SETUP.md). Envolve custo mensal, por isso só será criado com autorização.
 - Provedor de e-mail (SMTP) para os convites em produção.
-- Chave da API da Anthropic (Fase 6).
 - Acesso ao acervo de documentos (Fase 5) e conversas reais para calibragem (Fase 6).
 - Modelo do relatório da operação da Orbion (Fase 3).
 - Servidor para o modo aparelho do WhatsApp, com autorização de gasto (Fase 2).
