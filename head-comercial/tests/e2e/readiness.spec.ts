@@ -130,3 +130,16 @@ test("erros do sistema só para a administração", async ({ browser }) => {
   await expect(page).toHaveURL(/\/inicio/);
   await page.close();
 });
+
+test("verificação de saúde responde sem login e as páginas têm os cabeçalhos de segurança", async ({ request }) => {
+  const health = await request.get("/api/health");
+  expect(health.status()).toBe(200);
+  expect(await health.json()).toMatchObject({ ok: true, db: true });
+
+  const page = await request.get("/entrar");
+  const h = page.headers();
+  expect(h["x-frame-options"]).toBe("DENY");
+  expect(h["x-content-type-options"]).toBe("nosniff");
+  expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
+  expect(h["x-powered-by"]).toBeUndefined();
+});
