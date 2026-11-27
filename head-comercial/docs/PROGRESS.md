@@ -1,6 +1,6 @@
 # Progresso
 
-Última atualização: 2026-11-27 (Fase 4 concluída)
+Última atualização: 2026-11-27 (Fase 5 concluída)
 
 ## Concluído e validado
 
@@ -103,13 +103,26 @@
 
 **Validação real (CI, execução 20, 2026-11-27):** 137 testes de unidade, 90 de banco e 49 cenários de ponta a ponta, todos passaram. Os testes de ponta a ponta encontraram dois erros reais, corrigidos: (1) o Supabase bloqueia apagar sem filtro e o cálculo dos alertas falhava pela API; (2) um alerta novo podia demorar até 5 minutos para aparecer.
 
+### Fase 5: Cérebro central e memória
+| Item | Situação |
+|---|---|
+| Cérebro central (metodologia Orbion), visível só para a administração e usado pelos agentes em todas as empresas | Pronto |
+| Conhecimento da empresa: líder cadastra, toda a equipe consulta | Pronto |
+| Documentos por texto colado ou arquivo .txt, .md, .pdf e .docx (até 4 MB), com tipo e etiquetas, arquivamento | Pronto |
+| Divisão em trechos e busca em português sem diferenciar acentos ("negociacao" encontra "negociação") | Pronto |
+| Base de calibragem (conversa real com a avaliação esperada), separada do conhecimento: global para a administração, da empresa para o líder | Pronto |
+| Memória da empresa (vista por todos) e de cada pessoa (vista por ela e pelos líderes), com assunto, origem e data | Pronto |
+
+**Validação real (CI, execução 27, 2026-11-27):** 146 testes de unidade, 98 de banco e 55 cenários de ponta a ponta, todos passaram. Dois ajustes nos testes: a ordem alfabética com acento muda entre o Postgres local e o Supabase, e um PDF pode virar mais de um trecho.
+
 ## Em desenvolvimento
-- Nada. Fase 4 concluída. Com ela, o MVP tem a operação capturada, organizada, cruzada e acompanhada por regras.
+- **Fase 6: Agentes de IA.** Banco dos agentes pronto (conversas com o Head, registro de custo, análises de conversa). Em seguida: núcleo da IA, chat e análise.
 
 ## Pendente
 - Ligar o WhatsApp de verdade: subir o servidor da Evolution (guia em SETUP.md, seção 4), depende da autorização do gasto.
 - Primeiro conector nativo de CRM (hoje qualquer CRM entra pelo webhook ou planilha).
-- Fases 3 a 9 (ver ROADMAP.md).
+- Importação em lote do acervo de mais de mil documentos (depende de saber onde ele está).
+- Fases 6 a 9 (ver ROADMAP.md).
 
 ## Bloqueios e pendências com o proprietário
 1. **Repositório novo:** o proprietário cria `head-comercial-orbion` (privado, vazio) no GitHub e informa. Enquanto isso, o código vive na pasta `head-comercial/` da branch `claude/gifted-hypatia-owccnl` deste repositório.
@@ -132,6 +145,6 @@
 - No ambiente de desenvolvimento desta sessão, o Supabase completo não roda (bloqueio de rede para as imagens Docker). Os testes completos rodam no CI do GitHub.
 
 ## Próxima prioridade
-**Fase 5: Cérebro central e memória.** Base de conhecimento (metodologia, scripts, objeções, treinamentos) com busca, base de calibragem com conversas reais e memória da empresa e de cada vendedor. É a base para os agentes de IA da Fase 6.
+**Fase 6: Agentes de IA.** Head Comercial no chat, Analista de Conversas, registro de custo e resumo diário.
 
-Precisa do proprietário: onde está o acervo de mais de mil documentos (Notion, Google Drive, pasta com arquivos?) e em que formatos.
+Precisa do proprietário: a chave da API da Anthropic (sem ela, tudo é testado com respostas simuladas) e, se possível, de 5 a 10 conversas reais com avaliação para a calibragem.
