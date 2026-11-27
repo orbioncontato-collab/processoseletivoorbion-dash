@@ -13,14 +13,16 @@ export async function Sidebar() {
   const items: NavItem[] = [];
   if (company) {
     items.push({ href: "/inicio", label: "Início", icon: "home" });
-    items.push({ href: "/assistente", label: "Head Comercial", icon: "bot" });
+    items.push({ href: "/assistente", label: "Agentes", icon: "bot" });
     items.push({ href: "/alertas", label: "Alertas", icon: "bell" });
+    items.push({ href: "/acoes", label: "Plano de ação", icon: "actions" });
     items.push({ href: "/oportunidades", label: "Oportunidades", icon: "deals" });
     items.push({ href: "/contatos", label: "Contatos", icon: "contacts" });
     items.push({ href: "/conversas", label: "Conversas", icon: "chat" });
     items.push({ href: "/relatorio", label: "Relatório", icon: "report" });
     items.push({ href: "/meu-whatsapp", label: "Meu WhatsApp", icon: "phone" });
     items.push({ href: "/treinamentos", label: "Treinamentos", icon: "training" });
+    items.push({ href: "/documentos", label: "Documentos", icon: "docs" });
     items.push({ href: "/conhecimento", label: "Conhecimento", icon: "book" });
     items.push({ href: "/memoria", label: "Memória", icon: "memory" });
     if (company.role === "leader") {

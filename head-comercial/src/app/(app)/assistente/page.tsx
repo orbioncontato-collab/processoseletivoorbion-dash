@@ -1,35 +1,45 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { requireCompany } from "@/lib/auth/session";
 import { isAiConfigured } from "@/lib/ai/client";
+import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent } from "@/components/ui/card";
+import { AGENT_IDS, agentOf } from "@/modules/ai/agents";
 import { ChatForm } from "@/modules/ai/components/chat-form";
 import { AiNotConfigured, ThreadList } from "@/modules/ai/components/views";
 import { listThreads } from "@/modules/ai/queries";
 
-export const metadata: Metadata = { title: "Head Comercial" };
+export const metadata: Metadata = { title: "Agentes" };
 
-const SELLER_SUGGESTIONS = [
-  "O que eu devo fazer primeiro hoje?",
-  "Quais negociações estão paradas?",
-  "Como responder quando o cliente diz que está caro?",
-];
-const LEADER_SUGGESTIONS = [
-  "Como está o time hoje?",
-  "Quem precisa de ajuda esta semana?",
-  "Quais negociações grandes estão em risco?",
-];
-
-export default async function AssistantPage() {
+export default async function AssistantPage({ searchParams }: PageProps<"/assistente">) {
   const { company } = await requireCompany();
-  const threads = await listThreads(company.companyId);
-  const configured = await isAiConfigured();
+  const sp = await searchParams;
+  const agent = agentOf(typeof sp.agente === "string" ? sp.agente : "head");
+  const [threads, configured] = await Promise.all([listThreads(company.companyId), isAiConfigured()]);
   return (
     <div className="grid gap-6">
       <PageHeader
-        title="Head Comercial"
-        description="Pergunte sobre suas negociações, seu dia e como vender melhor. O Head consulta os dados que você pode ver no sistema."
+        title="Agentes"
+        description="Escolha com quem conversar. Cada agente tem um papel e consulta só os dados que você pode ver no sistema."
       />
+      <nav aria-label="Escolher agente" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {AGENT_IDS.map((id) => {
+          const a = agentOf(id);
+          const active = a.id === agent.id;
+          return (
+            <Link
+              key={id}
+              href={id === "head" ? "/assistente" : `/assistente?agente=${id}`}
+              aria-current={active ? "page" : undefined}
+              className={cn("rounded-lg border p-3 text-sm hover:bg-secondary", active && "border-primary bg-secondary")}
+            >
+              <span className="block font-medium">{a.name}</span>
+              <span className="block text-xs text-muted-foreground">{a.role}</span>
+            </Link>
+          );
+        })}
+      </nav>
       <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
         <Card>
           <CardContent className="p-2">
@@ -38,8 +48,14 @@ export default async function AssistantPage() {
         </Card>
         <Card>
           <CardContent className="grid gap-4 p-4">
+            <p className="text-sm font-medium">Nova conversa com {agent.name}</p>
             {configured ? (
-              <ChatForm suggestions={company.role === "leader" ? LEADER_SUGGESTIONS : SELLER_SUGGESTIONS} />
+              <ChatForm
+                key={agent.id}
+                agent={agent.id}
+                agentName={agent.name}
+                suggestions={company.role === "leader" ? agent.suggestions.leader : agent.suggestions.seller}
+              />
             ) : (
               <AiNotConfigured />
             )}

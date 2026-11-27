@@ -10,6 +10,13 @@ import { listOpenAlerts } from "@/modules/alerts/queries";
 import { ALERT_LABELS } from "@/modules/alerts/rules";
 import { listAssignments, listLibrary } from "@/modules/training/queries";
 import { SKILLS, STATUS_LABELS } from "@/modules/training/skills";
+import { getStages } from "@/modules/commercial/queries";
+import { funnelMetrics, type FunnelOpp } from "@/modules/commercial/funnel-metrics";
+import { getDocument, listDocuments } from "@/modules/documents/queries";
+import { DOC_KIND_LABELS } from "@/modules/documents/labels";
+import { listActions } from "@/modules/action-plan/queries";
+import { insertAction } from "@/modules/action-plan/service";
+import { ACTION_PRIORITY, ACTION_STATUS } from "@/modules/action-plan/labels";
 
 /**
  * Ferramentas de consulta dos agentes. Todas leem com o login da pessoa que
@@ -246,6 +253,132 @@ const TOOLS = [
     },
   }),
 
+  tool({
+    name: "metricas_do_funil",
+    description:
+      "Saúde do funil no período: negociações e valor por etapa, criadas, ganhas e perdidas, taxa de ganho, ticket médio, ciclo médio de venda, paradas, sem próximo passo, vencidas e motivos de perda. Para o líder é o time; para o vendedor, só as dele. Pode filtrar por vendedor.",
+    schema: z.object({ dias: z.number().int().min(7).max(365).default(90), responsavel_id: uuid.optional() }),
+    run: async (i, ctx) => {
+      const supabase = await createClient();
+      let q = supabase
+        .from("opportunities")
+        .select("stage_id, owner_id, status, value_cents, created_at, closed_at, last_activity_at, next_step_at, lost_reason")
+        .eq("company_id", ctx.companyId)
+        .limit(5000);
+      if (i.responsavel_id) q = q.eq("owner_id", i.responsavel_id);
+      const [{ data: opps }, stages, { data: settings }] = await Promise.all([
+        q,
+        getStages(ctx.companyId),
+        supabase.from("company_settings").select("stale_days").eq("company_id", ctx.companyId).maybeSingle(),
+      ]);
+      const m = funnelMetrics((opps ?? []) as FunnelOpp[], stages, { periodDays: i.dias, staleDays: settings?.stale_days ?? 7 });
+      const money = (c: number | null) => (c === null ? null : formatMoney(c));
+      return {
+        ...m,
+        valor_em_aberto: money(m.valor_em_aberto_cents),
+        valor_ganho: money(m.valor_ganho_cents),
+        ticket_medio_ganho: money(m.ticket_medio_ganho_cents),
+        por_etapa: m.por_etapa.map((e) => ({ etapa: e.etapa, negociacoes: e.negociacoes, valor: money(e.valor_cents) })),
+      };
+    },
+  }),
+  tool({
+    name: "listar_documentos",
+    description: "Documentos comerciais da empresa (playbook, roteiros, política de preço, processos) com a versão publicada e a mais recente.",
+    schema: z.object({}),
+    run: async (_i, ctx) =>
+      (await listDocuments(ctx.companyId)).map((d) => ({
+        id: d.id,
+        titulo: d.title,
+        tipo: DOC_KIND_LABELS[d.kind] ?? d.kind,
+        versao_publicada: d.published_version,
+        versao_mais_recente: ctx.role === "leader" ? d.latest_version : d.published_version,
+      })),
+  }),
+  tool({
+    name: "ver_documento",
+    description: "Conteúdo de um documento comercial: a versão publicada (e, para o líder, também a mais recente, se for rascunho).",
+    schema: z.object({ id: uuid }),
+    run: async (i, ctx) => {
+      const found = await getDocument(ctx.companyId, i.id);
+      if (!found) return { erro: "Documento não encontrado ou sem permissão para ver." };
+      const published = found.versions.find((v) => v.version === found.doc.published_version);
+      const latest = found.versions[0];
+      return {
+        titulo: found.doc.title,
+        tipo: DOC_KIND_LABELS[found.doc.kind] ?? found.doc.kind,
+        versao_publicada: published ? { versao: published.version, conteudo: published.content } : null,
+        rascunho_mais_recente: latest && latest.version !== published?.version ? { versao: latest.version, nota: latest.change_note, conteudo: latest.content } : null,
+      };
+    },
+  }),
+  tool({
+    name: "propor_versao_documento",
+    description:
+      "Grava uma nova versão de um documento comercial como rascunho, para o líder revisar e publicar. Só funciona para líderes. Envie o texto completo do documento, não só o trecho alterado.",
+    schema: z.object({ documento_id: uuid, conteudo: z.string().min(20).max(100000), nota: z.string().min(3).max(1000) }),
+    run: async (i, ctx) => {
+      if (ctx.role !== "leader") return { erro: "Só líderes podem gravar versões. Mostre a sugestão na resposta." };
+      const found = await getDocument(ctx.companyId, i.documento_id);
+      if (!found) return { erro: "Documento não encontrado." };
+      const db = createServiceClient({ type: "agent", id: ctx.userId });
+      const { data, error } = await db
+        .from("document_versions")
+        .insert({ company_id: ctx.companyId, document_id: i.documento_id, content: i.conteudo, change_note: i.nota, author_type: "agent", created_by: ctx.userId })
+        .select("version")
+        .single();
+      if (error || !data) throw new Error(error?.message ?? "sem versão");
+      return { versao: data.version, situacao: "rascunho", onde_revisar: `/documentos/${i.documento_id}?v=${data.version}` };
+    },
+  }),
+  tool({
+    name: "listar_acoes",
+    description: "Ações do plano de ação em aberto (o vendedor vê as dele; o líder, as do time), com responsável, prazo, prioridade e situação.",
+    schema: z.object({ incluir_encerradas: z.boolean().default(false) }),
+    run: async (i, ctx) => {
+      const [actions, team] = await Promise.all([
+        listActions(ctx.companyId, { includeClosed: i.incluir_encerradas, ownerId: ctx.role === "leader" ? undefined : ctx.userId, limit: 100 }),
+        getTeam(ctx.companyId),
+      ]);
+      const name = new Map(team.map((t) => [t.userId, t.name]));
+      return actions.map((a) => ({
+        acao: a.title,
+        responsavel: name.get(a.owner_id) ?? "Ex-membro",
+        prazo: a.due_date,
+        prioridade: ACTION_PRIORITY[a.priority] ?? a.priority,
+        situacao: ACTION_STATUS[a.status] ?? a.status,
+      }));
+    },
+  }),
+  tool({
+    name: "criar_acao",
+    description:
+      "Cria uma ação no plano de ação, com responsável, prazo e prioridade. O líder pode atribuir a qualquer pessoa da equipe (use listar_equipe para achar o id); o vendedor só cria para si. Crie só o que a pessoa pediu ou aprovou.",
+    schema: z.object({
+      titulo: z.string().min(3).max(200),
+      descricao: z.string().max(4000).optional(),
+      responsavel_id: uuid.optional().describe("Sem informar, fica com a própria pessoa."),
+      prazo: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("AAAA-MM-DD"),
+      prioridade: z.enum(["low", "medium", "high"]).default("medium"),
+    }),
+    run: async (i, ctx) => {
+      const owner = i.responsavel_id ?? ctx.userId;
+      if (ctx.role !== "leader" && owner !== ctx.userId) return { erro: "Vendedor só cria ações para si." };
+      const result = await insertAction({
+        companyId: ctx.companyId,
+        actorId: ctx.userId,
+        actorType: "agent",
+        title: i.titulo,
+        description: i.descricao,
+        ownerId: owner,
+        dueDate: i.prazo ?? null,
+        priority: i.prioridade,
+        source: "agent",
+      });
+      return "error" in result ? { erro: result.error } : { criada: true, titulo: i.titulo, onde_ver: "/acoes" };
+    },
+  }),
+
 ];
 
 type AnyTool = (typeof TOOLS)[number];
@@ -257,22 +390,37 @@ function inputSchema(schema: z.ZodType): Anthropic.Beta.BetaTool.InputSchema {
   return json as Anthropic.Beta.BetaTool.InputSchema;
 }
 
-/** Definições enviadas à API, sempre na mesma ordem (ajuda o cache). */
-export const TOOL_DEFINITIONS: Anthropic.Beta.BetaTool[] = TOOLS.map((t) => ({
-  name: t.name,
-  description: t.description,
-  input_schema: inputSchema(t.schema),
-  // As entradas chegam aos poucos durante a resposta; runTool valida cada uma antes de executar.
-  eager_input_streaming: true,
-}));
+const DEFINITIONS = new Map<string, Anthropic.Beta.BetaTool>(
+  TOOLS.map((t) => [
+    t.name,
+    {
+      name: t.name,
+      description: t.description,
+      input_schema: inputSchema(t.schema),
+      // As entradas chegam aos poucos durante a resposta; runTool valida cada uma antes de executar.
+      eager_input_streaming: true,
+    },
+  ]),
+);
 
+export const ALL_TOOL_NAMES = TOOLS.map((t) => t.name);
+
+/** Definições enviadas à API, sempre na mesma ordem (ajuda o cache). */
+export function toolDefinitions(names: readonly string[] = ALL_TOOL_NAMES): Anthropic.Beta.BetaTool[] {
+  return ALL_TOOL_NAMES.filter((n) => names.includes(n)).map((n) => DEFINITIONS.get(n)!);
+}
 
 const MAX_RESULT_CHARS = 30_000;
 
 /** Executa uma ferramenta pedida pelo modelo. Erros voltam como texto para o modelo se corrigir. */
-export async function runTool(name: string, rawInput: unknown, ctx: AgentContext): Promise<{ content: string; isError: boolean }> {
+export async function runTool(
+  name: string,
+  rawInput: unknown,
+  ctx: AgentContext,
+  allowed: readonly string[] = ALL_TOOL_NAMES,
+): Promise<{ content: string; isError: boolean }> {
   const spec = BY_NAME.get(name);
-  if (!spec) return { content: `Ferramenta desconhecida: ${name}`, isError: true };
+  if (!spec || !allowed.includes(name)) return { content: `Ferramenta indisponível para este agente: ${name}`, isError: true };
   const parsed = spec.schema.safeParse(rawInput ?? {});
   if (!parsed.success) {
     return { content: `Parâmetros inválidos: ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ")}`, isError: true };

@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { AI_MODEL, getAnthropic } from "@/lib/ai/client";
 import { createServiceClient } from "@/lib/supabase/service";
 import { addUsage, costMicros, emptyUsage } from "./pricing";
-import { runTool, TOOL_DEFINITIONS, type AgentContext } from "./tools";
+import { runTool, toolDefinitions, ALL_TOOL_NAMES, type AgentContext } from "./tools";
 
 /**
  * Laço do agente (D005): a API pede ferramentas, o servidor executa com as
@@ -22,6 +22,8 @@ export interface AgentRunInput {
   /** Parte que muda a cada chamada (data, pessoa). Fica depois do ponto de cache. */
   systemContext: string;
   messages: Anthropic.Beta.BetaMessageParam[];
+  /** Ferramentas que este agente pode usar (padrão: todas). */
+  tools?: readonly string[];
   effort?: Effort;
   threadId?: string;
   maxSteps?: number;
@@ -87,7 +89,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
           { type: "text", text: input.system, cache_control: { type: "ephemeral" } },
           { type: "text", text: input.systemContext },
         ],
-        tools: TOOL_DEFINITIONS,
+        tools: toolDefinitions(input.tools ?? ALL_TOOL_NAMES),
         messages,
       });
       if (input.onText) stream.on("text", input.onText);
@@ -128,7 +130,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
         toolUses.map(async (t) => {
           toolsUsed.add(t.name);
           input.onTool?.(t.name);
-          const r = await runTool(t.name, t.input, input.ctx);
+          const r = await runTool(t.name, t.input, input.ctx, input.tools ?? ALL_TOOL_NAMES);
           return { type: "tool_result" as const, tool_use_id: t.id, content: r.content, is_error: r.isError || undefined };
         }),
       );

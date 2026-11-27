@@ -37,6 +37,32 @@ function chatReply(body) {
     } catch {
       data = null;
     }
+    // Qual ferramenta respondeu e qual foi a pergunta original deste turno.
+    const prev = body.messages.at(-2);
+    const toolName = (Array.isArray(prev?.content) ? prev.content : []).find((b) => b.type === "tool_use" && b.id === result.tool_use_id)?.name;
+    const asked = textOf([...body.messages].reverse().find((m) => m.role === "user" && typeof m.content === "string")?.content ?? "").toLowerCase();
+    const nextTool = (name, input) =>
+      message([{ type: "tool_use", id: `toolu_mock_${++counter}`, name, input }], "tool_use");
+
+    if (toolName === "metricas_do_funil") {
+      return message(
+        [{ type: "text", text: `Saúde do funil em ${data.periodo_dias} dias: ${data.em_aberto} em aberto, ${data.ganhas_no_periodo} ganha(s), taxa de ganho ${data.taxa_de_ganho_pct ?? "sem dados"}, ${data.sem_proximo_passo} sem próximo passo.` }],
+        "end_turn",
+      );
+    }
+    if (toolName === "listar_documentos" && asked.includes("melhore") && Array.isArray(data) && data[0]) {
+      return nextTool("propor_versao_documento", {
+        documento_id: data[0].id,
+        conteudo: `${data[0].titulo} (revisado pelo Estrategista)\n1. Cumprimente e pergunte o que motivou o contato.\n2. Entenda a necessidade antes de falar de preço.`,
+        nota: "Diagnóstico antes do preço, por causa das objeções do time",
+      });
+    }
+    if (toolName === "propor_versao_documento") {
+      return message([{ type: "text", text: data.erro ? `Não gravei: ${data.erro}` : `Deixei a versão ${data.versao} como rascunho para você revisar.` }], "end_turn");
+    }
+    if (toolName === "criar_acao") {
+      return message([{ type: "text", text: data.erro ? `Não criei: ${data.erro}` : `Criei a ação "${data.titulo}" no plano de ação.` }], "end_turn");
+    }
     if (Array.isArray(data) && data[0]?.titulo) {
       return message([{ type: "text", text: `Suas prioridades agora:\n${data.map((o) => `- ${o.titulo} (${o.cliente})`).join("\n")}` }], "end_turn");
     }
@@ -58,6 +84,9 @@ function chatReply(body) {
       ],
       "tool_use",
     );
+  if (question.includes("funil")) return toolUse("metricas_do_funil", { dias: 90 });
+  if (question.includes("melhore")) return toolUse("listar_documentos", {});
+  if (question.includes("plano")) return toolUse("criar_acao", { titulo: "Ligar para os clientes parados", prioridade: "high" });
   if (question.includes("fazer") || question.includes("prioridade")) return toolUse("listar_oportunidades", { situacao: "open" });
   if (question.includes("caro") || question.includes("objeção")) return toolUse("buscar_conhecimento", { pergunta: question });
   if (question.includes("recusa")) return message([], "refusal");

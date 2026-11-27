@@ -185,7 +185,7 @@ test("o que vai para a API: instruções fixas, contexto da pessoa, ferramentas 
   const system = last.body.system as { text: string; cache_control?: unknown }[];
   expect(system[0].cache_control).toBeTruthy();
   expect(system[1].text).toContain(`Empresa: Comercial ${tag}`);
-  expect((last.body.tools as unknown[]).length).toBe(10);
+  expect((last.body.tools as unknown[]).length).toBe(14);
 
   const analysis = sent.filter((r) => (r.body.output_config as { format?: unknown })?.format).at(-1)!;
   expect(JSON.stringify(analysis.body.messages)).toContain("Achei caro.");

@@ -7,7 +7,7 @@ export async function listThreads(companyId: string) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("agent_threads")
-    .select("id, title, updated_at")
+    .select("id, title, updated_at, agent")
     .eq("company_id", companyId)
     .is("archived_at", null)
     .order("updated_at", { ascending: false })
@@ -19,7 +19,7 @@ export async function getThread(companyId: string, id: string) {
   const supabase = await createClient();
   const { data: thread } = await supabase
     .from("agent_threads")
-    .select("id, title, archived_at")
+    .select("id, title, archived_at, agent")
     .eq("company_id", companyId)
     .eq("id", id)
     .maybeSingle();

@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ChatForm } from "@/modules/ai/components/chat-form";
 import { AiNotConfigured, ArchiveThreadButton, MessageList, ThreadList } from "@/modules/ai/components/views";
 import { getThread, listThreads } from "@/modules/ai/queries";
+import { agentOf } from "@/modules/ai/agents";
 
 export const metadata: Metadata = { title: "Head Comercial" };
 
@@ -17,9 +18,10 @@ export default async function ThreadPage({ params }: PageProps<"/assistente/[id]
   if (!z.uuid().safeParse(id).success) notFound();
   const [found, threads] = await Promise.all([getThread(company.companyId, id), listThreads(company.companyId)]);
   if (!found) notFound();
+  const agent = agentOf(found.thread.agent);
   return (
     <div className="grid gap-6">
-      <PageHeader title={found.thread.title} description="Conversa com o Head Comercial" actions={<ArchiveThreadButton id={id} />} />
+      <PageHeader title={found.thread.title} description={`Conversa com ${agent.name}`} actions={<ArchiveThreadButton id={id} />} />
       <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
         <Card>
           <CardContent className="p-2">
@@ -29,7 +31,7 @@ export default async function ThreadPage({ params }: PageProps<"/assistente/[id]
         <Card>
           <CardContent className="grid gap-6 p-4">
             <MessageList messages={found.messages} tz={company.timezone} />
-            {(await isAiConfigured()) ? <ChatForm threadId={id} /> : <AiNotConfigured />}
+            {(await isAiConfigured()) ? <ChatForm threadId={id} agent={agent.id} agentName={agent.name} /> : <AiNotConfigured />}
           </CardContent>
         </Card>
       </div>

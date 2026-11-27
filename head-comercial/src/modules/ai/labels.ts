@@ -10,4 +10,10 @@ export const TOOL_LABELS_PUBLIC: Record<string, string> = {
   buscar_conhecimento: "conhecimento",
   ver_memoria: "memória",
   ver_treinamentos: "treinamentos",
+  metricas_do_funil: "métricas do funil",
+  listar_documentos: "documentos",
+  ver_documento: "documento",
+  propor_versao_documento: "nova versão do documento",
+  listar_acoes: "plano de ação",
+  criar_acao: "nova ação",
 };

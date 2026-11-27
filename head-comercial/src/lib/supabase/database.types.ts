@@ -3,6 +3,66 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      action_items: {
+        Row: {
+          company_id: string;
+          completed_at: string | null;
+          created_at: string;
+          created_by: string | null;
+          description: string;
+          due_date: string | null;
+          id: string;
+          owner_id: string;
+          priority: string;
+          source: string;
+          source_ref: string | null;
+          status: string;
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          description?: string;
+          due_date?: string | null;
+          id?: string;
+          owner_id: string;
+          priority?: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          company_id?: string;
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          description?: string;
+          due_date?: string | null;
+          id?: string;
+          owner_id?: string;
+          priority?: string;
+          source?: string;
+          source_ref?: string | null;
+          status?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "action_items_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       activities: {
         Row: {
           action: string;
@@ -341,6 +401,54 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "calibration_cases_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      commercial_documents: {
+        Row: {
+          archived_at: string | null;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          kind: string;
+          latest_version: number;
+          published_version: number | null;
+          title: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kind?: string;
+          latest_version?: number;
+          published_version?: number | null;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          kind?: string;
+          latest_version?: number;
+          published_version?: number | null;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "commercial_documents_company_id_fkey";
             columns: ["company_id"];
             isOneToOne: false;
             referencedRelation: "companies";
@@ -725,6 +833,51 @@ export type Database = {
             columns: ["company_id", "question_id"];
             isOneToOne: false;
             referencedRelation: "report_questions";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      document_versions: {
+        Row: {
+          author_type: string;
+          change_note: string;
+          company_id: string;
+          content: string;
+          created_at: string;
+          created_by: string | null;
+          document_id: string;
+          id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          author_type?: string;
+          change_note?: string;
+          company_id: string;
+          content: string;
+          created_at?: string;
+          created_by?: string | null;
+          document_id: string;
+          id?: string;
+          version?: number;
+        };
+        Update: {
+          author_type?: string;
+          change_note?: string;
+          company_id?: string;
+          content?: string;
+          created_at?: string;
+          created_by?: string | null;
+          document_id?: string;
+          id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "document_versions_company_id_document_id_fkey";
+            columns: ["company_id", "document_id"];
+            isOneToOne: false;
+            referencedRelation: "commercial_documents";
             referencedColumns: ["company_id", "id"];
           },
         ];

@@ -7,6 +7,7 @@ import { formatDateTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { archiveThread } from "@/modules/ai/chat-actions";
 import { TOOL_LABELS_PUBLIC } from "@/modules/ai/labels";
+import { agentOf } from "@/modules/ai/agents";
 
 export function AiNotConfigured() {
   return (
@@ -17,7 +18,7 @@ export function AiNotConfigured() {
   );
 }
 
-export function ThreadList({ threads, current, tz }: { threads: { id: string; title: string; updated_at: string }[]; current?: string; tz: string }) {
+export function ThreadList({ threads, current, tz }: { threads: { id: string; title: string; updated_at: string; agent: string }[]; current?: string; tz: string }) {
   return (
     <nav aria-label="Conversas com o Head" className="grid gap-1">
       <Link href="/assistente" className="rounded-md px-3 py-2 text-sm font-medium text-primary hover:bg-secondary">
@@ -31,7 +32,9 @@ export function ThreadList({ threads, current, tz }: { threads: { id: string; ti
           className={cn("rounded-md px-3 py-2 text-sm hover:bg-secondary", t.id === current && "bg-secondary font-medium")}
         >
           <span className="block truncate">{t.title}</span>
-          <span className="block text-xs text-muted-foreground">{formatDateTime(t.updated_at, tz)}</span>
+          <span className="block text-xs text-muted-foreground">
+            {agentOf(t.agent).name} · {formatDateTime(t.updated_at, tz)}
+          </span>
         </Link>
       ))}
     </nav>
@@ -60,7 +63,7 @@ export function MessageList({ messages, tz }: { messages: ChatMessage[]; tz: str
           <li key={m.id} className="max-w-[92%] justify-self-start rounded-lg border bg-card px-3 py-2 text-sm">
             <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-primary">
               <Bot className="size-3.5" aria-hidden />
-              Head Comercial
+              {agentOf(m.agent).name}
             </p>
             <div className="whitespace-pre-wrap break-words">{m.content}</div>
             <p className="mt-2 text-[11px] text-muted-foreground">

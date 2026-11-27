@@ -24,7 +24,17 @@ interface Live {
   tools: string[];
 }
 
-export function ChatForm({ threadId, suggestions = [] }: { threadId?: string; suggestions?: string[] }) {
+export function ChatForm({
+  threadId,
+  suggestions = [],
+  agent = "head",
+  agentName = "Head Comercial",
+}: {
+  threadId?: string;
+  suggestions?: string[];
+  agent?: string;
+  agentName?: string;
+}) {
   const router = useRouter();
   const ref = useRef<HTMLTextAreaElement>(null);
   const [live, setLive] = useState<Live | null>(null);
@@ -42,7 +52,7 @@ export function ChatForm({ threadId, suggestions = [] }: { threadId?: string; su
       const res = await fetch("/api/assistente", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ threadId: threadId ?? null, message }),
+        body: JSON.stringify({ threadId: threadId ?? null, message, agent: threadId ? undefined : agent }),
       });
       if (res.ok && !res.headers.get("content-type")?.includes("ndjson")) {
         throw new Error("Sua sessão expirou. Entre de novo para continuar.");
@@ -91,7 +101,7 @@ export function ChatForm({ threadId, suggestions = [] }: { threadId?: string; su
           <div className="max-w-[92%] justify-self-start rounded-lg border bg-card px-3 py-2 text-sm">
             <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-primary">
               <Bot className="size-3.5" aria-hidden />
-              Head Comercial
+              {agentName}
             </p>
             {live.answer ? <div className="whitespace-pre-wrap break-words">{live.answer}</div> : null}
             {sending ? (
@@ -144,7 +154,7 @@ export function ChatForm({ threadId, suggestions = [] }: { threadId?: string; su
           name="message"
           rows={3}
           maxLength={4000}
-          placeholder="Pergunte ao Head Comercial"
+          placeholder={`Pergunte ao ${agentName}`}
           disabled={sending}
           className="w-full rounded-md border border-input bg-card px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           onKeyDown={(e) => {

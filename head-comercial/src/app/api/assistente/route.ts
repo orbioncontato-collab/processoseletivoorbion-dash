@@ -3,6 +3,7 @@ import { getActiveCompany, getCurrentUser } from "@/lib/auth/session";
 import { isAiConfigured } from "@/lib/ai/client";
 import { ChatError, chatTurn } from "@/modules/ai/chat-service";
 import { TOOL_LABELS_PUBLIC } from "@/modules/ai/labels";
+import { AGENT_IDS, type AgentId } from "@/modules/ai/agents";
 
 /**
  * Pergunta ao Head com a resposta chegando aos poucos. Devolve uma linha JSON
@@ -13,6 +14,7 @@ export const maxDuration = 300;
 
 const schema = z.object({
   threadId: z.uuid().nullable().optional(),
+  agent: z.enum(AGENT_IDS as [AgentId, ...AgentId[]]).optional(),
   message: z.string().trim().min(1, "Escreva sua pergunta.").max(4000, "Pergunta longa demais."),
 });
 
@@ -45,7 +47,7 @@ export async function POST(request: Request) {
       try {
         const result = await chatTurn(
           ctx,
-          { threadId: parsed.data.threadId ?? null, message: parsed.data.message },
+          { threadId: parsed.data.threadId ?? null, message: parsed.data.message, agent: parsed.data.agent },
           {
             onThread: (id) => send({ type: "thread", id }),
             onText: (delta) => send({ type: "text", delta }),

@@ -18,6 +18,9 @@ import { getActiveTemplate } from "@/modules/reports/queries";
 import { dueReferenceDate } from "@/modules/reports/rules";
 import { formatDate } from "@/lib/format";
 import { latestDailySummary } from "@/modules/ai/queries";
+import { listActions } from "@/modules/action-plan/queries";
+import { ActionList } from "@/modules/action-plan/components/action-list";
+import { localDate } from "@/modules/ai/daily-summary";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export const metadata: Metadata = { title: "Início" };
@@ -47,12 +50,13 @@ export default async function HomePage() {
   const firstName = (user.fullName || user.email).split(" ")[0];
   const isLeader = company.role === "leader";
 
-  const [counters, metrics, team, alerts, summary] = await Promise.all([
+  const [counters, metrics, team, alerts, summary, myActions] = await Promise.all([
     getHomeCounters(company.companyId, company.timezone),
     getTodayMetrics(company.companyId, company.timezone),
     isLeader ? getTeam(company.companyId) : Promise.resolve([]),
     listOpenAlerts(company.companyId),
     isLeader ? latestDailySummary(company.companyId) : Promise.resolve(null),
+    listActions(company.companyId, { ownerId: user.id, limit: 5 }),
   ]);
   const ownerName = new Map(team.map((t) => [t.userId, t.name]));
   const names = Object.fromEntries(team.map((t) => [t.userId, t.name]));
@@ -168,6 +172,21 @@ export default async function HomePage() {
                   </ol>
                 </CardContent>
               ) : null}
+            </Card>
+          ) : null}
+          {myActions.length ? (
+            <Card data-testid="minhas-acoes">
+              <CardHeader>
+                <CardTitle>Minhas ações</CardTitle>
+                <CardDescription>
+                  <Link href="/acoes" className="text-primary hover:underline">
+                    Ver o plano de ação
+                  </Link>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ActionList items={myActions} today={localDate(company.timezone)} currentUserId={user.id} isLeader={isLeader} empty="" label="Minhas ações" />
+              </CardContent>
             </Card>
           ) : null}
           <Card>

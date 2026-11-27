@@ -3,7 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { runAgent } from "./agent";
 import { buildHistory, threadTitle } from "./history";
-import { contextFor, HEAD_SYSTEM } from "./prompts";
+import { contextFor } from "./prompts";
+import { agentOf, type AgentId } from "./agents";
 import type { AgentContext } from "./tools";
 
 /** Uma pergunta ao Head: abre ou continua a conversa, roda o agente e grava tudo. */
@@ -20,7 +21,7 @@ export interface ChatEvents {
 
 export async function chatTurn(
   ctx: AgentContext,
-  input: { threadId: string | null; message: string },
+  input: { threadId: string | null; message: string; agent?: AgentId },
   events: ChatEvents = {},
 ): Promise<{ threadId: string; status: string; text: string }> {
   const supabase = await createClient();
@@ -28,22 +29,24 @@ export async function chatTurn(
 
   let threadId = input.threadId;
   let history: { role: string; content: string; blocks: unknown }[] = [];
+  let agent = agentOf(input.agent);
   if (threadId) {
     // Leitura com o login da pessoa: só abre a própria conversa.
     const { data: thread } = await supabase
       .from("agent_threads")
-      .select("id")
+      .select("id, agent")
       .eq("id", threadId)
       .eq("company_id", ctx.companyId)
       .maybeSingle();
     if (!thread) throw new ChatError("Conversa não encontrada.");
+    agent = agentOf(thread.agent);
     const { data: rows } = await supabase.from("agent_messages").select("role, content, blocks").eq("thread_id", threadId).order("created_at");
     history = rows ?? [];
     if (history.length >= MAX_MESSAGES_PER_THREAD) throw new ChatError("Esta conversa ficou longa. Comece uma nova para continuar.");
   } else {
     const { data: created, error } = await db
       .from("agent_threads")
-      .insert({ company_id: ctx.companyId, user_id: ctx.userId, agent: "head", title: threadTitle(input.message) })
+      .insert({ company_id: ctx.companyId, user_id: ctx.userId, agent: agent.id, title: threadTitle(input.message) })
       .select("id")
       .single();
     if (error || !created) {
@@ -58,9 +61,10 @@ export async function chatTurn(
 
   const result = await runAgent({
     ctx,
-    agent: "head",
+    agent: agent.id,
     purpose: "chat",
-    system: HEAD_SYSTEM,
+    system: agent.system,
+    tools: agent.tools,
     systemContext: contextFor(ctx),
     messages: [...buildHistory(history), { role: "user", content: input.message }],
     threadId,
@@ -73,7 +77,7 @@ export async function chatTurn(
       company_id: ctx.companyId,
       thread_id: threadId,
       role: "assistant",
-      agent: "head",
+      agent: agent.id,
       content: result.text,
       blocks: result.status === "ok" ? (result.turn as unknown as never) : null,
       tools_used: result.toolsUsed,
