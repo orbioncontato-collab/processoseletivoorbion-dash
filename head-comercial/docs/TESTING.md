@@ -55,6 +55,7 @@ O `scripts/test-db.sh` usa um Postgres comum com uma imitação mínima do Supab
 ## Diferenças conhecidas entre o Postgres local e o Supabase
 - O Supabase bloqueia `DELETE` e `UPDATE` sem `WHERE` nas chamadas da API (extensão `pg_safeupdate`). Em funções, usar filtro ou `truncate` em tabelas temporárias.
 - A gravação pelo PostgREST com "upsert" tenta atualizar todas as colunas enviadas; com permissões por coluna, gravar em dois passos (atualizar valores e inserir os novos).
+- A ordem alfabética de textos com acento muda: no Supabase "Ótimo" vem junto do "O"; no Postgres local, depois do "Z". Testes não devem depender de `order by` em texto com acento.
 Por isso o CI sempre roda os testes de banco e de ponta a ponta contra o Supabase completo.
 
 ## Prova de que os testes pegam falhas

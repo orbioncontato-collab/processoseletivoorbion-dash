@@ -92,8 +92,8 @@ describe("busca no conhecimento", () => {
 
 describe("memória", () => {
   it("empresa toda vê a memória da empresa; cada um vê só a própria memória pessoal", async () => {
-    const seller = await run<{ content: string }>(asUser(f.sellerA1), "select content from public.memory_items order by content");
-    expect(seller.map((m) => m.content)).toEqual([
+    const seller = await run<{ content: string }>(asUser(f.sellerA1), "select content from public.memory_items");
+    expect(seller.map((m) => m.content).sort()).toEqual([
       "Ticket médio de R$ 12 mil, venda consultiva.",
       "Ótimo no diagnóstico, precisa melhorar o fechamento.",
     ]);
