@@ -15,7 +15,7 @@ Detalhes técnicos de cada serviço estão em [SETUP.md](./SETUP.md).
 | Provedor de e-mail (ex.: Resend) | Convites e recuperação de senha | Grátis até cerca de 3 mil e-mails/mês |
 | Anthropic | Chat, análise de conversas e resumo do dia | Por uso. Defina um limite por empresa na tela da empresa |
 | Servidor do WhatsApp (Evolution API) | Conexão por QR Code dos celulares | US$ 5 a 20 |
-| Domínio (ex.: head.orbion.com.br) | Endereço do sistema | O que a Orbion já paga pelo domínio |
+| Domínio headorbion.com.br | Endereço do sistema | Já contratado |
 
 \* Valores de referência. Confira o preço atual em cada site antes de contratar.
 
@@ -40,8 +40,8 @@ No plano gratuito da Vercel o sistema funciona, mas os agendadores rodam só uma
    **Conferir:** em Table Editor aparecem as tabelas `companies`, `opportunities`, `agent_threads` e as demais.
 4. Em **Authentication, Sign In / Providers**: desligue "Allow new users to sign up" (só entra quem é convidado).
 5. Em **Authentication, URL Configuration**:
-   - Site URL: `https://SEU_DOMINIO`
-   - Redirect URLs: `https://SEU_DOMINIO/auth/confirm`
+   - Site URL: `https://headorbion.com.br`
+   - Redirect URLs: `https://headorbion.com.br/auth/confirm`
 6. Em **Authentication, Emails**:
    - Configure o SMTP do provedor de e-mail (remetente, por exemplo, `nao-responda@orbion.com.br`).
    - Template **Invite user**: assunto "Seu convite para o Head Comercial"; corpo = conteúdo de `supabase/templates/invite.html`.
@@ -67,20 +67,20 @@ openssl rand -base64 48
 | `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | chave publicável |
 | `SUPABASE_SECRET_KEY` | chave secreta |
-| `NEXT_PUBLIC_SITE_URL` | `https://SEU_DOMINIO` |
+| `NEXT_PUBLIC_SITE_URL` | `https://headorbion.com.br` |
 | `CRON_SECRET` | o valor gerado no passo 2 |
 | `SECRETS_ENCRYPTION_KEY` | o valor gerado no passo 2 |
 
    Opcionais: `ANTHROPIC_API_KEY`, `EVOLUTION_API_URL` e `EVOLUTION_API_KEY`, se preferir não colar na tela; `WEBHOOK_EVENTS_PER_MINUTE` (padrão 600).
 3. Publique (Deploy) e ligue o domínio em **Settings, Domains**.
-4. **Conferir:** abra `https://SEU_DOMINIO/api/health`. A resposta precisa mostrar `"ok": true`.
+4. **Conferir:** abra `https://headorbion.com.br/api/health`. A resposta precisa mostrar `"ok": true`.
 5. **Conferir:** em **Settings, Cron Jobs** aparecem os três agendadores (alertas, resumo do dia e maturidade).
 
 ## 4. Primeiro acesso (quem administra as contas)
 
 1. Crie o administrador da plataforma, a partir da pasta `head-comercial`:
    ```bash
-   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SECRET_KEY=... NEXT_PUBLIC_SITE_URL=https://SEU_DOMINIO npm run admin:create -- email@orbion.com.br "Nome da Pessoa"
+   NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SECRET_KEY=... NEXT_PUBLIC_SITE_URL=https://headorbion.com.br npm run admin:create -- email@orbion.com.br "Nome da Pessoa"
    ```
 2. A pessoa recebe o convite, cria a senha e aceita os termos.
 3. Em **Chaves e integrações**: cole a chave da Anthropic e clique em **Testar conexão**. Cole também o endereço e a chave do servidor do WhatsApp quando ele estiver no ar.
@@ -110,7 +110,7 @@ Marque cada item depois de testar:
 
 ## 7. Rotina depois de publicar
 
-- **Monitoramento:** cadastre `https://SEU_DOMINIO/api/health` num serviço gratuito de verificação (ex.: UptimeRobot), com aviso por e-mail se cair.
+- **Monitoramento:** cadastre `https://headorbion.com.br/api/health` num serviço gratuito de verificação (ex.: UptimeRobot), com aviso por e-mail se cair.
 - **Toda semana:** olhe **Erros do sistema** e **Consumo da IA**.
 - **Todo mês:** confira a cópia de segurança (SETUP.md, seção 7) e anote a data.
 - **Antes do primeiro cliente de fora:** revisão jurídica dos termos e do aviso de privacidade (`src/modules/legal/content.tsx`). Ao mudar o texto, atualize a versão em `src/lib/auth/terms.ts` para todos aceitarem de novo.

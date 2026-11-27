@@ -5,7 +5,7 @@
 // Uso:
 //   NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co \
 //   SUPABASE_SECRET_KEY=sb_secret_... \
-//   NEXT_PUBLIC_SITE_URL=https://head.orbion.com.br \
+//   NEXT_PUBLIC_SITE_URL=https://headorbion.com.br \
 //   node scripts/create-admin.mjs email@orbion.com.br "Nome da Pessoa"
 import { createClient } from "@supabase/supabase-js";
 
