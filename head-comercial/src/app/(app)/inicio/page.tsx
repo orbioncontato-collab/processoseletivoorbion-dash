@@ -11,6 +11,9 @@ import { ROLE_LABELS } from "@/modules/team/schemas";
 import { STALE_DAYS } from "@/modules/commercial/schemas";
 import { getHomeCounters, getTeam, listOpportunities } from "@/modules/commercial/queries";
 import { getTodayMetrics } from "@/modules/conversations/queries";
+import { getActiveTemplate } from "@/modules/reports/queries";
+import { dueReferenceDate } from "@/modules/reports/rules";
+import { formatDate } from "@/lib/format";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { NextStepInfo } from "@/modules/commercial/components/badges";
 
@@ -49,6 +52,28 @@ export default async function HomePage() {
     isLeader ? getTeam(company.companyId) : Promise.resolve([]),
   ]);
   const ownerName = new Map(team.map((t) => [t.userId, t.name]));
+
+  // Relatório do dia e divergências em aberto.
+  const template = await getActiveTemplate(company.companyId);
+  const due = template?.questions.length
+    ? dueReferenceDate(new Date(), company.timezone, template.schedule_time, template.reference, template.weekdays)
+    : null;
+  const reportClient = await createClient();
+  const [mySub, teamSubs, openDivs] = await Promise.all([
+    due && template
+      ? reportClient.from("report_submissions").select("id").eq("template_id", template.id).eq("user_id", user.id).eq("reference_date", due).maybeSingle()
+      : Promise.resolve({ data: null }),
+    due && template && isLeader
+      ? reportClient.from("report_submissions").select("id", { count: "exact", head: true }).eq("template_id", template.id).eq("reference_date", due)
+      : Promise.resolve({ count: 0 }),
+    reportClient
+      .from("divergences")
+      .select("id", { count: "exact", head: true })
+      .eq("company_id", company.companyId)
+      .eq("status", "open")
+      .match(isLeader ? {} : { user_id: user.id }),
+  ]);
+  const openDivergences = openDivs.count ?? 0;
   const mine = metrics.find((m) => m.ownerId === user.id);
   const priorities = [...overdue, ...today].slice(0, 8);
 
@@ -156,6 +181,30 @@ export default async function HomePage() {
                 <Button asChild variant="outline" size="sm">
                   <Link href="/equipe">Abrir equipe</Link>
                 </Button>
+              </CardContent>
+            </Card>
+          ) : null}
+          {due ? (
+            <Card data-testid="relatorio-card">
+              <CardHeader>
+                <CardTitle>Relatório de {formatDate(due)}</CardTitle>
+                <CardDescription>
+                  {mySub.data ? "Seu relatório foi enviado." : "Seu relatório está pendente."}
+                  {isLeader ? ` Time: ${teamSubs.count ?? 0} de ${team.length} enviados.` : ""}
+                  {openDivergences
+                    ? ` ${openDivergences} diferença(s) entre o informado e o capturado para conferir.`
+                    : ""}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-2">
+                <Button asChild size="sm" variant={mySub.data ? "outline" : "default"}>
+                  <Link href="/relatorio">{mySub.data ? "Ver meu relatório" : "Responder agora"}</Link>
+                </Button>
+                {isLeader ? (
+                  <Button asChild size="sm" variant="outline">
+                    <Link href="/relatorios">Relatórios do time</Link>
+                  </Button>
+                ) : null}
               </CardContent>
             </Card>
           ) : null}

@@ -229,6 +229,76 @@ export type Database = {
           },
         ];
       };
+      divergences: {
+        Row: {
+          captured: number;
+          company_id: string;
+          created_at: string;
+          declared: number;
+          id: string;
+          justification: string | null;
+          justified_at: string | null;
+          metric_key: string;
+          question_id: string;
+          reference_date: string;
+          status: string;
+          updated_at: string;
+          user_id: string;
+          verified_at: string | null;
+          verified_by: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          captured: number;
+          company_id: string;
+          created_at?: string;
+          declared: number;
+          id?: string;
+          justification?: string | null;
+          justified_at?: string | null;
+          metric_key: string;
+          question_id: string;
+          reference_date: string;
+          status?: string;
+          updated_at?: string;
+          user_id: string;
+          verified_at?: string | null;
+          verified_by?: string | null;
+        };
+        Update: {
+          captured?: number;
+          company_id?: string;
+          created_at?: string;
+          declared?: number;
+          id?: string;
+          justification?: string | null;
+          justified_at?: string | null;
+          metric_key?: string;
+          question_id?: string;
+          reference_date?: string;
+          status?: string;
+          updated_at?: string;
+          user_id?: string;
+          verified_at?: string | null;
+          verified_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "divergences_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "divergences_company_id_question_id_fkey";
+            columns: ["company_id", "question_id"];
+            isOneToOne: false;
+            referencedRelation: "report_questions";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
       external_refs: {
         Row: {
           company_id: string;
@@ -803,11 +873,227 @@ export type Database = {
           },
         ];
       };
+      report_answers: {
+        Row: {
+          company_id: string;
+          id: string;
+          question_id: string;
+          submission_id: string;
+          value_number: number | null;
+          value_options: string[] | null;
+          value_text: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          id?: string;
+          question_id: string;
+          submission_id: string;
+          value_number?: number | null;
+          value_options?: string[] | null;
+          value_text?: string | null;
+        };
+        Update: {
+          company_id?: string;
+          id?: string;
+          question_id?: string;
+          submission_id?: string;
+          value_number?: number | null;
+          value_options?: string[] | null;
+          value_text?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "report_answers_company_id_question_id_fkey";
+            columns: ["company_id", "question_id"];
+            isOneToOne: false;
+            referencedRelation: "report_questions";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "report_answers_company_id_submission_id_fkey";
+            columns: ["company_id", "submission_id"];
+            isOneToOne: false;
+            referencedRelation: "report_submissions";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      report_questions: {
+        Row: {
+          archived_at: string | null;
+          company_id: string;
+          created_at: string;
+          help: string | null;
+          id: string;
+          kind: string;
+          label: string;
+          metric_key: string | null;
+          metric_stage_id: string | null;
+          options: string[];
+          position: number;
+          required: boolean;
+          template_id: string;
+          tolerance_abs: number;
+          tolerance_pct: number;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          company_id: string;
+          created_at?: string;
+          help?: string | null;
+          id?: string;
+          kind: string;
+          label: string;
+          metric_key?: string | null;
+          metric_stage_id?: string | null;
+          options?: string[];
+          position?: number;
+          required?: boolean;
+          template_id: string;
+          tolerance_abs?: number;
+          tolerance_pct?: number;
+          updated_at?: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          company_id?: string;
+          created_at?: string;
+          help?: string | null;
+          id?: string;
+          kind?: string;
+          label?: string;
+          metric_key?: string | null;
+          metric_stage_id?: string | null;
+          options?: string[];
+          position?: number;
+          required?: boolean;
+          template_id?: string;
+          tolerance_abs?: number;
+          tolerance_pct?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "report_questions_company_id_template_id_fkey";
+            columns: ["company_id", "template_id"];
+            isOneToOne: false;
+            referencedRelation: "report_templates";
+            referencedColumns: ["company_id", "id"];
+          },
+          {
+            foreignKeyName: "report_questions_metric_stage_id_fkey";
+            columns: ["metric_stage_id"];
+            isOneToOne: false;
+            referencedRelation: "pipeline_stages";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      report_submissions: {
+        Row: {
+          company_id: string;
+          id: string;
+          reference_date: string;
+          submitted_at: string;
+          template_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          id?: string;
+          reference_date: string;
+          submitted_at?: string;
+          template_id: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Update: {
+          company_id?: string;
+          id?: string;
+          reference_date?: string;
+          submitted_at?: string;
+          template_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "report_submissions_company_id_template_id_fkey";
+            columns: ["company_id", "template_id"];
+            isOneToOne: false;
+            referencedRelation: "report_templates";
+            referencedColumns: ["company_id", "id"];
+          },
+        ];
+      };
+      report_templates: {
+        Row: {
+          active: boolean;
+          company_id: string;
+          created_at: string;
+          id: string;
+          name: string;
+          reference: string;
+          schedule_time: string;
+          updated_at: string;
+          weekdays: number[];
+        };
+        ComputedFields: never;
+        Insert: {
+          active?: boolean;
+          company_id: string;
+          created_at?: string;
+          id?: string;
+          name?: string;
+          reference?: string;
+          schedule_time?: string;
+          updated_at?: string;
+          weekdays?: number[];
+        };
+        Update: {
+          active?: boolean;
+          company_id?: string;
+          created_at?: string;
+          id?: string;
+          name?: string;
+          reference?: string;
+          schedule_time?: string;
+          updated_at?: string;
+          weekdays?: number[];
+        };
+        Relationships: [
+          {
+            foreignKeyName: "report_templates_company_id_fkey";
+            columns: ["company_id"];
+            isOneToOne: false;
+            referencedRelation: "companies";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
+      captured_metrics: {
+        Args: {
+          period_end: string;
+          period_start: string;
+          target_company: string;
+          target_user: string;
+        };
+        Returns: {
+          metric_key: string;
+          stage_id: string;
+          value: number;
+        }[];
+      };
       seller_daily_metrics: {
         Args: { period_end: string; period_start: string; target_company: string };
         Returns: {

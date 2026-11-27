@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Building2, Contact, Handshake, History, Home, Kanban, MessagesSquare, Plug, Smartphone, UserCircle, Users, type LucideIcon } from "lucide-react";
+import { Building2, ClipboardCheck, ClipboardList, Contact, Handshake, History, Home, Kanban, MessagesSquare, Plug, Smartphone, UserCircle, Users, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
   href: string;
   label: string;
-  icon: "home" | "users" | "history" | "building" | "user" | "deals" | "contacts" | "pipeline" | "plug" | "chat" | "phone";
+  icon: "home" | "users" | "history" | "building" | "user" | "deals" | "contacts" | "pipeline" | "plug" | "chat" | "phone" | "report" | "reports";
 }
 
 const ICONS: Record<NavItem["icon"], LucideIcon> = {
@@ -23,6 +23,8 @@ const ICONS: Record<NavItem["icon"], LucideIcon> = {
   plug: Plug,
   chat: MessagesSquare,
   phone: Smartphone,
+  report: ClipboardCheck,
+  reports: ClipboardList,
 };
 
 export function NavLinks({ items }: { items: NavItem[] }) {

@@ -32,6 +32,11 @@ export default async function CompanyAdminPage({ params }: PageProps<"/admin/emp
       <PageHeader
         title={company.name}
         description={`${company.slug} · ${company.timezone.replace("America/", "").replace("_", " ")}`}
+        actions={
+          <Link href={`/admin/empresas/${company.id}/relatorio`} className="text-sm text-primary hover:underline">
+            Configurar relatório diário →
+          </Link>
+        }
       />
       <TeamManager companyId={company.id} currentUserId={admin.id} />
     </div>
