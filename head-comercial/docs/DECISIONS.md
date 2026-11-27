@@ -119,5 +119,19 @@ Arquivos aceitos: texto colado, .txt, .md, .pdf (com texto, não imagem escanead
 **Consequências:** a tabela de trechos já está pronta para receber uma coluna de vetor. Quando entrar, a busca passa a juntar os dois resultados (híbrida).
 **Pode rever?** Sim, sem perda: os trechos ficam guardados e só ganham o vetor.
 
+## D021 · 2026-11-27 · Como os agentes funcionam
+- **Laço próprio na API de mensagens (D005).** O modelo pede uma consulta, o servidor executa e devolve o resultado, até a resposta final, com no máximo 8 voltas por pergunta. Modelo `claude-opus-5-5`, com pensamento adaptativo (sempre ligado nesse modelo) e esforço médio no chat e alto na análise.
+- **As ferramentas leem com o login da própria pessoa.** O RLS continua decidindo tudo: o agente do vendedor só enxerga o que o vendedor enxerga. A única exceção é a busca no conhecimento, que inclui a metodologia Orbion; ela roda pelo servidor, sempre presa à empresa ativa da pessoa, e devolve só trechos.
+- **Conversa com o agente é pessoal.** Nem o líder lê o chat de outra pessoa. O líder acompanha pelo que já existe: alertas, relatórios e análises.
+- **A conversa continua sem perder nada.** Cada resposta é gravada com os blocos originais da API (pensamento e consultas) e reenviada igual nas perguntas seguintes. Uma conversa vai até 80 mensagens; depois o sistema pede para começar outra.
+- **Reserva quando o modelo recusa.** As chamadas usam a reserva automática da API (`fallbacks: "default"`): se o modelo principal recusar, outro modelo responde na mesma chamada. Se todos recusarem, a pessoa vê uma mensagem clara.
+- **Cache das instruções.** A parte fixa das instruções e a lista de ferramentas vão sempre iguais e marcadas para cache. O contexto do dia (empresa, pessoa, data) vem depois, para não quebrar o cache.
+- **Custo registrado.** Cada pergunta ou análise grava modelo, tokens (incluindo os lidos do cache), tempo e custo estimado em `ai_runs`. A administração vê o consumo por empresa; o líder vê o da própria empresa.
+- **Analista de Conversas.** Só roda quando alguém pede (D006). Recebe a conversa, trechos da metodologia e até três casos de calibragem (os da empresa primeiro) e devolve uma avaliação em formato fixo: resumo, nota, critérios, pontos fortes, o que melhorar, objeções, recomendações e próximo passo.
+- **Testes sem custo.** No CI, um servidor falso imita a API da Anthropic. Os testes conferem o laço com ferramentas, o histórico reenviado, a recusa, o isolamento entre vendedores e o formato do que vai para a API.
+
+**Limitação conhecida:** a resposta aparece inteira quando fica pronta (de alguns segundos a meio minuto), com o aviso "O Head está consultando os dados". Mostrar a resposta sendo escrita aos poucos fica para uma próxima etapa.
+**Pode rever?** Sim. Trocar para Managed Agents em tarefas longas continua possível (D005).
+
 ## Decisões pendentes com o proprietário
 - P3: Fornecedor de vetores para a busca do cérebro central (recomendação: Voyage AI, indicado pela Anthropic). Decidir quando o acervo real estiver carregado, comparando a busca atual com a busca por significado (D020).

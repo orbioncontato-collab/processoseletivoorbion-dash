@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SettingsForm } from "@/modules/alerts/components/settings-form";
+import { formatUsd } from "@/modules/ai/pricing";
+import { monthStart, PURPOSE_LABELS, usageSince } from "@/modules/ai/usage";
 
 export const metadata: Metadata = { title: "Configurações" };
 
@@ -15,6 +17,7 @@ export default async function SettingsPage() {
     .select("stale_days, awaiting_reply_hours, report_grace_hours, daily_target_conversations, daily_target_messages")
     .eq("company_id", company.companyId)
     .maybeSingle();
+  const [usage] = await usageSince(monthStart(company.timezone), company.companyId);
   return (
     <div className="grid gap-6">
       <PageHeader title="Configurações" description={company.companyName} />
@@ -38,6 +41,27 @@ export default async function SettingsPage() {
               }
             }
           />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Uso da IA neste mês</CardTitle>
+          <CardDescription>Custo estimado das conversas com o Head e das análises, pelo preço de tabela, em dólar.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {usage ? (
+            <div className="grid gap-1 text-sm">
+              <p className="text-lg font-semibold">{formatUsd(usage.costMicros)}</p>
+              <p className="text-muted-foreground">
+                {usage.runs} chamada(s):{" "}
+                {Object.entries(usage.byPurpose)
+                  .map(([p, v]) => `${PURPOSE_LABELS[p] ?? p} ${v.runs}`)
+                  .join(", ")}
+              </p>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">Nenhum uso da IA neste mês.</p>
+          )}
         </CardContent>
       </Card>
     </div>

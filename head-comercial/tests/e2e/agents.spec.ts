@@ -151,6 +151,14 @@ test("a vendedora vê a análise da própria conversa", async ({ page }) => {
   await expect(page.getByRole("article", { name: "Análise da conversa" }).getByText("Nota 6/10")).toBeVisible();
 });
 
+test("líder vê o uso da IA do mês nas configurações; vendedor não", async ({ page }) => {
+  await login(page, leader);
+  await page.goto("/configuracoes");
+  await expect(text(page, "Uso da IA neste mês")).toBeVisible();
+  await expect(text(page, /Análise de conversas 1/)).toBeVisible();
+  await expect(text(page, /Chat \d+/)).toBeVisible();
+});
+
 test("o que vai para a API: instruções fixas, contexto da pessoa, ferramentas e reserva por recusa", async ({ request }) => {
   const sent = (await (await request.get(`${MOCK}/__requests`)).json()) as { beta: string; body: Record<string, unknown> }[];
   const chat = sent.filter((r) => Array.isArray(r.body.tools));
