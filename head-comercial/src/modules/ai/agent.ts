@@ -25,6 +25,9 @@ export interface AgentRunInput {
   effort?: Effort;
   threadId?: string;
   maxSteps?: number;
+  /** Chamados durante a resposta, para mostrar o texto aos poucos e as consultas. */
+  onText?: (delta: string) => void;
+  onTool?: (name: string) => void;
 }
 
 export interface AgentRunResult {
@@ -65,6 +68,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
   let stopReason: string | null = null;
   let text = "";
   let errorDetail: string | null = null;
+  let jsonRetries = 0;
 
   try {
     for (let step = 0; ; step++) {
@@ -72,7 +76,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
         status = "limit";
         break;
       }
-      const response = await client.beta.messages.create({
+      const stream = client.beta.messages.stream({
         model: AI_MODEL,
         max_tokens: 16000,
         betas: ["server-side-fallback-2026-07-01"],
@@ -86,6 +90,16 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
         tools: TOOL_DEFINITIONS,
         messages,
       });
+      if (input.onText) stream.on("text", input.onText);
+      let response: Anthropic.Beta.BetaMessage;
+      try {
+        response = await stream.finalMessage();
+        jsonRetries = 0;
+      } catch (err) {
+        // Entrada de ferramenta ilegível ou conexão caída no meio: repete a volta (até 2 vezes).
+        if (err instanceof Anthropic.APIError || jsonRetries++ >= 2) throw err;
+        continue;
+      }
       requests++;
       usage = addUsage(usage, response.usage);
       servedModel = response.model;
@@ -113,6 +127,7 @@ export async function runAgent(input: AgentRunInput): Promise<AgentRunResult> {
       const results = await Promise.all(
         toolUses.map(async (t) => {
           toolsUsed.add(t.name);
+          input.onTool?.(t.name);
           const r = await runTool(t.name, t.input, input.ctx);
           return { type: "tool_result" as const, tool_use_id: t.id, content: r.content, is_error: r.isError || undefined };
         }),

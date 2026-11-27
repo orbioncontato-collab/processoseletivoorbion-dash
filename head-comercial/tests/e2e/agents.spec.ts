@@ -99,6 +99,9 @@ test("vendedora pergunta o que fazer e o Head responde só com as negociações 
   await expect(answers(page).getByText("Proposta Sara")).toBeVisible();
   await expect(answers(page).getByText("Proposta Tiago")).toHaveCount(0);
   await expect(answers(page).getByText(/Consultou: oportunidades/)).toBeVisible();
+  // A prévia some quando a conversa gravada aparece: a resposta não fica duplicada.
+  await expect(page.getByLabel("Resposta em andamento")).toHaveCount(0);
+  await expect(page.getByText("Proposta Sara").filter({ visible: true })).toHaveCount(1);
   await expect(page.getByRole("navigation", { name: "Conversas com o Head" }).getByText("O que devo fazer primeiro hoje?")).toBeVisible();
 });
 
@@ -115,6 +118,17 @@ test("orientação de venda vem do conhecimento da empresa, com o documento cita
   await ask(page, "O cliente achou caro, como respondo?");
   await expect(answers(page).getByText(`Segundo o documento Playbook de objeções ${tag}`)).toBeVisible();
   await expect(answers(page).getByText(/Consultou: conhecimento/)).toBeVisible();
+});
+
+test("a rota do chat exige login e valida a pergunta", async ({ request, page }) => {
+  const anon = await request.post("/api/assistente", { data: { message: "oi" }, maxRedirects: 0 });
+  expect(anon.status()).toBe(307);
+  await login(page, sara);
+  const empty = await page.request.post("/api/assistente", { data: { message: "   " } });
+  expect(empty.status()).toBe(400);
+  expect((await empty.json()).error).toBe("Escreva sua pergunta.");
+  const other = await page.request.post("/api/assistente", { data: { threadId: "00000000-0000-4000-8000-000000000000", message: "oi" } });
+  expect(await other.text()).toContain("Conversa não encontrada.");
 });
 
 test("pedido recusado mostra uma mensagem clara", async ({ page }) => {

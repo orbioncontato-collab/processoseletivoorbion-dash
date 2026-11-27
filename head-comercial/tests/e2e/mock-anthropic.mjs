@@ -103,6 +103,29 @@ function summaryReply(body) {
   );
 }
 
+/** Envia a mensagem como eventos SSE, igual à API quando stream=true. */
+function sendStream(res, msg) {
+  res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache" });
+  const ev = (type, data) => res.write(`event: ${type}\ndata: ${JSON.stringify({ type, ...data })}\n\n`);
+  ev("message_start", { message: { ...msg, content: [], stop_reason: null, usage: { ...msg.usage, output_tokens: 1 } } });
+  msg.content.forEach((block, index) => {
+    if (block.type === "text") {
+      ev("content_block_start", { index, content_block: { type: "text", text: "" } });
+      for (const piece of block.text.match(/[\s\S]{1,12}/g) ?? []) ev("content_block_delta", { index, delta: { type: "text_delta", text: piece } });
+    } else if (block.type === "tool_use") {
+      ev("content_block_start", { index, content_block: { type: "tool_use", id: block.id, name: block.name, input: {} } });
+      ev("content_block_delta", { index, delta: { type: "input_json_delta", partial_json: JSON.stringify(block.input) } });
+    } else if (block.type === "thinking") {
+      ev("content_block_start", { index, content_block: { type: "thinking", thinking: "", signature: "" } });
+      ev("content_block_delta", { index, delta: { type: "signature_delta", signature: block.signature } });
+    }
+    ev("content_block_stop", { index });
+  });
+  ev("message_delta", { delta: { stop_reason: msg.stop_reason, stop_sequence: null }, usage: { output_tokens: msg.usage.output_tokens } });
+  ev("message_stop", {});
+  res.end();
+}
+
 const isSummary = (body) => Array.isArray(body.system) && body.system.some((b) => b.text?.includes("resumo do dia para os líderes"));
 
 http
@@ -124,8 +147,7 @@ http
     if (body.thinking?.type === "disabled") {
       return send(res, 400, { type: "error", error: { type: "invalid_request_error", message: "thinking disabled não é aceito" } });
     }
-    if (body.output_config?.format) return send(res, 200, analysisReply(body));
-    if (isSummary(body)) return send(res, 200, summaryReply(body));
-    return send(res, 200, chatReply(body));
+    const reply = body.output_config?.format ? analysisReply(body) : isSummary(body) ? summaryReply(body) : chatReply(body);
+    return body.stream ? sendStream(res, reply) : send(res, 200, reply);
   })
   .listen(PORT, "127.0.0.1", () => console.log(`Anthropic falsa em http://127.0.0.1:${PORT}`));

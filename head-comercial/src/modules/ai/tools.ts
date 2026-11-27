@@ -234,6 +234,8 @@ export const TOOL_DEFINITIONS: Anthropic.Beta.BetaTool[] = TOOLS.map((t) => ({
   name: t.name,
   description: t.description,
   input_schema: inputSchema(t.schema),
+  // As entradas chegam aos poucos durante a resposta; runTool valida cada uma antes de executar.
+  eager_input_streaming: true,
 }));
 
 
